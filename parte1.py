@@ -1,46 +1,41 @@
 import PySimpleGUI as sg
-import pattern.text.es
 
-m=[] #Creo matriz
+sg.theme('Dark Brown 1')
 
-fila=6 #seteo cantidad filas de tablero
-columna=6 #seteo cantidad columnas de tablero
 
-#ARMO LA MATRIZ EN BASE A FILAS COLUMNAS ELEGIDAS
-num = 0
-for f in range(fila):
-    m.append([])
-    for c in range(columna):
-        m[f].append(None)
-        print(m[f][c],end=" ")
-    print()
-print("--------------------------")
+header =  [[sg.Text('  ')] + [sg.Text("ScrabbleAr", size=(14,1))]]
 
-m[0][0]=0
-m[0][1]=1
-m[0][2]=2
-m[0][3]=3
-m[0][4]=4
-m[0][5]=5
-m[1][0]="a"
-m[2][0]="b"
-m[3][0]="c"
-m[4][0]="d"
-m[5][0]="e"
+input_rows = [[sg.Input(size=(2,1), pad=(1,1)) for col in range(15)] for row in range(15)]
 
-print("--------------------------")
-for f in range(fila):
-    for c in range(columna):
-        if(f==0):
-            print(m[f][c],end="     ")
-        else:
-            print(m[f][c],end="  ")
-    print()
-print("--------------------------")
-for f in m:
-    if(f==0):
-        print(f,end="    ")
-    else:
-        print(f)
-#CONFIGURACION
+buttons = [[sg.Button('Save'), sg.Button('Exit')]]
+
+layout = header + input_rows + buttons
+
+window = sg.Window('ScrabbleAr', layout, font='Courier 12')
+
+
+
+
+pos_ban = []
+while True:
+    event, dic = window.read()
+    
+    if event == 'Save':
+        palabra = [] 
+        i = 0  
+        for elemento in dic.values():    
+            if elemento != '' and i not in pos_ban:
+                palabra.append(str(elemento))
+                pos_ban.append(i)
+                print(elemento)
+            i= i + 1
+
+        print(palabra)
+        print(pos_ban)
+
+    elif event == 'Exit':
+        break
+
+print(dic)
+
 
