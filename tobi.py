@@ -1,21 +1,25 @@
 import PySimpleGUI as sg
-from time import sleep
 import random
-
 abecedario="a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z"
 print(abecedario)
 abecedario=abecedario.split(",")
 print(abecedario)
-sg.theme('Dark Brown 1')
+sg.theme('Dark Purple 1')
 letras=[]
+
 for i in range(1,8):
     a=random.randrange(1,len(abecedario))
     letras.append(abecedario[a])
 print(letras)
 
-header =  [[sg.Text('  ')] + [sg.Text("ScrabbleAr", size=(14,1))]]
+def contador(nro):
+    print(nro)
+    nro=nro-1
 
-input_rows = [[sg.Button(size=(2,1), pad=(1,1)) for col in range(15)] for row in range(15)]
+header =  [[sg.Text('  ')] + [sg.Text("ScrabbleAr", size=(14,1),key="menu")]]
+
+board =[[sg.Button("", size=(2, 1),key=(i,j), pad=(0,0)) for i in range(15)] for j in range(15)]
+
 
 
 fichas = [
@@ -29,15 +33,18 @@ fichas = [
     [sg.Button('Save'),sg.Button("Exit")]
       ]
 
-layout = header + input_rows + fichas
+
+
+layout = header + board + fichas
 
 window = sg.Window('ScrabbleAr', layout, font='Courier 12')
 
-pos_ban = []
+
+posicion=[]
 ok=True
 while ok:
     sg.popup("elige una ficha")
-    eventNum, dic = window.read()
+    eventNum = window.read()
     elegido=eventNum
     if eventNum == 'Exit':
         ok=False
@@ -47,7 +54,8 @@ while ok:
         sg.popup("elige una posicion")
         eventPos= window.read()
         print(eventPos[0])
-    
+        window[eventPos[0]].update(eventNum[0])
+        #(lalalalas)
 
 
 
