@@ -26,7 +26,7 @@ time=10
 pos_ban = []
 while True:
     event, dic = window.read()
-    window['text'].update('{}'.format((time -1 )))
+    #window['text'].update('{}'.format((time -1 ))) 
     print(event)
     if event == 'Save':
         palabra = [] 
