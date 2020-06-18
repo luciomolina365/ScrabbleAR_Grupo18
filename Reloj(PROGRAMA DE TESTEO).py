@@ -3,16 +3,16 @@ from CLASS_reloj_andando import Reloj
 
 sg.theme('Dark Blue 3')
 
-layout = [  [sg.Text('Tiempo'), sg.T(' '*1), sg.Text(size=(8,1), key='-TEMP OUT-')],
+layout = [  [sg.Text('Tiempo restante'), sg.T(' '*1), sg.Text(size=(8,1), key='-TEMP OUT-')],
             [sg.Button('Quit')]  ]
 
-window = sg.Window('Reloj', layout, font='Default -24', return_keyboard_events=True, no_titlebar=True)
+window = sg.Window('Reloj', layout, font='Default -24', return_keyboard_events=True)
 
-R = Reloj(1,34)
+R = Reloj(1,4)
 
-while not R.getTERMINO() :             # Event Loop
-    event, values = window.read(timeout=1000)    # returns every 500 ms
-    print(event, values) if event != sg.TIMEOUT_KEY else None       # a debug print
+while not R.getTERMINO() :            
+    event, values = window.read(timeout=1000)   
+    print(event, values) if event != sg.TIMEOUT_KEY else None       #debug
    
     if event in (sg.WIN_CLOSED, 'Quit'):
         break
