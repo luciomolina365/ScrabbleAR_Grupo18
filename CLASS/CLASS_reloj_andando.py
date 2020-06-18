@@ -1,5 +1,4 @@
 import PySimpleGUI as sg
-from random import randint
         
 class Reloj:
     
