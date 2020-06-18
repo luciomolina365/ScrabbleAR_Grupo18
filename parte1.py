@@ -37,6 +37,3 @@ while True:
         break
 
 print(dic)
-
-
-
