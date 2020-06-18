@@ -8,11 +8,7 @@ layout = [  [sg.Text('Tiempo'), sg.T(' '*1), sg.Text(size=(8,1), key='-TEMP OUT-
 
 window = sg.Window('Reloj', layout, font='Default -24', return_keyboard_events=True, no_titlebar=True)
 
-seg = 15
-min = 1
-TERMINO = False
-
-R = Reloj(min,seg,TERMINO)
+R = Reloj(1,34)
 
 while not R.getTERMINO() :             # Event Loop
     event, values = window.read(timeout=1000)    # returns every 500 ms
@@ -24,6 +20,6 @@ while not R.getTERMINO() :             # Event Loop
     
     R.temporizar()
 
-    window['-TEMP OUT-'].update(str(R.getMinutos()) + ":"+ str(R.getSegundos()) + ' C')
+    window['-TEMP OUT-'].update(str(R.getMinutos()) + ":"+ str(R.getSegundos()) + ' min')
 
 window.close()
