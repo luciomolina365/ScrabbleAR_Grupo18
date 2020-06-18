@@ -1,4 +1,4 @@
-from CLASS_tablero import Tablero
+from CLASS_tablero_andando import Tablero
 
 alto = 3
 ancho = 3
