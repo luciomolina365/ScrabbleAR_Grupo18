@@ -1,10 +1,16 @@
 import PySimpleGUI as sg
 import random
-abecedario="a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z"
+
+abecedario="a,a,a,a,a,a,a,a,a,a,a,b,b,b,c,c,c,c,d,d,d,d,e,e,e,e,e,e,e,e,e,e,e,f,f,g,g,h,h,i,i,i,i,i,i,j,j,k,l,l,l,l,ll,m,m,m,n,n,n,n,n,ñ,o,o,o,o,o,o,o,o,p,p,q,r,r,r,r,rr,s,s,s,s,s,s,s,t,t,t,t,u,u,u,u,u,u,v,v,w,x,y,z"
+
 print(abecedario)
+
 abecedario=abecedario.split(",")
+
 print(abecedario)
-sg.theme('Dark Purple 1')
+
+sg.theme('Topanga')
+
 letras=[]
 
 for i in range(1,8):
@@ -42,7 +48,7 @@ window = sg.Window('ScrabbleAr', layout, font='Courier 12')
 
 posicion=[]
 ok=True
-while ok:
+"""while ok:
     sg.popup("elige una ficha")
     eventNum = window.read()
     elegido=eventNum
@@ -55,13 +61,6 @@ while ok:
         eventPos= window.read()
         print(eventPos[0])
         window[eventPos[0]].update(eventNum[0])
-        #(lalalalas)
+        #(lalalalas)"""
 
-
-
-
-
-      
-        
-
-
+print(dir(sg.Button))
