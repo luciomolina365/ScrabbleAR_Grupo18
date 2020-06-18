@@ -10,31 +10,55 @@ class Reloj:
         self.aux_min = ""
         self.aux_seg = ""
 
-    def temporizar(self):
-        self.aux_min = self.min
-        self.aux_seg = self.seg    
-
-        if self.seg == 0:
-            self.seg = 60
-            self.aux_min= self.min
-            self.min = self.min - 1
+    def temporizar(self,cantActualizaciones):
         
-        if self.seg == 60:
-            self.aux_seg= "00"
+        if cantActualizaciones == 100:
+            
+            min = self.min         #Auxiliares del estado del objeto
+            seg = self.seg
+            aux_min = self.aux_min
+            aux_seg = self.aux_seg
+            TERMINO = self.TERMINO
+            
+            
+            
+            aux_min = min          #Uso los valores y achico el tiempo
+            aux_seg = seg    
+
+            if seg == 0:
+                seg = 60
+                aux_min= min
+                min = min - 1
+            
+            if seg == 60:
+                aux_seg= "00"
+            
+            elif seg == 59:
+                aux_min = min 
+
+            elif seg < 10:
+                aux_seg = "0" + str(seg)
+            
+            else:    
+                aux_seg = seg
+
+            if  aux_min == 0 and aux_seg == "00":
+                TERMINO=True
+
+            seg = seg - 1
+
+            self.min = min              #Actualizo el estado del objeto
+            self.seg = seg
+            self.aux_min = aux_min
+            self.aux_seg = aux_seg
+            self.TERMINO = TERMINO
+
+            cantActualizaciones = 0     #Reinicio el contador
+            return cantActualizaciones
+        else:
+
+            return cantActualizaciones  #Retorno el contador como estaba
         
-        elif self.seg == 59:
-            self.aux_min = self.min 
-
-        elif self.seg < 10:
-            self.aux_seg = "0" + str(self.seg)
-        
-        else:    
-            self.aux_seg = self.seg
-
-        if  self.aux_min == 0 and self.aux_seg == "00":
-            self.TERMINO=True
-
-        self.seg = self.seg - 1
 
     
     def getMinutos(self):

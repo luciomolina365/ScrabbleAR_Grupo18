@@ -8,17 +8,20 @@ layout = [  [sg.Text('Tiempo restante'), sg.T(' '*1), sg.Text(size=(8,1), key='-
 
 window = sg.Window('Reloj', layout, font='Default -24', return_keyboard_events=True)
 
-R = Reloj(1,4)
+R = Reloj(0,4)
+cantRead = 0
 
 while not R.getTERMINO() :            
-    event, values = window.read(timeout=1000)   
+    event, values = window.read(timeout=10)
+    cantRead = cantRead + 1  
     print(event, values) if event != sg.TIMEOUT_KEY else None       #debug
-   
+    
+
     if event in (sg.WIN_CLOSED, 'Quit'):
         break
 
     
-    R.temporizar()
+    cantRead = R.temporizar(cantRead)
 
     window['-TEMP OUT-'].update(str(R.getMinutos()) + ":"+ str(R.getSegundos()) + ' min')
 
