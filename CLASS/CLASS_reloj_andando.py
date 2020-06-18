@@ -19,8 +19,7 @@ class Reloj:
             aux_min = self.aux_min
             aux_seg = self.aux_seg
             TERMINO = self.TERMINO
-            
-            
+
             
             aux_min = min          #Uso los valores y achico el tiempo
             aux_seg = seg    
@@ -60,6 +59,9 @@ class Reloj:
             return cantActualizaciones  #Retorno el contador como estaba
         
 
+
+    #====================================================================================================================
+    #GETTERS
     
     def getMinutos(self):
         return self.aux_min
@@ -70,6 +72,7 @@ class Reloj:
     def getTERMINO(self):
         return self.TERMINO
 
+    #====================================================================================================================
 
 
 
