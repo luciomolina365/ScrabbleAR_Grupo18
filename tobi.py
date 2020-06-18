@@ -55,7 +55,7 @@ while ok:
         eventPos= window.read()
         print(eventPos[0])
         window[eventPos[0]].update(eventNum[0])
-        #(lalala)
+        #(lalalalas)
 
 
 
