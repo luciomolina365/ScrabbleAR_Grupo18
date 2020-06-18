@@ -64,12 +64,3 @@ ok=True
         #(lalalalas)"""
 
 print(dir(sg.Button))
-
-
-
-
-
-      
-        
-
-
