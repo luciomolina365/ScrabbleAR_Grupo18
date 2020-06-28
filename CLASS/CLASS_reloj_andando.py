@@ -1,5 +1,3 @@
-import PySimpleGUI as sg
-        
 class Reloj:
     
     def __init__(self, min, seg, TERMINO=False):
