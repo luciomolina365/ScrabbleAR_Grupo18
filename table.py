@@ -18,9 +18,6 @@ for i in range(1,8):
     letras.append(abecedario[a])
 print(letras)
 
-def contador(nro):
-    print(nro)
-    nro=nro-1
 
 header =  [[sg.Text('  ')] + [sg.Text("ScrabbleAr", size=(14,1),key="menu")]]
 
@@ -46,9 +43,15 @@ layout = header + board + fichas
 window = sg.Window('ScrabbleAr', layout, font='Courier 12')
 
 
+
+
+
+
+
 posicion=[]
 ok=True
-"""while ok:
+
+while ok:
     sg.popup("elige una ficha")
     eventNum = window.read()
     elegido=eventNum
@@ -57,10 +60,9 @@ ok=True
         break
     elif eventNum is letras[0] or letras[1]or letras[2] or letras[3] or letras[4]or letras[5]:
         print(eventNum[0])
+        window[eventNum[0]].update(disabled=True)
         sg.popup("elige una posicion")
         eventPos= window.read()
         print(eventPos[0])
-        window[eventPos[0]].update(eventNum[0])
-        #(lalalalas)"""
-
-print(dir(sg.Button))
+        window[eventPos[0]].update(eventNum[0],disabled=True)
+   
