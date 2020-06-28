@@ -51,7 +51,7 @@ while True:
         wb.open("https://github.com/luciomolina365/ScrabbleAR_Grupo18", new=0, autoraise=True)
     # if(event=="confirmar configuracion"):
     #     if(values["_predefinido_"==True]):
-    #         paso los valores de dic predefinidos
+    #         paso los valores de dic predefinidos.
 window.close()
 
 # sg.Popup('Title',
