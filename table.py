@@ -20,19 +20,19 @@ for i in range(1,8):
 
 print(letras)
 
-titulo =  [[sg.Text(' '*10)] + [sg.Text("ScrabbleAr", size=(14,1),key="menu")]+[sg.Text(' '*10)]]
+titulo =  [[sg.Text(' '*15)] + [sg.Text("ScrabbleAr", size=(10,1),key="menu")]]
 
-tablero =[[sg.Button("", size=(2, 1),key=(j,i), pad=(2,5)) for i in range(15)] for j in range(15)]
+tablero =[[sg.Button("", size=(2, 1),key=(j,i), pad=(2,3)) for i in range(15)] for j in range(15)]
 
     
 fichas = [
-    [sg.Button(letras[0], pad=(0,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 20)),
-    sg.Button(letras[1], button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 20)),
-    sg.Button(letras[2], button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 20)),
-    sg.Button(letras[3], button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 20)),
-    sg.Button(letras[4], button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 20)),
-    sg.Button(letras[5], button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 20)),
-    sg.Button(letras[6], button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 20))],
+    [sg.Button(letras[0], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
+    sg.Button(letras[1], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
+    sg.Button(letras[2], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
+    sg.Button(letras[3], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
+    sg.Button(letras[4], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
+    sg.Button(letras[5], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
+    sg.Button(letras[6], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16))],
     [sg.Button('Save'),sg.Button(("Exit"), key="__exit__")]
       ]
 
@@ -45,14 +45,14 @@ jugador1={}
 while True:
     sg.popup("elige una ficha")
     event, values = window.read() 
-    if event == "__exit__":
+    if event == "__exit__" or sg.WIN_CLOSED:
         break 
     elif event is letras[0] or letras[1] or letras[2] or letras[3] or letras[4] or letras[5]:
-        print(event[0])
+        #print(event[0]) letra actual
         window[event[0]].update(disabled=True)
         sg.popup("elige una posicion")
         eventPos= window.read()
-        print(eventPos[0])
+        #print(eventPos[0]) posicion de la letra actual
         jugador1[(eventPos[0])]=event[0]
         window[eventPos[0]].update(event[0],disabled=True)
 print(jugador1) 
