@@ -1,5 +1,8 @@
 class Reloj:
     
+    #min y seg --> int
+    #TERMINO --> boolean
+    
     def __init__(self, min, seg, TERMINO=False):
         self.min = min
         self.seg = seg
@@ -7,18 +10,21 @@ class Reloj:
         self.aux_min = ""
         self.aux_seg = ""
 
+
+
+    #cantActualizaciones --> int
     def temporizar(self,cantActualizaciones):
         
         if cantActualizaciones == 100:
             
-            min = self.min         #Auxiliares del estado del objeto
+            min = self.min                          #Auxiliares del estado del objeto
             seg = self.seg
             aux_min = self.aux_min
             aux_seg = self.aux_seg
             TERMINO = self.TERMINO
 
             
-            aux_min = min          #Uso los valores y achico el tiempo
+            aux_min = min                           #Uso los valores, achico el tiempo y lo formateo para mostrarlo en pantalla
             aux_seg = seg    
 
             if seg == 0:
@@ -43,17 +49,17 @@ class Reloj:
 
             seg = seg - 1
 
-            self.min = min              #Actualizo el estado del objeto
+            self.min = min                          #Actualizo el estado del objeto
             self.seg = seg
             self.aux_min = aux_min
             self.aux_seg = aux_seg
             self.TERMINO = TERMINO
 
-            cantActualizaciones = 0     #Reinicio el contador
-            return cantActualizaciones
+            cantActualizaciones = 0                 #Reinicio el contador
+            return cantActualizaciones              #int
         else:
 
-            return cantActualizaciones  #Retorno el contador como estaba
+            return cantActualizaciones              #Retorno el contador como estaba (int)
         
 
 
@@ -61,13 +67,13 @@ class Reloj:
     #GETTERS
     
     def getMinutos(self):
-        return self.aux_min
+        return self.aux_min                         #int
 
     def getSegundos(self):
-        return self.aux_seg
+        return self.aux_seg                         #int
 
     def getTERMINO(self):
-        return self.TERMINO
+        return self.TERMINO                         #boolean
 
     #====================================================================================================================
 
