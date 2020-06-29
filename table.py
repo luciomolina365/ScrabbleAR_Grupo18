@@ -67,4 +67,4 @@ while True:
         print(eventPos[0]) #posicion de la letra actual
         jugador1[(eventPos[0])]=event[0]
         window[eventPos[0]].update(event[0],disabled=True)
-print(jugador1) 
+print(jugador1)

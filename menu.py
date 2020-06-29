@@ -35,14 +35,7 @@ layout = [
         [sg.Button("Modificar",key="_modificar_")]
         ],visible=False,key="slider")],
     [sg.Text('_' * 80)],
-<<<<<<< HEAD
-    [sg.Text('Choose A Folder', size=(35, 1))],
-    [sg.Text('Your Folder', size=(10, 1), auto_size_text=False, justification='right'),
-     sg.InputText('Default Folder'), sg.FolderBrowse()],
-    [sg.Submit(tooltip='Click to submit this form'), sg.Cancel(), sg.Exit(("Exit"), key="__exit__"]]
-=======
     [sg.Button("Confirmar configuracion"), sg.Cancel()]]
->>>>>>> 8afd0864daf02195b5884ced1785b533cdc4d283
 
 window = sg.Window('Menu', layout, default_element_size=(40, 1), grab_anywhere=False)
 while True:
