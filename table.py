@@ -47,7 +47,7 @@ while True:
     event, values = window.read() 
     if event == "__exit__" or sg.WIN_CLOSED:
         break 
-    elif event is letras[0] or letras[1] or letras[2] or letras[3] or letras[4] or letras[5] or letra[6]:
+    elif event is letras[0] or letras[1] or letras[2] or letras[3] or letras[4] or letras[5] or letras[6]:
         #print(event[0]) letra actual
         window[event[0]].update(disabled=True)
         sg.popup("elige una posicion")
