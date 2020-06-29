@@ -51,4 +51,9 @@ class Bolsa:
                 self.letras_disponibles.remove(letra_random)
 
         return fichas                                                   #EJ.  {}  o   {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
+
+
+
+    def devolverFichas(self):           #---------------HACER-----------------
+        pass                            #---------------HACER-----------------
         
