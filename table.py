@@ -12,31 +12,42 @@ print(abecedario)
 
 sg.theme('Topanga')
 
-letras=[]
-
-for i in range(1,8):
-    a=random.randrange(1,len(abecedario))
-    letras.append(abecedario[a])
-
-print(letras)
+def letras_jugador():
+    letras=[]
+    for i in range(1,8):
+        a=random.randrange(1,len(abecedario))
+        letras.append(abecedario[a])
+    return letras
 
 titulo =  [[sg.Text(' '*15)] + [sg.Text("ScrabbleAr", size=(10,1),key="menu")]]
 
 tablero =[[sg.Button("", size=(2, 1),key=(j,i), pad=(2,3)) for i in range(15)] for j in range(15)]
+letras_j = letras_jugador()
+letras_c = letras_jugador()
 
-    
-fichas = [
-    [sg.Button(letras[0], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-    sg.Button(letras[1], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-    sg.Button(letras[2], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-    sg.Button(letras[3], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-    sg.Button(letras[4], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-    sg.Button(letras[5], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-    sg.Button(letras[6], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16))],
+fichas_jugador = [
+    [sg.Button(letras_j[0], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
+    sg.Button(letras_j[1], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
+    sg.Button(letras_j[2], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
+    sg.Button(letras_j[3], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
+    sg.Button(letras_j[4], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
+    sg.Button(letras_j[5], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
+    sg.Button(letras_j[6], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16))],
     [sg.Button('Save'),sg.Button(("Exit"), key="__exit__")]
       ]
 
-layout = titulo + tablero + fichas
+    
+fichas_computadora = [
+    [sg.Button(letras_c[0], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16), visible=True),
+    sg.Button(letras_c[1], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16), visible=True),
+    sg.Button(letras_c[2], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16), visible=True),
+    sg.Button(letras_c[3], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16), visible=True),
+    sg.Button(letras_c[4], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16), visible=True),
+    sg.Button(letras_c[5], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16), visible=True),
+    sg.Button(letras_c[6], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16), visible=True)],
+      ]
+
+layout = titulo + fichas_computadora + tablero + fichas_jugador
 
 window = sg.Window('ScrabbleAr', layout, font='Courier 12')
 
@@ -47,12 +58,13 @@ while True:
     event, values = window.read() 
     if event == "__exit__" or sg.WIN_CLOSED:
         break 
-    elif event is letras[0] or letras[1] or letras[2] or letras[3] or letras[4] or letras[5] or letras[6]:
-        #print(event[0]) letra actual
+    elif event is letras_j[0] or letras_j[1] or letras_j[2] or letras_j[3] or letras_j[4] or letras_j[5] or letras_j[6]:
+        print(event[0]) #letra actual
         window[event[0]].update(disabled=True)
+        #window.
         sg.popup("elige una posicion")
         eventPos= window.read()
-        #print(eventPos[0]) posicion de la letra actual
+        print(eventPos[0]) #posicion de la letra actual
         jugador1[(eventPos[0])]=event[0]
         window[eventPos[0]].update(event[0],disabled=True)
 print(jugador1) 

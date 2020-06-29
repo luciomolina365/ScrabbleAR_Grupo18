@@ -28,7 +28,7 @@ layout = [
     [sg.Text('Choose A Folder', size=(35, 1))],
     [sg.Text('Your Folder', size=(10, 1), auto_size_text=False, justification='right'),
      sg.InputText('Default Folder'), sg.FolderBrowse()],
-    [sg.Submit(tooltip='Click to submit this form'), sg.Cancel()]]
+    [sg.Submit(tooltip='Click to submit this form'), sg.Cancel(), sg.Exit(("Exit"), key="__exit__"]]
 
 window = sg.Window('Menu', layout, default_element_size=(40, 1), grab_anywhere=False)
 while True:
