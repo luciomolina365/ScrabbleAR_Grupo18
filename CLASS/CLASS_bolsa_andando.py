@@ -27,6 +27,10 @@ class Bolsa:
 
     #cant_fichas --> int
     def dameFichas(self, cant_fichas):
+
+        """Devuelve un diccionario de diccionarios segun 
+        la cantidad de fichas ingresada y actualiza la bolsa"""
+        
         if cant_fichas == 0:                        ###HACER CLASS JUEGO,JUGADOR Y COMPUTADORA=====================================###
             return {}
 
