@@ -15,6 +15,10 @@ class Reloj:
     #cantActualizaciones --> int
     def temporizar(self,cantActualizaciones):
         
+        """Cada 100 actualizaciones de los valores de la ventana, 
+        decrementa el tiempo ingresado y lo devuelve formateado 
+        para mostrarlo en pantalla"""
+
         if cantActualizaciones == 100:
             
             min = self.min                          #Auxiliares del estado del objeto
