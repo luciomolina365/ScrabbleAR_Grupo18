@@ -17,7 +17,7 @@ class Reloj:
         
         """Cada 100 actualizaciones de los valores de la ventana, 
         decrementa el tiempo ingresado y lo devuelve formateado 
-        para mostrarlo en pantalla"""
+        para mostrarlo en pantalla."""
 
         if cantActualizaciones == 100:
             

@@ -29,7 +29,7 @@ class Bolsa:
     def dameFichas(self, cant_fichas):
 
         """Devuelve un diccionario de diccionarios segun 
-        la cantidad de fichas ingresada y actualiza la bolsa"""
+        la cantidad de fichas ingresada y actualiza la bolsa."""
         
         if cant_fichas == 0:                        ###HACER CLASS JUEGO,JUGADOR Y COMPUTADORA=====================================###
             return {}
@@ -51,4 +51,9 @@ class Bolsa:
                 self.letras_disponibles.remove(letra_random)
 
         return fichas                                                   #EJ.  {}  o   {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
+
+
+
+    def devolverFichas(self):           #---------------HACER-----------------
+        pass                            #---------------HACER-----------------
         
