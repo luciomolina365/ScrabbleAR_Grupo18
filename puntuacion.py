@@ -1,8 +1,14 @@
 #Armado en base a la entrada de una palabra
 
 def puntuarJugador(palabra):
-    puntuacionParcial=0
-    palabra = palabra.upper()
+    
+    """Aca armamos la puntuación de la palabra que entre, estos valores estan puestos de forma predefinida,
+    sacamos los ejemplos en la enunciado del trabajo y nos movemos con estos datos predefinidos, despues lo 
+    vamos a pasar a objetos, para que, cuando el jugador lo instancie con el menu, estos valores cambien por los seteados"""
+    
+    puntuacionParcial=0 #puntuacion parcial del jugador, esto lo vamos a usar para cada turno
+    
+    #palabra = palabra.upper()
     conjunto1=["A","E","O","S","I","U","N","T","L","R"]
     conjunto2=["C","D","G"]
     conjunto3=["M","B","P"]
@@ -33,5 +39,5 @@ def puntuarJugador(palabra):
         indice = indice+1
     return puntuacionParcial
 
-palabra = "ZoRrO"
-print("El valor de esta palabra es: "+str(puntuarJugador(palabra))+".")
+#palabra = "TeLe"
+#print("El valor de esta palabra es: "+str(puntuarJugador(palabra))+".")
