@@ -2,6 +2,10 @@ import PySimpleGUI as sg
 import webbrowser as wb
 import saves
 
+"""Esto es un menu donde podras crear la partida segun la dificultad, cantidad de fichas o valor de las fichas,o
+en caso de tener alguna partida guardada,cargar la partida.
+En caso de querer ver el link del repositorio apretar el boton help"""
+
 sg.ChangeLookAndFeel('Topanga')
 fichas_predefinidas = {'A':{'cantidad':11,'valor':1},'B':{'cantidad':3,'valor':1},'C':{'cantidad':4,'valor':1},'D':{'cantidad':4,'valor':1},
 'E':{'cantidad':11,'valor':1},'F':{'cantidad':2,'valor':1},'G':{'cantidad':2,'valor':1},'H':{'cantidad':2,'valor':1},'I':{'cantidad':6,'valor':1},
@@ -13,9 +17,8 @@ fichas_predefinidas = {'A':{'cantidad':11,'valor':1},'B':{'cantidad':3,'valor':1
 
 fichas_propias=fichas_predefinidas  ##copio el dic fichas_predefinidas en caso de modificar varios valores de el dic
 
-# ------ Menu Definition ------ #
-menu_def = [['&File', ['&Open', '&Save', 'E&xit']],
-            ['&Help', ('Link del Repositorio')],
+# ------ Menu Definicion ------ #
+menu_def = [['&Help', ('Link del Repositorio')],
             ]
 
 
@@ -36,14 +39,12 @@ layout = [
         [sg.Button("Modificar",key="_modificar_")]
         ],visible=False,key="slider")],
     [sg.Text('_' * 80)],
-    [sg.Button(("Top Teen"),key="topTeen")],
+    [sg.Button(("Top Teen"),key="topTeen")],                #para mostrar una lista con los top ten
     [sg.Button("Confirmar configuracion"), sg.Cancel()]]
 
 window = sg.Window('Menu', layout, default_element_size=(40, 1), grab_anywhere=False)
 while True:
     event, values = window.read()
-    print(event)
-    print(values)
     if values["_predefinido_"]==False:
         window["slider"].update(visible=True)       #si valores predefinidos es falso,mostrar tabla para modificar los valores y la cantidad.
     if values["_predefinido_"]==True:
