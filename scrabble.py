@@ -1,76 +1,97 @@
 import PySimpleGUI as sg
-import random
+import webbrowser as wb
+import saves
+import Tablero
 
-abecedario="A,A,A,A,A,A,A,A,A,A,A,B,B,B,C,C,C,C,D,D,D,D,E,E,E,E,E,E,E,E,E,E,E,F,F,G,G,H,H,I,I,I,I,I,I,J,J,K,L,L,L,L,LL,M,M,M,N,N,N,N,N,Ñ,O,O,O,O,O,O,O,O,P,P,Q,R,R,R,R,RR,S,S,S,S,S,S,S,T,T,T,T,U,U,U,U,U,U,V,V,W,X,Y,Z"
-abecedario2={'A':1,'B':2,'M':2,'I':1}
+def jugar():
+    def menu():
+        """Esto es un menu donde podras crear la partida segun la dificultad, cantidad de fichas o valor de las fichas, o
+        en caso de tener alguna partida guardada, cargar la partida.
+        En caso de querer ver el link del repositorio apretar el boton help"""
 
-print(abecedario)
+        sg.ChangeLookAndFeel('Topanga')
+        fichas_predefinidas = {'A':{'cantidad':11,'valor':1},'B':{'cantidad':3,'valor':1},'C':{'cantidad':4,'valor':1},'D':{'cantidad':4,'valor':1},
+        'E':{'cantidad':11,'valor':1},'F':{'cantidad':2,'valor':1},'G':{'cantidad':2,'valor':1},'H':{'cantidad':2,'valor':1},'I':{'cantidad':6,'valor':1},
+        'J':{'cantidad':2,'valor':1},'K':{'cantidad':1,'valor':1},'L':{'cantidad':4,'valor':1},'LL':{'cantidad':1,'valor':1},'M':{'cantidad':3,'valor':1},
+        'N':{'cantidad':5,'valor':1},'Ñ':{'cantidad':1,'valor':1},'O':{'cantidad':8,'valor':1},'P':{'cantidad':2,'valor':1},'Q':{'cantidad':1,'valor':1},
+        'R':{'cantidad':4,'valor':1},'RR':{'cantidad':1,'valor':1},'S':{'cantidad':7,'valor':1},'T':{'cantidad':4,'valor':1},
+        'U':{'cantidad':6,'valor':1},'V':{'cantidad':2,'valor':1},'W':{'cantidad':1,'valor':1},'X':{'cantidad':1,'valor':1},
+        'Y':{'cantidad':1,'valor':1},'Z':{'cantidad':1,'valor':1}}  ##un dic con valores predefinidos
 
-abecedario=abecedario.split(",")
+        fichas_propias=fichas_predefinidas  ##copio el dic fichas_predefinidas en caso de modificar varios valores de el dic
 
-print(abecedario)
-
-sg.theme('Topanga')
-
-def letras_jugador():
-    """Lo que buscamos hacer, es en base a un diccionario predefinido, conseguir las 7 letras a usar por turnos,
-     todo esto lo vamos a hacer o realizar con objetos, para que se instancien cada vez que sean necesario, y 
-     la bolsa de letras se va a ir actualizando a medida de que vayamos retirando letras del abecedario tanto, 
-     del jugador, como de la computadora"""
+        # ------ Menu Definicion ------ #
+        menu_def = [['&Help', ('Link del Repositorio')],
+                    ]
 
 
-    letras=[]
-    for i in range(1,8):
-        a=random.randrange(1,len(abecedario))
-        letras.append(abecedario[a])
-    return letras
 
-titulo =  [[sg.Text(' '*15)] + [sg.Text("ScrabbleAr", size=(10,1),key="menu")]]
+        layout = [
+            [sg.Menu(menu_def, tearoff=True)],
+            [sg.Text('Configuracion del juego scrabble!', size=(40,1), justification='center', font=("Helvetica", 25), relief=sg.RELIEF_RIDGE)],
+            [sg.Text('Ingrese el nombre de la configuracion del nuevo juego ')],
+            [sg.InputText('')],     
+            [sg.Button(("Cargar partida previa"),key="cargar")],
+            [sg.Frame(layout=[
+            [sg.Checkbox('Datos predefinidos', size=(20,1),default=True,key="_predefinido_",enable_events=True),sg.Text("(Valores predefinidos para las letras)")],
+            [sg.Radio('Dificultad facil  ', "RADIO1", default=True, size=(10,1)), sg.Radio('Dificultad Media!', "RADIO1"),sg.Radio('Dificultad Dificil', "RADIO1")]], title='Configuracion del juego',title_color='red', relief=sg.RELIEF_SUNKEN, tooltip='Use these to set flags')],
+            [sg.Text("Tiempo de la partida"),sg.Slider(range=(1, 20), orientation='h', size=(13, 25), default_value=10,enable_events=False)],
+            [sg.Frame('Puntuacion de letras',[[
+                sg.InputOptionMenu(('A', 'B', 'C','D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'LL', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'RR', 'S', 'T', 'U', 'V', 'V', 'W', 'X', 'Y', 'Z'))],
+                [sg.Text("Modificar cantidad"),sg.Slider(range=(1, 15), orientation='v', size=(13, 25), default_value=6,enable_events=False),sg.Text("Modificar valor"),sg.Slider(range=(1, 20), orientation='v', size=(13, 25), default_value=13,enable_events=False)],
+                [sg.Button("Modificar",key="_modificar_")]
+                ],visible=False,key="slider")],
+            [sg.Text('_' * 80)],
+            [sg.Button(("Top Ten"),key="topTeen")],                #para mostrar una lista con los top ten
+            [sg.Button("Confirmar configuracion"), sg.Cancel("Cancel")],[sg.Button(("Jugar"),key="__jugar__")]]
 
-tablero =[[sg.Button("", size=(2, 1),key=(j,i), pad=(2,3)) for i in range(15)] for j in range(15)]
-letras_j = letras_jugador()
-letras_c = letras_jugador()
+        window = sg.Window('Menu', layout, default_element_size=(40, 1), grab_anywhere=False)
+        while True:
+            event, values = window.read()
+            if values["_predefinido_"]==False:
+                window["slider"].update(visible=True)       #si valores predefinidos es falso,mostrar tabla para modificar los valores y la cantidad.
+            if values["_predefinido_"]==True:
+                window["slider"].update(visible=False)      #si valores predefinidos es verdadero,no mostrar tabla.
+            if(event=="_modificar_"):
+                fichas_propias[values[6]]["cantidad"]=int(values[7])    #modifico la cantidad y el valor de las letras
+                fichas_propias[values[6]]["valor"]=int(values[8])
+            print("-"*60)
+            print(fichas_propias)
+            print("-"*60)
+            print(event)
+            print(values)
 
-fichas_jugador = [
-    [sg.Button(letras_j[0], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-     sg.Button(letras_j[1], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-     sg.Button(letras_j[2], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-     sg.Button(letras_j[3], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-     sg.Button(letras_j[4], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-     sg.Button(letras_j[5], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-     sg.Button(letras_j[6], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16))],
-    [sg.Button('Save'),sg.Button(("Exit"), key="__exit__")]
-      ]
+            # if event=="topTeen":
+            #     mostrar la lista de los 10 mejores jugadores
 
-    
-fichas_computadora = [
-    [sg.Button(letras_c[0], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-     sg.Button(letras_c[1], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-     sg.Button(letras_c[2], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-     sg.Button(letras_c[3], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-     sg.Button(letras_c[4], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-     sg.Button(letras_c[5], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-     sg.Button(letras_c[6], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16))],
-      ]
+            # if(event=="cargar"):
+                    #Manejo de archivo
 
-layout = titulo + fichas_computadora + tablero + fichas_jugador
 
-window = sg.Window('ScrabbleAr', layout, font='Courier 12')
+            if(event=="Link del Repositorio"):
+                wb.open("https://github.com/luciomolina365/ScrabbleAR_Grupo18", new=0, autoraise=True)
+            elif(event=="Cancel"):
+                break
+            elif(event == "__jugar__"):
+                Tablero.juego()
+                window.close()
+            # if(event=="Confirmar configuracion"):
+            #     if(values["_predefinido_"==True]):
+            #         paso los valores de dic predefinidos.
+                #   else 
+                #         valores_propios
+                # if values[2]==True:
+                #     Dificultad="Facil"
+                # elif values[3]==True:
+                #     Dificultad="Medio"
+                # else:
+                #     Dificultad="Dificil"
+                # tiempo=int(values[5])  
+        window.close()
+        print(menu.__doc__)
+    menu()
 
-pos = []
-jugador1={}
-while True:
-    sg.popup("elige una ficha")
-    event, values = window.read() 
-    if event == "__exit__" or sg.WIN_CLOSED:
-        break 
-    elif event is letras_j[0] or letras_j[1] or letras_j[2] or letras_j[3] or letras_j[4] or letras_j[5] or letras_j[6]:
-        print(event[0]) #letra actual
-        window[event[0]].update(disabled=True)
-        #window.
-        sg.popup("elige una posicion")
-        eventPos= window.read()
-        print(eventPos[0]) #posicion de la letra actual
-        jugador1[(eventPos[0])]=event[0]
-        window[eventPos[0]].update(event[0],disabled=True)
-print(jugador1)
+jugar()
+
+
+##https://pysimplegui.readthedocs.io/en/latest/#the-event-loop-callback-functions
