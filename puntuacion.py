@@ -41,3 +41,5 @@ def puntuarJugador(palabra):
 
 #palabra = "TeLe"
 #print("El valor de esta palabra es: "+str(puntuarJugador(palabra))+".")
+
+print(puntuarJugador.__doc__)
