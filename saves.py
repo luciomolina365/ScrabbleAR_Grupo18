@@ -10,7 +10,7 @@ def leerArchivo():
             datos=json.load(archivo)
         return datos
 
-  #     try:
+  ##     try:
     #         saves.leerArchivo()  //en el menu
     #     except FileNotFoundError:
     #         sg.popup("No existen partidas previas")

@@ -8,7 +8,7 @@ class Tablero:
             for y in range(alto+1):
                 self.estado[(x,y)] = {"valor":"", "trampa":False , "doblePuntuacion":False}
 
-    def getEstado(self):                                        #Devuelve un diccionario (que representa el tablero) del formato: 
+    def getEstado(self):                                        #Devuelve un diccionario de diccionarios (que representa el tablero) del formato: 
         return self.estado                                      #{*tupla de int*: {"valor": *dato*  ,  "trampa": *boolean*  ,  "doblePuntuacion": *boolean*}}
         
     #====================================================================================================================
