@@ -58,6 +58,9 @@ while True:
     print(event)
     print(values)
     
+    # if event=="topTeen":
+    #     mostrar la lista de los 10 mejores jugadores
+
     # if(event=="cargar"):
             #Manejo de archivo
         
