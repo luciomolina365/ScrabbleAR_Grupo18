@@ -1,11 +1,13 @@
 from pattern.text.es import parse, verbs, split
 import puntuacion
-dic2 = {(7, 3): 'R', (7, 5): 'O', (7, 1): 'P', (7, 4): 'R', (7, 2): 'E'}
+dic2 = {(7, 3): 'A', (7, 5): 'D', (7, 1): 'A', (7, 4): 'R', (7, 2): 'L', (7, 0): 'M', (7, 6): 'O'}
 
 def corroboro_palabra(dic2):
     """ Recibo un diccionario enviado por el tablero, trabajado previamente para que llegue de el estilo que esta arriba,
     lo ordeno de menor a mayor y lo transformo a string para usarlo y corroborarlo con si es un sustantivo, adjetivo o verbo """
+    print(dic2)
     dic2=dict(sorted(dic2.items(), key = lambda diccio: diccio[0])) #Ordeno el diccionario por posiciones de menor a mayor
+    print(dic2)
     palabra=[]                                                      #Armo lista para la palabra
     for k,v in dic2.items():                                        #Con el for, me quedo con las letras que ingresaron
         palabra.append(v)
