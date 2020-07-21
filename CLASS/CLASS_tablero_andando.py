@@ -3,10 +3,16 @@ class Tablero:
 
     #ancho y alto --> int 
 
-    def __init__(self,ancho,alto):
-        for x in range(ancho+1):
-            for y in range(alto+1):
-                self.estado[(x,y)] = {"valor":"", "trampa":False , "doblePuntuacion":False}
+    def __init__(self,ancho,alto,continuar, estado_a_cargar = {}):
+        
+        if continuar:
+            self.estado = estado_a_cargar
+        
+        else:
+            
+            for x in range(ancho+1):
+                for y in range(alto+1):
+                    self.estado[(x,y)] = {"valor":"", "trampa":False , "doblePuntuacion":False}
 
     def getEstado(self):                                        #Devuelve un diccionario de diccionarios (que representa el tablero) del formato: 
         return self.estado                                      #{*tupla de int*: {"valor": *dato*  ,  "trampa": *boolean*  ,  "doblePuntuacion": *boolean*}}

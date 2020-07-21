@@ -8,7 +8,7 @@ def juego():
     sg.theme('Topanga')
 
     def letras_jugador():
-        """Lo que buscamos hacer, es en base a un diccionario predefinido, conseguir las 7 letras a usar por turnos,
+        """En base a un diccionario predefinido, conseguir las 7 letras a usar por turnos,
          todo esto lo vamos a hacer o realizar con objetos, para que se instancien cada vez que sean necesario, y 
          la bolsa de letras se va a ir actualizando a medida de que vayamos retirando letras del abecedario tanto, 
          del jugador, como de la computadora"""
