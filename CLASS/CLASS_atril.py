@@ -6,8 +6,9 @@ class Atril:
         self.estado = dic_de_letras
         self.letras_disponibles = []
         self.__actualizar_estado_entero()
-        #self.cant_fichas = len(self.letras_disponibles)       ===============CORREGIR=================
 
+        for letra in self.estado:
+            self.cant_fichas = self.cant_fichas + self.estado[letra]["cantidad"]
 
 
     def __actualizar_letra(self,letra):
@@ -33,7 +34,7 @@ class Atril:
 
 
     #letra --> string EJ. "A"
-    def __sacar_letra(self,letra):
+    def sacar_letra(self,letra):
         
         self.estado[letra]["cantidad"] = self.estado[letra]["cantidad"] - 1
         self.cant_fichas = self.cant_fichas - 1
@@ -44,7 +45,7 @@ class Atril:
     def sacar_varias_letras(self, lista_de_letras):
         
         for letra in lista_de_letras:
-            self.__sacar_letra(letra)
+            self.sacar_letra(letra)
 
         
 
