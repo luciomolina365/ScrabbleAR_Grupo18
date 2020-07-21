@@ -76,7 +76,7 @@ def juego():
     pos = []
     jugador1={}
     while True:
-        #sg.popup("elige una ficha")
+        sg.popup("elige una ficha")
         event, values = window.read() 
         if event == "__exit__":
             break
@@ -86,7 +86,7 @@ def juego():
             print(event[0]) #letra actual
             window[event[0]].update(disabled=True, button_color=('black','white'))
             #window.
-            #sg.popup("elige una posicion")
+            sg.popup("elige una posicion")
             eventPos= window.read()
             print(eventPos[0]) #posicion de la letra actual
             jugador1[(eventPos[0])]=event[0]
