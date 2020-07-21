@@ -76,7 +76,7 @@ class Reloj:
     def getSegundos(self):
         return self.aux_seg                         #int
 
-    def getTERMINO(self):
+    def getTERMINO_Reloj(self):
         return self.TERMINO                         #boolean
 
     #====================================================================================================================

@@ -2,51 +2,31 @@ class Tablero:
     estado={}
 
     #ancho y alto --> int 
-
-    def __init__(self,ancho,alto):
-        for x in range(ancho+1):
-            for y in range(alto+1):
-                self.estado[(x,y)] = {"valor":"", "trampa":False , "doblePuntuacion":False}
+    #estado_a_cargar --> diccionario de diccionarios  EJ. #{*tupla de int*: {"letra": *string* , "trampa": *boolean*, "tipo_de_trampa": *int o None*, "recompensa": *boolean*, "tipo_de_recompensa": *int o None*} , *tupla de int*: {"letra": ...}}
+    def __init__(self, estado_a_cargar):
+        self.estado = estado_a_cargar
+    
 
     def getEstado(self):                                        #Devuelve un diccionario de diccionarios (que representa el tablero) del formato: 
-        return self.estado                                      #{*tupla de int*: {"valor": *dato*  ,  "trampa": *boolean*  ,  "doblePuntuacion": *boolean*}}
+        return self.estado                                      #{*tupla de int*: {"letra": *string* , "trampa": *boolean*, "tipo_de_trampa": *int o None*, "recompensa": *boolean*, "tipo_de_recompensa": *int o None*} , *tupla de int*: {"letra": ...}}
         
     #====================================================================================================================
     #GETTERS
     #coordenada --> tupla de int , EJ. (1,2)
     
     def getDatosEnCoor(self, coordenada):
-        return self.estado[coordenada]                          #EJ. {"valor": *dato*  ,  "trampa": *boolean*  ,  "doblePuntuacion": *boolean*}
+        return self.estado[coordenada]                          #EJ. {"letra": *string* , "trampa": *boolean*, "tipo_de_trampa": *int o None*, "recompensa": *boolean*, "tipo_de_recompensa": *int o None*}
     
-    def getValorEnCoor(self, coordenada):
-        return self.estado[coordenada]["valor"]                 #string (caracter)
-    
-    def getEsTrampaEnCoor(self, coordenada):
-        return self.estado[coordenada]["trampa"]                #boolean
-
-    def getEsDoblePuntuacionEnCoor(self, coordenada):
-        return self.estado[coordenada]["doblePuntuacion"]       #boolean
 
     #====================================================================================================================
     #SETTERS
     
     #coordenada --> tupla de int , EJ. (1,2)
-    #valor --> string (caracter)
-    #trampa y doblePuntuacion --> boolean
+    #valor --> string , EJ. "A"
 
-    def setDatosEnCoor(self,coordenada, valor, trampa=False, doblePuntuacion=False):
-        self.estado[coordenada]["valor"] = valor
-        self.estado[coordenada]["trampa"] = trampa
-        self.estado[coordenada]["doblePuntuacion"] = doblePuntuacion
+    def setValorEnCoor(self, coordenada, letra):
+        self.estado[coordenada]["letra"] = letra
 
-    def setValorEnCoor(self, coordenada, valor):
-        self.estado[coordenada]["valor"] = valor
-    
-    def setTrampaEnCoor(self, coordenada, trampa):
-        self.estado[coordenada]["trampa"] = trampa
-
-    def setDoblePuntuacionEnCoor(self, coordenada, doblePuntuacion):
-        self.estado[coordenada]["doblePuntuacion"] = doblePuntuacion
 
     #====================================================================================================================
 
