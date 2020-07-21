@@ -43,7 +43,6 @@ def juego():
 
 
 
-<<<<<<< HEAD
     fichas_jugador = [
         [sg.Button(letras_j[0], pad=(10,5), button_color=('black','white'), size=(3, 1), font=("Helvetica", 16)),
          sg.Button(letras_j[1], pad=(10,5), button_color=('black','white'), size=(3, 1), font=("Helvetica", 16)),
@@ -66,12 +65,10 @@ def juego():
          sg.Button(letras_c[5], pad=(10,5), button_color=('black','white'), size=(3, 1), font=("Helvetica", 16)),
          sg.Button(letras_c[6], pad=(10,5), button_color=('black','white'), size=(3, 1), font=("Helvetica", 16))],
           ]
-=======
     fichas_jugador = [fichasJ,[sg.Button(('PAUSA'),key="__save__",font=("Helvetica", 9)),sg.Button(("FINALIZAR PARTIDA"), key="__exit__",font=("Helvetica", 9)),sg.Button(("REPARTIR NUEVAS FICHAS"), key="__repartir__",font=("Helvetica", 9))]]
 
 
     fichas_computadora = [fichasC]
->>>>>>> 2e762959085f3aef525a3b0e86eba07f58d08f1a
 
     layout = titulo + fichas_computadora + tablero + fichas_jugador
 
