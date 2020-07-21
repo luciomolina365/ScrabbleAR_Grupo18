@@ -1,36 +1,35 @@
 import PySimpleGUI as sg
 import random
-import CLASS
 
-
-
-def juego(fichas):
+def juego():
+    abecedario="A,A,A,A,A,A,A,A,A,A,A,B,B,B,C,C,C,C,D,D,D,D,E,E,E,E,E,E,E,E,E,E,E,F,F,G,G,H,H,I,I,I,I,I,I,J,J,K,L,L,L,L,LL,M,M,M,N,N,N,N,N,Ñ,O,O,O,O,O,O,O,O,P,P,Q,R,R,R,R,RR,S,S,S,S,S,S,S,T,T,T,T,U,U,U,U,U,U,V,V,W,X,Y,Z"
+    abecedario=abecedario.split(",")
+    
     sg.theme('Topanga')
-    B=CLASS.CLASS_bolsa_andando.Bolsa(fichas)
-    def letras_jugador(fichas):
+
+    def letras_jugador():
         """En base a un diccionario predefinido, conseguir las 7 letras a usar por turnos,
          todo esto lo vamos a hacer o realizar con objetos, para que se instancien cada vez que sean necesario, y 
          la bolsa de letras se va a ir actualizando a medida de que vayamos retirando letras del abecedario tanto, 
          del jugador, como de la computadora"""
 
-        
-        letras={}
-        letras=B.dameFichas(7)
+
+        letras=[]
+        for i in range(1,8):
+            a=random.randrange(1,len(abecedario))
+            letras.append(abecedario[a])
         return letras
 
     titulo =  [[sg.Text(' '*15)] + [sg.Text("ScrabbleAr", size=(10,1),key="menu")]]
 
     tablero =[[sg.Button("", size=(2, 1),key=(j,i), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenesTablero\menos 1.png', image_size=(25, 22)) for i in range(15)] for j in range(15)]
-    letras_j = letras_jugador(fichas)
-    letras_c = letras_jugador(fichas)
+    letras_j = letras_jugador()
+    letras_c = letras_jugador()
     
-    le={}
-    A=CLASS.CLASS_atril_andando.Atril(le)
-
     def cant_fichas_tablero_jugador(un_numero=7): #Seteo cant fichas
         fichas=[]
         for i in range(un_numero):
-            fichas.append(sg.Button(letras_j.keys()[i], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)))
+            fichas.append(sg.Button(letras_j[i], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)))
         return fichas
     
     def cant_fichas_tablero_computadora(un_numero=7): #Seteo cant fichas
