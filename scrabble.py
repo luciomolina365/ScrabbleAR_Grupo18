@@ -73,8 +73,11 @@ def jugar():
             elif(event=="Cancel"):
                 break
             elif(event == "__jugar__"):
-                Tablero.juego()
-                window.close()
+                if(values["_predefinido_"==True]):
+                    Tablero.juego(fichas_predefinidas)
+                    window.close()
+                else:
+                    Tablero.juego(fichas_propias)
             # if(event=="Confirmar configuracion"):
             #     if(values["_predefinido_"==True]):
             #         paso los valores de dic predefinidos.
