@@ -4,20 +4,18 @@ class Bolsa:
     #dic_de_letras --> diccionario de diccionarios (en formato especifico) EJ. {'A':{'cantidad':11,'valor':1} , 'B':{'cantidad':3,'valor':1}}
     #letras_disponibles --> lista de strings(caracteres) EJ.  ["A","B","V", "Z"]
 
-    def __init__(self, dic_de_letras, letras_disponibles = []):
+    def __init__(self, dic_de_letras):
         self.bolsa = dic_de_letras
-        self.letras_disponibles = letras_disponibles                    #Para continuar la partida
-        
-        if len(self.letras_disponibles) == 0:                           #Si no se cargo ninguna partida
+        self.letras_disponibles = []
             
-            for letra in self.bolsa.keys():                             #Cargo las letras disponibles 
-                if self.bolsa[letra] != 0:                              #(POR SI ALGUNA LETRA TIENE CANTIDAD = 0 EN LA CONFIGURACION)
-                    self.letras_disponibles.append(letra)
+        for letra in self.bolsa.keys():                             #Cargo las letras disponibles 
+            if self.bolsa[letra] != 0:                              #(POR SI ALGUNA LETRA TIENE CANTIDAD = 0 EN LA CONFIGURACION o PARTIDA CARGADA)
+                self.letras_disponibles.append(letra)
                     
 
                     
     def getLetrasDisponibles(self):
-        return self.letras_disponibles                                  #EJ.  ["A","B","V", "Z"]
+        return self.letras_disponibles                                  #EJ.  ["A", "B", "V", "Z"]
 
     def getBolsa(self):
         return self.bolsa                                               #EJ.  {'A':{'cantidad':11,'valor':1} , 'B':{'cantidad':3,'valor':1}}
@@ -31,7 +29,7 @@ class Bolsa:
         """Devuelve un diccionario de diccionarios segun 
         la cantidad de fichas ingresada y actualiza la bolsa."""
         
-        if cant_fichas == 0:                        ###HACER CLASS JUEGO,JUGADOR Y COMPUTADORA=====================================###
+        if cant_fichas == 0:                        ###=====================================HACER CLASS JUGADOR=====================================###
             return {}
 
         fichas = {}
@@ -51,9 +49,4 @@ class Bolsa:
                 self.letras_disponibles.remove(letra_random)
 
         return fichas                                                   #EJ.  {}  o   {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
-
-
-
-    def devolverFichas(self):           #---------------HACER-----------------
-        pass                            #---------------HACER-----------------
         

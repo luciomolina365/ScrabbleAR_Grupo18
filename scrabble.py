@@ -38,7 +38,7 @@ def jugar():
             [sg.Text("Tiempo de la partida"),sg.Slider(range=(1, 20), orientation='h', size=(13, 25), default_value=10,enable_events=False)],
             [sg.Frame('Puntuacion de letras',[[
                 sg.InputOptionMenu(('A', 'B', 'C','D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'LL', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'RR', 'S', 'T', 'U', 'V', 'V', 'W', 'X', 'Y', 'Z'))],
-                [sg.Text("Modificar cantidad"),sg.Slider(range=(1, 15), orientation='v', size=(13, 25), default_value=6,enable_events=False),sg.Text("Modificar valor"),sg.Slider(range=(1, 20), orientation='v', size=(13, 25), default_value=13,enable_events=False)],
+                [sg.Text("Modificar cantidad"),sg.Slider(range=(1, 15), orientation='v', size=(10, 25), default_value=6,enable_events=False),sg.Text("Modificar valor"),sg.Slider(range=(1, 20), orientation='v', size=(10, 25), default_value=13,enable_events=False)],
                 [sg.Button("Modificar",key="_modificar_")]
                 ],visible=False,key="slider")],
             [sg.Text('_' * 80)],
