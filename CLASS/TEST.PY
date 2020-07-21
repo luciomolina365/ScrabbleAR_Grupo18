@@ -36,12 +36,22 @@ FICHAS = {                                  #Es una configuracion que viene desd
 
 B = Bolsa(FICHAS)
 
-Atril_computadora = Atril({})               #Hay que darle un valor inicial pero este caso de testeo no pasa nada
-Atril_jugador = Atril({})       
 
-Atril_computadora.agregar_varias_fichas(B.dameFichas(7))
+Atril_computadora = Atril(B.dameFichas(7))                      #Hay que darle un valor inicial pero este caso de testeo no pasa nada
+Atril_jugador = Atril(B.dameFichas(7))       
 
-Atril_jugador.agregar_varias_fichas(B.dameFichas(7))
+#EJ_pc = Atril_computadora.getEstado()                          Veo el estado del atril, 
+
+#lista_de_fichas_a_sacar = ["G", "A", "T", "O"]                 si puedo formar una palabra con (ej) 4 letras ["G", "A", "T", "O"],
+#Atril_computadora.sacar_varias_fichas(lista_de_fichas_a_sacar) saco esas fichas del atril.
+
+
+#Atril_computadora.agregar_varias_fichas(B.dameFichas(len(lista_de_fichas_a_sacar)))  Saco fichas de la bolsa y le doy la cantidad que le falta al atril para completarse 
+                                                                                    #(SE HACE DESPUES DE CORROBORAR SI LA BOLSA ESTA VACIA Y DESPUES DE MOSTRAR EL ATRIL INCOMPLETO EN PANTALLA )
+
+
+#------------------------------------------------------------------------------------------------------------------------
+#Para mostrarlo en pantalla
 
 DIC_J = Atril_jugador.getEstado()
 

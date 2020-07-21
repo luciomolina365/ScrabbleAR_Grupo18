@@ -6,7 +6,9 @@ class Atril:
         
         self.estado = dic_de_letras
         self.letras_disponibles = []
+        self.cant_fichas = 0
         self.__actualizar_estado_entero()
+        
 
         for letra in self.estado:
             self.cant_fichas = self.cant_fichas + self.estado[letra]["cantidad"]
