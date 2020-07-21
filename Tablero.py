@@ -25,28 +25,28 @@ def juego():
     tablero =[[sg.Button("", size=(2, 1),key=(j,i), pad=(2,3)) for i in range(15)] for j in range(15)]
     letras_j = letras_jugador()
     letras_c = letras_jugador()
+    
+    def cant_fichas_tablero_jugador(un_numero=7): #Seteo cant fichas
+        fichas=[]
+        for i in range(un_numero):
+            fichas.append(sg.Button(letras_j[i], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)))
+        return fichas
+    
+    def cant_fichas_tablero_computadora(un_numero=7): #Seteo cant fichas
+        fichas=[]
+        for i in range(un_numero):
+            fichas.append(sg.Button("?", pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)))
+        return fichas
+    
+    fichasJ = cant_fichas_tablero_jugador()
+    fichasC = cant_fichas_tablero_computadora()
 
-    fichas_jugador = [
-        [sg.Button(letras_j[0], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-         sg.Button(letras_j[1], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-         sg.Button(letras_j[2], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-         sg.Button(letras_j[3], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-         sg.Button(letras_j[4], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-         sg.Button(letras_j[5], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-         sg.Button(letras_j[6], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16))],
-        [sg.Button(('Posponer partida!'),key="__save__"),sg.Button(("Terminar juego"), key="__exit__")]
-          ]
 
 
-    fichas_computadora = [
-        [sg.Button(letras_c[0], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-         sg.Button(letras_c[1], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-         sg.Button(letras_c[2], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-         sg.Button(letras_c[3], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-         sg.Button(letras_c[4], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-         sg.Button(letras_c[5], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)),
-         sg.Button(letras_c[6], pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16))],
-          ]
+    fichas_jugador = [fichasJ,[sg.Button(('PAUSA'),key="__save__",font=("Helvetica", 9)),sg.Button(("FINALIZAR PARTIDA"), key="__exit__",font=("Helvetica", 9)),sg.Button(("REPARTIR NUEVAS FICHAS"), key="__repartir__",font=("Helvetica", 9))]]
+
+
+    fichas_computadora = [fichasC]
 
     layout = titulo + fichas_computadora + tablero + fichas_jugador
 
@@ -55,7 +55,7 @@ def juego():
     pos = []
     jugador1={}
     while True:
-        sg.popup("elige una ficha")
+        #sg.popup("elige una ficha")
         event, values = window.read() 
         if event == "__exit__" or sg.WIN_CLOSED:
             break
@@ -65,7 +65,7 @@ def juego():
             print(event[0]) #letra actual
             window[event[0]].update(disabled=True)
             #window.
-            sg.popup("elige una posicion")
+            #sg.popup("elige una posicion")
             eventPos= window.read()
             print(eventPos[0]) #posicion de la letra actual
             jugador1[(eventPos[0])]=event[0]
