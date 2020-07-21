@@ -1,3 +1,3 @@
-from CLASS_atril import Atril
+from CLASS_atril_andando import Atril
 
 

@@ -38,9 +38,13 @@ B = Bolsa(FICHAS)
 print(B.getBolsa())
 
 print("-.,-.,"*25)
-print(B.dameFichas(30))
+print(B.dameFichas(28))
 print("-.,-.,"*25)
 
 print(B.getBolsa())
 
+print("-.,-.,"*25)
+print(B.dameFichas(2))   #NO HAY SUFICIENTES FICHAS
+print("-.,-.,"*25)
 
+print(B.getBolsa())
