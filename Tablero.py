@@ -50,10 +50,8 @@ def juego():
          sg.Button(letras_j[3], pad=(10,5), button_color=('black','white'), size=(3, 1), font=("Helvetica", 16)),
          sg.Button(letras_j[4], pad=(10,5), button_color=('black','white'), size=(3, 1), font=("Helvetica", 16)),
          sg.Button(letras_j[5], pad=(10,5), button_color=('black','white'), size=(3, 1), font=("Helvetica", 16)),
-         sg.Button(letras_j[6], pad=(10,5), button_color=('black','white'), size=(3, 1), font=("Helvetica", 16)), 
-         sg.Button('Pasar Turno',key="__pasar__",button_color=('black','white'), font=("Helvetica", 16))],
-        [sg.Button(('Posponer partida!'),key="__save__",button_color=('white','grey')),sg.Button(("Terminar juego"), key="__exit__",button_color=('white','grey'))]
-          ]
+         sg.Button(letras_j[6], pad=(10,5), button_color=('black','white'), size=(3, 1), font=("Helvetica", 16))
+          ]]
 
 
     fichas_computadora = [
@@ -63,9 +61,10 @@ def juego():
          sg.Button(letras_c[3], pad=(10,5), button_color=('black','white'), size=(3, 1), font=("Helvetica", 16)),
          sg.Button(letras_c[4], pad=(10,5), button_color=('black','white'), size=(3, 1), font=("Helvetica", 16)),
          sg.Button(letras_c[5], pad=(10,5), button_color=('black','white'), size=(3, 1), font=("Helvetica", 16)),
-         sg.Button(letras_c[6], pad=(10,5), button_color=('black','white'), size=(3, 1), font=("Helvetica", 16))],
-          ]
-    fichas_jugador = [fichasJ,[sg.Button(('PAUSA'),key="__save__",font=("Helvetica", 9)),sg.Button(("FINALIZAR PARTIDA"), key="__exit__",font=("Helvetica", 9)),sg.Button(("REPARTIR NUEVAS FICHAS"), key="__repartir__",font=("Helvetica", 9))]]
+         sg.Button(letras_c[6], pad=(10,5), button_color=('black','white'), size=(3, 1), font=("Helvetica", 16))
+    ]]
+
+    fichas_jugador = [fichasJ,[sg.Button(('Posponer partida!'),key="__save__",font=("Helvetica", 9) ,button_color=('white','grey')),sg.Button(("Terminar juego"), key="__exit__",font=("Helvetica", 9) ,button_color=('white','grey')),sg.Button(("REPARTIR NUEVAS FICHAS"),button_color=('white','grey'), key="__repartir__",font=("Helvetica", 9)),sg.Button('Pasar Turno',key="__pasar__",button_color=('black','white'), font=("Helvetica", 16))]]
 
 
     fichas_computadora = [fichasC]
