@@ -43,7 +43,7 @@ def juego():
 
 
 
-    fichas_jugador = [fichasJ,[sg.Button(('Posponer partida!'),key="__save__",font=("Helvetica", 10)),sg.Button(("Terminar juego"), key="__exit__",font=("Helvetica", 10)),sg.Button(("Repartir nuevas fichas"), key="__repartir__",font=("Helvetica", 10))]]
+    fichas_jugador = [fichasJ,[sg.Button(('PAUSA'),key="__save__",font=("Helvetica", 9)),sg.Button(("FINALIZAR PARTIDA"), key="__exit__",font=("Helvetica", 9)),sg.Button(("REPARTIR NUEVAS FICHAS"), key="__repartir__",font=("Helvetica", 9))]]
 
 
     fichas_computadora = [fichasC]
@@ -55,7 +55,7 @@ def juego():
     pos = []
     jugador1={}
     while True:
-        sg.popup("elige una ficha")
+        #sg.popup("elige una ficha")
         event, values = window.read() 
         if event == "__exit__" or sg.WIN_CLOSED:
             break
@@ -65,7 +65,7 @@ def juego():
             print(event[0]) #letra actual
             window[event[0]].update(disabled=True)
             #window.
-            sg.popup("elige una posicion")
+            #sg.popup("elige una posicion")
             eventPos= window.read()
             print(eventPos[0]) #posicion de la letra actual
             jugador1[(eventPos[0])]=event[0]

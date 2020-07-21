@@ -28,24 +28,24 @@ def jugar():
 
         layout = [
             [sg.Menu(menu_def, tearoff=True)],
-            [sg.Text('Configuracion del juego scrabble!', size=(30,1), justification='center', font=("Helvetica", 20), relief=sg.RELIEF_RIDGE)],
+            [sg.Text('Configuracion del juego scrabble!', size=(40,1), justification='center', font=("Helvetica", 25), relief=sg.RELIEF_RIDGE)],
             [sg.Text('Ingrese el nombre de la configuracion del nuevo juego ')],
             [sg.InputText('')],     
             [sg.Button(("Cargar partida previa"),key="cargar")],
             [sg.Frame(layout=[
-            [sg.Checkbox('Datos predefinidos', size=(10,1),default=True,key="_predefinido_",enable_events=True),sg.Text("(Valores predefinidos para las letras)")],
+            [sg.Checkbox('Datos predefinidos', size=(20,1),default=True,key="_predefinido_",enable_events=True),sg.Text("(Valores predefinidos para las letras)")],
             [sg.Radio('Dificultad facil  ', "RADIO1", default=True, size=(10,1)), sg.Radio('Dificultad Media!', "RADIO1"),sg.Radio('Dificultad Dificil', "RADIO1")]], title='Configuracion del juego',title_color='red', relief=sg.RELIEF_SUNKEN, tooltip='Use these to set flags')],
             [sg.Text("Tiempo de la partida"),sg.Slider(range=(1, 20), orientation='h', size=(13, 25), default_value=10,enable_events=False)],
             [sg.Frame('Puntuacion de letras',[[
                 sg.InputOptionMenu(('A', 'B', 'C','D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'LL', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'RR', 'S', 'T', 'U', 'V', 'V', 'W', 'X', 'Y', 'Z'))],
-                [sg.Text("Modificar cantidad"),sg.Slider(range=(1, 10), orientation='v', size=(10, 20), default_value=6,enable_events=False),sg.Text("Modificar valor"),sg.Slider(range=(1, 20), orientation='v', size=(10, 20), default_value=13,enable_events=False)],
+                [sg.Text("Modificar cantidad"),sg.Slider(range=(1, 15), orientation='v', size=(13, 25), default_value=6,enable_events=False),sg.Text("Modificar valor"),sg.Slider(range=(1, 20), orientation='v', size=(13, 25), default_value=13,enable_events=False)],
                 [sg.Button("Modificar",key="_modificar_")]
                 ],visible=False,key="slider")],
             [sg.Text('_' * 80)],
             [sg.Button(("Top Ten"),key="topTeen")],                #para mostrar una lista con los top ten
             [sg.Button("Confirmar configuracion"), sg.Cancel("Cancel")],[sg.Button(("Jugar"),key="__jugar__")]]
 
-        window = sg.Window('Menu', layout, default_element_size=(30, 1), grab_anywhere=False)
+        window = sg.Window('Menu', layout, default_element_size=(40, 1), grab_anywhere=False)
         while True:
             event, values = window.read()
             if values["_predefinido_"]==False:
