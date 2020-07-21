@@ -11,7 +11,7 @@ window = sg.Window('Reloj', layout, font='Default -24', return_keyboard_events=T
 R = Reloj(0,5)
 cantRead = 0
 
-while not R.getTERMINO() :            
+while not R.getTERMINO_Reloj() :            
     event, values = window.read(timeout=10)
     cantRead = cantRead + 1  
 
