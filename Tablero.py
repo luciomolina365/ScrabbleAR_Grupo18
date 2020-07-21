@@ -22,7 +22,7 @@ def juego():
 
     titulo =  [[sg.Text(' '*15)] + [sg.Text("ScrabbleAr", size=(10,1),key="menu")]]
 
-    tablero =[[sg.Button("", size=(2, 1),key=(j,i), pad=(2,3),button_color=('black','Dark grey')) for i in range(15)] for j in range(15)]
+    tablero =[[sg.Button("", size=(2, 1),key=(j,i), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenesTablero\menos 1.png', image_size=(25, 22)) for i in range(15)] for j in range(15)]
     letras_j = letras_jugador()
     letras_c = letras_jugador()
     
@@ -90,6 +90,6 @@ def juego():
             eventPos= window.read()
             print(eventPos[0]) #posicion de la letra actual
             jugador1[(eventPos[0])]=event[0]
-            window[eventPos[0]].update(event[0],disabled=True,button_color=('','white'))
+            window[eventPos[0]].update(event[0],disabled=True,button_color=('','white'),image_filename='', image_size=(23, 20))
     print(jugador1)
     print(juego.__doc__)
