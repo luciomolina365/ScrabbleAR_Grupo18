@@ -2,7 +2,7 @@ from CLASS_atril_andando import Atril
 from CLASS_bolsa_andando import Bolsa
 
 
-FICHAS = {
+FICHAS = {                                  #Es una configuracion que viene desde un archivo
 'A':{'cantidad':11,'valor':1},
 'B':{'cantidad':3,'valor':1},
 'C':{'cantidad':4,'valor':1},
