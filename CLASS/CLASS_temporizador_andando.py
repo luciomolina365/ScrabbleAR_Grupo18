@@ -76,7 +76,7 @@ class Temporizador:
     def getSegundos(self):
         return self.__aux_seg                         #int
 
-    def getTERMINO_Reloj(self):
+    def getTERMINO_Temporizador(self):
         return self.__TERMINO                         #boolean
 
     #====================================================================================================================

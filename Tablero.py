@@ -76,7 +76,7 @@ def juego(FICHAS):
 
     La_ficha=""
     tupla=""
-    while not T.getTERMINO_Reloj():
+    while not T.getTERMINO_Temporizador():
         event, values= window.read(timeout=10)
         cantRead = cantRead + 1  
         cantRead = T.avanzar_tiempo(cantRead)  
