@@ -5,18 +5,19 @@ from CLASS_tablero_andando import Tablero
 estado_a_cargar = {}
 for x in range(16):
     for y in range(16):
-        estado_a_cargar[(x,y)] = {"letra": "A" , "trampa": False, "tipo_de_trampa": None, "recompensa": True, "tipo_de_recompensa": 3}
+        estado_a_cargar[(x,y)] = {"letra": None , "trampa": False, "tipo_de_trampa": None, "recompensa": False, "tipo_de_recompensa": None}
 
 print(estado_a_cargar)
 
-T = Tablero(estado_a_cargar)
 
-T.setValorEnCoor((15,15) , "GGG")           #Cuando esta corroborada la palabra, agregas de a un valor    
+# T = Tablero(estado_a_cargar)
 
-print("-.,-.,"*20)
-print(T.getEstado())
-print("-.,-.,"*20)
-print(T.getDatosEnCoor((15,15)))
+# T.setValorEnCoor((15,15) , "GGG")           #Cuando esta corroborada la palabra, agregas de a un valor    
+
+# print("-.,-.,"*20)
+# print(T.getEstado())
+# print("-.,-.,"*20)
+# print(T.getDatosEnCoor((15,15)))
 
 
 

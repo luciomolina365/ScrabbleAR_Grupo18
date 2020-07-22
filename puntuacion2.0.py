@@ -30,7 +30,7 @@ fichas = {
 'Y':{'cantidad':1,'valor':1},
 'Z':{'cantidad':1,'valor':1}}
 
-#Estructura que obtengo del tablero
+#Estructura que obtengo del la interfaz del tablero
 tablero={(7, 4):{"letra": "RR",
              "trampa": True,
              "tipo_de_trampa": 1,
