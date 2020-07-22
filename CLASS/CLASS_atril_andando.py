@@ -16,13 +16,13 @@ class Atril:
 
     def __actualizar_letra(self,letra):
 
-        if  self.__estado[letra]["cantidad"] == 0:                    #Saca las fichas que ya no estan
+        if  self.__estado[letra]["cantidad"] == 0:                    #Saca la ficha que ya no esta
             del self.__estado[letra]
 
             
     def __actualizar_estado_entero(self):
         
-        for elemento in self.__estado:
+        for elemento in self.__estado:                                #Bucle para sacar las fichas con cantidad == 0
             self.__actualizar_letra(elemento)
 
         self.__letras_disponibles.clear()                             #Actualiza las letras disponibles
@@ -33,15 +33,17 @@ class Atril:
 
 
     #======================================================================================================================================
-
+    #GETTERS
 
     def getEstado(self):
         print(self.__letras_disponibles)
         return self.__estado                                          #EJ. {'A':{'cantidad':2,'valor':1} , 'B':{'cantidad':3,'valor':1}}
 
     def getLetras_disponibles(self):
-        return self.__letras_disponibles
+        return self.__letras_disponibles                              #EJ. ["T", "O", "P", "O"]
 
+    #======================================================================================================================================
+    #METODOS
 
     #letra --> string EJ. "A"
     def sacar_ficha(self,letra):
@@ -57,8 +59,6 @@ class Atril:
         
         for letra in lista_de_letras:
             self.sacar_ficha(letra)
-
-        
 
 
     #dic_de_ficha --> diccionario de diccionarios   EJ. {'A':{'cantidad':2,'valor':1} , 'G':{'cantidad':1,'valor':1}}
@@ -77,8 +77,8 @@ class Atril:
             self.__actualizar_estado_entero()
 
         else:
-            #POPUP DE BOLSA VACIA/////////////////////
-            sg.popup("ESTE PROCESO NO TIENE QUE SER LLAMADO SI LA BOLSA ESTA VACIA")
+            #POPUP DE BOLSA VACIA (DEBUG) /////////////////////
+            sg.popup("ESTE PROCESO NO TIENE QUE SER LLAMADO SI LA BOLSA ESTA VACIA")  
 
 
         

@@ -1,4 +1,4 @@
-class Reloj:
+class Temporizador:
     
     #min y seg --> int
     #TERMINO --> boolean
@@ -13,7 +13,7 @@ class Reloj:
 
 
     #cantActualizaciones --> int
-    def temporizar(self,cantActualizaciones):
+    def avanzar_tiempo(self,cantActualizaciones):
         
         """Cada 100 actualizaciones de los valores de la ventana, 
         decrementa el tiempo ingresado y lo devuelve formateado 
@@ -28,7 +28,7 @@ class Reloj:
             TERMINO = self.__TERMINO
 
             
-            aux_min = min                           #Uso los valores, achico el tiempo y lo formateo para mostrarlo en pantalla
+            aux_min = min                             #Uso los valores, achico el tiempo y lo formateo para mostrarlo en pantalla
             aux_seg = seg    
 
             if seg == 0:
@@ -59,11 +59,11 @@ class Reloj:
             self.__aux_seg = aux_seg
             self.__TERMINO = TERMINO
 
-            cantActualizaciones = 0                 #Reinicio el contador
-            return cantActualizaciones              #int
+            cantActualizaciones = 0                   #Reinicio el contador
+            return cantActualizaciones                #int
         else:
 
-            return cantActualizaciones              #Retorno el contador como estaba (int)
+            return cantActualizaciones                #Retorno el contador como estaba (int)
         
 
 
