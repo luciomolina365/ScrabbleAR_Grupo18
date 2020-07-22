@@ -8,7 +8,7 @@ layout = [  [sg.Text('Tiempo restante'), sg.T(' '*1), sg.Text(size=(8,1), key='-
 
 window = sg.Window('Temporizador', layout, font='Default -24', return_keyboard_events=True)
 
-T = Temporizador(30,45)                         #Necesario 
+T = Temporizador(40,45)                         #Necesario 
 cantRead = 0                                    #Necesario 
 
 while not T.getTERMINO_Reloj() :                #T.getTERMINO_Reloj() Necesario             
