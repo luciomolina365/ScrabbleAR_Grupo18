@@ -8,14 +8,15 @@ layout = [  [sg.Text('Tiempo restante'), sg.T(' '*1), sg.Text(size=(8,1), key='-
 
 window = sg.Window('Temporizador', layout, font='Default -24', return_keyboard_events=True)
 
-T = Temporizador(30,45)                         #Necesario 
+T = Temporizador(0,45)                         #Necesario 
 cantRead = 0                                    #Necesario 
 
 while not T.getTERMINO_Reloj() :                #T.getTERMINO_Reloj() Necesario             
     event, values = window.read(timeout=10)     #timeout=10 Necesario
     cantRead = cantRead + 1                     #Necesario
-
-    if event in (sg.WIN_CLOSED, 'Quit'):
+    print(event)
+    print("+")
+    if event == 'Quit':
         break
         
     cantRead = T.avanzar_tiempo(cantRead)       #Necesario

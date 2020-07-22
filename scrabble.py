@@ -1,6 +1,5 @@
 import PySimpleGUI as sg
 import webbrowser as wb
-import saves
 import Tablero
 
 def jugar():

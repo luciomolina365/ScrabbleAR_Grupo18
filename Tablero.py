@@ -2,7 +2,8 @@ import PySimpleGUI as sg
 import random
 from CLASS import CLASS_atril_andando
 from CLASS import CLASS_bolsa_andando
-from CLASS import CLASS_reloj_andando
+from CLASS import CLASS_temporizador_andando
+
 
 def juego(FICHAS):
     sg.theme('Topanga')
@@ -15,22 +16,26 @@ def juego(FICHAS):
 
     B = CLASS_bolsa_andando.Bolsa(FICHAS)
 
-    Atril_computadora = CLASS_atril_andando.Atril(B.dameFichas(7))               #Hay que darle un valor inicial pero este caso de testeo no pasa nada
+    Atril_computadora = CLASS_atril_andando.Atril(B.dameFichas(7))               
     Atril_jugador = CLASS_atril_andando.Atril(B.dameFichas(7))  
 
 
+    def formatear(ficha):
 
+        aux = []
+        for LETRA in ficha:
+            if not LETRA.isdecimal():
+                aux.append(LETRA)
+
+        nueva_cadena = ""
+        for letra in aux: 
+            nueva_cadena = nueva_cadena + letra
+
+        return nueva_cadena
    
-    def atriles(DIC):
-        LISTA = []
-        for elemento in DIC:                      #Hace una lista con las letras y sus repetidas
-            cant = DIC[elemento]["cantidad"]
-            for i in range(cant):
-                LISTA.append(elemento)
-        return LISTA    
 
-    Lista_j=atriles(Atril_jugador.getEstado())
-    Lista_c=atriles(Atril_computadora.getEstado())
+    Lista_j=Atril_jugador.getLetras_disponibles()
+    Lista_c=Atril_computadora.getLetras_disponibles()
 
     
     def cant_fichas_tablero_jugador(Lista_j): #Seteo cant fichas
@@ -48,9 +53,10 @@ def juego(FICHAS):
     fichasJ = cant_fichas_tablero_jugador(Lista_j)
     fichasC = cant_fichas_tablero_computadora(Lista_c)
 
-    titulo =  [[sg.Text(' '*15)] + [sg.Text("ScrabbleAr", size=(10,1),key="menu")]]
+    titulo =  [[sg.Text(' '*15)] + [sg.Text("ScrabbleAr", size=(10,1),key="menu")],
+    [sg.Text('Tiempo restante'), sg.T(' '*1), sg.Text(size=(10,1), key='-TEMP OUT-')]]
 
-    tablero =[[sg.Button("", size=(2, 1),key=(j,i), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenesTablero\menos 1.png', image_size=(25, 22)) for i in range(15)] for j in range(15)]
+    tablero =[[sg.Button("", size=(2, 1),key=(j,i), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\menos 1.png', image_size=(25, 22)) for i in range(15)] for j in range(15)]
 
 
     fichas_jugador = [fichasJ+[sg.Button("Poner",key="_poner_",font=("Helvetica", 9) ,button_color=('white','grey'),size=(6, 2))],
@@ -65,38 +71,32 @@ def juego(FICHAS):
 
     window = sg.Window('ScrabbleAr', layout, font='Courier 12')
 
+    T = CLASS_temporizador_andando.Temporizador(40,30)                         
+    cantRead = 0                                    
+
     La_ficha=""
     tupla=""
-    while True:
-        event, values= window.read() 
-        print("*"*50)
-        print(event)
+    while not T.getTERMINO_Reloj():
+        event, values= window.read(timeout=10)
+        cantRead = cantRead + 1  
+        cantRead = T.avanzar_tiempo(cantRead)  
+        window['-TEMP OUT-'].update(str(T.getMinutos()) + ":"+ str(T.getSegundos()) + ' min')       
         if type(event)== tuple: 
             tupla=event
-        if type(event)==str and event!= "_poner_":
-            La_ficha=event
-        print("/"*50)
-        print(La_ficha)
-        print(tupla)
-        print("/"*50)
-        
+        if type(event)==str and event!= "_poner_" and event!= '__TIMEOUT__' :
+            aux=event
+            La_ficha=formatear(event)
+            print(La_ficha)
         if event == "__exit__":
-            break
             window.close()
-
-
+            break
         #elif event == "__save__":
             #Vamos a guardar la partida con la configuracion actual en un archivo de texto 
-
-
-        elif event == "_poner_":
-            print("8"*50)
-            print(La_ficha)
-            print(tupla)
-            print("8"*50)
-            window[La_ficha].update(disabled=True, button_color=('black','white'))
+        print(event)
+        if event == "_poner_" and La_ficha!="" and tupla!="" and event!= '__TIMEOUT__' :
+            window[aux].update(disabled=True, button_color=('black','white'))
             window[tupla].update(La_ficha,disabled=True,button_color=('','white'),image_filename='', image_size=(23, 20))
-            
-            
-
+            La_ficha=""
+            tupla=""
+        # if event=="__repartir__":   
     print(juego.__doc__)
