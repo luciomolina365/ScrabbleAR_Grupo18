@@ -66,6 +66,12 @@ print("_______"*20)
 Atril_computadora.sacar_varias_fichas(lista_de_fichas_a_sacar) 
 
 print(Atril_computadora.getEstado())                            #SEGUNDO ESTADO (SACANDO VARIAS FICHAS)
+print("_______"*20)
+
+Atril_computadora.agregar_varias_fichas({'A':{'cantidad':4,'valor':1} , 'G':{'cantidad':6,'valor':1}})
+
+print(Atril_computadora.getEstado())
+
 
 
 

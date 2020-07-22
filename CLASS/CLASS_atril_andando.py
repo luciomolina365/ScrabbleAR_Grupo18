@@ -68,11 +68,11 @@ class Atril:
             
             for letra in dic_de_fichas:
                 
-                if letra in self.__estado.keys():
+                if letra not in self.__estado.keys():
                     self.__estado[letra] = dic_de_fichas[letra]    
                 
                 else:            
-                    self.__estado[letra]["cantidad"] = self.__estado[letra]["cantidad"] + 1
+                    self.__estado[letra]["cantidad"] = self.__estado[letra]["cantidad"] + dic_de_fichas[letra]["cantidad"]
             
             self.__actualizar_estado_entero()
 
