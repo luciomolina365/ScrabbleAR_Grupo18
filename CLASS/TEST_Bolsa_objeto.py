@@ -45,6 +45,12 @@ print(B.getBolsa())
 
 print("-.,-.,"*25)
 print(B.dameFichas(2))   #NO HAY SUFICIENTES FICHAS
+print(f"Letras disponibles {B.getLetrasDisponibles()}")
 print("-.,-.,"*25)
 
+
 print(B.getBolsa())
+
+
+#------------------------------------------------------------------------------------------------------------------------
+#Molina, Lucio Felipe - 15980/7
