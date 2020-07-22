@@ -74,15 +74,13 @@ def jugar():
                 break
             elif(event == "__jugar__"):
                 if(values["_predefinido_"==True]):
-                    Tablero.juego(fichas_predefinidas)
                     window.close()
+                    Tablero.juego(fichas_predefinidas)
                 else:
+                    window.close()
                     Tablero.juego(fichas_propias)
             # if(event=="Confirmar configuracion"):
-            #     if(values["_predefinido_"==True]):
-            #         paso los valores de dic predefinidos.
-                #   else 
-                #         valores_propios
+            
                 # if values[2]==True:
                 #     Dificultad="Facil"
                 # elif values[3]==True:
