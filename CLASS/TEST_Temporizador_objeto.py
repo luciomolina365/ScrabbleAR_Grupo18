@@ -25,4 +25,8 @@ while not T.getTERMINO_Reloj() :                #T.getTERMINO_Reloj() Necesario
 window.close()
 
 
+
+
+
+#------------------------------------------------------------------------------------------------------------------------
 #Molina, Lucio Felipe - 15980/7
