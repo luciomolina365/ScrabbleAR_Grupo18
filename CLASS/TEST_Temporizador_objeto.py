@@ -23,3 +23,6 @@ while not T.getTERMINO_Reloj() :                #T.getTERMINO_Reloj() Necesario
     window['-TEMP OUT-'].update(str(T.getMinutos()) + ":"+ str(T.getSegundos()) + ' min')   #Necesario LO MUESTRA
 
 window.close()
+
+
+#Molina, Lucio Felipe - 15980/7

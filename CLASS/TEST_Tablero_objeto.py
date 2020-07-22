@@ -17,3 +17,5 @@ print("-.,-.,"*20)
 print(T.getEstado())
 print("-.,-.,"*20)
 print(T.getDatosEnCoor((15,15)))
+
+#Molina, Lucio Felipe - 15980/7

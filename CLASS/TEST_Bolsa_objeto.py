@@ -49,3 +49,4 @@ print("-.,-.,"*25)
 
 print(B.getBolsa())
 
+#Molina, Lucio Felipe - 15980/7

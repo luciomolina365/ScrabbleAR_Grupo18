@@ -60,12 +60,12 @@ class Bolsa:
             letra_random = random.choice(self.__letras_disponibles)                                     #Elegimos una letra 
             
             if letra_random not in fichas.keys():                                                       #Llenamos el diccionario de fichas para devolver
-                fichas[letra_random] = {"cantidad": 1 , "valor": self.__bolsa[letra_random]["valor"]}      
+                fichas[letra_random] = {"cantidad": 1 , "valor": self.__bolsa[letra_random]["valor"]}   #Si es una letra nueva, la agrega al diccionario    
             else:
-                fichas[letra_random]["cantidad"] = fichas[letra_random]["cantidad"] + 1
+                fichas[letra_random]["cantidad"] = fichas[letra_random]["cantidad"] + 1                 #Si la letra ya existe, le suma 1 a la cantidad de esa letra
                 
 
-            self.__bolsa[letra_random]["cantidad"] = self.__bolsa[letra_random]["cantidad"] - 1         #Actualizamos la bolsa     
+            self.__bolsa[letra_random]["cantidad"] = self.__bolsa[letra_random]["cantidad"] - 1         #Actualizamos la bolsa, a la cantidad de la letra que sacamos, le restamos 1 
             
             if self.__bolsa[letra_random]["cantidad"] == 0:                                             #Si es necesario, actualizamos las letras disponibles
                 self.__letras_disponibles.remove(letra_random)
@@ -73,4 +73,4 @@ class Bolsa:
         return fichas                       #EJ.  {}  o   {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
 
     
-        
+#Molina, Lucio Felipe - 15980/7        
