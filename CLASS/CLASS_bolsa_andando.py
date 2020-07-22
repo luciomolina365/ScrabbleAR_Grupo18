@@ -10,12 +10,13 @@ class Bolsa:
     def __init__(self, dic_de_letras):
         self.__bolsa = dic_de_letras
         self.__letras_disponibles = []
+        self.__actualizarLetrasDisponibles()
     
 
     def __actualizarLetrasDisponibles(self):
-            
+        self.__letras_disponibles.clear()
         for letra in self.__bolsa.keys():                                   #Cargo las letras disponibles 
-            if self.__bolsa[letra] != 0:                                    #(POR SI ALGUNA LETRA TIENE CANTIDAD = 0 EN LA CONFIGURACION o PARTIDA CARGADA)
+            if self.__bolsa[letra]["cantidad"] != 0:                                    #(POR SI ALGUNA LETRA TIENE CANTIDAD = 0 EN LA CONFIGURACION o PARTIDA CARGADA)
                 self.__letras_disponibles.append(letra)
         
 
@@ -83,7 +84,7 @@ class Bolsa:
         for letra in dic_de_fichas:
             self.__bolsa[letra]["cantidad"] = self.__bolsa[letra]["cantidad"] + dic_de_fichas[letra]["cantidad"]
 
-        self.__actualizarLetrasDisponibles()
+        
 
 
     #dic_a_intercambiar  --> diccionario de diccionarios  EJ. {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
@@ -92,10 +93,12 @@ class Bolsa:
         cant = 0
         for letra in dic_a_intercambiar:                                                                #Contamos la cantidad de fichas a devolver
             cant = cant + dic_a_intercambiar[letra]["cantidad"]
-        
-        self.devolverFichas(dic_a_intercambiar)                                                         #Actualizamos el estadp interno del objeto
 
-        return self.dameFichas(len(cant))                           #EJ.  {}  o   {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
+        self.devolverFichas(dic_a_intercambiar)                                                         
+        
+        self.__actualizarLetrasDisponibles()                                                         
+
+        return self.dameFichas(cant)                           #EJ.  {}  o   {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
 
 
 
