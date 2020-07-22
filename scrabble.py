@@ -79,7 +79,6 @@ def jugar():
                 else:
                     window.close()
                     Tablero.juego(fichas_propias)
-
             # if(event=="Confirmar configuracion"):
             
                 # if values[2]==True:
