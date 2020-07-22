@@ -4,48 +4,51 @@ class Atril:
     #dic_de_letras --> diccionario de diccionarios (en formato especifico) EJ. {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}} (las cantidades suman 7)
     def __init__(self,dic_de_letras):    
         
-        self.estado = dic_de_letras
-        self.letras_disponibles = []
-        self.cant_fichas = 0
+        self.__estado = dic_de_letras
+        self.__letras_disponibles = []
+        self.__cant_fichas = 0
         self.__actualizar_estado_entero()
         
 
-        for letra in self.estado:
-            self.cant_fichas = self.cant_fichas + self.estado[letra]["cantidad"]
+        for letra in self.__estado:
+            self.__cant_fichas = self.__cant_fichas + self.__estado[letra]["cantidad"]
 
 
     def __actualizar_letra(self,letra):
 
-        if  self.estado[letra]["cantidad"] == 0:                    #Saca las fichas que ya no estan
-            del self.estado[letra]
+        if  self.__estado[letra]["cantidad"] == 0:                    #Saca las fichas que ya no estan
+            del self.__estado[letra]
 
             
     def __actualizar_estado_entero(self):
         
-        for elemento in self.estado:
+        for elemento in self.__estado:
             self.__actualizar_letra(elemento)
 
-        self.letras_disponibles.clear()                             #Actualiza las letras disponibles
-        for elemento in self.estado:                            
-            cant = self.estado[elemento]["cantidad"]
+        self.__letras_disponibles.clear()                             #Actualiza las letras disponibles
+        for elemento in self.__estado:                            
+            cant = self.__estado[elemento]["cantidad"]
             for i in range(cant):
-                self.letras_disponibles.append(elemento)
+                self.__letras_disponibles.append(elemento)
 
 
     #======================================================================================================================================
 
 
     def getEstado(self):
-        print(self.letras_disponibles)
-        return self.estado                                          #EJ. {'A':{'cantidad':2,'valor':1} , 'B':{'cantidad':3,'valor':1}}
+        print(self.__letras_disponibles)
+        return self.__estado                                          #EJ. {'A':{'cantidad':2,'valor':1} , 'B':{'cantidad':3,'valor':1}}
+
+    def getLetras_disponibles(self):
+        return self.__letras_disponibles
 
 
     #letra --> string EJ. "A"
     def sacar_ficha(self,letra):
         
-        self.estado[letra]["cantidad"] = self.estado[letra]["cantidad"] - 1
-        self.cant_fichas = self.cant_fichas - 1
-        self.letras_disponibles.remove(letra)
+        self.__estado[letra]["cantidad"] = self.__estado[letra]["cantidad"] - 1
+        self.__cant_fichas = self.__cant_fichas - 1
+        self.__letras_disponibles.remove(letra)
         self.__actualizar_letra(letra)
 
 
@@ -65,11 +68,11 @@ class Atril:
             
             for letra in dic_de_fichas:
                 
-                if letra in self.estado.keys():
-                    self.estado[letra] = dic_de_fichas[letra]    
+                if letra in self.__estado.keys():
+                    self.__estado[letra] = dic_de_fichas[letra]    
                 
                 else:            
-                    self.estado[letra]["cantidad"] = self.estado[letra]["cantidad"] + 1
+                    self.__estado[letra]["cantidad"] = self.__estado[letra]["cantidad"] + 1
             
             self.__actualizar_estado_entero()
 

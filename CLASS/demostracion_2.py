@@ -36,7 +36,7 @@ FICHAS = {                                  #Es una configuracion que viene desd
 
 B = Bolsa(FICHAS)
 
-
+print("_______"*20)
 Atril_computadora = Atril(B.dameFichas(7))                      #Hay que darle un valor inicial pero este caso de testeo no pasa nada
 Atril_jugador = Atril(B.dameFichas(7))       
 
@@ -50,9 +50,10 @@ print("_______"*20)
 
 #//////////////////////////////////////////////////////////////////////////////////////////////////////
 lista_de_fichas_a_sacar = []                                    #Apartir de estado genero lista de letras random a sacar
-for elemento in EJ_pc:
+for elemento in EJ_pc:                                          #En este caso saco las letras que aparecen 2 veces
     if EJ_pc[elemento]["cantidad"] == 2:
         lista_de_fichas_a_sacar.append(elemento)
+        lista_de_fichas_a_sacar.append(elemento)                
 #//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -60,6 +61,7 @@ for elemento in EJ_pc:
 
 
 print(f"letras a sacar {lista_de_fichas_a_sacar}")
+print("_______"*20)
 
 Atril_computadora.sacar_varias_fichas(lista_de_fichas_a_sacar) 
 

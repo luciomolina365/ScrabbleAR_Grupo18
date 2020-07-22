@@ -56,14 +56,18 @@ Atril_jugador = Atril(B.dameFichas(7))
 DIC_J = Atril_jugador.getEstado()
 
 LISTA_j = []
-for elemento in DIC_J:                      #Hace una lista con las letras y sus repetidas
+for elemento in DIC_J:                      #Hace una lista con las letras y sus repetidas (el proceso ".getLetras_disponibles()" lo hace)
     cant = DIC_J[elemento]["cantidad"]
     for i in range(cant):
         LISTA_j.append(elemento)
 
+
+
 print(DIC_J)
 print("-" * 30)
+print(Atril_jugador.getLetras_disponibles())
 print(LISTA_j)
 print("-.,-.,"*20)
+
 
 #------------------------------------------------------------------------------------------------------------------------

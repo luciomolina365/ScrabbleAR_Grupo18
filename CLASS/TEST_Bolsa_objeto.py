@@ -48,3 +48,4 @@ print(B.dameFichas(2))   #NO HAY SUFICIENTES FICHAS
 print("-.,-.,"*25)
 
 print(B.getBolsa())
+

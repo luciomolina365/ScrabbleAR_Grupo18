@@ -4,11 +4,11 @@ class Reloj:
     #TERMINO --> boolean
     
     def __init__(self, min, seg, TERMINO=False):
-        self.min = min
-        self.seg = seg
-        self.TERMINO = TERMINO
-        self.aux_min = ""
-        self.aux_seg = ""
+        self.__min = min
+        self.__seg = seg
+        self.__TERMINO = TERMINO
+        self.__aux_min = ""
+        self.__aux_seg = ""
 
 
 
@@ -21,11 +21,11 @@ class Reloj:
 
         if cantActualizaciones == 100:
             
-            min = self.min                          #Auxiliares del estado del objeto
-            seg = self.seg
-            aux_min = self.aux_min
-            aux_seg = self.aux_seg
-            TERMINO = self.TERMINO
+            min = self.__min                          #Auxiliares del estado del objeto
+            seg = self.__seg
+            aux_min = self.__aux_min
+            aux_seg = self.__aux_seg
+            TERMINO = self.__TERMINO
 
             
             aux_min = min                           #Uso los valores, achico el tiempo y lo formateo para mostrarlo en pantalla
@@ -53,11 +53,11 @@ class Reloj:
 
             seg = seg - 1
 
-            self.min = min                          #Actualizo el estado del objeto
-            self.seg = seg
-            self.aux_min = aux_min
-            self.aux_seg = aux_seg
-            self.TERMINO = TERMINO
+            self.__min = min                          #Actualizo el estado del objeto
+            self.__seg = seg
+            self.__aux_min = aux_min
+            self.__aux_seg = aux_seg
+            self.__TERMINO = TERMINO
 
             cantActualizaciones = 0                 #Reinicio el contador
             return cantActualizaciones              #int
@@ -71,13 +71,13 @@ class Reloj:
     #GETTERS
     
     def getMinutos(self):
-        return self.aux_min                         #int
+        return self.__aux_min                         #int
 
     def getSegundos(self):
-        return self.aux_seg                         #int
+        return self.__aux_seg                         #int
 
     def getTERMINO_Reloj(self):
-        return self.TERMINO                         #boolean
+        return self.__TERMINO                         #boolean
 
     #====================================================================================================================
 
