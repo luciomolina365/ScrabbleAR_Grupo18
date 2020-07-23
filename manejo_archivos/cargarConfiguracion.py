@@ -1,30 +1,44 @@
 import json
 import PySimpleGUI as sg
 
-def obtenerConfiguracion(cargarPartida = False , numero_de_dificultad = 0):
-
-    if cargarPartida and numero_de_dificultad == 0:
-        
-        try:
-            
-            direccion = "Archivos\\partidas\\partida_guardada_" + ".json"  
-            with open(direccion, 'r') as archivo:
-                datos = json.load(archivo)
-                datos = convertir_Json_A_Datos(datos)
-            return datos
-        
-        except FileNotFoundError:
-            sg.popup("No hay partidas para continuar")
-            return {}
-
-    elif numero_de_dificultad != 0:
-        
-        direccion = "Archivos\\configuracion\\por_defecto_"  +  str(numero_de_dificultad) +  ".json"
+def obtenerConfiguracion(direccion):
         with open(direccion, 'r') as archivo:
             datos = json.load(archivo)
-            datos = convertir_Json_A_Datos(datos)   
+            datos = convertir_Json_A_Datos(datos)
+            archivo.close()   
         return datos
-        
+
+def hay_partidas_a_cargar():
+    direccion = "Archivos\\partidas\\cant_partidas.txt"
+    f = open(direccion,"r")
+    aux = f.readlines()
+    f.close()
+
+    if aux == 0:
+        return False
+    else:
+        return True
+
+
+def actualizar_cant_partidas():
+    i = 1
+    while True:
+
+        try:
+            direccion = "Archivos\\partidas\\partida_guardada_" + str(i) + ".json"
+            with open(direccion, 'r') as archivo:
+                archivo.close()
+            i = i + 1
+        except FileNotFoundError:
+            break
+    
+    direccion = "Archivos\\partidas\\cant_partidas.txt"
+    f = open(direccion,"w")
+    i = i - 1
+    f.write((str(i)))
+    f.close()
+    
+
 #========================================================        
     
 def convertir_Datos_A_Json(datos):
@@ -47,6 +61,11 @@ def convertir_Json_A_Datos(datos):
     return datos
 
 
+def estaFinalizada(datos):
+    return datos["Finalizada"]
+        
+    
+
 def cambiarConfiguracion(configuracion):
     pass  
 
@@ -55,9 +74,8 @@ def cambiarConfiguracion(configuracion):
 #========================================================
 #DEMOSTRACION DE USO
 
-datos = obtenerConfiguracion(True)              #Si pones 
-                                                #-True  --> carga una partida no finalizada
-                                                #-False 
+datos = obtenerConfiguracion("Archivos\\partidas\\partida_guardada_1.json")          
+                                               
 if datos != {}:
     print(datos["Temporizador"])
 else:
@@ -68,7 +86,7 @@ else:
 #print("-.,-.,-.,-.,-.,-,.")
 #print(tuple("(1,2)"))
 
-
+actualizar_cant_partidas()
 
 
 

@@ -41,15 +41,11 @@ while True:
     if event == "_file_":
         print(event)
         print(values)
-        print(formatear_cadena_de_directorio(values[event]))
+        if values[event] != "":
+            print(formatear_cadena_de_directorio(values[event]))
         
         
 window.Close()
-
-
-
-
-
 
 
 #archivo = open(values["_file_"] , "r")
