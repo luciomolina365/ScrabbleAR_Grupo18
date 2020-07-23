@@ -20,7 +20,7 @@ def hay_partidas_a_cargar():
         return True
 
 
-def actualizar_cant_partidas():
+def actualizar_cant_partidas_guardadas():
     i = 1
     while True:
 
@@ -74,23 +74,34 @@ def cambiarConfiguracion(configuracion):
 #========================================================
 #DEMOSTRACION DE USO
 
-datos = obtenerConfiguracion("Archivos\\partidas\\partida_guardada_1.json")          
-                                               
-if datos != {}:
-    print(datos["Temporizador"])
-else:
-    print("No hay partidas a cargar")
-    print("Crea una partida nueva")
 
-#print(type(str((1,2))))
-#print("-.,-.,-.,-.,-.,-,.")
-#print(tuple("(1,2)"))
+def main():
+    datos = obtenerConfiguracion("Archivos\\partidas\\partida_guardada_1.json")          
+                                                
+    if datos != {}:
+        print("Muestra de que se levantaron los datos desde un archivo:  ")
+        print(datos["Temporizador"])
+    else:
+        print("No hay partidas a cargar")
+        print("Crea una partida nueva")
 
-actualizar_cant_partidas()
+    #print(type(str((1,2))))
+    #print("-.,-.,-.,-.,-.,-,.")
+    #print(tuple("(1,2)"))
+
+    actualizar_cant_partidas_guardadas()
 
 
-
-
+if __name__ == "__main__":
+    main()
+    print("LISTO")
+    print("Cantidad de partidas actualizada")
+    
+    
+    if hay_partidas_a_cargar():
+        print("Hay partidas para cargar")
+        print("ACA DEBERIA MANDAR UN BOOLEAN PARA QUE SE MUESTRE O NO EL BOTON DE CARGAR PARTIDA")
+        sg.popup("ACA DEBERIA MANDAR UN BOOLEAN PARA QUE SE MUESTRE O NO EL BOTON DE CARGAR PARTIDA")
 
 #------------------------------------------------------------------------------------------------------------------------
 #Molina, Lucio Felipe - 15980/7
