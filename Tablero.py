@@ -16,7 +16,7 @@ def juego(FICHAS):
 
     B = CLASS_bolsa_andando.Bolsa(FICHAS)
 
-    Atril_computadora = CLASS_atril_andando.Atril(B.dameFichas(7))               
+    Atril_computadora = CLASS_atril_andando.Atril(B.dameFichas(7))     #LA IDEA ES QUE RECIBA UN DICCIONARIO DE FORMATO ESPECIFICO, QUE VIENE DE LA CONFIGURACION O PARTIDA
     Atril_jugador = CLASS_atril_andando.Atril(B.dameFichas(7))  
 
 

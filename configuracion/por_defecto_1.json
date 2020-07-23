@@ -41,4 +41,5 @@ None}, (13, 10): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recom
 "Atril_computadora": {}   ,   
 "Puntaje_jugador": 0  ,  
 "Puntaje_computadora": 0   ,
+"Finalizada": False
 }

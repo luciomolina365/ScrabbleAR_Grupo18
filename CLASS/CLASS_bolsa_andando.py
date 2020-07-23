@@ -10,11 +10,15 @@ class Bolsa:
     def __init__(self, dic_de_letras):
         self.__bolsa = dic_de_letras
         self.__letras_disponibles = []
-            
-        for letra in self.__bolsa.keys():                                   #Cargo las letras disponibles 
-            if self.__bolsa[letra] != 0:                                    #(POR SI ALGUNA LETRA TIENE CANTIDAD = 0 EN LA CONFIGURACION o PARTIDA CARGADA)
-                self.__letras_disponibles.append(letra)
+        self.__actualizarLetrasDisponibles()
+    
 
+    def __actualizarLetrasDisponibles(self):
+        self.__letras_disponibles.clear()
+        for letra in self.__bolsa.keys():                                   #Cargo las letras disponibles 
+            if self.__bolsa[letra]["cantidad"] != 0:                                    #(POR SI ALGUNA LETRA TIENE CANTIDAD = 0 EN LA CONFIGURACION o PARTIDA CARGADA)
+                self.__letras_disponibles.append(letra)
+        
 
     #====================================================================================================================
     #GETTERS
@@ -37,6 +41,7 @@ class Bolsa:
 
     def getTERMINO_Bolsa(self):
         return self.__TERMINO                                               #boolean
+
 
     #====================================================================================================================
     #METODOS
@@ -72,12 +77,28 @@ class Bolsa:
 
         return fichas                       #EJ.  {}  o   {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
 
+    
+    #dic_de_fichas  --> diccionario de diccionarios  EJ. {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
+    def devolverFichas(self, dic_de_fichas):
+        
+        for letra in dic_de_fichas:
+            self.__bolsa[letra]["cantidad"] = self.__bolsa[letra]["cantidad"] + dic_de_fichas[letra]["cantidad"]
+
+        
 
 
+    #dic_a_intercambiar  --> diccionario de diccionarios  EJ. {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
+    def intercambiar_fichas(self,dic_a_intercambiar):         
+        
+        cant = 0
+        for letra in dic_a_intercambiar:                                                                #Contamos la cantidad de fichas a devolver
+            cant = cant + dic_a_intercambiar[letra]["cantidad"]
 
+        self.devolverFichas(dic_a_intercambiar)                                                         
+        
+        self.__actualizarLetrasDisponibles()                                                         
 
-    def intercambiar_fichas(self):          #-.,-.,-.,-.,-.,-.,-.,-.,-.,-.,-.,-.,-.,-.,-.,-.,HACERRRRRRR-.,-.,-.,-.,-.,-.,-.,-.,
-        pass
+        return self.dameFichas(cant)                           #EJ.  {}  o   {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
 
 
 

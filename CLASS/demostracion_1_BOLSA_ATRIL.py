@@ -37,7 +37,7 @@ FICHAS = {                                  #Es una configuracion que viene desd
 B = Bolsa(FICHAS)
 
 
-Atril_computadora = Atril(B.dameFichas(7))                      #Hay que darle un valor inicial pero este caso de testeo no pasa nada
+Atril_computadora = Atril(B.dameFichas(7))                      #El valor inicial viene de un archivo de config o partida guardada(en este caso usamos la bolsa)
 Atril_jugador = Atril(B.dameFichas(7))       
 
 #EJ_pc = Atril_computadora.getEstado()                          Veo el estado del atril, 

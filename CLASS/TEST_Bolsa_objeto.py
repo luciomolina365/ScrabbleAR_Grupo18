@@ -38,18 +38,30 @@ B = Bolsa(FICHAS)
 print(B.getBolsa())
 
 print("-.,-.,"*25)
-print(B.dameFichas(28))
+print(B.dameFichas(26))
 print("-.,-.,"*25)
 
 print(B.getBolsa())
 
 print("-.,-.,"*25)
-print(B.dameFichas(2))   #NO HAY SUFICIENTES FICHAS
+print(B.dameFichas(4))   #NO HAY SUFICIENTES FICHAS
 print(f"Letras disponibles {B.getLetrasDisponibles()}")
 print("-.,-.,"*25)
 
+print(B.getBolsa())
+
+print("///"*60)
+print("///"*60)
+fichas_a_intercambiar = {'A':{'cantidad':2,'valor':1} , 'B':{'cantidad':1,'valor':1}}
+print(f" Primera mano {fichas_a_intercambiar}")
+fichas_a_intercambiar = B.intercambiar_fichas(fichas_a_intercambiar)
+print(f" Segunda mano {fichas_a_intercambiar}")
+print("///"*60)
+print("///"*60)
 
 print(B.getBolsa())
+
+
 
 
 #------------------------------------------------------------------------------------------------------------------------

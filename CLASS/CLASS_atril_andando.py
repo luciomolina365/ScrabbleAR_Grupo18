@@ -5,7 +5,7 @@ class Atril:
     def __init__(self,dic_de_letras):    
         
         self.__estado = dic_de_letras
-        self.__letras_disponibles = []
+        self.__fichas_disponibles = []
         self.__cant_fichas = 0
         self.__actualizar_estado_entero()
         
@@ -25,22 +25,22 @@ class Atril:
         for elemento in self.__estado:                                #Bucle para sacar las fichas con cantidad == 0
             self.__actualizar_letra(elemento)
 
-        self.__letras_disponibles.clear()                             #Actualiza las letras disponibles
+        self.__fichas_disponibles.clear()                             #Actualiza las letras disponibles
         for elemento in self.__estado:                            
             cant = self.__estado[elemento]["cantidad"]
             for i in range(cant):
-                self.__letras_disponibles.append(elemento)
+                self.__fichas_disponibles.append(elemento)
 
 
     #======================================================================================================================================
     #GETTERS
 
     def getEstado(self):
-        print(self.__letras_disponibles)
+        print(self.__fichas_disponibles)
         return self.__estado                                          #EJ. {'A':{'cantidad':2,'valor':1} , 'B':{'cantidad':3,'valor':1}}
 
-    def getLetras_disponibles(self):
-        return self.__letras_disponibles                              #EJ. ["T", "O", "P", "O"]
+    def getFichas_disponibles(self):
+        return self.__fichas_disponibles                              #EJ. ["T", "O", "P", "O"]
 
     #======================================================================================================================================
     #METODOS
@@ -50,7 +50,7 @@ class Atril:
         
         self.__estado[letra]["cantidad"] = self.__estado[letra]["cantidad"] - 1
         self.__cant_fichas = self.__cant_fichas - 1
-        self.__letras_disponibles.remove(letra)
+        self.__fichas_disponibles.remove(letra)
         self.__actualizar_letra(letra)
 
 
