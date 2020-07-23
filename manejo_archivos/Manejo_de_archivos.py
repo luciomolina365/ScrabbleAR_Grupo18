@@ -66,8 +66,8 @@ def estaFinalizada(datos):
         
     
 
-def cambiarConfiguracion(configuracion):
-    pass  
+def cambiarConfiguracion(configuracion):                    #-.,-,.-.,-.,-.,-.,-.,-,.-.,HACERRRRRR-.,-.,-,.-.,-.,-.,-.,-.,-.,-.,-,.
+    pass                                                    #-.,-,.-.,-.,-.,-.,-.,-,.-.,HACERRRRRR-.,-.,-,.-.,-.,-.,-.,-.,-.,-.,-,.
 
 
 
@@ -102,6 +102,8 @@ if __name__ == "__main__":
         print("Hay partidas para cargar")
         print("ACA DEBERIA MANDAR UN BOOLEAN PARA QUE SE MUESTRE O NO EL BOTON DE CARGAR PARTIDA")
         sg.popup("ACA DEBERIA MANDAR UN BOOLEAN PARA QUE SE MUESTRE O NO EL BOTON DE CARGAR PARTIDA")
+
+
 
 #------------------------------------------------------------------------------------------------------------------------
 #Molina, Lucio Felipe - 15980/7
