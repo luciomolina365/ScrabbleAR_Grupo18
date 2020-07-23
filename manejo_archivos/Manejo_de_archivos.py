@@ -17,8 +17,8 @@ def hay_partidas_a_cargar():
     if aux == 0:
         return False
     else:
-        return True
-
+        return True 
+        
 
 def actualizar_cant_partidas_guardadas():
     i = 1
