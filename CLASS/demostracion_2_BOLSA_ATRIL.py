@@ -37,7 +37,7 @@ FICHAS = {                                  #Es una configuracion que viene desd
 B = Bolsa(FICHAS)
 
 print("_______"*20)
-Atril_computadora = Atril(B.dameFichas(7))                      #Hay que darle un valor inicial pero este caso de testeo no pasa nada
+Atril_computadora = Atril(B.dameFichas(7))                      #El valor inicial viene de un archivo de config o partida guardada(en este caso usamos la bolsa)
 Atril_jugador = Atril(B.dameFichas(7))       
 
 EJ_pc = Atril_computadora.getEstado()
@@ -48,13 +48,13 @@ print("_______"*20)
 
 
 
-#//////////////////////////////////////////////////////////////////////////////////////////////////////
+#////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 lista_de_fichas_a_sacar = []                                    #Apartir de estado genero lista de letras random a sacar
 for elemento in EJ_pc:                                          #En este caso saco las letras que aparecen 2 veces
     if EJ_pc[elemento]["cantidad"] == 2:
         lista_de_fichas_a_sacar.append(elemento)
         lista_de_fichas_a_sacar.append(elemento)                
-#//////////////////////////////////////////////////////////////////////////////////////////////////////
+#////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -70,7 +70,7 @@ print("_______"*20)
 
 Atril_computadora.agregar_varias_fichas({'A':{'cantidad':4,'valor':1} , 'G':{'cantidad':6,'valor':1}})
 
-print(Atril_computadora.getEstado())
+print(Atril_computadora.getEstado())                            #TERCER ESTADO (AGREGANDO VARIAS FICHAS)
 
 
 
