@@ -73,8 +73,6 @@ None}, (13, 10): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recom
 
                 json.dump(datos,archivo)
 
-                
-
             return datos
         
     
@@ -89,16 +87,10 @@ def convertir_Datos_A_Json(datos):
 
 def convertir_Json_A_Datos(datos):
     aux = {}
-    x = 0
-    y = 0
+
     for coor in datos["Tablero"]:
-        aux_coor = coor
-        print(type(coor))
-        coor = tuple(coor)
-        print(coor)
-        coor = (  int(coor[1])  , int(coor[4])  )
-        print(coor)
-        aux[coor] = datos["Tablero"][aux_coor]
+        
+        aux[eval(coor)] = datos["Tablero"][coor]
     
     datos["Tablero"] = aux
     return datos
@@ -114,9 +106,6 @@ print(datos)
 #print(type(str((1,2))))
 #print("-.,-.,-.,-.,-.,-,.")
 #print(tuple("(1,2)"))
-
-
-
 
 
 def cambiarConfiguracion():
