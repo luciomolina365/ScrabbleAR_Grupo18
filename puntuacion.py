@@ -1,5 +1,5 @@
 #Estructura que obtengo de la configuracion del juego
-configuracion = {
+__configuracion__ = {
 'A':{'cantidad':11,'valor':1},
 'B':{'cantidad':3,'valor':1},
 'C':{'cantidad':4,'valor':1},
@@ -32,7 +32,7 @@ configuracion = {
 
 
 #Estructura que obtengo de la interfaz del tablero
-tablero={(7, 4):{"letra": "RR",#9
+__tablero__={(7, 4):{"letra": "RR",#9
                 "trampa": True,
                 "tipo_de_trampa": 1,
                 "recompensa": False,
@@ -52,36 +52,37 @@ tablero={(7, 4):{"letra": "RR",#9
                 "tipo_de_trampa": 2,
                 "recompensa": False,
                 "tipo_de_recompensa": None}}
-def armo_mi_tablero(tablero):
+
+def __armo_mi_tablero__(__tablero__):
     #Obtengo el tablero como quiero, para trabajar con el
-    tablero2={}
-    for k,v in tablero.items():
-        tablero2[v['letra']]=v
-    for k,v in tablero2.items():
-        del tablero2[k]['letra']
+    __tablero2__={}
+    for k,v in __tablero__.items():
+        __tablero2__[v['letra']]=v
+    for k,v in __tablero2__.items():
+        del __tablero2__[k]['letra']
 
-    return(tablero2)
+    return(__tablero2__)
 
-def __puntuar_jugador__(palabra,configuracion,tablero2):
+def __puntuar_jugador__(__palabra__):
     
-    #Inicializo puntuacion actual, y variables de trampa y bonus
+    __tablero2__=__armo_mi_tablero__(__tablero__)
+        
     puntuacionActual = 0
 
     indice = 0
-    for k,v in tablero2.items():
+    
+    for k,v in __tablero2__.items():
         
         #Pregunto si la letra que obtuve de la palabra que ingresa en el tablero donde esta puesta tiene trampa o bonus
-        if(tablero2[palabra[0]]['trampa']==False):
-            #puntuacionActual = ((puntuacionActual + configuracion[v['letra']]['valor'])-(tablero[k]['tipo_de_trampa']))
-            print('Es trampa')
-        #elif(dic2[k]['recompensa']==True):
-            #puntuacionActual = puntuacionActual + ((configuracion[v['letra']]['valor'])*(tablero[k]['tipo_de_recompensa']))
+        if(__tablero2__[__palabra__[indice]]['trampa']==True):
+            puntuacionActual = (puntuacionActual + (__configuracion__[__palabra__[indice]]['valor'] - __tablero2__[__palabra__[indice]]['tipo_de_trampa']))
         
-        #Obtengo el valor por cada letra ingresada
-        #else:
-            #puntuacionActual = (puntuacionActual + configuracion[v['letra']]['valor'])
-    #return ()
+        elif(__tablero2__[__palabra__[indice]]['recompensa']==True):
+            puntuacionActual = (puntuacionActual + (__configuracion__[__palabra__[indice]]['valor'] * __tablero2__[__palabra__[indice]]['tipo_de_recompensa']))
 
-palabra = ["P","E","RR","O"]
+        else:
+            puntuacionActual = puntuacionActual + __configuracion__[__palabra__[indice]]['valor']
 
-#print(__puntuar_jugador__(palabra))
+        indice += 1 
+            
+    return (puntuacionActual)
