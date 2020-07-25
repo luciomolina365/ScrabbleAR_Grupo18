@@ -1,10 +1,12 @@
 from pattern.text.es import parse, verbs, split, lexicon, spelling
 import puntuacion
 
-#Recibe la estructura a corroborar
-dic2 = {(7, 3): 'E', (7, 1): 'O', (7, 4): 'P', (7, 2): 'RR'}
+#Va a recibir un diccionario con este formato: {(x,y):'letra',...}
+#Corroboro al derecha y al reves, esta palabra que me manda el tablero
 
-def __informacion_de_turno__(diccionario_que_recibe_del_tablero):
+dic2 = {(7, 3): 'O', (8, 1): 'O', (3, 4): 'Z', (7, 9): 'RR'}
+
+def __informacion_de_turno(diccionario_que_recibe_del_tablero):
     """ Recibo un diccionario enviado por el tablero, trabajado previamente para que llegue de el estilo que esta arriba,
     lo ordeno de menor a mayor y lo transformo a string para usarlo y corroborarlo con si es un sustantivo, adjetivo o verbo """
     #Booleano para ver si la funcion privada me retorna que la palabra fue encontrada
@@ -15,7 +17,12 @@ def __informacion_de_turno__(diccionario_que_recibe_del_tablero):
     #Ordeno el diccionario por posiciones de mayor a menor
     haciaDer=dict(sorted(diccionario_que_recibe_del_tablero.items(), key = lambda diccio: diccio[0],reverse=True))
     
-    def __corroboro_palabra__(diccionario_trabajado):
+    print(haciaIzq)
+
+    print(haciaDer)
+
+
+    def __corroboro_palabra(diccionario_trabajado):
         
         palabra=""
         palabra_lista=[]
@@ -46,24 +53,29 @@ def __informacion_de_turno__(diccionario_que_recibe_del_tablero):
                 if ((elem[1] == 'VB') or ((elem [1] == "NNS") or (elem[1] ==  "NN")) or (elem[1] == 'JJ')):
                     return(ok,elem[0],palabra_lista)
     
+    #def __posiciones_validas:
+    
+    
+    
+    
     #llamo la funcion privada para obetener la informacion
-    def __retorno_puntuacion__():    
-        if(__corroboro_palabra__(haciaIzq)[0] == True):
-            pal_izq = __corroboro_palabra__(haciaIzq)[2]
-            return(puntuacion.__puntuar_jugador__(pal_izq))
+    def __retorno_puntuacion():    
+        if(__corroboro_palabra(haciaIzq)[0] == True):
+            pal_izq = __corroboro_palabra(haciaIzq)[2]
+            return(puntuacion.__puntuar_jugador(pal_izq))
         
-        elif(__corroboro_palabra__(haciaDer)[0] == True):
-            pal_der = __corroboro_palabra__(haciaDer)[2]
-            return(puntuacion.__puntuar_jugador__(pal_der))
+        elif(__corroboro_palabra(haciaDer)[0] == True):
+            pal_der = __corroboro_palabra(haciaDer)[2]
+            return(puntuacion.__puntuar_jugador(pal_der))
         else:
             return("INGRESASTE UNA PALABRA INCORRECTA, MEJOR SUERTE EN EL PROXIMO TURNO")
     
     
-    info_final = __retorno_puntuacion__()
+    info_final = __retorno_puntuacion()
     return info_final
 #-----------------------------------------------------------------------------------
 #TESTEOS, funcionan
-palabra = __informacion_de_turno__(dic2)
+palabra = __informacion_de_turno(dic2)
 print("__"*20)
 print(palabra)
 
