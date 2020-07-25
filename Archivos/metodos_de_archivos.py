@@ -90,9 +90,11 @@ def definir_configuracion(datos_del_menu):
     config_por_defecto["Temporizador"]["minutos"] = datos_del_menu["minutos"]                               #Configuramos                              
     config_por_defecto["Bolsa"] = datos_del_menu["letras"]
 
-    pass
-    #INSTACIAR OBJETOS CON LOS DATOS
-    
+    return config_por_defecto
+
+@staticmethod
+def ahreoloc(parameter_list):
+    print("ahreloco")
 
 
 
