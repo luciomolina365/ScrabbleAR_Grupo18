@@ -1,5 +1,5 @@
-from CLASS_atril_andando import Atril
-from CLASS_bolsa_andando import Bolsa
+from CLASS_atril import Atril
+from CLASS_bolsa import Bolsa
 
 
 FICHAS = {                                  #Es una configuracion que viene desde un archivo

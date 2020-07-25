@@ -1,5 +1,6 @@
 import json
 import PySimpleGUI as sg
+from os import rename
 
 def obtenerConfiguracion(direccion):
         with open(direccion, 'r') as archivo:
@@ -13,8 +14,10 @@ def hay_partidas_a_cargar():
     f = open(direccion,"r")
     aux = f.readlines()
     f.close()
+   
+    print(aux)
 
-    if aux == 0:
+    if aux[0] == "0":
         return False
     else:
         return True 
@@ -25,10 +28,19 @@ def actualizar_cant_partidas_guardadas():
     while True:
 
         try:
-            direccion = "Archivos\\partidas\\partida_guardada_" + str(i) + ".json"
+            predef = "Archivos\\partidas\\partida_guardada_"
+            direccion = predef + str(i) + ".json"
             with open(direccion, 'r') as archivo:
+                datos = json.load(archivo)
+                datos = convertir_Json_A_Datos(datos)
                 archivo.close()
-            i = i + 1
+
+            if estaFinalizada(datos):
+                nuevo_nombre = predef + "FINALIZADA" + ".json"
+                rename(direccion, nuevo_nombre)
+            else:
+                i = i + 1  
+                
         except FileNotFoundError:
             break
     
@@ -64,10 +76,29 @@ def convertir_Json_A_Datos(datos):
 def estaFinalizada(datos):
     return datos["Finalizada"]
         
+
+def guardar(parameter_list):   #RECIBO LOS DATOS DE LOS OBJETOS Y DEMAS
+    pass
+
+    
+#datos_del_menu --> {"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras":  {'A':{'cantidad':11,'valor':1} , ...} }
+def definir_configuracion(datos_del_menu):
+    
+    direccion = "Archivos\\configuracion\\por_defecto_" +  datos_del_menu["dificultad"]   +  ".json"        #Cargamos una dificultad
+    config_por_defecto = obtenerConfiguracion(direccion)        
+    
+    config_por_defecto["Temporizador"]["minutos"] = datos_del_menu["minutos"]                               #Configuramos                              
+    config_por_defecto["Bolsa"] = datos_del_menu["letras"]
+
+    pass
+    #INSTACIAR OBJETOS CON LOS DATOS
     
 
-def cambiarConfiguracion(configuracion):                    #-.,-,.-.,-.,-.,-.,-.,-,.-.,HACERRRRRR-.,-.,-,.-.,-.,-.,-.,-.,-.,-.,-,.
-    pass                                                    #-.,-,.-.,-.,-.,-.,-.,-,.-.,HACERRRRRR-.,-.,-,.-.,-.,-.,-.,-.,-.,-.,-,.
+
+
+
+    
+    
 
 
 
@@ -76,7 +107,7 @@ def cambiarConfiguracion(configuracion):                    #-.,-,.-.,-.,-.,-.,-
 
 
 def main():
-    datos = obtenerConfiguracion("Archivos\\partidas\\partida_guardada_1.json")          
+    datos = obtenerConfiguracion("Archivos\\configuracion\\por_defecto_1.json")          
                                                 
     if datos != {}:
         print("Muestra de que se levantaron los datos desde un archivo:  ")
@@ -100,10 +131,11 @@ if __name__ == "__main__":
     
     if hay_partidas_a_cargar():
         print("Hay partidas para cargar")
-        print("ACA DEBERIA MANDAR UN BOOLEAN PARA QUE SE MUESTRE O NO EL BOTON DE CARGAR PARTIDA")
-        sg.popup("ACA DEBERIA MANDAR UN BOOLEAN PARA QUE SE MUESTRE O NO EL BOTON DE CARGAR PARTIDA")
+    else:
+        print("---NO--- HAY PARTIDAS A CARGAR")
 
-
+    print("ACA DEBERIA USAR EL BOOLEAN PARA QUE SE MUESTRE O NO EL BOTON DE CARGAR PARTIDA")
+    sg.popup("ACA DEBERIA USAR EL BOOLEAN PARA QUE SE MUESTRE O NO EL BOTON DE CARGAR PARTIDA")
 
 #------------------------------------------------------------------------------------------------------------------------
 #Molina, Lucio Felipe - 15980/7

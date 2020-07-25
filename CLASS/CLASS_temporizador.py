@@ -3,7 +3,7 @@ class Temporizador:
     #min y seg --> int
     #TERMINO --> boolean
     
-    def __init__(self, min, seg, TERMINO=False):
+    def __init__(self, min = 0, seg = 0, TERMINO=False):
         self.__min = min
         self.__seg = seg
         self.__TERMINO = TERMINO
