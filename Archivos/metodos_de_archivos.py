@@ -2,14 +2,14 @@ import json
 import PySimpleGUI as sg
 from os import rename
 
-def obtenerConfiguracion(direccion):
+def obtenerConfiguracion(direccion):                                #Lee un archivo mediantu direccion, lee y le da formato util a los datos
         with open(direccion, 'r') as archivo:
             datos = json.load(archivo)
             datos = convertir_Json_A_Datos(datos)
             archivo.close()   
         return datos
 
-def hay_partidas_a_cargar():
+def hay_partidas_a_cargar():                                        #Lee el archivo de cantidad de partidas y retorna un booleano
     direccion = "Archivos\\partidas\\cant_partidas.txt"
     f = open(direccion,"r")
     aux = f.readlines()
@@ -25,7 +25,7 @@ def hay_partidas_a_cargar():
 
 def actualizar_cant_partidas_guardadas():
     i = 1
-    while True:
+    while True:                                                     #Cuenta los archivos de partida NO FINALIZADAS 
 
         try:
             predef = "Archivos\\partidas\\partida_guardada_"
@@ -44,7 +44,7 @@ def actualizar_cant_partidas_guardadas():
         except FileNotFoundError:
             break
     
-    direccion = "Archivos\\partidas\\cant_partidas.txt"
+    direccion = "Archivos\\partidas\\cant_partidas.txt"             #Actualiza la cantidad de partidad disponibles
     f = open(direccion,"w")
     i = i - 1
     f.write((str(i)))
@@ -72,35 +72,32 @@ def convertir_Json_A_Datos(datos):
     datos["Tablero"] = aux
     return datos
 
+#========================================================        
 
 def estaFinalizada(datos):
     return datos["Finalizada"]
         
 
-def guardar(parameter_list):   #RECIBO LOS DATOS DE LOS OBJETOS Y DEMAS
+def guardar():   #RECIBO LOS DATOS DE LOS OBJETOS Y DEMAS
     pass
 
     
 #datos_del_menu --> {"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras":  {'A':{'cantidad':11,'valor':1} , ...} }
 def definir_configuracion(datos_del_menu):
     
+    """Despues que se confirme la configaracion personalizada en el menu, se modifica la dificultad seleccionada"""
+
+
+
     direccion = "Archivos\\configuracion\\por_defecto_" +  datos_del_menu["dificultad"]   +  ".json"        #Cargamos una dificultad
     config_por_defecto = obtenerConfiguracion(direccion)        
     
-    config_por_defecto["Temporizador"]["minutos"] = datos_del_menu["minutos"]                               #Configuramos                              
+    config_por_defecto["Dificultad"] = datos_del_menu["dificultad"]
+    config_por_defecto["Temporizador"]["minutos"] = datos_del_menu["minutos"]                               #Seteamos los cambios                            
     config_por_defecto["Bolsa"] = datos_del_menu["letras"]
 
     return config_por_defecto
 
-@staticmethod
-def ahreoloc(parameter_list):
-    print("ahreloco")
-
-
-
-
-    
-    
 
 
 
