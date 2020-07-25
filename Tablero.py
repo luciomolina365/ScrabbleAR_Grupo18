@@ -1,8 +1,8 @@
 import PySimpleGUI as sg
 import random
-from CLASS import CLASS_atril_andando
-from CLASS import CLASS_bolsa_andando
-from CLASS import CLASS_temporizador_andando
+from CLASS import CLASS_atril
+from CLASS import CLASS_bolsa
+from CLASS import CLASS_temporizador
 
 
 def juego(FICHAS):
@@ -14,10 +14,10 @@ def juego(FICHAS):
     la bolsa de letras se va a ir actualizando a medida de que vayamos retirando letras del abecedario tanto, 
     del jugador, como de la computadora"""
 
-    B = CLASS_bolsa_andando.Bolsa(FICHAS)
+    B = CLASS_bolsa.Bolsa(FICHAS)
 
-    Atril_computadora = CLASS_atril_andando.Atril(B.dameFichas(7))     #LA IDEA ES QUE RECIBA UN DICCIONARIO DE FORMATO ESPECIFICO, QUE VIENE DE LA CONFIGURACION O PARTIDA
-    Atril_jugador = CLASS_atril_andando.Atril(B.dameFichas(7))  
+    Atril_computadora = CLASS_atril.Atril(B.dameFichas(7))     #LA IDEA ES QUE RECIBA UN DICCIONARIO DE FORMATO ESPECIFICO, QUE VIENE DE LA CONFIGURACION O PARTIDA
+    Atril_jugador = CLASS_atril.Atril(B.dameFichas(7))  
 
 
     def formatear(ficha):
@@ -107,7 +107,7 @@ def juego(FICHAS):
 
     window = sg.Window('ScrabbleAr', layout, font='Courier 12')
 
-    T = CLASS_temporizador_andando.Temporizador(40,30)                         
+    T = CLASS_temporizador.Temporizador(40,30)                         
     cantRead = 0                                    
 
     La_ficha=""
@@ -119,6 +119,7 @@ def juego(FICHAS):
         window['-TEMP OUT-'].update(str(T.getMinutos()) + ":"+ str(T.getSegundos()) + ' min')       
         if type(event)== tuple: 
             tupla=event
+            print(tupla)
         if type(event)==str and event!= "_poner_" and event!= '__TIMEOUT__' :
             aux=event
             La_ficha=formatear(event)
