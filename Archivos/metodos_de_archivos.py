@@ -24,6 +24,12 @@ def hay_partidas_a_cargar():                                        #Lee el arch
         
 
 def actualizar_cant_partidas_guardadas():
+
+    """Actualiza cant_partidas.txt, para, segun sus datos, permitir o no cargar partida"""
+
+
+
+
     i = 1
     while True:                                                     #Cuenta los archivos de partida NO FINALIZADAS 
 
@@ -85,7 +91,9 @@ def guardar():   #RECIBO LOS DATOS DE LOS OBJETOS Y DEMAS
 #datos_del_menu --> {"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras":  {'A':{'cantidad':11,'valor':1} , ...} }
 def definir_configuracion(datos_del_menu):
     
-    """Despues que se confirme la configaracion personalizada en el menu, se modifica la dificultad seleccionada"""
+    """Despues que se confirme la configuracion personalizada en el menu, se modifica la dificultad seleccionada.
+    Desde este punto, los datos se usan en metodos e instanciar los objetos.
+    (Esta configuracion se pasa a un archivo cuando termine la partida o se guarde)"""
 
 
 
