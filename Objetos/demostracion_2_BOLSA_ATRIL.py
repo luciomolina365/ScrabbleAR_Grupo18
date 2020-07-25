@@ -53,7 +53,7 @@ lista_de_fichas_a_sacar = []                                    #Apartir de esta
 for elemento in EJ_pc:                                          #En este caso saco las letras que aparecen 2 veces
     if EJ_pc[elemento]["cantidad"] == 2:
         lista_de_fichas_a_sacar.append(elemento)
-        lista_de_fichas_a_sacar.append(elemento)                
+               
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
