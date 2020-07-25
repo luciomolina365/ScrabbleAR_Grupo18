@@ -36,44 +36,38 @@ FICHAS = {                                  #Es una configuracion que viene desd
 
 B = Bolsa(FICHAS)
 
-print("_______"*20)
+
 Atril_computadora = Atril(B.dameFichas(7))                      #El valor inicial viene de un archivo de config o partida guardada(en este caso usamos la bolsa)
 Atril_jugador = Atril(B.dameFichas(7))       
 
-EJ_pc = Atril_computadora.getEstado()
-print(EJ_pc)                                                    #PRIMER ESTADO
-print("_______"*20)                          
+#EJ_pc = Atril_computadora.getEstado()                          Veo el estado del atril, 
+
+#lista_de_fichas_a_sacar = ["G", "A", "T", "A"]                 si puedo formar una palabra con (ej) 4 letras ["G", "A", "T", "A"],
+#Atril_computadora.sacar_varias_fichas(lista_de_fichas_a_sacar) saco esas fichas del atril.
+
+
+#Atril_computadora.agregar_varias_fichas(B.dameFichas(len(lista_de_fichas_a_sacar)))  Saco fichas de la bolsa y le doy la cantidad que le falta al atril para completarse 
+                                                                                    #(SE HACE DESPUES DE CORROBORAR SI LA BOLSA ESTA VACIA Y DESPUES DE MOSTRAR EL ATRIL INCOMPLETO EN PANTALLA )
+
+
+#------------------------------------------------------------------------------------------------------------------------
+#Para mostrarlo en pantalla
+
+DIC_J = Atril_jugador.getEstado()
+
+LISTA_j = []
+for elemento in DIC_J:                      #Hace una lista con las letras y sus repetidas (el proceso ".getFichas_disponibles()" lo hace)
+    cant = DIC_J[elemento]["cantidad"]
+    for i in range(cant):
+        LISTA_j.append(elemento)
 
 
 
-
-
-#////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-lista_de_fichas_a_sacar = []                                    #Apartir de estado genero lista de letras random a sacar
-for elemento in EJ_pc:                                          #En este caso saco las letras que aparecen 2 veces
-    if EJ_pc[elemento]["cantidad"] == 2:
-        lista_de_fichas_a_sacar.append(elemento)
-        lista_de_fichas_a_sacar.append(elemento)                
-#////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-print(f"letras a sacar {lista_de_fichas_a_sacar}")
-print("_______"*20)
-
-Atril_computadora.sacar_varias_fichas(lista_de_fichas_a_sacar) 
-
-print(Atril_computadora.getEstado())                            #SEGUNDO ESTADO (SACANDO VARIAS FICHAS)
-print("_______"*20)
-
-Atril_computadora.agregar_varias_fichas({'A':{'cantidad':4,'valor':1} , 'G':{'cantidad':6,'valor':1}})
-
-print(Atril_computadora.getEstado())                            #TERCER ESTADO (AGREGANDO VARIAS FICHAS)
-
-
-
+print(DIC_J)
+print("-" * 30)
+print(Atril_jugador.getFichas_disponibles())
+print(LISTA_j)
+print("-.,-.,"*20)
 
 
 #------------------------------------------------------------------------------------------------------------------------
