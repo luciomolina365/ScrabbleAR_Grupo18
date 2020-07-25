@@ -1,4 +1,4 @@
-from CLASS_bolsa_andando import Bolsa
+from CLASS_bolsa import Bolsa
 import random
 
 FICHAS = {
