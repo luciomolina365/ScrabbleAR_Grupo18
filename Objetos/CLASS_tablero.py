@@ -14,7 +14,7 @@ class Tablero:
     #GETTERS
     #coordenada --> tupla de int , EJ. (1,2)
     
-    def getDatosEnCoor(self, coordenada):
+    def getDatosEnCoor(self, coordenada):                           
         return self.__estado[coordenada]                        #EJ. {"letra": *string* , "trampa": *boolean*, "tipo_de_trampa": *int o None*, "recompensa": *boolean*, "tipo_de_recompensa": *int o None*}
     
 

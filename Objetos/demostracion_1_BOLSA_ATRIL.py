@@ -1,5 +1,5 @@
-from CLASS_atril_andando import Atril
-from CLASS_bolsa_andando import Bolsa
+from CLASS_atril import Atril
+from CLASS_bolsa import Bolsa
 
 
 FICHAS = {                                  #Es una configuracion que viene desde un archivo
@@ -65,7 +65,7 @@ for elemento in DIC_J:                      #Hace una lista con las letras y sus
 
 print(DIC_J)
 print("-" * 30)
-print(Atril_jugador.getLetras_disponibles())
+print(Atril_jugador.getFichas_disponibles())
 print(LISTA_j)
 print("-.,-.,"*20)
 
