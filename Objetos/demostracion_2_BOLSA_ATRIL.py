@@ -41,7 +41,7 @@ Atril_computadora = Atril(B.dameFichas(7))                      #El valor inicia
 Atril_jugador = Atril(B.dameFichas(7))       
 
 EJ_pc = Atril_computadora.getEstado()
-print(EJ_pc)                                                    #PRIMER ESTADO
+#print(EJ_pc)                                                    #PRIMER ESTADO
 print("_______"*20)                          
 
 
@@ -68,7 +68,10 @@ Atril_computadora.sacar_varias_fichas(lista_de_fichas_a_sacar)
 print(Atril_computadora.getEstado())                            #SEGUNDO ESTADO (SACANDO VARIAS FICHAS)
 print("_______"*20)
 
-Atril_computadora.agregar_varias_fichas({'A':{'cantidad':4,'valor':1} , 'G':{'cantidad':6,'valor':1}})
+Atril_computadora.agregar_varias_fichas({'A':{'cantidad':5,'valor':1} , 'G':{'cantidad':1,'valor':1}, "B":{'cantidad':1,'valor':1}})
+
+lista=["A","B","G","G"]
+Atril_computadora.sacar_varias_fichas(lista) 
 
 print(Atril_computadora.getEstado())                            #TERCER ESTADO (AGREGANDO VARIAS FICHAS)
 

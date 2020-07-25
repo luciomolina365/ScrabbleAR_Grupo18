@@ -1,9 +1,9 @@
 import PySimpleGUI as sg
 import random
-from CLASS import CLASS_atril_andando
-from CLASS import CLASS_bolsa_andando
-from CLASS import CLASS_temporizador_andando
-from CLASS import CLASS_tablero_andando
+from Objetos import CLASS_atril
+from Objetos import CLASS_bolsa
+from Objetos import CLASS_temporizador
+from Objetos import CLASS_tablero
 #from corroboro_y_puntuo import corroborarPalabra
 
 
@@ -16,10 +16,10 @@ def juego(FICHAS):
     la bolsa de letras se va a ir actualizando a medida de que vayamos retirando letras del abecedario tanto, 
     del jugador, como de la computadora"""
 
-    B = CLASS_bolsa_andando.Bolsa(FICHAS)
+    B = CLASS_bolsa.Bolsa(FICHAS)
 
-    Atril_computadora = CLASS_atril_andando.Atril(B.dameFichas(7))     #LA IDEA ES QUE RECIBA UN DICCIONARIO DE FORMATO ESPECIFICO, QUE VIENE DE LA CONFIGURACION O PARTIDA
-    Atril_jugador = CLASS_atril_andando.Atril(B.dameFichas(7))  
+    Atril_computadora = CLASS_atril.Atril(B.dameFichas(7))     #LA IDEA ES QUE RECIBA UN DICCIONARIO DE FORMATO ESPECIFICO, QUE VIENE DE LA CONFIGURACION O PARTIDA
+    Atril_jugador = CLASS_atril.Atril(B.dameFichas(7))  
 
 
     def formatear(ficha):
@@ -42,8 +42,8 @@ def juego(FICHAS):
     
     def cant_fichas_tablero_jugador(Lista_j): #Seteo cant fichas
         fichas=[]
-        for i in Lista_j:
-            fichas.append(sg.Button(i, pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)))
+        for i in range(len(Lista_j)):
+            fichas.append(sg.Button(Lista_j[i], pad=(10,5), key=i,button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)))
         return fichas
     
     def cant_fichas_tablero_computadora(Lista_c): #Seteo cant fichas
@@ -101,16 +101,32 @@ def juego(FICHAS):
                 else:
                     window[i].update("",disabled=False,image_filename='imagenes\GRIS.png',image_size=(25, 22))
 
-    def actualizar_fichas(dic,B,window,Atril_jugador):
-        cant=len(dic.keys())
-        Nuevas=B.damefichas(cant)
-        lista=[]
-        dic={}
+    def actualizar_fichas(dic,B,window,Atril,lista_K):
+        lista_a_borrar=[]
+        nuevas=B.dameFichas(len(dic))
         for i in dic.keys():
-            lista.append(dic[i]["letra"])
-            dic[i]["letra"]=Atril_jugador.getEstado()
-        Atril_jugador.sacar_varias_fichas(lista) 
-             
+            lista_a_borrar.append(dic[i]["letra"])           #lista  su letra
+
+        
+        Atril.sacar_varias_fichas(lista_a_borrar)
+
+        Atril.agregar_varias_fichas(nuevas)
+       
+        listaNueva=[]
+        for letra in nuevas:
+            for i in range(nuevas[letra]["cantidad"]):#[a,a,b,b,c]
+                listaNueva.append(letra)
+
+
+        datos=Atril.getFichas_disponibles()
+        for i in range(0,len(datos)):
+            window[i].update(datos[i],disabled=False,button_color=('white', 'black'))
+                
+    def Crear_diccionario(dic):
+        nuevo={}
+        for i in dic.keys():
+            nuevo[i]=dic[i]["letra"]
+        return nuevo     
 
 
 
@@ -142,12 +158,13 @@ def juego(FICHAS):
 
     window = sg.Window('ScrabbleAr', layout, font='Courier 12')
 
-    T = CLASS_temporizador_andando.Temporizador(40,30)                         
+    T = CLASS_temporizador.Temporizador(40,30)                         
     cantRead = 0                                    
 
     La_ficha=""
     tupla=""
-    tablero=CLASS_tablero_andando.Tablero(TableroD)
+    lista=[]
+    tablero=CLASS_tablero.Tablero(TableroD)
     dic={}
     while not T.getTERMINO_Temporizador():
         event, values= window.read(timeout=10)
@@ -157,11 +174,12 @@ def juego(FICHAS):
         if type(event)== tuple and event!= '__TIMEOUT__' : 
             tupla=event
             print(tupla)
-        if type(event)==str and event!= "_poner_" and event!= '__TIMEOUT__' :
+        if type(event)==int and event!= "_poner_" and event!= '__TIMEOUT__' :
             aux=event
-            La_ficha=formatear(event)
+            atril=Atril_jugador.getFichas_disponibles()
+            dato=atril[event]
+            La_ficha=formatear(dato)
             print(La_ficha)
-
         if event == "__exit__" and event!= '__TIMEOUT__' :
             window.close()
             break
@@ -172,6 +190,7 @@ def juego(FICHAS):
             window[tupla].update(La_ficha,disabled=True,button_color=('','white'),image_filename='', image_size=(23, 20))
             dic[tupla]=tablero.getDatosEnCoor(tupla)
             dic[tupla]["letra"]=La_ficha
+            lista.append(aux)
             La_ficha=""
             tupla=""
         #if event=="__repartir__":
@@ -179,8 +198,8 @@ def juego(FICHAS):
             correcta=True
             if(correcta==True):
                 #puntaje=corroborarPalabra.puntuacion()
-                print("hola")
-                print(dic)
+                actualizar_fichas(dic,B,window,Atril_jugador,lista)
+                dic={}
             else:
                 actualizando_tablero(dic,tablero,window)
 
