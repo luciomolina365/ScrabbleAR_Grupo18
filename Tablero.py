@@ -218,7 +218,7 @@ def juego(Configuracion):
         if type(event)== tuple and event!= '__TIMEOUT__' : 
             tupla=event
             print(tupla)
-        if type(event)==int and event!= "_poner_" and event!= '__TIMEOUT__' :
+        if type(event)== int and event!= "_poner_" and event!= '__TIMEOUT__' :
             aux=event
             atril=OBJETOS["Atril_jugador"].getFichas_disponibles()
             dato=atril[event]
