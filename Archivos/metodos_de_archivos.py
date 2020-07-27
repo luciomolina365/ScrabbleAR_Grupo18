@@ -150,7 +150,7 @@ def main():
                                                 
     if datos != {}:
         print("Muestra de que se levantaron los datos desde un archivo:  ")
-        print(datos["Temporizador"])
+        print(datos["Tablero"])
     else:
         print("No hay partidas a cargar")
         print("Crea una partida nueva")
