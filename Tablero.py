@@ -1,16 +1,10 @@
 import PySimpleGUI as sg
 import random
-<<<<<<< HEAD
 from Objetos import CLASS_atril
 from Objetos import CLASS_bolsa
 from Objetos import CLASS_temporizador
 from Objetos import CLASS_tablero
 #from corroboro_y_puntuo import corroborarPalabra
-=======
-from CLASS import CLASS_atril
-from CLASS import CLASS_bolsa
-from CLASS import CLASS_temporizador
->>>>>>> 3d44de92f34116adfb30dc2d8d8ee6fd53ea3841
 
 
 def juego(FICHAS):
@@ -107,13 +101,22 @@ def juego(FICHAS):
                 else:
                     window[i].update("",disabled=False,image_filename='imagenes\GRIS.png',image_size=(25, 22))
 
-    def actualizar_fichas(dic,B,window,Atril,lista_K):
-        lista_a_borrar=[]
-        nuevas=B.dameFichas(len(dic))
-        for i in dic.keys():
-            lista_a_borrar.append(dic[i]["letra"])           #lista  su letra
-
-        
+    def actualizar_fichas(lista_a_borrar,B,window,Atril,evento):#lista_K
+        if evento==True:#significa q el evento fue repartir
+            estado=Atril.getEstado()
+            dic={}
+            for letra in lista_a_borrar:
+                if letra in dic.keys():
+                    dic[letra]["cantidad"]=dic[letra]["cantidad"]+1
+                else:
+                    dic[letra]={"cantidad":1,"valor":estado[letra]["valor"]}
+            
+            nuevas=B.intercambiar_fichas(dic)
+        else: #sino el evento fue pasar turno y era una palabra correcta
+            nuevas=B.dameFichas(len(lista_a_borrar))
+            print("lista del pasar turno")
+            print(lista_a_borrar)
+                 
         Atril.sacar_varias_fichas(lista_a_borrar)
 
         Atril.agregar_varias_fichas(nuevas)
@@ -122,17 +125,48 @@ def juego(FICHAS):
         for letra in nuevas:
             for i in range(nuevas[letra]["cantidad"]):#[a,a,b,b,c]
                 listaNueva.append(letra)
-
-
+                
         datos=Atril.getFichas_disponibles()
         for i in range(0,len(datos)):
             window[i].update(datos[i],disabled=False,button_color=('white', 'black'))
                 
+
+
+
     def Crear_diccionario(dic):
         nuevo={}
-        for i in dic.keys():
-            nuevo[i]=dic[i]["letra"]
+        for tupla in dic.keys():
+            nuevo[tupla]=dic[tupla]["letra"]
         return nuevo     
+
+
+
+
+
+    def cambiar_fichas(Atril,Window_principal,B,evento):
+        Fichas=Atril.getFichas_disponibles()
+        layout =[
+                [sg.Button(Fichas[i], key=i,button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)) for i in range(7)],
+                [sg.Button("Confirmar",key="confirmar",font=("Helvetica", 9) ,button_color=('white','grey')),sg.Cancel(font=("Helvetica", 9) ,button_color=('white','grey'))]]
+       
+        window = sg.Window('Seleccione las fichas a cambiar', layout, font='Courier 12',disable_close=True, disable_minimize=True)
+        Seleccionadas=[]
+        while True:
+          event, values= window.read()
+          if type(event)==int: 
+                aux=event
+                dato=Fichas[event]
+                ficha_a_cambiar=formatear(dato)
+                window[event].update(disabled=True, button_color=('black','white'))
+                Seleccionadas.append(ficha_a_cambiar)
+          if(event=="Cancel"):
+            window.close()
+            break  
+          elif(event=="confirmar"):
+              actualizar_fichas(Seleccionadas,B,Window_principal,Atril,evento)
+              window.close()
+              break
+
 
 
 
@@ -142,6 +176,8 @@ def juego(FICHAS):
         'tipo_de_trampa': None, 'recompensa': True, 'tipo_de_recompensa': "x3"}, (8, 15): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (9, 0): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (9, 1): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (9, 2): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (9, 3): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (9, 4): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (9, 5): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (9, 6): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (9, 7): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (9, 8): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (9, 9): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (9, 10): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (9, 11): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (9, 12): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (9, 13): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (9, 14): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (9, 15): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (10, 0): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (10, 1): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (10, 2): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (10, 3): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (10, 4): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (10, 5): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (10, 6): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (10, 7): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (10, 8): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (10, 9): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (10, 10): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (10, 11): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (10, 12): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (10, 13): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (10, 14): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (10, 15): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (11, 0): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (11, 1): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (11, 2): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (11, 3): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (11, 4): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (11, 5): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (11, 6): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (11, 7): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (11, 8): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (11, 9): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (11, 10): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, 
         (11, 11): {'letra': None, 'trampa': True, 'tipo_de_trampa': "-3", 'recompensa': False, 'tipo_de_recompensa': None}, (11, 12): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (11, 13): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (11, 14): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (11, 15): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (12, 0): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (12, 1): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (12, 2): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (12, 3): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (12, 4): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (12, 5): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (12, 6): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (12, 7): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (12, 8): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (12, 9): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (12, 10): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (12, 11): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (12, 12): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (12, 13): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (12, 14): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (12, 15): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (13, 0): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (13, 1): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (13, 2): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (13, 3): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (13, 4): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (13, 5): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (13, 6): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (13, 7): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, 
         (13, 8): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': True, 'tipo_de_recompensa': "x2"}, (13, 9): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (13, 10): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (13, 11): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (13, 12): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (13, 13): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (13, 14): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (13, 15): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (14, 0): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (14, 1): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (14, 2): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (14, 3): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (14, 4): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (14, 5): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (14, 6): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (14, 7): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (14, 8): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (14, 9): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (14, 10): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (14, 11): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (14, 12): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (14, 13): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (14, 14): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (14, 15): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (15, 0): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (15, 1): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (15, 2): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (15, 3): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (15, 4): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (15, 5): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (15, 6): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (15, 7): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (15, 8): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (15, 9): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (15, 10): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (15, 11): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (15, 12): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (15, 13): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (15, 14): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}, (15, 15): {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}}   
+
+
 
     titulo =  [[sg.Text(' '*15)] + [sg.Text("ScrabbleAr", size=(10,1),key="menu")],
     [sg.Text('Tiempo restante'), sg.T(' '*1), sg.Text(size=(10,1), key='-TEMP OUT-')]]
@@ -172,6 +208,7 @@ def juego(FICHAS):
     lista=[]
     tablero=CLASS_tablero.Tablero(TableroD)
     dic={}
+    lista_a_borrar=[]
     while not T.getTERMINO_Temporizador():
         event, values= window.read(timeout=10)
         cantRead = cantRead + 1  
@@ -180,11 +217,7 @@ def juego(FICHAS):
         if type(event)== tuple and event!= '__TIMEOUT__' : 
             tupla=event
             print(tupla)
-<<<<<<< HEAD
         if type(event)==int and event!= "_poner_" and event!= '__TIMEOUT__' :
-=======
-        if type(event)==str and event!= "_poner_" and event!= '__TIMEOUT__' :
->>>>>>> 3d44de92f34116adfb30dc2d8d8ee6fd53ea3841
             aux=event
             atril=Atril_jugador.getFichas_disponibles()
             dato=atril[event]
@@ -203,19 +236,22 @@ def juego(FICHAS):
             lista.append(aux)
             La_ficha=""
             tupla=""
-        #if event=="__repartir__":
-        if event=="__pasar__" and event!= '__TIMEOUT__' :
+        if event=="__repartir__"and event!= '__TIMEOUT__':
+            repartir=True
+            cambiar_fichas(Atril_jugador,window,B,repartir)
+
+        if event=="__pasar__" and event!= '__TIMEOUT__' and dic!={} :
             correcta=True
             if(correcta==True):
-                #puntaje=corroborarPalabra.puntuacion()
-                actualizar_fichas(dic,B,window,Atril_jugador,lista)
+                for i in dic.keys():
+                  lista_a_borrar.append(dic[i]["letra"]) 
+                nuevo=Crear_diccionario(dic)
+                #puntaje=corroborarPalabra.puntuacion()creo q le tengo q pasar nuevo
+                repartir=False
+                actualizar_fichas(lista_a_borrar,B,window,Atril_jugador,repartir)
                 dic={}
+                lista_a_borrar=[]
             else:
                 actualizando_tablero(dic,tablero,window)
 
-
-
-
-            
-        
     print(juego.__doc__)

@@ -11,7 +11,7 @@ titulo =  [[sg.Text("Scrabble", size=(20,10),auto_size_text=True)]]
 
 layout= titulo + [Iniciar + Cargar]
 
-window = sg.Window('ScrabbleAr', layout, font='Courier 12',background_color="black",size=(750,300),disable_close=True, disable_minimize=True,)
+window = sg.Window('ScrabbleAr', layout, font='Courier 12',background_color="black",size=(750,300),disable_close=True, disable_minimize=True)
 
 
 while True:
