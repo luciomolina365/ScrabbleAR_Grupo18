@@ -17,6 +17,9 @@ def instanciar_objetos(Bol , Table , Temp , Atril_jugador , Atril_computadora , 
 
     return {"Bolsa":Bol, "Tablero":Table, "Temporizador":Temp, "Atril_jugador":Atril_jugador, "Atril_computadora":Atril_computadora}
 
+
+#=============================================================
+
 Bol = Bolsa
 Table = Tablero
 Temp = Temporizador
@@ -24,6 +27,7 @@ Atril_computadora = Atril
 Atril_jugador =  Atril
 
 config = obtenerConfiguracion("Archivos\\partidas\\partida_guardada_1.json")
+print(config)
 
 OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,config)
 
