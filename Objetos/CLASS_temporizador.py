@@ -79,6 +79,9 @@ class Temporizador:
     def getTERMINO_Temporizador(self):
         return self.__TERMINO                         #boolean
 
+    def getTiempo(self):
+        return  {"minutos": self.getMinutos(), "segundos": self.getSegundos()}
+
     #====================================================================================================================
 
 

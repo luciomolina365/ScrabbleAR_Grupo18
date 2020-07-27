@@ -36,7 +36,6 @@ class Atril:
     #GETTERS
 
     def getEstado(self):
-        print(self.__fichas_disponibles)
         return self.__estado                                          #EJ. {'A':{'cantidad':2,'valor':1} , 'B':{'cantidad':3,'valor':1}}
 
     def getFichas_disponibles(self):
