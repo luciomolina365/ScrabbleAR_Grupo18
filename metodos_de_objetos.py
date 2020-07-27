@@ -36,4 +36,8 @@ def instanciar_objetos(Bol , Table , Temp , Atril_jugador , Atril_computadora , 
 # print(OBJETOS["Bolsa"].getBolsa())
 
 
+#------------------------------------------------------------------------------------------------------------------------
+#Molina, Lucio Felipe - 15980/7
+
+
 
