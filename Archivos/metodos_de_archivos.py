@@ -4,7 +4,7 @@ from os import rename
 from os import remove
 def obtenerConfiguracion(direccion):                                #Lee un archivo mediante direccion y le da formato util a los datos
         with open(direccion, 'r') as archivo:
-            datos = json.load(archivo)
+            datos = json.load(archivo , encoding='utf-8')
             datos = convertir_Json_A_Datos(datos)
             archivo.close()   
         return datos
@@ -39,7 +39,7 @@ def actualizar_cant_partidas_guardadas():
             predef = "Archivos\\partidas\\partida_guardada_"
             direccion = predef + str(i) + ".json"
             with open(direccion, 'r') as archivo:
-                datos = json.load(archivo)
+                datos = json.load(archivo,encoding='utf-8')
                 datos = convertir_Json_A_Datos(datos)
                 archivo.close()
 
@@ -150,7 +150,7 @@ def main():
                                                 
     if datos != {}:
         print("Muestra de que se levantaron los datos desde un archivo:  ")
-        print(datos["Tablero"])
+        print(datos["Bolsa"])
     else:
         print("No hay partidas a cargar")
         print("Crea una partida nueva")
