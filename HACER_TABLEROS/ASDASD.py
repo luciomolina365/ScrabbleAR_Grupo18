@@ -51,6 +51,7 @@ def juego():
 
 
             
+            
     tabla=CreandoTablero(TableroD,15)
 
 
