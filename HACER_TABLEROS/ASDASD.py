@@ -78,9 +78,9 @@ def juego():
     window = sg.Window('ScrabbleAr', layout, font='Courier 12')
 
     def escribirArchivo(datos):
-            with open('tablero.json', 'w') as archivo:
-                json.dump(datos, archivo)        
-                archivo.close()
+        with open('tablero.json', 'w') as archivo:
+            json.dump(datos, archivo)        
+            archivo.close()
 
     def convertir_Datos_A_Json(datos):
         aux = {}
