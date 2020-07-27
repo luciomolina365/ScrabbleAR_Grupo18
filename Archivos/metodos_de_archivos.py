@@ -1,23 +1,28 @@
 import json
 import PySimpleGUI as sg
 from os import rename
-
-def obtenerConfiguracion(direccion):                                #Lee un archivo mediantu direccion, lee y le da formato util a los datos
+from os import remove
+def obtenerConfiguracion(direccion):                                #Lee un archivo mediante direccion y le da formato util a los datos
         with open(direccion, 'r') as archivo:
             datos = json.load(archivo)
             datos = convertir_Json_A_Datos(datos)
             archivo.close()   
         return datos
 
-def hay_partidas_a_cargar():                                        #Lee el archivo de cantidad de partidas y retorna un booleano
+
+def cant_partidas():
     direccion = "Archivos\\partidas\\cant_partidas.txt"
     f = open(direccion,"r")
     aux = f.readlines()
     f.close()
-   
-    print(aux)
+    return int(aux[0])
 
-    if aux[0] == "0":
+
+def hay_partidas_a_cargar():                                        #Lee el archivo de cantidad de partidas y retorna un booleano
+    
+    cant = cant_partidas()
+
+    if cant == 0:
         return False
     else:
         return True 
@@ -26,9 +31,6 @@ def hay_partidas_a_cargar():                                        #Lee el arch
 def actualizar_cant_partidas_guardadas():
 
     """Actualiza cant_partidas.txt, para, segun sus datos, permitir o no cargar partida"""
-
-
-
 
     i = 1
     while True:                                                     #Cuenta los archivos de partida NO FINALIZADAS 
@@ -43,7 +45,13 @@ def actualizar_cant_partidas_guardadas():
 
             if estaFinalizada(datos):
                 nuevo_nombre = predef + "FINALIZADA" + ".json"
-                rename(direccion, nuevo_nombre)
+                
+                try:
+                    rename(direccion, nuevo_nombre)
+                except FileExistsError:
+                    remove(direccion)
+                
+                    
             else:
                 i = i + 1  
                 
@@ -84,8 +92,32 @@ def estaFinalizada(datos):
     return datos["Finalizada"]
         
 
-def guardar():   #RECIBO LOS DATOS DE LOS OBJETOS Y DEMAS
-    pass
+def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora , puntaje_J , puntaje_C , Finalizada = False):   #RECIBO LOS DATOS DE LOS OBJETOS Y DEMAS
+    actualizar_cant_partidas_guardadas()
+    indice = cant_partidas()
+    direccion = "Archivos\\partidas\\partida_guardada_" +  str(indice+1)  +".json"
+    
+    datos={}
+
+    datos["Tablero"] = Tablero.getEstado()
+    datos["Bolsa"] = Bolsa.getBolsa()
+    datos["Temporizador"] = Temporizador.getTiempo()
+    datos["Atril_jugador"] = Atril_jugador.getEstado()
+    datos["Atril_computadora"] = Atril_computadora.getEstado()
+    datos["Puntaje_jugador"] = puntaje_J
+    datos["Puntaje_computadora"] = puntaje_C
+    datos["Finalizada"] = Finalizada
+
+    datos = convertir_Datos_A_Json(datos)
+
+    with open(direccion, 'w') as archivo:
+            json.dump(datos, archivo)        
+            archivo.close()
+
+    actualizar_cant_partidas_guardadas()
+    
+
+
 
     
 #datos_del_menu --> {"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras":  {'A':{'cantidad':11,'valor':1} , ...} }
