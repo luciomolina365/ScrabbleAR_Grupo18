@@ -20,20 +20,20 @@ def instanciar_objetos(Bol , Table , Temp , Atril_jugador , Atril_computadora , 
 
 #=============================================================
 
-Bol = Bolsa
-Table = Tablero
-Temp = Temporizador
-Atril_computadora = Atril
-Atril_jugador =  Atril
+# Bol = Bolsa
+# Table = Tablero
+# Temp = Temporizador
+# Atril_computadora = Atril
+# Atril_jugador =  Atril
 
-config = obtenerConfiguracion("Archivos\\partidas\\partida_guardada_1.json")
-print(config)
+# config = obtenerConfiguracion("Archivos\\partidas\\partida_guardada_1.json")
+# print(config)
 
-OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,config)
+# OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,config)
 
-guardar_partida(OBJETOS["Bolsa"] , OBJETOS["Tablero"] , OBJETOS["Temporizador"] , OBJETOS["Atril_jugador"] , OBJETOS["Atril_computadora"], 666 , 999, True)
+# guardar_partida(OBJETOS["Bolsa"] , OBJETOS["Tablero"] , OBJETOS["Temporizador"] , OBJETOS["Atril_jugador"] , OBJETOS["Atril_computadora"], 666 , 999, True)
 
-print(OBJETOS["Bolsa"].getBolsa())
+# print(OBJETOS["Bolsa"].getBolsa())
 
 
 

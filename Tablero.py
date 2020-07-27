@@ -187,7 +187,7 @@ def juego(Configuracion):
         cant=17
     else:     
         cant=15 
-    tabla=CreandoTablero(OBJETOS["Tablero"].getEstado(),15)
+    tabla=CreandoTablero(OBJETOS["Tablero"].getEstado(),cant)
 
 
 
