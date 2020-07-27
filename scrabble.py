@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 import webbrowser as wb
 import Tablero
+from Archivos.metodos_de_archivos import definir_configuracion
 
 def jugar():
     def menu():
@@ -28,12 +29,9 @@ def jugar():
         layout = [
             [sg.Menu(menu_def, tearoff=True)],
             [sg.Text('Configuracion del juego scrabble!', size=(40,1), justification='center', font=("Helvetica", 25), relief=sg.RELIEF_RIDGE)],
-            [sg.Text('Ingrese el nombre de la configuracion del nuevo juego ')],
-            [sg.InputText('')],     
-            [sg.Button(("Cargar partida previa"),key="cargar")],
             [sg.Frame(layout=[
             [sg.Checkbox('Datos predefinidos', size=(20,1),default=True,key="_predefinido_",enable_events=True),sg.Text("(Valores predefinidos para las letras)")],
-            [sg.Radio('Dificultad facil  ', "RADIO1", default=True, size=(10,1)), sg.Radio('Dificultad Media!', "RADIO1"),sg.Radio('Dificultad Dificil', "RADIO1")]], title='Configuracion del juego',title_color='red', relief=sg.RELIEF_SUNKEN, tooltip='Use these to set flags')],
+            [sg.Radio('Dificultad facil  ', "Dificultad", default=True, size=(10,1)), sg.Radio('Dificultad Media!', "Dificultad"),sg.Radio('Dificultad Dificil', "Dificultad")]], title='Configuracion del juego',title_color='red', relief=sg.RELIEF_SUNKEN, tooltip='Use these to set flags')],
             [sg.Text("Tiempo de la partida"),sg.Slider(range=(1, 20), orientation='h', size=(13, 25), default_value=10,enable_events=False)],
             [sg.Frame('Puntuacion de letras',[[
                 sg.InputOptionMenu(('A', 'B', 'C','D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'LL', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'RR', 'S', 'T', 'U', 'V', 'V', 'W', 'X', 'Y', 'Z'))],
@@ -42,9 +40,14 @@ def jugar():
                 ],visible=False,key="slider")],
             [sg.Text('_' * 80)],
             [sg.Button(("Top Ten"),key="topTeen")],                #para mostrar una lista con los top ten
-            [sg.Button("Confirmar configuracion"), sg.Cancel("Cancel")],[sg.Button(("Jugar"),key="__jugar__")]]
+            [sg.Button(("Confirmar configuracion"),key="__jugar__") ,sg.Cancel("Cancel")]]
+
+
+
 
         window = sg.Window('Menu', layout, default_element_size=(40, 1), grab_anywhere=False)
+
+
         while True:
             event, values = window.read()
             if values["_predefinido_"]==False:
@@ -52,41 +55,40 @@ def jugar():
             if values["_predefinido_"]==True:
                 window["slider"].update(visible=False)      #si valores predefinidos es verdadero,no mostrar tabla.
             if(event=="_modificar_"):
-                fichas_propias[values[6]]["cantidad"]=int(values[7])    #modifico la cantidad y el valor de las letras
-                fichas_propias[values[6]]["valor"]=int(values[8])
-            print("-"*60)
-            print(fichas_propias)
-            print("-"*60)
-            print(event)
-            print(values)
+                fichas_propias[values[5]]["cantidad"]=int(values[6])    #modifico la cantidad y el valor de las letras
+                fichas_propias[values[5]]["valor"]=int(values[7])
+            
+             #{0: None, '_predefinido_': True, 1: True, 2: False, 3: False, 4: 10.0, 5: 'A', 6: 6.0, 7: 6.0}
 
             # if event=="topTeen":
             #     mostrar la lista de los 10 mejores jugadores
 
-            # if(event=="cargar"):
-                    #Manejo de archivo
 
 
             if(event=="Link del Repositorio"):
                 wb.open("https://github.com/luciomolina365/ScrabbleAR_Grupo18", new=0, autoraise=True)
             elif(event=="Cancel"):
                 break
-            elif(event == "__jugar__"):
-                if(values["_predefinido_"==True]):
-                    window.close()
-                    Tablero.juego(fichas_predefinidas)
+            elif(event == "__jugar__"):        #indico en una variable q dificultad va a tener el juego
+                if values[1]==True:
+                    Dificultad_final=1
+                elif values[2]==True:
+                    Dificultad_final=2
                 else:
-                    window.close()
-                    Tablero.juego(fichas_propias)
-            # if(event=="Confirmar configuracion"):
-            
-                # if values[2]==True:
-                #     Dificultad="Facil"
-                # elif values[3]==True:
-                #     Dificultad="Medio"
-                # else:
-                #     Dificultad="Dificil"
-                # tiempo=int(values[5])  
+                    Dificultad_final=3
+                if(values["_predefinido_"==True]):
+                    fichas_finales=fichas_predefinidas
+                else:
+                    fichas_finales=fichas_propias
+            #{"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras":    
+                Configuracion={}
+                Configuracion["minutos"]=values[4]
+                Configuracion["dificultad"]=Dificultad_final
+                Configuracion["letras"]=fichas_finales
+                
+                Config=definir_configuracion(Configuracion)
+                Tablero.juego(Config)
+                window.close()
         window.close()
         print(menu.__doc__)
     menu()

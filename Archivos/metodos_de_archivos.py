@@ -129,7 +129,7 @@ def definir_configuracion(datos_del_menu):
 
 
 
-    direccion = "Archivos\\configuracion\\por_defecto_" +  datos_del_menu["dificultad"]   +  ".json"        #Cargamos una dificultad
+    direccion = "Archivos\\configuracion\\por_defecto_" +  str(datos_del_menu["dificultad"])   +  ".json"        #Cargamos una dificultad
     config_por_defecto = obtenerConfiguracion(direccion)        
     
     config_por_defecto["Dificultad"] = datos_del_menu["dificultad"]
