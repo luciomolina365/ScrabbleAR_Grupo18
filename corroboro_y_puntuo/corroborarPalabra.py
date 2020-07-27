@@ -63,20 +63,25 @@ def __informacion_de_turno(diccionario_que_recibe_del_tablero):
     if(__corroboro_palabra(haciaIzq)[0]==True):
         if(posiciones_validas.__posiciones_validas(haciaIzq)==True):
             info_final = __retorno_puntuacion()
+            ok = True
         else:
-            info_final = "TU PALABRA ES CORRECTA PERO, NO LA UBICASTE CORRECTAMENTE!!!"        
+            info_final = "TU PALABRA ES CORRECTA PERO, NO LA UBICASTE CORRECTAMENTE!!!"
+            ok = False
     elif(__corroboro_palabra(haciaDer)[0]==True):
         if(posiciones_validas.__posiciones_validas(haciaDer)==True):
             info_final = __retorno_puntuacion()
+            ok = True
         else:
             info_final = "TU PALABRA ES CORRECTA PERO, NO LA UBICASTE CORRECTAMENTE!!!"
+            ok = False
     else:
         info_final = "INGRESASTE UNA PALABRA INCORRECTA, MEJOR SUERTE EN EL PROXIMO TURNO"
+        ok=False
     
-    return info_final
+    return(ok,info_final)
 #-----------------------------------------------------------------------------------
 #TESTEOS, funcionan
-palabra = __informacion_de_turno(dic2)
-print(palabra)
+#palabra = __informacion_de_turno(dic2)
+#print(palabra)
 
 #print(corroboro_palabra.__doc__)

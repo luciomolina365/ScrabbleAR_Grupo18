@@ -1,17 +1,9 @@
 import PySimpleGUI as sg
 import random
-<<<<<<< HEAD
 from Objetos import CLASS_atril
 from Objetos import CLASS_bolsa
 from Objetos import CLASS_temporizador
 from Objetos import CLASS_tablero
-#from corroboro_y_puntuo import corroborarPalabra
-=======
-from CLASS import CLASS_atril
-from CLASS import CLASS_bolsa
-from CLASS import CLASS_temporizador
->>>>>>> 3d44de92f34116adfb30dc2d8d8ee6fd53ea3841
-
 
 def juego(FICHAS):
     sg.theme('Topanga')
@@ -180,11 +172,7 @@ def juego(FICHAS):
         if type(event)== tuple and event!= '__TIMEOUT__' : 
             tupla=event
             print(tupla)
-<<<<<<< HEAD
-        if type(event)==int and event!= "_poner_" and event!= '__TIMEOUT__' :
-=======
-        if type(event)==str and event!= "_poner_" and event!= '__TIMEOUT__' :
->>>>>>> 3d44de92f34116adfb30dc2d8d8ee6fd53ea3841
+        if type(event)== int and event!= "_poner_" and event!= '__TIMEOUT__' :
             aux=event
             atril=Atril_jugador.getFichas_disponibles()
             dato=atril[event]
