@@ -47,6 +47,8 @@ def juego(Configuracion):
     if len(Lista_j)==0 and len(Lista_c)==0:
         OBJETOS["Atril_jugador"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
         OBJETOS["Atril_computadora"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
+
+
     def cant_fichas_tablero_jugador(Lista_j): #Seteo cant fichas
         fichas=[]
         for i in range(len(Lista_j)):
@@ -187,7 +189,7 @@ def juego(Configuracion):
         cant=17
     else:     
         cant=15 
-    tabla=CreandoTablero(OBJETOS["Tablero"].getEstado(),15)
+    tabla=CreandoTablero(OBJETOS["Tablero"].getEstado(),cant)
 
 
 
