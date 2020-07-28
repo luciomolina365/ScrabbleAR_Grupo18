@@ -1,48 +1,33 @@
 #Facil 19x19 medio(9,9) . Medio 17x17 medio(8,8) . Dificil 15x15 medio(7,7)
 from random import randint,randrange
-from corroboro_y_puntuo.corroborarPalabra import __informacion_de_turno
+import corroboro_y_puntuo
 from Objetos import CLASS_tablero
 from Objetos import CLASS_atril
 from Objetos import CLASS_bolsa
 
-__bolsa = {'A':{'cantidad':11,'valor':1}, 'B':{'cantidad':3,'valor':1}, 'C':{'cantidad':4,'valor':1}, 'D':{'cantidad':4,'valor':1}, 
+__configuracion = {'A':{'cantidad':11,'valor':1}, 'B':{'cantidad':3,'valor':1}, 'C':{'cantidad':4,'valor':1}, 'D':{'cantidad':4,'valor':1}, 
 'E':{'cantidad':11,'valor':2}, 'F':{'cantidad':2,'valor':1}, 'G':{'cantidad':2,'valor':1}, 'H':{'cantidad':2,'valor':1}, 'I':{'cantidad':6,'valor':1}, 
 'J':{'cantidad':2,'valor':1}, 'K':{'cantidad':1,'valor':1}, 'L':{'cantidad':4,'valor':1}, 'LL':{'cantidad':1,'valor':1}, 'M':{'cantidad':3,'valor':1}, 
 'N':{'cantidad':5,'valor':1}, 'Ñ':{'cantidad':1,'valor':1}, 'O':{'cantidad':8,'valor':2}, 'P':{'cantidad':2,'valor':2}, 'Q':{'cantidad':1,'valor':1}, 
 'R':{'cantidad':4,'valor':1}, 'RR':{'cantidad':1,'valor':8}, 'S':{'cantidad':7,'valor':1}, 'T':{'cantidad':4,'valor':1}, 'U':{'cantidad':6,'valor':1},
 'V':{'cantidad':2,'valor':1}, 'W':{'cantidad':1,'valor':1}, 'X':{'cantidad':1,'valor':1}, 'Y':{'cantidad':1,'valor':1}, 'Z':{'cantidad':1,'valor':2}}
 
-__tablero ={(8, 8):{"letra": '',#9
+__palabra ={(7, 9):{"letra": 'RR',#9
                 "trampa": True,
                 "tipo_de_trampa": 1,
                 "recompensa": False,
                 "tipo_de_recompensa": None},
-        (8, 9):{"letra": "", #6
+        (7, 5):{"letra": "O", #6
                 "trampa": False,
                 "tipo_de_trampa": None,
                 "recompensa": True,
                 "tipo_de_recompensa": 3},
-        (8, 10):{"letra": "", #2
+        (7, 2):{"letra": "Z", #2
                 "trampa": False,
                 "tipo_de_trampa": None,
                 "recompensa": True,
                 "tipo_de_recompensa": 2},
-        (8, 11):{"letra": "", #0
-                "trampa": True,
-                "tipo_de_trampa": 2,
-                "recompensa": False,
-                "tipo_de_recompensa": None},
-        (8, 12):{"letra": "", #0
-                "trampa": True,
-                "tipo_de_trampa": 2,
-                "recompensa": False,
-                "tipo_de_recompensa": None},
-        (8, 13):{"letra": "", #0
-                "trampa": True,
-                "tipo_de_trampa": 2,
-                "recompensa": False,
-                "tipo_de_recompensa": None},
-        (8, 14):{"letra": "", #0
+        (7, 3):{"letra": "O", #0
                 "trampa": True,
                 "tipo_de_trampa": 2,
                 "recompensa": False,
@@ -54,8 +39,9 @@ __tablero ={(8, 8):{"letra": '',#9
 #La dificultad entra al llamar la jugabilidad de la IA
 atril = ["Z","O","O","RR","RR","O","O"] #CLASS_atril.Atril.getFichas_disponibles()
 
-#Si el turno es False = empieza el jugador, si es True, empieza la IA
-def __jugabilidad_IA(tablero,atril,bolsa,dificultad,turno):
+#Si el turno es False = empieza el jugador, si es True, empieza la IA, esto se maneja afuera para que si, le toca el primer turno, despues se lo cambia y se pone optimo a jugar
+def __jugabilidad_IA(__palabra,atril,__configuracion,dificultad,turno):
+
     #Reviso la dificultad que entra de la configuracion
     #Seteo valores de cantidad de jugadas y los puntos medios de la IA por si empieza a jugar
     if(dificultad==1):

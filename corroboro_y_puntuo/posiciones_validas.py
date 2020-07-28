@@ -1,9 +1,5 @@
-dic2 = {(1, 8): 'O', (3, 9): 'O', (4, 8): 'Z', (2, 8): 'RR'}
-#Ordeno el diccionario por posiciones de menor a mayor
-haciaIzq=dict(sorted(dic2.items(), key = lambda diccio: diccio[0]))
-
-#Ordeno el diccionario por posiciones de mayor a menor
-haciaDer=dict(sorted(dic2.items(), key = lambda diccio: diccio[0],reverse=True))
+#Asi es el diccionario que tiene que entrar a esta funcion
+#dic2 = {(1, 8): 'O', (3, 9): 'O', (4, 8): 'Z', (2, 8): 'RR'}
 
 
 def __posiciones_validas(diccionario):
