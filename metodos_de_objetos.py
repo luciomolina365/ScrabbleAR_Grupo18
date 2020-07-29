@@ -1,5 +1,5 @@
 
-from Archivos.metodos_de_archivos  import obtenerConfiguracion
+from Archivos.metodos_de_archivos  import cargarPartida
 from Archivos.metodos_de_archivos  import guardar_partida
 from Objetos.CLASS_bolsa import Bolsa
 from Objetos.CLASS_tablero import Tablero
@@ -26,7 +26,7 @@ def instanciar_objetos(Bol , Table , Temp , Atril_jugador , Atril_computadora , 
 # Atril_computadora = Atril
 # Atril_jugador =  Atril
 
-# config = obtenerConfiguracion("Archivos\\partidas\\partida_guardada_1.json")
+# config = cargarPartida("Archivos\\partidas\\partida_guardada_1.json")
 # print(config)
 
 # OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,config)

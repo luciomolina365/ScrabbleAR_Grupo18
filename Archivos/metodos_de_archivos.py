@@ -3,7 +3,11 @@ import PySimpleGUI as sg
 from os import rename
 from os import remove
 
+#dificultad --> int del 1 al 3
 def cargarConfiguracionPorDefecto(dificultad):
+
+    """Devuelve los datos de una configuracion por defecto dependiendo de la dificultad que recibe por parametro"""
+
     direccion = "Archivos\\configuracion\\por_defecto_" + str(dificultad) +".json"
     datos = cargarPartida(direccion)
     return datos
@@ -33,7 +37,9 @@ def cant_partidas(Finalizada = False):
     return int(aux[0])
 
 
-def hay_partidas_a_cargar():                                        #Lee el archivo de cantidad de partidas y retorna un booleano
+def hay_partidas_a_cargar():
+
+    """Lee el archivo de cantidad de partidas y retorna un booleano"""                                        
     
     cant = cant_partidas()
 
@@ -141,6 +147,7 @@ def __TEST_GUARDAR(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computa
 
     actualizar_cant_partidas_guardadas(Finalizada)
 
+
 #Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora --> Objetos
 #puntaje_J , puntaje_C --> int
 #dificultad --> int del 1 al 3
@@ -205,9 +212,9 @@ def main():
     datos = cargarConfiguracionPorDefecto(dificil)         
                                                 
     if datos != {}:
-        #ESTE TEST NO ES LO QUE HAY QUE HACER (ES UN EJEMPLO PARA USARLO EN EL MOMENTO)
+        # ESTE TEST NO ES LO QUE HAY QUE HACER (ES UN EJEMPLO PARA USARLO EN EL MOMENTO)
         __TEST_GUARDAR(datos["Bolsa"] , datos["Tablero"] , datos["Temporizador"] , datos["Atril_jugador"] , datos["Atril_computadora"] , 123 , 321 , datos["Dificultad"] , True)
-        
+        # SE USA ASI :
         # OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,config)
         # SE USAN LOS OBJETOS
         # guardar_partida(OBJETOS["Bolsa"] , OBJETOS["Tablero"] , OBJETOS["Temporizador"] , OBJETOS["Atril_jugador"] , OBJETOS["Atril_computadora"], 666 , 999, True)
