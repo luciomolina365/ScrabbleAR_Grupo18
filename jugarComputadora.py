@@ -87,28 +87,28 @@ def __jugabilidad_IA(__palabra,atril,__configuracion,dificultad,turno):
             pos_dir = 0 #randint(0,d)
             if((direcciones[pos_dir]==1)and(ok==True)):
                 for i in range(0,len(palabra),1):
-                    if(__tablero[pos[0],pos[1]+i]['letra']!=""):
+                    if(__palabra[pos[0],pos[1]+i]['letra']!=""):
                     #if(tablero.getDatosEnCoor((pos[0],pos[1]+i))['letra'] !=""):
                         ok = False
                     else:
                         direFinal = 1
             #elif((direcciones[pos_dir])and(ok==True)):
             #    for i in range(0,len(palabra),1):
-            #        if(__tablero[pos[0]+i,pos[1]]['letra']!=""):
+            #        if(__palabra[pos[0]+i,pos[1]]['letra']!=""):
             #        #if(tablero.getDatosEnCoor((pos[0]+i,pos[1]))['letra'] !=""):
             #            ok = False
             #        else:
             #            direFinal = 2
             #elif((direcciones[pos_dir])and(ok==True)):
             #    for i in range(0,len(palabra),1):
-            #        if(__tablero[pos[0],pos[1]-i]['letra']!=""):
+            #        if(__palabra[pos[0],pos[1]-i]['letra']!=""):
             #        #if(tablero.getDatosEnCoor((pos[0],pos[1]-i))['letra'] !=""):
             #            ok = False
             #        else:
             #            direFinal = 3
             #elif((direcciones[pos_dir])and(ok==True)):
             #    for i in range(0,len(palabra),1):
-            #        if(__tablero[pos[0]-i,pos[1]]['letra']!=""):
+            #        if(__palabra[pos[0]-i,pos[1]]['letra']!=""):
             #        #if(tablero.getDatosEnCoor((pos[0]-i,pos[1]))['letra'] !=""):
             #            ok = False
             #        else:
@@ -143,16 +143,16 @@ def __jugabilidad_IA(__palabra,atril,__configuracion,dificultad,turno):
         
         if(direccion==1):
             for i in range(0,len(palabra),1):
-                tablero.setValorEnCoor((pos[0],pos[1]+i),palabra[i])
+                __palabra.setValorEnCoor((pos[0],pos[1]+i),palabra[i])
         elif(direccion==2):
             for i in range(0,len(palabra),1):
-                tablero.setValorEnCoor((pos[0]+i,pos[1]),palabra[i])
+                __palabra.setValorEnCoor((pos[0]+i,pos[1]),palabra[i])
         elif(direccion==3):
             for i in range(0,len(palabra),1):
-                tablero.setValorEnCoor((pos[0],pos[1]-i),palabra[i])
+                __palabra.setValorEnCoor((pos[0],pos[1]-i),palabra[i])
         else:
             for i in range(0,len(palabra),1):
-                tablero.setValorEnCoor((pos[0]-1,pos[1]),palabra[i])
+                __palabra.setValorEnCoor((pos[0]-1,pos[1]),palabra[i])
     
     #-----------------------------------------------------------------------------------------------------------------------------------
 
@@ -183,4 +183,4 @@ def __jugabilidad_IA(__palabra,atril,__configuracion,dificultad,turno):
                 else:
                     print(sigue[1])
 
-print(__jugabilidad_IA(__tablero,atril,__bolsa,2,True))
+print(__jugabilidad_IA(__palabra,atril,__configuracion,2,True))
