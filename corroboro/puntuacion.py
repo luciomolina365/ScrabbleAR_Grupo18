@@ -34,13 +34,22 @@ def __puntuar_jugador(__palabra,__configuracion,__palabra_lista):
         
         if(trampa == True):
             valor_trampa = __palabra[coor]['tipo_de_trampa']
-
-            puntuacion_letra = valor - valor_trampa
+            if(valor_trampa == "-1"):
+                puntuacion_letra = valor - 1
+            
+            if(valor_trampa == "-2"):
+                puntuacion_letra = valor - 2
+            
+            if(valor_trampa == "-3"):
+                puntuacion_letra = valor - 3
 
         elif(bonus == True):
             valor_bonus = __palabra[coor]['tipo_de_recompensa']
-
-            puntuacion_letra = valor * valor_bonus
+            if(valor_bonus == "x2"):
+                puntuacion_letra = valor * 2
+            
+            if(valor_bonus == "x3"):
+                puntuacion_letra = valor * 3
 
         else:
 

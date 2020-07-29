@@ -1,6 +1,6 @@
 #Facil 19x19 medio(9,9) . Medio 17x17 medio(8,8) . Dificil 15x15 medio(7,7)
 from random import randint,randrange
-import corroboro_y_puntuo
+from corroboro.corroborarPalabra import __retorno_informacion
 from Objetos import CLASS_tablero
 from Objetos import CLASS_atril
 from Objetos import CLASS_bolsa
@@ -87,28 +87,28 @@ def __jugabilidad_IA(__palabra,atril,__configuracion,dificultad,turno):
             pos_dir = 0 #randint(0,d)
             if((direcciones[pos_dir]==1)and(ok==True)):
                 for i in range(0,len(palabra),1):
-                    if(__tablero[pos[0],pos[1]+i]['letra']!=""):
+                    if(__palabra[pos[0],pos[1]+i]['letra']!=""):
                     #if(tablero.getDatosEnCoor((pos[0],pos[1]+i))['letra'] !=""):
                         ok = False
                     else:
                         direFinal = 1
             #elif((direcciones[pos_dir])and(ok==True)):
             #    for i in range(0,len(palabra),1):
-            #        if(__tablero[pos[0]+i,pos[1]]['letra']!=""):
+            #        if(__palabra[pos[0]+i,pos[1]]['letra']!=""):
             #        #if(tablero.getDatosEnCoor((pos[0]+i,pos[1]))['letra'] !=""):
             #            ok = False
             #        else:
             #            direFinal = 2
             #elif((direcciones[pos_dir])and(ok==True)):
             #    for i in range(0,len(palabra),1):
-            #        if(__tablero[pos[0],pos[1]-i]['letra']!=""):
+            #        if(__palabra[pos[0],pos[1]-i]['letra']!=""):
             #        #if(tablero.getDatosEnCoor((pos[0],pos[1]-i))['letra'] !=""):
             #            ok = False
             #        else:
             #            direFinal = 3
             #elif((direcciones[pos_dir])and(ok==True)):
             #    for i in range(0,len(palabra),1):
-            #        if(__tablero[pos[0]-i,pos[1]]['letra']!=""):
+            #        if(__palabra[pos[0]-i,pos[1]]['letra']!=""):
             #        #if(tablero.getDatosEnCoor((pos[0]-i,pos[1]))['letra'] !=""):
             #            ok = False
             #        else:
@@ -143,16 +143,16 @@ def __jugabilidad_IA(__palabra,atril,__configuracion,dificultad,turno):
         
         if(direccion==1):
             for i in range(0,len(palabra),1):
-                tablero.setValorEnCoor((pos[0],pos[1]+i),palabra[i])
+                __palabra.setValorEnCoor((pos[0],pos[1]+i),palabra[i])
         elif(direccion==2):
             for i in range(0,len(palabra),1):
-                tablero.setValorEnCoor((pos[0]+i,pos[1]),palabra[i])
+                __palabra.setValorEnCoor((pos[0]+i,pos[1]),palabra[i])
         elif(direccion==3):
             for i in range(0,len(palabra),1):
-                tablero.setValorEnCoor((pos[0],pos[1]-i),palabra[i])
+                __palabra.setValorEnCoor((pos[0],pos[1]-i),palabra[i])
         else:
             for i in range(0,len(palabra),1):
-                tablero.setValorEnCoor((pos[0]-1,pos[1]),palabra[i])
+                __palabra.setValorEnCoor((pos[0]-1,pos[1]),palabra[i])
     
     #-----------------------------------------------------------------------------------------------------------------------------------
 
@@ -163,7 +163,7 @@ def __jugabilidad_IA(__palabra,atril,__configuracion,dificultad,turno):
             direccion = __pos_valida_IA(medio,palabra)[1]
             if(posOK==True):
                 jugada_IA = __armo_estructura_IA(palabra,medio,direccion)
-                sigue = __informacion_de_turno(jugada_IA)
+                sigue = __retorno_informacion(jugada_IA,__configuracion)
                 if(sigue[0]==True):
                     print("RESULTAAAAADO")
                     print(sigue[1])
@@ -176,11 +176,11 @@ def __jugabilidad_IA(__palabra,atril,__configuracion,dificultad,turno):
             direccion = __pos_valida_IA(medio,palabra)[1]
             if(posOK==True):
                 jugada_IA = __armo_estructura_IA(palabra,medio,direccion)
-                sigue = __informacion_de_turno(jugada_IA)
+                sigue = __retorno_informacion(jugada_IA,__configuracion)
                 if(sigue[0]==True):
                     print("RESULTAAAAADO")
                     print(sigue[1])
                 else:
                     print(sigue[1])
 
-print(__jugabilidad_IA(__tablero,atril,__bolsa,2,True))
+print(__jugabilidad_IA(__palabra,atril,__configuracion,2,True))

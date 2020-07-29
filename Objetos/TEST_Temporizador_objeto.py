@@ -11,7 +11,7 @@ window = sg.Window('Temporizador', layout, font='Default -24', return_keyboard_e
 T = Temporizador(0,45)                         #Necesario 
 cantRead = 0                                    #Necesario 
 
-while not T.getTERMINO_Temporizador() :                #T.getTERMINO_Reloj() Necesario             
+while not T.getTERMINO_Temporizador() :                #T.getTERMINO_Temporizador() Necesario             
     event, values = window.read(timeout=10)     #timeout=10 Necesario
     cantRead = cantRead + 1                     #Necesario
     print(event)
