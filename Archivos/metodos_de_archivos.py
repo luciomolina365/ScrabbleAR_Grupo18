@@ -3,12 +3,12 @@ import PySimpleGUI as sg
 from os import rename
 from os import remove
 
-def cargarConfiguracion(dificultad):
+def cargarConfiguracionPorDefecto(dificultad):
     direccion = "Archivos\\configuracion\\por_defecto_" + str(dificultad) +".json"
-    datos = obtenerConfiguracion(direccion)
+    datos = cargarPartida(direccion)
     return datos
 
-def obtenerConfiguracion(direccion):
+def cargarPartida(direccion):
 
         """Lee un archivo mediante direccion, le da formato útil a los datos y los retorna.
         (sirve para cargar una partida guardada y para cargar los datos por defecto)."""
@@ -187,9 +187,8 @@ def definir_configuracion(datos_del_menu):
     """Despues que se confirme la configuracion personalizada en el menu, se modifica la dificultad seleccionada.
     Desde este punto, los datos se usan en metodos y para instanciar objetos.
     (Esta configuracion se persiste en un archivo cuando termine la partida o se guarde)"""
-
-    direccion = "Archivos\\configuracion\\por_defecto_" +  str(datos_del_menu["dificultad"])   +  ".json"        #Cargamos una dificultad
-    config_por_defecto = obtenerConfiguracion(direccion)        
+      
+    config_por_defecto = cargarConfiguracionPorDefecto(datos_del_menu["dificultad"])                        #Cargamos una dificultad
     
     config_por_defecto["Dificultad"] = datos_del_menu["dificultad"]
     config_por_defecto["Temporizador"]["minutos"] = datos_del_menu["minutos"]                               #Seteamos los cambios                            
@@ -203,7 +202,7 @@ def main():
     #medio = 2
     dificil = 3
 
-    datos = cargarConfiguracion(dificil)         
+    datos = cargarConfiguracionPorDefecto(dificil)         
                                                 
     if datos != {}:
         #ESTE TEST NO ES LO QUE HAY QUE HACER (ES UN EJEMPLO PARA USARLO EN EL MOMENTO)
