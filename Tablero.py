@@ -89,9 +89,8 @@ def juego(Configuracion):
             tablero=tablero+lista1
         return tablero
 
-    def actualizando_tablero(dic,Tablero,window):#Aca vuelven la tabla a su estado original si el jugador pone una palabra erronea
+    def actualizando_tablero(dic,Tablero,window,Lista_k):#Aca vuelven la tabla a su estado original si el jugador pone una palabra erronea
         for i in dic.keys():
-                window[dic[i]["letra"]].update(disabled=False, button_color=('white', 'black'))
                 Tablero.setValorEnCoor(i,"")
                 lugar=Tablero.getDatosEnCoor(i)
                 print(i)
@@ -110,6 +109,13 @@ def juego(Configuracion):
                         window[i].update("",disabled=False,image_filename='imagenes\multiplicador x3.png',image_size=(25, 22))
                 else:
                     window[i].update("",disabled=False,image_filename='imagenes\GRIS.png',image_size=(25, 22))
+        print(Lista_k)
+        for i in Lista_k:
+            window[i].update(disabled=False, button_color=('white', 'black'))
+
+
+        #window[dic[i]["letra"]].update(disabled=False, button_color=('white', 'black'))
+
 
     def actualizar_fichas(lista_a_borrar,B,window,Atril,evento):#lista_K
         if evento==True:#significa q el evento fue repartir
@@ -143,11 +149,11 @@ def juego(Configuracion):
 
 
 
-    def Crear_diccionario(dic):
-        nuevo={}
-        for tupla in dic.keys():
-            nuevo[tupla]=dic[tupla]["letra"]
-        return nuevo     
+    # def Crear_diccionario(dic):
+    #     nuevo={}
+    #     for tupla in dic.keys():
+    #         nuevo[tupla]=dic[tupla]["letra"]
+    #     return nuevo     
 
 
 
@@ -210,11 +216,11 @@ def juego(Configuracion):
 
     La_ficha=""
     tupla=""
-    lista=[]
     dic={}
     lista_a_borrar=[]
     puntaje_C=0
     puntaje_J=0
+    Lista_k=[]
     Finalizada=False
     while not OBJETOS["Temporizador"].getTERMINO_Temporizador():
         event, values= window.read(timeout=10)
@@ -223,13 +229,14 @@ def juego(Configuracion):
         window['-TEMP OUT-'].update(str(OBJETOS["Temporizador"].getMinutos()) + ":"+ str(OBJETOS["Temporizador"].getSegundos()) + ' min')       
         if type(event)== tuple and event!= '__TIMEOUT__' : 
             tupla=event
-            print(tupla)
+            
         if type(event)== int and event!= "_poner_" and event!= '__TIMEOUT__' :
             aux=event
+            print(event)
             atril=OBJETOS["Atril_jugador"].getFichas_disponibles()
             dato=atril[event]
             La_ficha=formatear(dato)
-            print(La_ficha)
+            
         if event == "__exit__" and event!= '__TIMEOUT__' :
             window.close()
             break
@@ -242,26 +249,28 @@ def juego(Configuracion):
             window[tupla].update(La_ficha,disabled=True,button_color=('','white'),image_filename='', image_size=(23, 20))
             dic[tupla]=OBJETOS["Tablero"].getDatosEnCoor(tupla)
             dic[tupla]["letra"]=La_ficha
-            lista.append(aux)
+            Lista_k.append(aux)
             La_ficha=""
             tupla=""
-        if event=="__repartir__"and event!= '__TIMEOUT__':
+        if event=="__repartir__"and event!= '__TIMEOUT__'and dic=={}:
             repartir=True
             cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir)
 
         if event=="__pasar__" and event!= '__TIMEOUT__' and dic!={} :
-            correcta=True
+            correcta=False
             if(correcta==True):
                 for i in dic.keys():
                   lista_a_borrar.append(dic[i]["letra"]) 
-                nuevo=Crear_diccionario(dic)
-                #puntaje=corroborarPalabra.puntuacion()creo q le tengo q pasar nuevo
+                #nuevo=Crear_diccionario(dic)
+                #puntaje=corroborarPalabra.puntuacion() 
                 repartir=False
                 actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir)
-                puntaje_J=puntaje_J + 2
                 dic={}
                 lista_a_borrar=[]
+                Lista_k=[]
             else:
-                actualizando_tablero(dic,OBJETOS["Tablero"],window)
+                actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
+                dic={}
+                Lista_k=[]
 
     print(juego.__doc__)
