@@ -1,6 +1,6 @@
 #Facil 19x19 medio(9,9) . Medio 17x17 medio(8,8) . Dificil 15x15 medio(7,7)
 from random import randint,randrange
-import corroboro_y_puntuo
+from corroboro.corroborarPalabra import __retorno_informacion
 from Objetos import CLASS_tablero
 from Objetos import CLASS_atril
 from Objetos import CLASS_bolsa
@@ -163,7 +163,7 @@ def __jugabilidad_IA(__palabra,atril,__configuracion,dificultad,turno):
             direccion = __pos_valida_IA(medio,palabra)[1]
             if(posOK==True):
                 jugada_IA = __armo_estructura_IA(palabra,medio,direccion)
-                sigue = __informacion_de_turno(jugada_IA)
+                sigue = __retorno_informacion(jugada_IA,__configuracion)
                 if(sigue[0]==True):
                     print("RESULTAAAAADO")
                     print(sigue[1])
@@ -176,7 +176,7 @@ def __jugabilidad_IA(__palabra,atril,__configuracion,dificultad,turno):
             direccion = __pos_valida_IA(medio,palabra)[1]
             if(posOK==True):
                 jugada_IA = __armo_estructura_IA(palabra,medio,direccion)
-                sigue = __informacion_de_turno(jugada_IA)
+                sigue = __retorno_informacion(jugada_IA,__configuracion)
                 if(sigue[0]==True):
                     print("RESULTAAAAADO")
                     print(sigue[1])

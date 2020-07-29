@@ -1,39 +1,38 @@
 from pattern.text.es import parse, verbs, split, lexicon, spelling
-#from Objetos.CLASS_bolsa import Bolsa
-import puntuacion
-import posiciones_validas
+from corroboro import puntuacion
+from corroboro import posiciones_validas
 
 #Va a recibir un diccionario con este formato: {(x,y):'letra',...}
 #Corroboro al derecha y al reves, esta palabra que me manda el tablero
-__palabra ={(4, 2):{"letra": 'RR',#9
-                "trampa": True,
-                "tipo_de_trampa": 1,
-                "recompensa": False,
-                "tipo_de_recompensa": None},
-        (4, 3):{"letra": "O", #6
-                "trampa": False,
-                "tipo_de_trampa": None,
-                "recompensa": True,
-                "tipo_de_recompensa": 3},
-        (4, 4):{"letra": "Z", #2
-                "trampa": False,
-                "tipo_de_trampa": None,
-                "recompensa": True,
-                "tipo_de_recompensa": 2},
-        (4, 1):{"letra": "O", #0
-                "trampa": True,
-                "tipo_de_trampa": 2,
-                "recompensa": False,
-                "tipo_de_recompensa": None}}
+#__palabra ={(4, 2):{"letra": 'RR',#9
+#                "trampa": True,
+#                "tipo_de_trampa": 1,
+#                "recompensa": False,
+#                "tipo_de_recompensa": None},
+#        (4, 3):{"letra": "O", #6
+#                "trampa": False,
+#                "tipo_de_trampa": None,
+#                "recompensa": True,
+#                "tipo_de_recompensa": 3},
+#        (4, 4):{"letra": "Z", #2
+#                "trampa": False,
+#                "tipo_de_trampa": None,
+#                "recompensa": True,
+#                "tipo_de_recompensa": 2},
+#        (4, 1):{"letra": "O", #0
+#                "trampa": True,
+#                "tipo_de_trampa": 2,
+#                "recompensa": False,
+#                "tipo_de_recompensa": None}}
 
 #__configuracion = bolsa.getEstado()
 
-__configuracion = {'A':{'cantidad':11,'valor':1}, 'B':{'cantidad':3,'valor':1}, 'C':{'cantidad':4,'valor':1}, 'D':{'cantidad':4,'valor':1}, 
-'E':{'cantidad':11,'valor':2}, 'F':{'cantidad':2,'valor':1}, 'G':{'cantidad':2,'valor':1}, 'H':{'cantidad':2,'valor':1}, 'I':{'cantidad':6,'valor':1}, 
-'J':{'cantidad':2,'valor':1}, 'K':{'cantidad':1,'valor':1}, 'L':{'cantidad':4,'valor':1}, 'LL':{'cantidad':1,'valor':1}, 'M':{'cantidad':3,'valor':1}, 
-'N':{'cantidad':5,'valor':1}, 'Ñ':{'cantidad':1,'valor':1}, 'O':{'cantidad':8,'valor':3}, 'P':{'cantidad':2,'valor':2}, 'Q':{'cantidad':1,'valor':1}, 
-'R':{'cantidad':4,'valor':1}, 'RR':{'cantidad':1,'valor':10}, 'S':{'cantidad':7,'valor':1}, 'T':{'cantidad':4,'valor':1}, 'U':{'cantidad':6,'valor':1},
-'V':{'cantidad':2,'valor':1}, 'W':{'cantidad':1,'valor':1}, 'X':{'cantidad':1,'valor':1}, 'Y':{'cantidad':1,'valor':1}, 'Z':{'cantidad':1,'valor':5}}
+#__configuracion = {'A':{'cantidad':11,'valor':1}, 'B':{'cantidad':3,'valor':1}, 'C':{'cantidad':4,'valor':1}, 'D':{'cantidad':4,'valor':1}, 
+#'E':{'cantidad':11,'valor':2}, 'F':{'cantidad':2,'valor':1}, 'G':{'cantidad':2,'valor':1}, 'H':{'cantidad':2,'valor':1}, 'I':{'cantidad':6,'valor':1}, 
+#'J':{'cantidad':2,'valor':1}, 'K':{'cantidad':1,'valor':1}, 'L':{'cantidad':4,'valor':1}, 'LL':{'cantidad':1,'valor':1}, 'M':{'cantidad':3,'valor':1}, 
+#'N':{'cantidad':5,'valor':1}, 'Ñ':{'cantidad':1,'valor':1}, 'O':{'cantidad':8,'valor':3}, 'P':{'cantidad':2,'valor':2}, 'Q':{'cantidad':1,'valor':1}, 
+#'R':{'cantidad':4,'valor':1}, 'RR':{'cantidad':1,'valor':10}, 'S':{'cantidad':7,'valor':1}, 'T':{'cantidad':4,'valor':1}, 'U':{'cantidad':6,'valor':1},
+#'V':{'cantidad':2,'valor':1}, 'W':{'cantidad':1,'valor':1}, 'X':{'cantidad':1,'valor':1}, 'Y':{'cantidad':1,'valor':1}, 'Z':{'cantidad':1,'valor':5}}
 
 def __ordenar_info(diccionario_que_recibe_del_tablero):
     """ Recibo un diccionario enviado por el tablero, trabajado previamente para que llegue de el estilo que esta arriba,
@@ -95,7 +94,7 @@ def __corroboro_palabra(diccionario_trabajado):
                 return(ok,elem[0])
 
 
-def __retorno_informacion(__palabra):    
+def __retorno_informacion(__palabra,__configuracion):    
 
     #ORDENO EL DICCIONARIO QUE ENTRA DEL TABLERO pos 0 IZQUIERDA pos 1 DERECHA
     palabra_ordenada = __ordenar_info(__palabra)
@@ -136,11 +135,11 @@ def __retorno_informacion(__palabra):
         info_final = "INGRESASTE UNA PALABRA INCORRECTA, MEJOR SUERTE EN EL PROXIMO TURNO"
         ok=False
     
-    return(info_final)
+    return(ok,info_final)
 #-----------------------------------------------------------------------------------
 #TESTEOS, funcionan
-print("puntuacion de la palabra ingresada")
-print(__retorno_informacion(__palabra))
+#print("puntuacion de la palabra ingresada")
+#print(__retorno_informacion(__palabra,__configuracion))
 
 
 

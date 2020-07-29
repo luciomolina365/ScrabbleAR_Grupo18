@@ -6,7 +6,7 @@ from Objetos import CLASS_temporizador
 from Objetos import CLASS_tablero
 from metodos_de_objetos import instanciar_objetos
 from Archivos.metodos_de_archivos import guardar_partida
-#from corroboro_y_puntuo import corroborarPalabra
+from corroboro.corroborarPalabra import __retorno_informacion
 
 #{"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras": 
 
@@ -250,15 +250,22 @@ def juego(Configuracion):
             cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir)
 
         if event=="__pasar__" and event!= '__TIMEOUT__' and dic!={} :
-            correcta=True
+            print("tablero")
+            print(OBJETOS["Tablero"].getEstado())
+            print("dic")
+            print(dic)
+            jugada = __retorno_informacion(dic,OBJETOS["Bolsa"].getBolsa())
+            correcta= jugada[0]
             if(correcta==True):
                 for i in dic.keys():
-                  lista_a_borrar.append(dic[i]["letra"]) 
-                nuevo=Crear_diccionario(dic)
-                #puntaje=corroborarPalabra.puntuacion()creo q le tengo q pasar nuevo
+                   lista_a_borrar.append(dic[i]["letra"]) 
+                #nuevo=Crear_diccionario(dic)
+                puntaje = jugada[1]
+                puntaje_J = puntaje_J + puntaje
+                print("PUNTAAAAAJEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+                print(puntaje)
                 repartir=False
                 actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir)
-                puntaje_J=puntaje_J + 2
                 dic={}
                 lista_a_borrar=[]
             else:
