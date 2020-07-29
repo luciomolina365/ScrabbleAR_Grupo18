@@ -72,7 +72,7 @@ def hay_partidas_a_cargar():
         return True 
         
 
-def __actualizar_cant_partidas_guardadas(Finalizada = False):
+def actualizar_cant_partidas_guardadas(Finalizada = False):
 
     """Actualiza cant_partidas.txt, para, segun sus datos, permitir o no cargar partida."""
 
@@ -143,7 +143,7 @@ def estaFinalizada(datos):
 
 
 def __TEST_GUARDAR(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora , puntaje_J , puntaje_C , dificultad , Finalizada = False):
-    __actualizar_cant_partidas_guardadas(Finalizada)
+    actualizar_cant_partidas_guardadas(Finalizada)
 
     if Finalizada:
         indice = __cant_partidas(Finalizada)
@@ -171,7 +171,7 @@ def __TEST_GUARDAR(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computa
             json.dump(datos, archivo)        
             archivo.close()
 
-    __actualizar_cant_partidas_guardadas(Finalizada)
+    actualizar_cant_partidas_guardadas(Finalizada)
 
 
 #Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora --> Objetos
@@ -183,7 +183,7 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
     """Guarda los datos de la partida, en la carpeta "Archivos\\partidas_FINALIZADAS" si la partida terminó o en "Archivos\\partidas" si la partida se puede continuar - - - 
     También actualiza "cant_partidas.txt" de la carpeta correspondiente."""
     
-    __actualizar_cant_partidas_guardadas(Finalizada)
+    actualizar_cant_partidas_guardadas(Finalizada)
 
     if Finalizada:
         indice = __cant_partidas(Finalizada)
@@ -211,7 +211,7 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
             json.dump(datos, archivo)        
             archivo.close()
 
-    __actualizar_cant_partidas_guardadas(Finalizada)
+    actualizar_cant_partidas_guardadas(Finalizada)
 
   
 #datos_del_menu --> {"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras":  {'A':{'cantidad':11,'valor':1} , ...} }
