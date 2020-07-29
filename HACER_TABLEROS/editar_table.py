@@ -4,10 +4,13 @@ import json
 
 #from corroboro_y_puntuo import corroborarPalabra
 
+global cant 
+cant = 19
 
 def juego():
     sg.theme('Topanga')
 
+    
     
     """En base a un diccionario predefinido, conseguir las 7 letras a usar por turnos,
     todo esto lo vamos a hacer o realizar con objetos, para que se instancien cada vez que sean necesario, y 
@@ -42,8 +45,8 @@ def juego():
 
 
     TableroD = {}
-    for i in range(19):
-        for j in range(19):
+    for i in range(cant):
+        for j in range(cant):
             TableroD[(i,j)] = {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}  
 
     titulo =  [[sg.Text(' '*15)] + [sg.Text("ScrabbleAr", size=(10,1),key="menu")],
@@ -52,7 +55,7 @@ def juego():
 
             
             
-    tabla=CreandoTablero(TableroD,19)
+    tabla=CreandoTablero(TableroD,cant)
 
 
     def OTRO():
