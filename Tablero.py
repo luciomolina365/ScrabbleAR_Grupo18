@@ -48,7 +48,8 @@ def juego(Configuracion):
     if len(Lista_j)==0 and len(Lista_c)==0:
         OBJETOS["Atril_jugador"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
         OBJETOS["Atril_computadora"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
-
+        puntaje_C=0
+        puntaje_J=0
 
     def cant_fichas_tablero_jugador(Lista_j): #Seteo cant fichas
         fichas=[]
@@ -218,8 +219,6 @@ def juego(Configuracion):
     tupla=""
     dic={}
     lista_a_borrar=[]
-    puntaje_C=0
-    puntaje_J=0
     Lista_k=[]
     Finalizada=False
     while not OBJETOS["Temporizador"].getTERMINO_Temporizador():
