@@ -5,6 +5,7 @@ from Objetos import CLASS_bolsa
 from Objetos import CLASS_temporizador
 from Objetos import CLASS_tablero
 from metodos_de_objetos import instanciar_objetos
+from Archivos.metodos_de_archivos import guardar_partida
 #from corroboro_y_puntuo import corroborarPalabra
 
 #{"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras": 
@@ -47,6 +48,8 @@ def juego(Configuracion):
     if len(Lista_j)==0 and len(Lista_c)==0:
         OBJETOS["Atril_jugador"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
         OBJETOS["Atril_computadora"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
+
+
     def cant_fichas_tablero_jugador(Lista_j): #Seteo cant fichas
         fichas=[]
         for i in range(len(Lista_j)):
@@ -210,6 +213,9 @@ def juego(Configuracion):
     lista=[]
     dic={}
     lista_a_borrar=[]
+    puntaje_C=0
+    puntaje_J=0
+    Finalizada=False
     while not OBJETOS["Temporizador"].getTERMINO_Temporizador():
         event, values= window.read(timeout=10)
         cantRead = cantRead + 1  
@@ -227,8 +233,10 @@ def juego(Configuracion):
         if event == "__exit__" and event!= '__TIMEOUT__' :
             window.close()
             break
-        #elif event == "__save__":
-            #Vamos a guardar la partida con la configuracion actual en un archivo de texto 
+        if event == "__save__" and event!= '__TIMEOUT__' :
+            guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Finalizada)
+            window.close()
+            break
         if event == "_poner_" and La_ficha!="" and tupla!="" and event!= '__TIMEOUT__' :
             window[aux].update(disabled=True, button_color=('black','white'))
             window[tupla].update(La_ficha,disabled=True,button_color=('','white'),image_filename='', image_size=(23, 20))
@@ -250,6 +258,7 @@ def juego(Configuracion):
                 #puntaje=corroborarPalabra.puntuacion()creo q le tengo q pasar nuevo
                 repartir=False
                 actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir)
+                puntaje_J=puntaje_J + 2
                 dic={}
                 lista_a_borrar=[]
             else:
