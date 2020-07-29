@@ -12,6 +12,7 @@ def cargarConfiguracionPorDefecto(dificultad):
     datos = cargarPartida(direccion)
     return datos
 
+
 def cargarPartida(direccion):
 
         """Lee un archivo mediante direccion, le da formato útil a los datos y los retorna.
@@ -19,12 +20,12 @@ def cargarPartida(direccion):
 
         with open(direccion, 'r') as archivo:
             datos = json.load(archivo , encoding='utf-8')
-            datos = convertir_Json_A_Datos(datos)
+            datos = __convertir_Json_A_Datos(datos)
             archivo.close()   
         return datos
 
 
-def cant_partidas(Finalizada = False):
+def __cant_partidas(Finalizada = False):
 
     if Finalizada:
         direccion = "Archivos\\partidas_FINALIZADAS\\cant_partidas.txt"
@@ -39,9 +40,9 @@ def cant_partidas(Finalizada = False):
 
 def hay_partidas_a_cargar():
 
-    """Lee el archivo de cantidad de partidas y retorna un booleano"""                                        
+    """Lee el archivo de cantidad de partidas y retorna un booleano. Para mostrar o no el boton de cargar partida."""                                        
     
-    cant = cant_partidas()
+    cant = __cant_partidas()
 
     if cant == 0:
         return False
@@ -49,7 +50,7 @@ def hay_partidas_a_cargar():
         return True 
         
 
-def actualizar_cant_partidas_guardadas(Finalizada = False):
+def __actualizar_cant_partidas_guardadas(Finalizada = False):
 
     """Actualiza cant_partidas.txt, para, segun sus datos, permitir o no cargar partida."""
 
@@ -69,7 +70,7 @@ def actualizar_cant_partidas_guardadas(Finalizada = False):
 
             with open(direccion, 'r') as archivo:
                 datos = json.load(archivo,encoding='utf-8')
-                datos = convertir_Json_A_Datos(datos)
+                datos = __convertir_Json_A_Datos(datos)
                 archivo.close()
 
             i = i + 1  
@@ -91,7 +92,8 @@ def actualizar_cant_partidas_guardadas(Finalizada = False):
 
 #========================================================        
     
-def convertir_Datos_A_Json(datos):
+
+def __convertir_Datos_A_Json(datos):
     aux = {}
     for coor in datos["Tablero"]:
         aux[str(coor)] = datos["Tablero"][coor]
@@ -100,7 +102,7 @@ def convertir_Datos_A_Json(datos):
     return datos
     
 
-def convertir_Json_A_Datos(datos):
+def __convertir_Json_A_Datos(datos):
     aux = {}
 
     for coor in datos["Tablero"]:
@@ -110,21 +112,23 @@ def convertir_Json_A_Datos(datos):
     datos["Tablero"] = aux
     return datos
 
+
 #========================================================        
+
 
 def estaFinalizada(datos):
     return datos["Finalizada"]
 
 
 def __TEST_GUARDAR(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora , puntaje_J , puntaje_C , dificultad , Finalizada = False):
-    actualizar_cant_partidas_guardadas(Finalizada)
+    __actualizar_cant_partidas_guardadas(Finalizada)
 
     if Finalizada:
-        indice = cant_partidas(Finalizada)
+        indice = __cant_partidas(Finalizada)
         direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_" + str(indice+1) +".json"
     
     else:
-        indice = cant_partidas()
+        indice = __cant_partidas()
         direccion = "Archivos\\partidas\\partida_guardada_" +  str(indice+1)  +".json"    
 
     datos={}
@@ -139,13 +143,13 @@ def __TEST_GUARDAR(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computa
     datos["Dificultad"] = dificultad
     datos["Finalizada"] = Finalizada
 
-    datos = convertir_Datos_A_Json(datos)
+    datos = __convertir_Datos_A_Json(datos)
 
     with open(direccion, 'w') as archivo:
             json.dump(datos, archivo)        
             archivo.close()
 
-    actualizar_cant_partidas_guardadas(Finalizada)
+    __actualizar_cant_partidas_guardadas(Finalizada)
 
 
 #Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora --> Objetos
@@ -157,14 +161,14 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
     """Guarda los datos de la partida, en la carpeta "Archivos\\partidas_FINALIZADAS" si la partida terminó o en "Archivos\\partidas" si la partida se puede continuar - - - 
     También actualiza "cant_partidas.txt" de la carpeta correspondiente."""
     
-    actualizar_cant_partidas_guardadas(Finalizada)
+    __actualizar_cant_partidas_guardadas(Finalizada)
 
     if Finalizada:
-        indice = cant_partidas(Finalizada)
+        indice = __cant_partidas(Finalizada)
         direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_" + str(indice+1) +".json"
     
     else:
-        indice = cant_partidas()
+        indice = __cant_partidas()
         direccion = "Archivos\\partidas\\partida_guardada_" +  str(indice+1)  +".json"    
 
     datos={}
@@ -179,13 +183,13 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
     datos["Dificultad"] = dificultad
     datos["Finalizada"] = Finalizada
 
-    datos = convertir_Datos_A_Json(datos)
+    datos = __convertir_Datos_A_Json(datos)
 
     with open(direccion, 'w') as archivo:
             json.dump(datos, archivo)        
             archivo.close()
 
-    actualizar_cant_partidas_guardadas(Finalizada)
+    __actualizar_cant_partidas_guardadas(Finalizada)
 
   
 #datos_del_menu --> {"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras":  {'A':{'cantidad':11,'valor':1} , ...} }
@@ -212,15 +216,13 @@ def main():
     datos = cargarConfiguracionPorDefecto(dificil)         
                                                 
     if datos != {}:
+       
         # ESTE TEST NO ES LO QUE HAY QUE HACER (ES UN EJEMPLO PARA USARLO EN EL MOMENTO)
         __TEST_GUARDAR(datos["Bolsa"] , datos["Tablero"] , datos["Temporizador"] , datos["Atril_jugador"] , datos["Atril_computadora"] , 123 , 321 , datos["Dificultad"] , True)
         # SE USA ASI :
         # OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,config)
         # SE USAN LOS OBJETOS
         # guardar_partida(OBJETOS["Bolsa"] , OBJETOS["Tablero"] , OBJETOS["Temporizador"] , OBJETOS["Atril_jugador"] , OBJETOS["Atril_computadora"], 666 , 999, True)
-
-
-
 
     else:
         print("No hay partidas a cargar")
@@ -244,6 +246,8 @@ if __name__ == "__main__":
 
     print("ACA DEBERIA USAR EL BOOLEAN PARA QUE SE MUESTRE O NO EL BOTON DE CARGAR PARTIDA")
     sg.popup("ACA DEBERIA USAR EL BOOLEAN PARA QUE SE MUESTRE O NO EL BOTON DE CARGAR PARTIDA")
+
+
 
 #------------------------------------------------------------------------------------------------------------------------
 #Molina, Lucio Felipe - 15980/7
