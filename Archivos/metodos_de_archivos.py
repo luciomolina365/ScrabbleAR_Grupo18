@@ -2,6 +2,9 @@ import json
 import PySimpleGUI as sg
 from os import rename
 from os import remove
+
+
+
 def obtenerConfiguracion(direccion):                                #Lee un archivo mediante direccion y le da formato util a los datos
         with open(direccion, 'r') as archivo:
             datos = json.load(archivo , encoding='utf-8')
@@ -90,13 +93,48 @@ def convertir_Json_A_Datos(datos):
 
 def estaFinalizada(datos):
     return datos["Finalizada"]
-        
 
-def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora , puntaje_J , puntaje_C , Finalizada = False):   #RECIBO LOS DATOS DE LOS OBJETOS Y DEMAS
+
+def TEST_GUARDAR(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora , puntaje_J , puntaje_C , Finalizada = False):
     actualizar_cant_partidas_guardadas()
-    indice = cant_partidas()
-    direccion = "Archivos\\partidas\\partida_guardada_" +  str(indice+1)  +".json"
     
+    if Finalizada:
+        direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA.json"
+    else:
+        indice = cant_partidas()
+        direccion = "Archivos\\partidas\\partida_guardada_" +  str(indice+1)  +".json"    
+
+    
+    
+    datos={}
+
+    datos["Tablero"] = Tablero
+    datos["Bolsa"] = Bolsa
+    datos["Temporizador"] = Temporizador
+    datos["Atril_jugador"] = Atril_jugador
+    datos["Atril_computadora"] = Atril_computadora
+    datos["Puntaje_jugador"] = puntaje_J
+    datos["Puntaje_computadora"] = puntaje_C
+    datos["Finalizada"] = Finalizada
+
+    datos = convertir_Datos_A_Json(datos)
+
+    with open(direccion, 'w') as archivo:
+            json.dump(datos, archivo)        
+            archivo.close()
+
+    actualizar_cant_partidas_guardadas()
+
+
+def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora , puntaje_J , puntaje_C , dificultad , Finalizada = False):   #RECIBO LOS DATOS DE LOS OBJETOS Y DEMAS
+    actualizar_cant_partidas_guardadas()
+    
+    if Finalizada:
+        direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA.json"
+    else:
+        indice = cant_partidas()
+        direccion = "Archivos\\partidas\\partida_guardada_" +  str(indice+1)  +".json"    
+
     datos={}
 
     datos["Tablero"] = Tablero.getEstado()
@@ -106,6 +144,7 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
     datos["Atril_computadora"] = Atril_computadora.getEstado()
     datos["Puntaje_jugador"] = puntaje_J
     datos["Puntaje_computadora"] = puntaje_C
+    datos["Dificultad"] = dificultad
     datos["Finalizada"] = Finalizada
 
     datos = convertir_Datos_A_Json(datos)
@@ -146,11 +185,18 @@ def definir_configuracion(datos_del_menu):
 
 
 def main():
-    datos = obtenerConfiguracion("Archivos\\configuracion\\por_defecto_1.json")          
+    datos = obtenerConfiguracion("Archivos\\configuracion\\por_defecto_2.json")          
                                                 
     if datos != {}:
         print("Muestra de que se levantaron los datos desde un archivo:  ")
-        print(datos["Bolsa"])
+        
+        datos["Finalizada"] = True
+
+        
+
+        TEST_GUARDAR(datos["Bolsa"] , datos["Tablero"] , datos["Temporizador"] , datos["Atril_jugador"] , datos["Atril_computadora"] , 123 , 321 , True)
+
+        
     else:
         print("No hay partidas a cargar")
         print("Crea una partida nueva")

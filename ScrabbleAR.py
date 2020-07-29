@@ -85,7 +85,7 @@ def jugar():
                 Configuracion["minutos"]=values[4]
                 Configuracion["dificultad"]=Dificultad_final
                 Configuracion["letras"]=fichas_finales
-                
+                print("/"*80)
                 Config=definir_configuracion(Configuracion)
                 Tablero.juego(Config)
                 window.close()
