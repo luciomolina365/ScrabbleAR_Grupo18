@@ -54,7 +54,7 @@ class Bolsa:
     
         if cant_fichas > self.getCantFichasTotales():                                                   #Si no tengo suficientes fichas
             #POPUP SE TERMINA EL JUEGO POR FALTA DE FICHAS
-            print(f"fichas pedidas = {cant_fichas} / total = {self.getCantFichasTotales()}")
+            #print(f"fichas pedidas = {cant_fichas} / total = {self.getCantFichasTotales()}")
             sg.popup("No hay suficientes fichas en la bolsa")                                           #Popup y devuelve un dic vacio
             self.__TERMINO = True
             return {}

@@ -65,7 +65,7 @@ def actualizar_cant_partidas_guardadas(Finalizada = False):
         try:
             
             direccion = predef + str(i) + ".json"
-            print(direccion)
+            #print(direccion)
 
             with open(direccion, 'r') as archivo:
                 datos = json.load(archivo,encoding='utf-8')
