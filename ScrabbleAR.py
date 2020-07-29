@@ -85,10 +85,12 @@ def jugar():
                 Configuracion["minutos"]=values[4]
                 Configuracion["dificultad"]=Dificultad_final
                 Configuracion["letras"]=fichas_finales
+                Configuracion["Puntaje_jugador"]=0
+                Configuracion["Puntaje_computadora"]=0
                 print("/"*80)
                 Config=definir_configuracion(Configuracion)
-                Tablero.juego(Config)
                 window.close()
+                Tablero.juego(Config)
         window.close()
         print(menu.__doc__)
     menu()
