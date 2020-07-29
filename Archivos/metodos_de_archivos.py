@@ -25,6 +25,28 @@ def cargarPartida(direccion):
         return datos
 
 
+def formatear_cadena_de_directorio(directorio):
+    lista = directorio.split("/")
+    nueva = []
+    OK = False
+    for directorio in lista:
+        
+        if directorio == "Archivos":
+            OK = True
+        
+        if OK:    
+            nueva.append(directorio)
+            nueva.append("\\")
+    
+    nueva[len(nueva)-1] = ""
+    direccion = ""
+    for elemento in nueva:
+        if elemento == "\\":
+            elemento = elemento + "\\"
+        direccion = direccion + elemento
+
+    return str(direccion)
+
 def __cant_partidas(Finalizada = False):
 
     if Finalizada:
@@ -222,7 +244,7 @@ def main():
         # SE USA ASI :
         # OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,config)
         # SE USAN LOS OBJETOS
-        # guardar_partida(OBJETOS["Bolsa"] , OBJETOS["Tablero"] , OBJETOS["Temporizador"] , OBJETOS["Atril_jugador"] , OBJETOS["Atril_computadora"], 666 , 999, True)
+        # guardar_partida(OBJETOS["Bolsa"] , OBJETOS["Tablero"] , OBJETOS["Temporizador"] , OBJETOS["Atril_jugador"] , OBJETOS["Atril_computadora"], 666 , 999, 1 ,True)
 
     else:
         print("No hay partidas a cargar")
