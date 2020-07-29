@@ -95,7 +95,7 @@ def __corroboro_palabra(diccionario_trabajado):
 
 
 def __retorno_informacion(__palabra,__configuracion):    
-
+    
     #ORDENO EL DICCIONARIO QUE ENTRA DEL TABLERO pos 0 IZQUIERDA pos 1 DERECHA
     palabra_ordenada = __ordenar_info(__palabra)
     
@@ -107,8 +107,9 @@ def __retorno_informacion(__palabra,__configuracion):
     palabra_izq = __obtengo_diccionario_trabajado(palabra_ordenada_izq)
     
     palabra_der = __obtengo_diccionario_trabajado(palabra_ordenada_der)
-       
+    
     if(__corroboro_palabra(palabra_izq)[0] == True):
+    
         
         if(posiciones_validas.__posiciones_validas(palabra_izq)==True):
             
@@ -120,6 +121,7 @@ def __retorno_informacion(__palabra,__configuracion):
             ok = False
     
     elif(__corroboro_palabra(palabra_der)[0] == True):
+    
         
         if(posiciones_validas.__posiciones_validas(palabra_der)==True):
             

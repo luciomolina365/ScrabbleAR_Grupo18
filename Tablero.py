@@ -257,11 +257,6 @@ def juego(Configuracion):
             cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir)
 
         if event=="__pasar__" and event!= '__TIMEOUT__' and dic!={} :
-<<<<<<< HEAD
-            print("tablero")
-            print(OBJETOS["Tablero"].getEstado())
-            print("dic")
-            print(dic)
             jugada = __retorno_informacion(dic,OBJETOS["Bolsa"].getBolsa())
             correcta= jugada[0]
             if(correcta==True):
@@ -272,14 +267,6 @@ def juego(Configuracion):
                 puntaje_J = puntaje_J + puntaje
                 print("PUNTAAAAAJEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
                 print(puntaje)
-=======
-            correcta=False
-            if(correcta==True):
-                for i in dic.keys():
-                  lista_a_borrar.append(dic[i]["letra"]) 
-                #nuevo=Crear_diccionario(dic)
-                #puntaje=corroborarPalabra.puntuacion() 
->>>>>>> f3992afdeccb2d758f0cf5a3ec26ebd379cf8eb7
                 repartir=False
                 actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir)
                 dic={}
