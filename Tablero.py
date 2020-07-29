@@ -6,7 +6,7 @@ from Objetos import CLASS_temporizador
 from Objetos import CLASS_tablero
 from metodos_de_objetos import instanciar_objetos
 from Archivos.metodos_de_archivos import guardar_partida
-from corroboro.corroborarPalabra import __retorno_informacion
+#from corroboro.corroborarPalabra import __retorno_informacion
 
 #{"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras": 
 
@@ -48,15 +48,17 @@ def juego(Configuracion):
     if len(Lista_j)==0 and len(Lista_c)==0:
         OBJETOS["Atril_jugador"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
         OBJETOS["Atril_computadora"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
+    
+    puntaje_J=Configuracion["Puntaje_jugador"]
+    puntaje_C=Configuracion["Puntaje_computadora"]
 
-
-    def cant_fichas_tablero_jugador(Lista_j): #Seteo cant fichas
+    def cant_fichas_tablero_jugador(Lista_j): #Seteo cant fichas jugador
         fichas=[]
         for i in range(len(Lista_j)):
             fichas.append(sg.Button(Lista_j[i], pad=(10,5), key=i,button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)))
         return fichas
     
-    def cant_fichas_tablero_computadora(Lista_c): #Seteo cant fichas
+    def cant_fichas_tablero_computadora(Lista_c): #Seteo cant fichas computadora
         fichas=[]
         for i in Lista_c:
             fichas.append(sg.Button("?", pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16),disabled=True))
@@ -71,20 +73,23 @@ def juego(Configuracion):
         for i in range(cant):
             lista1.clear()
             for j in range(cant):
-                if TableroD[(i,j)]["trampa"]==True:
-                    if TableroD[(i,j)]["tipo_de_trampa"]=="-1":
-                        lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\menos 1.png',image_size=(25, 22)))
-                    elif TableroD[(i,j)]["tipo_de_trampa"]=="-2":
-                        lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\menos 2.png',image_size=(25, 22)))
-                    else:
-                        lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\menos 3.png',image_size=(25, 22)))
-                elif TableroD[(i,j)]["recompensa"]==True:
-                    if TableroD[(i,j)]["tipo_de_recompensa"]=="x2":
-                        lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\multiplicador x2.png',image_size=(25, 22)))
-                    else:
-                        lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\multiplicador x3.png',image_size=(25, 22)))
+                if (TableroD[(i,j)]["letra"] != None):
+                    lista1.append(sg.Button(TableroD[(i,j)]["letra"],disabled=True,size=(2, 1),key=(i,j), pad=(2,3),button_color=('grey','white'), image_filename='', image_size=(23, 20)))
                 else:
-                    lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\GRIS.png',image_size=(25, 22)))
+                    if TableroD[(i,j)]["trampa"]==True:
+                        if TableroD[(i,j)]["tipo_de_trampa"]=="-1":
+                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\menos 1.png',image_size=(25, 22)))
+                        elif TableroD[(i,j)]["tipo_de_trampa"]=="-2":
+                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\menos 2.png',image_size=(25, 22)))
+                        else:
+                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\menos 3.png',image_size=(25, 22)))
+                    elif TableroD[(i,j)]["recompensa"]==True:
+                        if TableroD[(i,j)]["tipo_de_recompensa"]=="x2":
+                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\multiplicador x2.png',image_size=(25, 22)))
+                        else:
+                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\multiplicador x3.png',image_size=(25, 22)))
+                    else:
+                        lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\GRIS.png',image_size=(25, 22)))
             lista1=[lista1]
             tablero=tablero+lista1
         return tablero
@@ -93,8 +98,6 @@ def juego(Configuracion):
         for i in dic.keys():
                 Tablero.setValorEnCoor(i,"")
                 lugar=Tablero.getDatosEnCoor(i)
-                print(i)
-                print(lugar)
                 if lugar["trampa"]==True: 
                     if lugar["tipo_de_trampa"]=="-1":
                         window[i].update("",disabled=False,image_filename='imagenes\menos 1.png',image_size=(25, 22))
@@ -114,10 +117,9 @@ def juego(Configuracion):
             window[i].update(disabled=False, button_color=('white', 'black'))
 
 
-        #window[dic[i]["letra"]].update(disabled=False, button_color=('white', 'black'))
 
-
-    def actualizar_fichas(lista_a_borrar,B,window,Atril,evento):#lista_K
+    #una variable q sea jugador o computadora
+    def actualizar_fichas(lista_a_borrar,B,window,Atril,evento):#Este metodo se usa en caso de q coloques una palabra correcta o q requieras devolver letras a la bolsa
         if evento==True:#significa q el evento fue repartir
             estado=Atril.getEstado()
             dic={}
@@ -130,8 +132,6 @@ def juego(Configuracion):
             nuevas=B.intercambiar_fichas(dic)
         else: #sino el evento fue pasar turno y era una palabra correcta
             nuevas=B.dameFichas(len(lista_a_borrar))
-            print("lista del pasar turno")
-            print(lista_a_borrar)
                  
         Atril.sacar_varias_fichas(lista_a_borrar)
 
@@ -159,7 +159,7 @@ def juego(Configuracion):
 
 
 
-    def cambiar_fichas(Atril,Window_principal,B,evento):
+    def cambiar_fichas(Atril,Window_principal,B,evento):#este metodo se llamara en el caso de q se pida fichas a la bolsa para intercambiar y a partir de ahi llama a actualizar_fichas
         Fichas=Atril.getFichas_disponibles()
         layout =[
                 [sg.Button(Fichas[i], key=i,button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)) for i in range(7)],
@@ -196,7 +196,7 @@ def juego(Configuracion):
         cant=17
     else:     
         cant=15 
-    tabla=CreandoTablero(OBJETOS["Tablero"].getEstado(),cant)
+    tabla=CreandoTablero(OBJETOS["Tablero"].getEstado(),cant)  #dependiendo la dificultad, creo un tablero de determinada cantidad
 
 
 
@@ -218,30 +218,27 @@ def juego(Configuracion):
     tupla=""
     dic={}
     lista_a_borrar=[]
-    puntaje_C=0
-    puntaje_J=0
     Lista_k=[]
-    Finalizada=False
+    
     while not OBJETOS["Temporizador"].getTERMINO_Temporizador():
         event, values= window.read(timeout=10)
         cantRead = cantRead + 1  
         cantRead = OBJETOS["Temporizador"].avanzar_tiempo(cantRead)  
         window['-TEMP OUT-'].update(str(OBJETOS["Temporizador"].getMinutos()) + ":"+ str(OBJETOS["Temporizador"].getSegundos()) + ' min')       
         if type(event)== tuple and event!= '__TIMEOUT__' : 
-            tupla=event
-            
+            tupla=event 
         if type(event)== int and event!= "_poner_" and event!= '__TIMEOUT__' :
             aux=event
-            print(event)
             atril=OBJETOS["Atril_jugador"].getFichas_disponibles()
             dato=atril[event]
             La_ficha=formatear(dato)
             
         if event == "__exit__" and event!= '__TIMEOUT__' :
             window.close()
+            guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"],Finalizada=True)
             break
         if event == "__save__" and event!= '__TIMEOUT__' :
-            guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Finalizada)
+            guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"],Finalizada=False)
             window.close()
             break
         if event == "_poner_" and La_ficha!="" and tupla!="" and event!= '__TIMEOUT__' :
@@ -252,21 +249,19 @@ def juego(Configuracion):
             Lista_k.append(aux)
             La_ficha=""
             tupla=""
+
         if event=="__repartir__"and event!= '__TIMEOUT__'and dic=={}:
             repartir=True
             cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir)
 
         if event=="__pasar__" and event!= '__TIMEOUT__' and dic!={} :
-            jugada = __retorno_informacion(dic,OBJETOS["Bolsa"].getBolsa())
-            correcta= jugada[0]
+            correcta=True
             if(correcta==True):
                 for i in dic.keys():
-                   lista_a_borrar.append(dic[i]["letra"]) 
+                  lista_a_borrar.append(dic[i]["letra"]) 
                 #nuevo=Crear_diccionario(dic)
-                puntaje = jugada[1]
-                puntaje_J = puntaje_J + puntaje
-                print("PUNTAAAAAJEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
-                print(puntaje)
+                #puntaje=corroborarPalabra.puntuacion() 
+                puntaje_J=puntaje_J+2
                 repartir=False
                 actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir)
                 dic={}

@@ -1,11 +1,17 @@
 import PySimpleGUI as sg
+from Archivos import metodos_de_archivos
+import Tablero
 
-ok=False
+
+
+archivos=metodos_de_archivos
+ok= archivos.hay_partidas_a_cargar()
+print(ok)
 Iniciar=[sg.Button("Iniciar Partida",size=(10,5),key="_iniciar_",button_color=('white','grey'))]
-if(ok==True):
+if(ok==False):
     Cargar=[sg.FileBrowse(button_text="Cargar Partida",initial_folder="Archivos\\partidas",size=(10,5),key="_cargar_",disabled=True,button_color=('white','grey'))]
 else:
-    Cargar=[sg.FileBrowse(button_text="Cargar Partida",initial_folder="Archivos\\partidas",size=(10,5),key="_cargar_",disabled=False,button_color=('white','grey'))]
+    Cargar=[sg.Input(visible=False, enable_events=True, key="_file_"),sg.FileBrowse(button_text="Cargar Partida",initial_folder="Archivos\\partidas",size=(10,5),disabled=False,button_color=('white','grey'))]
 
 titulo =  [[sg.Text("Scrabble", size=(20,10),auto_size_text=True)]]
 
@@ -17,8 +23,12 @@ window = sg.Window('ScrabbleAr', layout, font='Courier 12',background_color="bla
 while True:
     event, values= window.read()
     print(event)
-    
-    if event== "_iniciar_":
+    if event == "_file_":
+        partida=archivos.cargarPartida(archivos.formatear_cadena_de_directorio(values[event]))
+        Tablero.juego(partida)
+        window.close()
+        break
+    if event == "_iniciar_":
         window.close()
         break
     
