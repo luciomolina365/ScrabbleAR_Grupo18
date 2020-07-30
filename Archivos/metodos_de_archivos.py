@@ -49,7 +49,7 @@ def formatear_cadena_de_directorio(directorio):
 
     return str(direccion)
 
-def __cant_partidas(Finalizada = False):
+def cant_partidas(Finalizada = False):
 
     if Finalizada:
         direccion = "Archivos\\partidas_FINALIZADAS\\cant_partidas.txt"
@@ -66,7 +66,7 @@ def hay_partidas_a_cargar():
 
     """Lee el archivo de cantidad de partidas y retorna un booleano. Para mostrar o no el boton de cargar partida."""                                        
     
-    cant = __cant_partidas()
+    cant = cant_partidas()
 
     if cant == 0:
         return False
@@ -148,11 +148,11 @@ def __TEST_GUARDAR(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computa
     actualizar_cant_partidas_guardadas(Finalizada)
 
     if Finalizada:
-        indice = __cant_partidas(Finalizada)
+        indice = cant_partidas(Finalizada)
         direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_" + str(indice+1) +".json"
     
     else:
-        indice = __cant_partidas()
+        indice = cant_partidas()
         direccion = "Archivos\\partidas\\partida_guardada_" +  str(indice+1)  +".json"    
 
     datos={}
@@ -188,11 +188,11 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
     actualizar_cant_partidas_guardadas(Finalizada)
 
     if Finalizada:
-        indice = __cant_partidas(Finalizada)
+        indice = cant_partidas(Finalizada)
         direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_" + str(indice+1) +".json"
     
     else:
-        indice = __cant_partidas()
+        indice = cant_partidas()
         direccion = "Archivos\\partidas\\partida_guardada_" +  str(indice+1)  +".json"    
 
     datos={}
