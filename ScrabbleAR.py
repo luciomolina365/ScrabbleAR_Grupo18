@@ -39,7 +39,6 @@ def jugar():
                 [sg.Button("Modificar",key="_modificar_")]
                 ],visible=False,key="slider")],
             [sg.Text('_' * 80)],
-            [sg.Button(("Top Ten"),key="topTeen")],                #para mostrar una lista con los top ten
             [sg.Button(("Confirmar configuracion"),key="__jugar__") ,sg.Cancel("Cancel")]]
 
 
@@ -59,9 +58,6 @@ def jugar():
                 fichas_propias[values[5]]["valor"]=int(values[7])
             
              #{0: None, '_predefinido_': True, 1: True, 2: False, 3: False, 4: 10.0, 5: 'A', 6: 6.0, 7: 6.0}
-
-            #if event=="topTeen":
-            #     mostrar la lista de los 10 mejores jugadores
 
 
 

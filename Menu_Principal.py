@@ -25,17 +25,34 @@ layout= titulo + [Iniciar + Cargar ] + Top
 window = sg.Window('ScrabbleAr', layout, font='Courier 12',background_color="black",disable_close=True, disable_minimize=True)
 
 
-def mostrar_ten(top):
-    layout=[[sg.Listbox(top, size = (45,10) , key = "listBox" , select_mode=False)],
+def mostrar_ten(topFacil,topMedio,topDificil):
+    layout=[[sg.Text('Seleccione la dificultad para ver el Top Ten')],
+        [sg.Button("Facil",key="facil"),sg.Button("Medio",key="medio"),sg.Button("Dificil",key="dificil")],
+        [sg.Listbox([], size = (45,10) , key = "listBox" , select_mode=False)],
         [sg.Cancel()]]
 
-    window = sg.Window('ScrabbleAr', layout)
+    window = sg.Window('Top Ten', layout)
+    No_hay_partidas=["No hay registros en esta dificultad"]
     while True:
         event, values= window.read()
         if event=="Cancel":
             window.close()
             break
-
+        if event=="dificil":
+            if topDificil==[]:
+                window["listBox"].update(No_hay_partidas)
+            else:
+                window["listBox"].update(topDificil)
+        if event=="medio":
+            if topMedio==[]:
+                window["listBox"].update(No_hay_partidas)
+            else:
+                window["listBox"].update(topMedio)    
+        if event=="facil":
+            if topFacil==[]:
+                window["listBox"].update(No_hay_partidas)
+            else:
+                window["listBox"].update(topFacil)
 
 
 
@@ -55,8 +72,10 @@ while True:
         jugar()
         break
     if(event=="topTen"):
-        top=archivos.TopTen_de_jugadores()
-        mostrar_ten(top)
+        topFacil=archivos.TopTen_de_jugadores(1)
+        topMedio=archivos.TopTen_de_jugadores(2)
+        topDificil=archivos.TopTen_de_jugadores(3)
+        mostrar_ten(topFacil,topMedio,topDificil)
     
 
 

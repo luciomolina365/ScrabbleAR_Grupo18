@@ -236,7 +236,7 @@ def definir_configuracion(datos_del_menu):
     return config_por_defecto
 
 
-def TopTen_de_jugadores():
+def TopTen_de_jugadores(dificultad):
     actualizar_cant_partidas_guardadas(True)
     predef = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_"
     Top={}
@@ -251,8 +251,8 @@ def TopTen_de_jugadores():
             datos = json.load(archivo,encoding='utf-8')
             datos = __convertir_Json_A_Datos(datos)
             archivo.close()
-
-        lista.append({"fecha":datos["Fecha"],"puntaje":datos["Puntaje_jugador"],"dificultad":datos["Dificultad"]})
+        if datos["Dificultad"]==dificultad:
+            lista.append({"fecha":datos["Fecha"],"puntaje":datos["Puntaje_jugador"],"dificultad":datos["Dificultad"]})
 
     Todos=list(sorted(lista, key = lambda diccio: diccio["puntaje"],reverse=True))
     if(len(Todos)>=10):
