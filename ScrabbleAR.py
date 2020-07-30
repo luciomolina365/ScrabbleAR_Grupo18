@@ -60,7 +60,7 @@ def jugar():
             
              #{0: None, '_predefinido_': True, 1: True, 2: False, 3: False, 4: 10.0, 5: 'A', 6: 6.0, 7: 6.0}
 
-            # if event=="topTeen":
+            #if event=="topTeen":
             #     mostrar la lista de los 10 mejores jugadores
 
 
@@ -95,7 +95,6 @@ def jugar():
         print(menu.__doc__)
     menu()
 
-jugar()
 
 
 ##https://pysimplegui.readthedocs.io/en/latest/#the-event-loop-callback-functions

@@ -247,7 +247,7 @@ def juego(Configuracion):
             guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"],Finalizada=True)
             break
         if event == "__save__" and event!= '__TIMEOUT__' :
-            #guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"],Finalizada=False)
+            guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"],Finalizada=False)
             window.close()
             break
         if event == "_poner_" and La_ficha!="" and tupla!="" and event!= '__TIMEOUT__' :
