@@ -208,7 +208,7 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
     datos["Finalizada"] = Finalizada
 
     if Finalizada:
-        datos["Fecha"] = date.today()
+        datos["Fecha"] = str(date.today())
 
 
     datos = __convertir_Datos_A_Json(datos)
