@@ -67,6 +67,7 @@ def juego(Configuracion):
     fichasJ = cant_fichas_tablero_jugador(Lista_j)
     fichasC = cant_fichas_tablero_computadora(Lista_c)
 
+    
     def CreandoTablero(TableroD,cant):#  se crea el tablero recibiendo el tablero y la cantidad de filas y columnas 
         tablero=[]
         lista1=[]
@@ -74,7 +75,7 @@ def juego(Configuracion):
             lista1.clear()
             for j in range(cant):
                 if (TableroD[(i,j)]["letra"] != None):
-                    lista1.append(sg.Button(TableroD[(i,j)]["letra"],disabled=True,size=(2, 1),key=(i,j), pad=(2,3),button_color=('grey','white'), image_filename='', image_size=(23, 20)))
+                    lista1.append(sg.Button(TableroD[(i,j)]["letra"],disabled=True,size=(2,1),key=(i,j), pad=(2,3),button_color=('grey','white'), image_filename='', image_size=(25, 22)))
                 else:
                     if TableroD[(i,j)]["trampa"]==True:
                         if TableroD[(i,j)]["tipo_de_trampa"]=="-1":
@@ -100,7 +101,7 @@ def juego(Configuracion):
                 lugar=Tablero.getDatosEnCoor(i)
                 if lugar["trampa"]==True: 
                     if lugar["tipo_de_trampa"]=="-1":
-                        window[i].update("",disabled=False,image_filename='imagenes\menos 1.png',image_size=(25, 22))
+                        window[i].update("",disabled=False,image_filename='imagenes\menos 1.png',image_size=(23, 20))
                     elif lugar["tipo_de_trampa"]=="-2":
                         window[i].update("",disabled=False,image_filename='imagenes\menos 2.png',image_size=(25, 22))
                     else:
@@ -183,10 +184,15 @@ def juego(Configuracion):
               window.close()
               break
 
+    headings = ['JUGADOR', ' IA']
+    header =  [[sg.T(' '*15),sg.Text('')] + [sg.Text(h, size=(8,1)) for h in headings]]
 
+    input_rows = [[sg.T(' '*20),sg.Text("",size=(7,1), pad=(0,0),key="-player-"),sg.Text("",size=(8,1), pad=(0,0),key="-compu-")]]
 
+    puntua= header + input_rows
 
-    titulo =  [[sg.Text(' '*15)] + [sg.Text("ScrabbleAr", size=(10,1),key="menu")],
+    titulo =  [
+    [sg.Text(size=(50,1), key='-OUT-')],
     [sg.Text('Tiempo restante'), sg.T(' '*1), sg.Text(size=(10,1), key='-TEMP OUT-')]]
 
 
@@ -208,7 +214,7 @@ def juego(Configuracion):
     fichas_computadora = [fichasC] 
 
 
-    layout = titulo + fichas_computadora + tabla + fichas_jugador
+    layout = titulo + puntua + fichas_computadora + tabla + fichas_jugador
 
     window = sg.Window('ScrabbleAr', layout, font='Courier 12')
                         
@@ -219,7 +225,10 @@ def juego(Configuracion):
     dic={}
     lista_a_borrar=[]
     Lista_k=[]
-    
+    window.read(timeout=10)
+    window['-player-'].update(puntaje_J)
+    window['-compu-'].update(puntaje_C)
+    window['-OUT-'].update("Buena suerte!!")
     while not OBJETOS["Temporizador"].getTERMINO_Temporizador():
         event, values= window.read(timeout=10)
         cantRead = cantRead + 1  
@@ -238,12 +247,12 @@ def juego(Configuracion):
             guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"],Finalizada=True)
             break
         if event == "__save__" and event!= '__TIMEOUT__' :
-            guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"],Finalizada=False)
+            #guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"],Finalizada=False)
             window.close()
             break
         if event == "_poner_" and La_ficha!="" and tupla!="" and event!= '__TIMEOUT__' :
             window[aux].update(disabled=True, button_color=('black','white'))
-            window[tupla].update(La_ficha,disabled=True,button_color=('','white'),image_filename='', image_size=(23, 20))
+            window[tupla].update(La_ficha,disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
             dic[tupla]=OBJETOS["Tablero"].getDatosEnCoor(tupla)
             dic[tupla]["letra"]=La_ficha
             Lista_k.append(aux)
@@ -253,6 +262,12 @@ def juego(Configuracion):
         if event=="__repartir__"and event!= '__TIMEOUT__'and dic=={}:
             repartir=True
             cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir)
+
+        if event=="__repartir__"and event!= '__TIMEOUT__'and dic!={}:
+           window['-OUT-'].update("Ya has seleccionado una posicion en el tablero")
+
+        if event=="__pasar__" and event!= '__TIMEOUT__' and dic=={} :
+            window['-OUT-'].update("Debes colocar las fichas en el tablero")
 
         if event=="__pasar__" and event!= '__TIMEOUT__' and dic!={} :
             correcta=True
@@ -264,11 +279,14 @@ def juego(Configuracion):
                 puntaje_J=puntaje_J+2
                 repartir=False
                 actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir)
+                window['-OUT-'].update("Bien hecho bro")
+                window['-player-'].update(puntaje_J)
                 dic={}
                 lista_a_borrar=[]
                 Lista_k=[]
             else:
                 actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
+                window['-OUT-'].update("Mal ahi bro le erraste ")
                 dic={}
                 Lista_k=[]
 
