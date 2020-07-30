@@ -208,7 +208,7 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
     datos["Finalizada"] = Finalizada
 
     if Finalizada:
-        datos["Fecha"] = date.today()
+        datos["Fecha"] = str(date.today())
 
 
     datos = __convertir_Datos_A_Json(datos)
@@ -236,44 +236,72 @@ def definir_configuracion(datos_del_menu):
     return config_por_defecto
 
 
-def main():
-    #facil = 1
-    #medio = 2
-    dificil = 3
+def TopTen_de_jugadores():
+    actualizar_cant_partidas_guardadas(True)
+    predef = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_"
+    Top={}
+    lista=[]
+    cant=cant_partidas(True)
+    for i in range(1,cant+1):                                           
 
-    datos = cargarConfiguracionPorDefecto(dificil)         
+        direccion = predef + str(i) + ".json"
+        #print(direccion)
+
+        with open(direccion, 'r') as archivo:
+            datos = json.load(archivo,encoding='utf-8')
+            datos = __convertir_Json_A_Datos(datos)
+            archivo.close()
+
+        lista.append({"fecha":datos["Fecha"],"puntaje":datos["Puntaje_jugador"],"dificultad":datos["Dificultad"]})
+
+    Todos=list(sorted(lista, key = lambda diccio: diccio["puntaje"],reverse=True))
+    if(len(Todos)>=10):
+        Top=Todos[:10]
+    else:
+        Top=Todos
+    return Top
+
+
+# def main():
+#     #facil = 1
+#     #medio = 2
+#     dificil = 3
+
+#     datos = cargarConfiguracionPorDefecto(dificil)         
                                                 
-    if datos != {}:
+#     if datos != {}:
        
         # ESTE TEST NO ES LO QUE HAY QUE HACER (ES UN EJEMPLO PARA USARLO EN EL MOMENTO)
-        __TEST_GUARDAR(datos["Bolsa"] , datos["Tablero"] , datos["Temporizador"] , datos["Atril_jugador"] , datos["Atril_computadora"] , 123 , 321 , datos["Dificultad"] , True)
+        #__TEST_GUARDAR(datos["Bolsa"] , datos["Tablero"] , datos["Temporizador"] , datos["Atril_jugador"] , datos["Atril_computadora"] , 123 , 321 , datos["Dificultad"] , True)
         # SE USA ASI :
         # OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,config)
         # SE USAN LOS OBJETOS
         # guardar_partida(OBJETOS["Bolsa"] , OBJETOS["Tablero"] , OBJETOS["Temporizador"] , OBJETOS["Atril_jugador"] , OBJETOS["Atril_computadora"], 666 , 999, 1 ,True)
 
-    else:
-        print("No hay partidas a cargar")
-        print("Crea una partida nueva")
+    # else:
+    #     print("No hay partidas a cargar")
+    #     print("Crea una partida nueva")
+
+
+
 
 
 #========================================================
 #DEMOSTRACION DE USO
 
 
-if __name__ == "__main__":
-    main()
-    print("LISTO")
-    print("Cantidad de partidas actualizada")
+# if __name__ == "__main__":
+#     main()
+#     print("LISTO")
+#     print("Cantidad de partidas actualizada")
     
-    
-    if hay_partidas_a_cargar():
-        print("Hay partidas para cargar")
-    else:
-        print("---NO--- HAY PARTIDAS A CARGAR")
+#     if hay_partidas_a_cargar():
+#         print("Hay partidas para cargar")
+#     else:
+#         print("---NO--- HAY PARTIDAS A CARGAR")
 
-    print("ACA DEBERIA USAR EL BOOLEAN PARA QUE SE MUESTRE O NO EL BOTON DE CARGAR PARTIDA")
-    sg.popup("ACA DEBERIA USAR EL BOOLEAN PARA QUE SE MUESTRE O NO EL BOTON DE CARGAR PARTIDA")
+#     print("ACA DEBERIA USAR EL BOOLEAN PARA QUE SE MUESTRE O NO EL BOTON DE CARGAR PARTIDA")
+#     sg.popup("ACA DEBERIA USAR EL BOOLEAN PARA QUE SE MUESTRE O NO EL BOTON DE CARGAR PARTIDA")
 
 
 
