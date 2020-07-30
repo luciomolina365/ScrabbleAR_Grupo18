@@ -95,7 +95,6 @@ def jugar():
         print(menu.__doc__)
     menu()
 
-jugar()
 
 
 ##https://pysimplegui.readthedocs.io/en/latest/#the-event-loop-callback-functions
