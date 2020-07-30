@@ -2,6 +2,8 @@ import json
 import PySimpleGUI as sg
 from os import rename
 from os import remove
+from datetime import date
+
 
 #dificultad --> int del 1 al 3
 def cargarConfiguracionPorDefecto(dificultad):
@@ -204,6 +206,10 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
     datos["Puntaje_computadora"] = puntaje_C
     datos["Dificultad"] = dificultad
     datos["Finalizada"] = Finalizada
+
+    if Finalizada:
+        datos["Fecha"] = date.today()
+
 
     datos = __convertir_Datos_A_Json(datos)
 
