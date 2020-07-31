@@ -62,7 +62,7 @@ while True:
     event, values= window.read()
     print(event)
     if event == "_file_":
-        partida=archivos.cargarPartida(archivos.formatear_cadena_de_directorio(values[event]))
+        partida = archivos.cargarPartida(archivos.__formatear_cadena_de_directorio(values[event]))
         window.close()
         Tablero.juego(partida)
         

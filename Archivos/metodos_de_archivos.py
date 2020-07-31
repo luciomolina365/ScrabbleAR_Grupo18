@@ -12,6 +12,7 @@ def cargarConfiguracionPorDefecto(dificultad):
 
     direccion = "Archivos\\configuracion\\por_defecto_" + str(dificultad) +".json"
     datos = cargarPartida(direccion)
+    
     return datos
 
 
@@ -20,9 +21,7 @@ def cargarPartida(direccion):
         """Lee un archivo mediante direccion, le da formato útil a los datos y los retorna.
         (sirve para cargar una partida guardada y para cargar los datos por defecto)."""
 
-        direcc = __formatear_cadena_de_directorio(direccion)
-
-        with open(direcc, 'r') as archivo:
+        with open(direccion, 'r') as archivo:
             datos = json.load(archivo , encoding='utf-8')
             datos = __convertir_Json_A_Datos(datos)
             archivo.close()   
