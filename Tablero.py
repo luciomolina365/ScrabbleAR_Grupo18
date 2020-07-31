@@ -5,6 +5,7 @@ from Objetos import CLASS_bolsa
 from Objetos import CLASS_temporizador
 from Objetos import CLASS_tablero
 from metodos_de_objetos import instanciar_objetos
+import random
 from Archivos.metodos_de_archivos import guardar_partida
 #from corroboro.corroborarPalabra import __retorno_informacion
 
@@ -229,6 +230,8 @@ def juego(Configuracion):
     window['-player-'].update(puntaje_J)
     window['-compu-'].update(puntaje_C)
     window['-OUT-'].update("Buena suerte!!")
+    primer_turno=True
+    Turno=random.randint(0,1)
     while not OBJETOS["Temporizador"].getTERMINO_Temporizador():
         event, values= window.read(timeout=10)
         cantRead = cantRead + 1  
@@ -259,17 +262,23 @@ def juego(Configuracion):
             La_ficha=""
             tupla=""
 
-        if event=="__repartir__"and event!= '__TIMEOUT__'and dic=={}:
+        if event=="__repartir__"and event!= '__TIMEOUT__'and dic=={} and Turno==0:
             repartir=True
             cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir)
+            Turno=1
 
-        if event=="__repartir__"and event!= '__TIMEOUT__'and dic!={}:
+        if event=="__repartir__"and event!= '__TIMEOUT__'and dic!={} and Turno==0 :
            window['-OUT-'].update("Ya has seleccionado una posicion en el tablero")
 
-        if event=="__pasar__" and event!= '__TIMEOUT__' and dic=={} :
+        if event=="__pasar__" and event!= '__TIMEOUT__' and dic=={} and Turno==0 :
             window['-OUT-'].update("Debes colocar las fichas en el tablero")
 
-        if event=="__pasar__" and event!= '__TIMEOUT__' and dic!={} :
+        # if Turno==1:
+        #     jugadaDeCompu
+        #     for i in dic_compu.keys():
+        #         window[i].update(dic_compu[i]["letra"],disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
+        #         Turno=0        # pasa al turno del jugador
+        if event=="__pasar__" and event!= '__TIMEOUT__' and dic!={} and Turno==0 :
             correcta=True
             if(correcta==True):
                 for i in dic.keys():
@@ -284,10 +293,12 @@ def juego(Configuracion):
                 dic={}
                 lista_a_borrar=[]
                 Lista_k=[]
+                Turno=1
             else:
                 actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
                 window['-OUT-'].update("Mal ahi bro le erraste ")
                 dic={}
                 Lista_k=[]
+                Turno=1
 
     print(juego.__doc__)
