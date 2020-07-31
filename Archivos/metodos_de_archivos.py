@@ -198,7 +198,7 @@ def guardar_partida_FINALIZADA(puntaje_J , dificultad , nombre):
 
 
   
-#datos_del_menu --> {"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras":  {'A':{'cantidad':11,'valor':1} , ...} }
+#datos_del_menu --> {"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras":  {'A':{'cantidad':11,'valor':1} , ... } }
 def definir_configuracion(datos_del_menu):
     
     """Despues que se confirme la configuracion personalizada en el menu, se modifica la dificultad seleccionada.
