@@ -216,27 +216,29 @@ def definir_configuracion(datos_del_menu):
 
 def TopTen_de_jugadores(dificultad):
     actualizar_cant_partidas_guardadas(True)
-    predef = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_"
-    Top={}
     lista=[]
     cant=cant_partidas(True)
     for i in range(1,cant+1):                                           
 
-        direccion = predef + str(i) + ".json"
-        #print(direccion)
+        direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_" + str(i) + ".json"
 
         with open(direccion, 'r') as archivo:
             datos = json.load(archivo,encoding='utf-8')
             datos = __convertir_Json_A_Datos(datos)
             archivo.close()
-        if datos["Dificultad"]==dificultad:
-            lista.append({"fecha":datos["Fecha"],"puntaje":datos["Puntaje_jugador"],"dificultad":datos["Dificultad"]})
 
-    Todos=list(sorted(lista, key = lambda diccio: diccio["puntaje"],reverse=True))
-    if(len(Todos)>=10):
+        if datos["Dificultad"]==dificultad:
+            lista.append({"Nombre":datos["Nombre"] , "Puntaje":datos["Puntaje_jugador"] , "Dificultad":datos["Dificultad"] , "Fecha":datos["Fecha"]})
+
+    Todos = list(sorted(lista , key = lambda diccio: diccio["puntaje"] , reverse=True))
+    Top={}
+
+    if len(Todos)>=10:
         Top=Todos[:10]
+    
     else:
         Top=Todos
+    
     return Top
 
        
