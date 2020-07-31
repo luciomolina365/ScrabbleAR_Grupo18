@@ -216,8 +216,9 @@ def definir_configuracion(datos_del_menu):
 
 def TopTen_de_jugadores(dificultad):
     actualizar_cant_partidas_guardadas(True)
-    lista=[]
-    cant=cant_partidas(True)
+    cant = cant_partidas(True)
+    
+    lista = []
     for i in range(1,cant+1):                                           
 
         direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_" + str(i) + ".json"
@@ -227,19 +228,17 @@ def TopTen_de_jugadores(dificultad):
             datos = __convertir_Json_A_Datos(datos)
             archivo.close()
 
-        if datos["Dificultad"]==dificultad:
+        if datos["Dificultad"] == dificultad:
             lista.append({"Nombre":datos["Nombre"] , "Puntaje":datos["Puntaje_jugador"] , "Dificultad":datos["Dificultad"] , "Fecha":datos["Fecha"]})
 
-    Todos = list(sorted(lista , key = lambda diccio: diccio["puntaje"] , reverse=True))
-    Top={}
-
-    if len(Todos)>=10:
-        Top=Todos[:10]
+    Todos = list(sorted(lista , key = lambda top: top["puntaje"] , reverse=True))
+    
+    if len(Todos) >= 10:
+        return Todos[:10]
     
     else:
-        Top=Todos
+        return Todos
     
-    return Top
 
        
 # OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,config)
