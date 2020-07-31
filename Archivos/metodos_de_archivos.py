@@ -143,57 +143,19 @@ def __convertir_Json_A_Datos(datos):
 def estaFinalizada(datos):
     return datos["Finalizada"]
 
-
-def __TEST_GUARDAR(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora , puntaje_J , puntaje_C , dificultad , Finalizada = False):
-    actualizar_cant_partidas_guardadas(Finalizada)
-
-    if Finalizada:
-        indice = cant_partidas(Finalizada)
-        direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_" + str(indice+1) +".json"
-    
-    else:
-        indice = cant_partidas()
-        direccion = "Archivos\\partidas\\partida_guardada_" +  str(indice+1)  +".json"    
-
-    datos={}
-
-    datos["Tablero"] = Tablero
-    datos["Bolsa"] = Bolsa
-    datos["Temporizador"] = Temporizador
-    datos["Atril_jugador"] = Atril_jugador
-    datos["Atril_computadora"] = Atril_computadora
-    datos["Puntaje_jugador"] = puntaje_J
-    datos["Puntaje_computadora"] = puntaje_C
-    datos["Dificultad"] = dificultad
-    datos["Finalizada"] = Finalizada
-
-    datos = __convertir_Datos_A_Json(datos)
-
-    with open(direccion, 'w') as archivo:
-            json.dump(datos, archivo)        
-            archivo.close()
-
-    actualizar_cant_partidas_guardadas(Finalizada)
-
-
 #Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora --> Objetos
 #puntaje_J , puntaje_C --> int
 #dificultad --> int del 1 al 3
 #Finalizada --> boolean
-def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora , puntaje_J , puntaje_C , dificultad , Finalizada = False):   
+def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora , puntaje_J , puntaje_C , dificultad):   
     
     """Guarda los datos de la partida, en la carpeta "Archivos\\partidas_FINALIZADAS" si la partida terminó o en "Archivos\\partidas" si la partida se puede continuar - - - 
     También actualiza "cant_partidas.txt" de la carpeta correspondiente."""
     
-    actualizar_cant_partidas_guardadas(Finalizada)
+    actualizar_cant_partidas_guardadas()
 
-    if Finalizada:
-        indice = cant_partidas(Finalizada)
-        direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_" + str(indice+1) +".json"
-    
-    else:
-        indice = cant_partidas()
-        direccion = "Archivos\\partidas\\partida_guardada_" +  str(indice+1)  +".json"    
+    indice = cant_partidas()
+    direccion = "Archivos\\partidas\\partida_guardada_" +  str(indice+1)  +".json"    
 
     datos={}
 
@@ -205,11 +167,6 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
     datos["Puntaje_jugador"] = puntaje_J
     datos["Puntaje_computadora"] = puntaje_C
     datos["Dificultad"] = dificultad
-    datos["Finalizada"] = Finalizada
-
-    if Finalizada:
-        datos["Fecha"] = str(date.today())
-
 
     datos = __convertir_Datos_A_Json(datos)
 
@@ -217,7 +174,28 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
             json.dump(datos, archivo)        
             archivo.close()
 
-    actualizar_cant_partidas_guardadas(Finalizada)
+
+def guardar_partida_FINALIZADA(puntaje_J , dificultad , nombre):
+    actualizar_cant_partidas_guardadas(True)
+    indice = cant_partidas(True)
+    direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_" + str(indice+1) +".json"
+    
+    datos = {}
+
+    datos["Puntaje_jugador"] = puntaje_J
+    datos["Dificultad"] = dificultad
+    datos["Nombre"] = nombre
+    datos["Fecha"] = str(date.today())
+
+    datos = __convertir_Datos_A_Json(datos)
+
+    with open(direccion, 'w') as archivo:
+            json.dump(datos, archivo)        
+            archivo.close()
+
+
+
+
 
   
 #datos_del_menu --> {"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras":  {'A':{'cantidad':11,'valor':1} , ...} }
@@ -261,48 +239,10 @@ def TopTen_de_jugadores(dificultad):
         Top=Todos
     return Top
 
-
-# def main():
-#     #facil = 1
-#     #medio = 2
-#     dificil = 3
-
-#     datos = cargarConfiguracionPorDefecto(dificil)         
-                                                
-#     if datos != {}:
        
-        # ESTE TEST NO ES LO QUE HAY QUE HACER (ES UN EJEMPLO PARA USARLO EN EL MOMENTO)
-        #__TEST_GUARDAR(datos["Bolsa"] , datos["Tablero"] , datos["Temporizador"] , datos["Atril_jugador"] , datos["Atril_computadora"] , 123 , 321 , datos["Dificultad"] , True)
-        # SE USA ASI :
-        # OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,config)
-        # SE USAN LOS OBJETOS
-        # guardar_partida(OBJETOS["Bolsa"] , OBJETOS["Tablero"] , OBJETOS["Temporizador"] , OBJETOS["Atril_jugador"] , OBJETOS["Atril_computadora"], 666 , 999, 1 ,True)
-
-    # else:
-    #     print("No hay partidas a cargar")
-    #     print("Crea una partida nueva")
-
-
-
-
-
-#========================================================
-#DEMOSTRACION DE USO
-
-
-# if __name__ == "__main__":
-#     main()
-#     print("LISTO")
-#     print("Cantidad de partidas actualizada")
-    
-#     if hay_partidas_a_cargar():
-#         print("Hay partidas para cargar")
-#     else:
-#         print("---NO--- HAY PARTIDAS A CARGAR")
-
-#     print("ACA DEBERIA USAR EL BOOLEAN PARA QUE SE MUESTRE O NO EL BOTON DE CARGAR PARTIDA")
-#     sg.popup("ACA DEBERIA USAR EL BOOLEAN PARA QUE SE MUESTRE O NO EL BOTON DE CARGAR PARTIDA")
-
+# OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,config)
+# SE USAN LOS OBJETOS
+# guardar_partida(OBJETOS["Bolsa"] , OBJETOS["Tablero"] , OBJETOS["Temporizador"] , OBJETOS["Atril_jugador"] , OBJETOS["Atril_computadora"], 666 , 999, 1)
 
 
 #------------------------------------------------------------------------------------------------------------------------

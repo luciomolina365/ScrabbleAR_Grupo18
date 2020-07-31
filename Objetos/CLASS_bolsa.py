@@ -15,8 +15,8 @@ class Bolsa:
 
     def __actualizarLetrasDisponibles(self):
         self.__letras_disponibles.clear()
-        for letra in self.__bolsa.keys():                                   #Cargo las letras disponibles 
-            if self.__bolsa[letra]["cantidad"] != 0:                                    #(POR SI ALGUNA LETRA TIENE CANTIDAD = 0 EN LA CONFIGURACION o PARTIDA CARGADA)
+        for letra in self.__bolsa.keys():                                   # Cargo las letras disponibles 
+            if self.__bolsa[letra]["cantidad"] != 0:                        # (POR SI ALGUNA LETRA TIENE CANTIDAD = 0 EN LA CONFIGURACION o PARTIDA CARGADA)
                 self.__letras_disponibles.append(letra)
         
 
