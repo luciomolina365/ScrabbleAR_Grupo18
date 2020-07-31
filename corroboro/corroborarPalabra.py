@@ -50,13 +50,15 @@ def __ordenar_info(diccionario_que_recibe_del_tablero):
     
 def __obtengo_diccionario_trabajado(__diccionario_ordenado):
     #Agarro la info que me interesa para obtener la palabra y retornarla para verificarla despues, del diccionario que recibo, armo uno con las posiciones y la letra de la posicion
+    
     dic_trabajado = {}
     for k,v in __diccionario_ordenado.items():
         dic_trabajado[k] = v['letra']
     
-    #ME RETORNA UN DICCIONARIO DONDE LA CLAVE VA A SER LA POSICION Y EL VALOR LA LETRA, ME SIRVE PARA CORROBORAR POSICIONES Y PUNTUAR
-    #RETORNA DICCIONARIO TRABAJADO
     return(dic_trabajado)
+        #ME RETORNA UN DICCIONARIO DONDE LA CLAVE VA A SER LA POSICION Y EL VALOR LA LETRA, ME SIRVE PARA CORROBORAR POSICIONES Y PUNTUAR
+        #RETORNA DICCIONARIO TRABAJADO
+
 
 
 def __corroboro_palabra(diccionario_trabajado):
@@ -91,7 +93,7 @@ def __corroboro_palabra(diccionario_trabajado):
 
                 #ME RETORNA UNA LISTA DONDE LA POS 0 RETORNA SI LA PALABRA QUE SE INGRESO SE ENCONTRO O NO EN PATTERN
                 #LA POS 1 ME RETORNA LA PALABRA EN SI
-                return(ok,elem[0])
+                return(ok)
 
 
 def __retorno_informacion(__palabra,__configuracion):    
@@ -108,7 +110,11 @@ def __retorno_informacion(__palabra,__configuracion):
     
     palabra_der = __obtengo_diccionario_trabajado(palabra_ordenada_der)
     
-    if(__corroboro_palabra(palabra_izq)[0] == True):
+    sigue_izquierda = __corroboro_palabra(palabra_izq)
+
+    sigue_derecha = __corroboro_palabra(palabra_der)
+
+    if(sigue_izquierda == True):
     
         
         if(posiciones_validas.__posiciones_validas(palabra_izq)==True):
@@ -120,7 +126,7 @@ def __retorno_informacion(__palabra,__configuracion):
             info_final = "TU PALABRA ES CORRECTA PERO, NO LA UBICASTE CORRECTAMENTE!!!"
             ok = False
     
-    elif(__corroboro_palabra(palabra_der)[0] == True):
+    elif(sigue_derecha == True):
     
         
         if(posiciones_validas.__posiciones_validas(palabra_der)==True):

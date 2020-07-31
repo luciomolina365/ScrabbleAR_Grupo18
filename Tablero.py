@@ -238,6 +238,8 @@ def juego(Configuracion):
             La_ficha=formatear(dato)
             
         if event == "__exit__" and event!= '__TIMEOUT__' :
+            print(type(puntaje_J))
+            print(puntaje_J)
             window.close()
             break
         if event == "__save__" and event!= '__TIMEOUT__' :

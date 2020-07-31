@@ -87,8 +87,8 @@ def jugar():
                 Configuracion["letras"]=fichas_finales
                 print("/"*80)
                 Config=definir_configuracion(Configuracion)
-                Tablero.juego(Config)
                 window.close()
+                Tablero.juego(Config)
         window.close()
         print(menu.__doc__)
     menu()
