@@ -59,7 +59,12 @@ def juego():
 
 
     def OTRO():
-        layout = [sg.Button("-1" , key = "__-1__"),sg.Button("-2" , key = "__-2__"),sg.Button("-3" , key = "__-3__")],[sg.Button("x2" , key = "__x2__") , sg.Button("x3" , key = "__x3__")] ,[sg.Button("gris" , key = "__gris__")]
+        layout = [
+        [sg.Button("-1" , key = "__-1__"),sg.Button("-2" , key = "__-2__"),sg.Button("-3" , key = "__-3__")], 
+        [sg.Button("x2" , key = "__x2__") , sg.Button("x3" , key = "__x3__")],
+        [sg.Button("Px2" , key = "__Px2__") , sg.Button("Px3" , key = "__Px3__")],
+        [sg.Button("gris" , key = "__gris__")]
+        ]
 
         window = sg.Window('ScrASD', layout, font='Courier 12')
 
@@ -133,10 +138,21 @@ def juego():
             elif tipo == "__x3__":
                 datos = {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': True, 'tipo_de_recompensa': "x3"}
                 window[CLAVE].update("",disabled=False,image_filename='imagenes\Multiplicador x3.png',image_size=(25, 22))
+            
+            elif tipo == "__Px2__":
+                datos = {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': True, 'tipo_de_recompensa': "Px2"}
+                window[CLAVE].update("",disabled=False,image_filename='imagenes\palabra x2.png',image_size=(25, 22))
+
+            elif tipo == "__Px3__":
+                datos = {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': True, 'tipo_de_recompensa': "Px3"}
+                window[CLAVE].update("",disabled=False,image_filename='imagenes\palabra x3.png',image_size=(25, 22))
+            
             elif tipo == "__gris__":
                 datos = {'letra': None, 'trampa': False, 'tipo_de_trampa': None, 'recompensa': False, 'tipo_de_recompensa': None}
                 window[CLAVE].update("",disabled=False,image_filename='imagenes\GRIS.png',image_size=(25, 22))
-                
+            
+
+
             TableroD[CLAVE] = datos
 
             print(TableroD[CLAVE])
