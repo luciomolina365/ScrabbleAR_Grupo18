@@ -152,11 +152,6 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
     """Guarda los datos de la partida, en la carpeta "Archivos\\partidas_FINALIZADAS" si la partida terminó o en "Archivos\\partidas" si la partida se puede continuar - - - 
     También actualiza "cant_partidas.txt" de la carpeta correspondiente."""
     
-    actualizar_cant_partidas_guardadas()
-
-    indice = cant_partidas()
-    direccion = "Archivos\\partidas\\partida_guardada_" +  str(indice+1)  +".json"    
-
     datos={}
 
     datos["Tablero"] = Tablero.getEstado()
@@ -169,7 +164,11 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
     datos["Dificultad"] = dificultad
 
     datos = __convertir_Datos_A_Json(datos)
-
+    
+    actualizar_cant_partidas_guardadas()
+    indice = cant_partidas()
+    direccion = "Archivos\\partidas\\partida_guardada_" +  str(indice+1)  +".json" 
+    
     with open(direccion, 'w') as archivo:
             json.dump(datos, archivo)        
             archivo.close()
