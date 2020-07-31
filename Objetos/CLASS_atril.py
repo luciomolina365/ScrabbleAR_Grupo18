@@ -55,6 +55,8 @@ class Atril:
 
     #lista_de_letras --> lista EJ. ["L", "C", "L", "K"]
     def sacar_varias_fichas(self, lista_de_letras):
+
+        """Le SACA las fichas pasadas por parametro al Atril y lo actualiza"""
         
         for letra in lista_de_letras:
             self.sacar_ficha(letra)
@@ -62,6 +64,8 @@ class Atril:
 
     #dic_de_ficha --> diccionario de diccionarios   EJ. {'A':{'cantidad':2,'valor':1} , 'G':{'cantidad':1,'valor':1}}
     def agregar_varias_fichas(self,dic_de_fichas):
+
+        """Le AGREGA las fichas pasadas por parametro al Atril y lo actualiza"""
         
         if dic_de_fichas:                                           #Si el diccionario no está vacio
             

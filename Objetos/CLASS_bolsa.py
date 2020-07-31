@@ -15,8 +15,8 @@ class Bolsa:
 
     def __actualizarLetrasDisponibles(self):
         self.__letras_disponibles.clear()
-        for letra in self.__bolsa.keys():                                   #Cargo las letras disponibles 
-            if self.__bolsa[letra]["cantidad"] != 0:                                    #(POR SI ALGUNA LETRA TIENE CANTIDAD = 0 EN LA CONFIGURACION o PARTIDA CARGADA)
+        for letra in self.__bolsa.keys():                                   # Cargo las letras disponibles 
+            if self.__bolsa[letra]["cantidad"] != 0:                        # (POR SI ALGUNA LETRA TIENE CANTIDAD = 0 EN LA CONFIGURACION o PARTIDA CARGADA)
                 self.__letras_disponibles.append(letra)
         
 
@@ -31,7 +31,7 @@ class Bolsa:
         return self.__bolsa                                                 #EJ.  {'A':{'cantidad':11,'valor':1} , 'B':{'cantidad':3,'valor':1}}
 
 
-    def getCantFichasTotales(self):
+    def __getCantFichasTotales(self):
         cant = 0
         for letra in self.__bolsa:
             cant = cant + self.__bolsa[letra]["cantidad"]
@@ -52,9 +52,9 @@ class Bolsa:
         """Devuelve un diccionario de diccionarios segun 
         la cantidad de fichas ingresada y actualiza la bolsa."""
     
-        if cant_fichas > self.getCantFichasTotales():                                                   #Si no tengo suficientes fichas
+        if cant_fichas > self.__getCantFichasTotales():                                                   #Si no tengo suficientes fichas
             #POPUP SE TERMINA EL JUEGO POR FALTA DE FICHAS
-            #print(f"fichas pedidas = {cant_fichas} / total = {self.getCantFichasTotales()}")
+            #print(f"fichas pedidas = {cant_fichas} / total = {self.__getCantFichasTotales()}")
             sg.popup("No hay suficientes fichas en la bolsa")                                           #Popup y devuelve un dic vacio
             self.__TERMINO = True
             return {}
@@ -80,6 +80,8 @@ class Bolsa:
     
     #dic_de_fichas  --> diccionario de diccionarios  EJ. {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
     def devolverFichas(self, dic_de_fichas):
+
+        """Devuelve a la Bolsa las fichas pasadas por parametro"""
         
         for letra in dic_de_fichas:
             self.__bolsa[letra]["cantidad"] = self.__bolsa[letra]["cantidad"] + dic_de_fichas[letra]["cantidad"]
@@ -88,7 +90,9 @@ class Bolsa:
 
 
     #dic_a_intercambiar  --> diccionario de diccionarios  EJ. {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
-    def intercambiar_fichas(self,dic_a_intercambiar):         
+    def intercambiar_fichas(self,dic_a_intercambiar):
+
+        """Recibe fichas y devuelve la misma cantidad de fichas"""         
         
         cant = 0
         for letra in dic_a_intercambiar:                                                                #Contamos la cantidad de fichas a devolver
