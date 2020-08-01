@@ -5,7 +5,9 @@ from Objetos import CLASS_bolsa
 from Objetos import CLASS_temporizador
 from Objetos import CLASS_tablero
 from metodos_de_objetos import instanciar_objetos
+import random
 from Archivos.metodos_de_archivos import guardar_partida
+from Archivos.metodos_de_archivos import guardar_partida_finalizada
 #from corroboro.corroborarPalabra import __retorno_informacion
 
 #{"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras": 
@@ -28,6 +30,8 @@ def juego(Configuracion):
 
     OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,Configuracion)
 
+#metodos utilizados en momentos
+#------------------------------------------------------------------------------------------------- 
 
     def formatear(ficha):
 
@@ -41,8 +45,11 @@ def juego(Configuracion):
             nueva_cadena = nueva_cadena + letra
 
         return nueva_cadena
-   
-    
+   #------------------------------------------------------------------------------------------------- 
+
+
+   #Creando tableor primera vez o al cargar
+   #------------------------------------------------------------------------------------------------- 
     Lista_j=OBJETOS["Atril_jugador"].getFichas_disponibles()
     Lista_c=OBJETOS["Atril_computadora"].getFichas_disponibles()
     if len(Lista_j)==0 and len(Lista_c)==0:
@@ -87,40 +94,100 @@ def juego(Configuracion):
                     elif TableroD[(i,j)]["recompensa"]==True:
                         if TableroD[(i,j)]["tipo_de_recompensa"]=="x2":
                             lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\multiplicador x2.png',image_size=(25, 22)))
+                        elif TableroD[(i,j)]["tipo_de_recompensa"]=="x3":
+                            lista1.append(sg.Button("",disabled=False,pad=(2,3),image_filename='imagenes\multiplicador x3.png',image_size=(25, 22)) )  
+                        elif TableroD[(i,j)]["tipo_de_recompensa"]=="Px2":
+                            lista1.append(sg.Button("",disabled=False,pad=(2,3),image_filename='imagenes\palabra x2.png',image_size=(25, 22)))
                         else:
-                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\multiplicador x3.png',image_size=(25, 22)))
+                            lista1.append(sg.Button("",disabled=False,pad=(2,3),image_filename='imagenes\palabra x3.png',image_size=(25, 22)))
                     else:
                         lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\GRIS.png',image_size=(25, 22)))
             lista1=[lista1]
             tablero=tablero+lista1
         return tablero
 
+#---------------------------------------------------------------------------------------------------
+                
+
+
+#---------------------------------------------------------------------------------------------------
+#FINALIZANDO
+    def nombreFinalizada():         #se llama al metodo para q el jugador ingrese su nombre para que este registrado su nombre en el posible Top Ten
+        layout=[[sg.Text("Ingrese su nombre para registrar su partida finalizada")],
+        [sg.Input(default_text="",key="nombre")],
+        [sg.Button("Confirmar",key="confirmar")]]
+        
+
+        window = sg.Window('Seleccione las fichas a cambiar', layout, font='Courier 12',disable_close=True, disable_minimize=True)
+
+        while True:
+            event, values= window.read()
+            if event=="confirmar" and "nombre"!="":
+                window.close()
+                return values["nombre"]
+
+#---------------------------------------------------------------------------------------------------
+
+
+
+#ACTUALIZAR TABLERO
+#---------------------------------------------------------------------------------------------------
+
     def actualizando_tablero(dic,Tablero,window,Lista_k):#Aca vuelven la tabla a su estado original si el jugador pone una palabra erronea
-        for i in dic.keys():
-                Tablero.setValorEnCoor(i,"")
-                lugar=Tablero.getDatosEnCoor(i)
-                if lugar["trampa"]==True: 
-                    if lugar["tipo_de_trampa"]=="-1":
-                        window[i].update("",disabled=False,image_filename='imagenes\menos 1.png',image_size=(23, 20))
-                    elif lugar["tipo_de_trampa"]=="-2":
-                        window[i].update("",disabled=False,image_filename='imagenes\menos 2.png',image_size=(25, 22))
-                    else:
-                        window[i].update("",disabled=False,image_filename='imagenes\menos 3.png',image_size=(25, 22))
-                elif lugar["recompensa"]==True:
-                    if lugar["tipo_de_recompensa"]=="x2":
-                        window[i].update("",disabled=False,image_filename='imagenes\multiplicador x2.png',image_size=(25, 22))
-                    else:
-                        window[i].update("",disabled=False,image_filename='imagenes\multiplicador x3.png',image_size=(25, 22))
-                else:
-                    window[i].update("",disabled=False,image_filename='imagenes\GRIS.png',image_size=(25, 22))
-        print(Lista_k)
-        for i in Lista_k:
-            window[i].update(disabled=False, button_color=('white', 'black'))
+            for i in dic.keys():
+                    Tablero.setValorEnCoor(i,"")
+                    lugar=Tablero.getDatosEnCoor(i)
+                    if lugar["trampa"]==True: 
+                        if lugar["tipo_de_trampa"]=="-1":
+                            window[i].update("",disabled=False,image_filename='imagenes\menos 1.png',image_size=(23, 20))
+                        elif lugar["tipo_de_trampa"]=="-2":
+                            window[i].update("",disabled=False,image_filename='imagenes\menos 2.png',image_size=(25, 22))
+                        else:
+                            window[i].update("",disabled=False,image_filename='imagenes\menos 3.png',image_size=(25, 22))
+                    elif lugar["recompensa"]==True:
+                        if lugar["tipo_de_recompensa"]=="x2":
+                            window[i].update("",disabled=False,image_filename='imagenes\multiplicador x2.png',image_size=(25, 22))
+                        if lugar["tipo_de_recompensa"]=="x3":
+                            window[i].update("",disabled=False,image_filename='imagenes\multiplicador x3.png',image_size=(25, 22))   
+                        if lugar["tipo_de_recompensa"]=="Px2":
+                            window[i].update("",disabled=False,image_filename='imagenes\palabra x2.png',image_size=(25, 22))
+                        else:
+                            window[i].update("",disabled=False,image_filename='imagenes\palabra x3.png',image_size=(25, 22))
+                            
+            print(Lista_k)
+            for i in Lista_k:
+                window[i].update(disabled=False, button_color=('white', 'black'))
 
 
 
-    #una variable q sea jugador o computadora
-    def actualizar_fichas(lista_a_borrar,B,window,Atril,evento):#Este metodo se usa en caso de q coloques una palabra correcta o q requieras devolver letras a la bolsa
+    def cambiar_fichas(Atril,Window_principal,B,evento,jugador):#este metodo se llamara en el caso de q se pida fichas a la bolsa para intercambiar y a partir de ahi llama a actualizar_fichas
+        Fichas=Atril.getFichas_disponibles()
+        layout =[
+                [sg.Button(Fichas[i], key=i,button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)) for i in range(7)],
+                [sg.Button("Confirmar",key="confirmar",font=("Helvetica", 9) ,button_color=('white','grey')),sg.Cancel(font=("Helvetica", 9) ,button_color=('white','grey'))]]
+       
+        window = sg.Window('Seleccione las fichas a cambiar', layout, font='Courier 12',disable_close=True, disable_minimize=True)
+        Seleccionadas=[]
+        while True:
+          event, values= window.read()
+          if type(event)==int: 
+                aux=event
+                dato=Fichas[event]
+                ficha_a_cambiar=formatear(dato)
+                window[event].update(disabled=True, button_color=('black','white'))
+                Seleccionadas.append(ficha_a_cambiar)
+          if(event=="Cancel"):
+            window.close()
+            break  
+          elif(event=="confirmar"):
+              actualizar_fichas(Seleccionadas,B,Window_principal,Atril,evento,jugador)
+              window.close()
+              break
+
+
+
+  #una variable q sea jugador o computadora
+    def actualizar_fichas(lista_a_borrar,B,window,Atril,evento,jugador):#Este metodo se usa en caso de q coloques una palabra correcta o q requieras devolver letras a la bolsa
         if evento==True:#significa q el evento fue repartir
             estado=Atril.getEstado()
             dic={}
@@ -144,45 +211,15 @@ def juego(Configuracion):
                 listaNueva.append(letra)
                 
         datos=Atril.getFichas_disponibles()
-        for i in range(0,len(datos)):
-            window[i].update(datos[i],disabled=False,button_color=('white', 'black'))
-                
+        if jugador ==0:
+            for i in range(0,len(datos)):
+                window[i].update(datos[i],disabled=False,button_color=('white', 'black'))
 
 
+#---------------------------------------------------------------------------------------------------
 
-    # def Crear_diccionario(dic):
-    #     nuevo={}
-    #     for tupla in dic.keys():
-    #         nuevo[tupla]=dic[tupla]["letra"]
-    #     return nuevo     
-
-
-
-
-
-    def cambiar_fichas(Atril,Window_principal,B,evento):#este metodo se llamara en el caso de q se pida fichas a la bolsa para intercambiar y a partir de ahi llama a actualizar_fichas
-        Fichas=Atril.getFichas_disponibles()
-        layout =[
-                [sg.Button(Fichas[i], key=i,button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)) for i in range(7)],
-                [sg.Button("Confirmar",key="confirmar",font=("Helvetica", 9) ,button_color=('white','grey')),sg.Cancel(font=("Helvetica", 9) ,button_color=('white','grey'))]]
-       
-        window = sg.Window('Seleccione las fichas a cambiar', layout, font='Courier 12',disable_close=True, disable_minimize=True)
-        Seleccionadas=[]
-        while True:
-          event, values= window.read()
-          if type(event)==int: 
-                aux=event
-                dato=Fichas[event]
-                ficha_a_cambiar=formatear(dato)
-                window[event].update(disabled=True, button_color=('black','white'))
-                Seleccionadas.append(ficha_a_cambiar)
-          if(event=="Cancel"):
-            window.close()
-            break  
-          elif(event=="confirmar"):
-              actualizar_fichas(Seleccionadas,B,Window_principal,Atril,evento)
-              window.close()
-              break
+##Creando la ventana de juego
+#---------------------------------------------------------------------------------------------------
 
     headings = ['JUGADOR', ' IA']
     header =  [[sg.T(' '*15),sg.Text('')] + [sg.Text(h, size=(8,1)) for h in headings]]
@@ -207,7 +244,7 @@ def juego(Configuracion):
 
 
     fichas_jugador = [fichasJ+[sg.Button("Poner",key="_poner_",font=("Helvetica", 9) ,button_color=('white','grey'),size=(6, 2))],
-    [sg.Button(('Posponer partida!'),key="__save__",font=("Helvetica", 9) ,button_color=('white','grey')),sg.Button(("Terminar juego"), key="__exit__",font=("Helvetica", 9) ,button_color=('white','grey')),sg.Button(("REPARTIR NUEVAS FICHAS"),button_color=('white','grey'), key="__repartir__",font=("Helvetica", 9)),sg.Button('Pasar Turno',key="__pasar__",button_color=('black','white'), font=("Helvetica", 16))]]
+    [sg.Button(('Posponer partida!'),key="__save__",font=("Helvetica", 9) ,button_color=('white','grey')),sg.Button(("Terminar juego"), key="__exit__",font=("Helvetica", 9) ,button_color=('white','grey')),sg.Button(("Repartir Nuevas Fichas"),button_color=('white','grey'), key="__repartir__",font=("Helvetica", 9)),sg.Button('Pasar Turno',key="__pasar__",button_color=('black','white'), font=("Helvetica", 16))]]
 
 
 
@@ -217,6 +254,9 @@ def juego(Configuracion):
     layout = titulo + puntua + fichas_computadora + tabla + fichas_jugador
 
     window = sg.Window('ScrabbleAr', layout, font='Courier 12')
+
+    
+#---------------------------------------------------------------------------------------------------
                         
     cantRead = 0                                    
 
@@ -229,6 +269,12 @@ def juego(Configuracion):
     window['-player-'].update(puntaje_J)
     window['-compu-'].update(puntaje_C)
     window['-OUT-'].update("Buena suerte!!")
+    primer_turno=True
+    Turno=random.randint(0,1)       #Si es 1 es la IA si es 0 es el jugador
+    if(Turno==1):
+        print("El turno es de la IA ")
+    else:
+        print("el turno es de el jugador")
     while not OBJETOS["Temporizador"].getTERMINO_Temporizador():
         event, values= window.read(timeout=10)
         cantRead = cantRead + 1  
@@ -246,10 +292,11 @@ def juego(Configuracion):
             print(type(puntaje_J))
             print(puntaje_J)
             window.close()
-            guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"],Finalizada=True)
+            nombre=nombreFinalizada()
+            guardar_partida_finalizada(puntaje_J , Configuracion["Dificultad"],nombre)
             break
         if event == "__save__" and event!= '__TIMEOUT__' :
-            guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"],Finalizada=False)
+            guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"])
             window.close()
             break
         if event == "_poner_" and La_ficha!="" and tupla!="" and event!= '__TIMEOUT__' :
@@ -260,18 +307,26 @@ def juego(Configuracion):
             Lista_k.append(aux)
             La_ficha=""
             tupla=""
-
-        if event=="__repartir__"and event!= '__TIMEOUT__'and dic=={}:
+        if event=="__repartir__"and event!= '__TIMEOUT__'and dic=={} and Turno==0:
             repartir=True
-            cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir)
+            cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir,Turno)
+            Turno=1
 
-        if event=="__repartir__"and event!= '__TIMEOUT__'and dic!={}:
+        if event=="__repartir__"and event!= '__TIMEOUT__'and dic!={} and Turno==0 :
            window['-OUT-'].update("Ya has seleccionado una posicion en el tablero")
 
-        if event=="__pasar__" and event!= '__TIMEOUT__' and dic=={} :
+        if event=="__pasar__" and event!= '__TIMEOUT__' and dic=={} and Turno==0 :
             window['-OUT-'].update("Debes colocar las fichas en el tablero")
 
-        if event=="__pasar__" and event!= '__TIMEOUT__' and dic!={} :
+        # if Turno==1:
+        #     jugadaDeCompu
+        #     for i in dic_compu.keys():
+        #         window[i].update(dic_compu[i]["letra"],disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
+        #         Turno=0        # pasa al turno del jugador
+
+
+
+        if event=="__pasar__" and event!= '__TIMEOUT__' and dic!={} and Turno==0 :
             correcta=True
             if(correcta==True):
                 for i in dic.keys():
@@ -280,16 +335,18 @@ def juego(Configuracion):
                 #puntaje=corroborarPalabra.puntuacion() 
                 puntaje_J=puntaje_J+2
                 repartir=False
-                actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir)
+                actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir,Turno)
                 window['-OUT-'].update("Bien hecho bro")
                 window['-player-'].update(puntaje_J)
                 dic={}
                 lista_a_borrar=[]
                 Lista_k=[]
+                Turno=1
             else:
                 actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
                 window['-OUT-'].update("Mal ahi bro le erraste ")
                 dic={}
                 Lista_k=[]
+                Turno=1
 
     print(juego.__doc__)

@@ -12,6 +12,7 @@ def cargarConfiguracionPorDefecto(dificultad):
 
     direccion = "Archivos\\configuracion\\por_defecto_" + str(dificultad) +".json"
     datos = cargarPartida(direccion)
+    
     return datos
 
 
@@ -49,7 +50,7 @@ def formatear_cadena_de_directorio(directorio):
 
     return str(direccion)
 
-def cant_partidas(Finalizada = False):
+def __cant_partidas(Finalizada = False):
 
     if Finalizada:
         direccion = "Archivos\\partidas_FINALIZADAS\\cant_partidas.txt"
@@ -66,7 +67,7 @@ def hay_partidas_a_cargar():
 
     """Lee el archivo de cantidad de partidas y retorna un booleano. Para mostrar o no el boton de cargar partida."""                                        
     
-    cant = cant_partidas()
+    cant = __cant_partidas()
 
     if cant == 0:
         return False
@@ -93,8 +94,12 @@ def actualizar_cant_partidas_guardadas(Finalizada = False):
             #print(direccion)
 
             with open(direccion, 'r') as archivo:
+                
                 datos = json.load(archivo,encoding='utf-8')
-                datos = __convertir_Json_A_Datos(datos)
+                
+                if Finalizada == False:
+                    datos = __convertir_Json_A_Datos(datos) 
+
                 archivo.close()
 
             i = i + 1  
@@ -115,10 +120,10 @@ def actualizar_cant_partidas_guardadas(Finalizada = False):
     
 
 #========================================================        
-    
-
-def __convertir_Datos_A_Json(datos):
-    aux = {}
+                                                        #
+                                                        #
+def __convertir_Datos_A_Json(datos):                    #
+    aux = {}                                            #
     for coor in datos["Tablero"]:
         aux[str(coor)] = datos["Tablero"][coor]
     
@@ -140,23 +145,14 @@ def __convertir_Json_A_Datos(datos):
 #========================================================        
 
 
-def estaFinalizada(datos):
-    return datos["Finalizada"]
-
 #Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora --> Objetos
 #puntaje_J , puntaje_C --> int
 #dificultad --> int del 1 al 3
-#Finalizada --> boolean
 def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora , puntaje_J , puntaje_C , dificultad):   
     
-    """Guarda los datos de la partida, en la carpeta "Archivos\\partidas_FINALIZADAS" si la partida terminó o en "Archivos\\partidas" si la partida se puede continuar - - - 
+    """Guarda los datos de la partida, en la carpeta "Archivos\\partidas" para poder seguirla en otro momento  - - - 
     También actualiza "cant_partidas.txt" de la carpeta correspondiente."""
     
-    actualizar_cant_partidas_guardadas()
-
-    indice = cant_partidas()
-    direccion = "Archivos\\partidas\\partida_guardada_" +  str(indice+1)  +".json"    
-
     datos={}
 
     datos["Tablero"] = Tablero.getEstado()
@@ -169,15 +165,26 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
     datos["Dificultad"] = dificultad
 
     datos = __convertir_Datos_A_Json(datos)
-
+    
+    actualizar_cant_partidas_guardadas()
+    indice = __cant_partidas()
+    direccion = "Archivos\\partidas\\partida_guardada_" +  str(indice+1)  + ".json" 
+    
     with open(direccion, 'w') as archivo:
             json.dump(datos, archivo)        
             archivo.close()
 
 
-def guardar_partida_FINALIZADA(puntaje_J , dificultad , nombre):
+#puntaje_J --> int
+#dificultad --> int del 1 al 3
+#nombre --> String
+def guardar_partida_finalizada(puntaje_J , dificultad , nombre):
+
+    """Guarda los datos de la partida, en la carpeta "Archivos\\partidas_FINALIZADAS" para mostrar el Top 10 de los mejores jugadores y sus datos - - - 
+    También actualiza "cant_partidas.txt" de la carpeta correspondiente."""
+
     actualizar_cant_partidas_guardadas(True)
-    indice = cant_partidas(True)
+    indice = __cant_partidas(True)
     direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_" + str(indice+1) +".json"
     
     datos = {}
@@ -187,15 +194,9 @@ def guardar_partida_FINALIZADA(puntaje_J , dificultad , nombre):
     datos["Nombre"] = nombre
     datos["Fecha"] = str(date.today())
 
-    datos = __convertir_Datos_A_Json(datos)
-
     with open(direccion, 'w') as archivo:
             json.dump(datos, archivo)        
             archivo.close()
-
-
-
-
 
   
 #datos_del_menu --> {"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras":  {'A':{'cantidad':11,'valor':1} , ... } }
@@ -214,9 +215,13 @@ def definir_configuracion(datos_del_menu):
     return config_por_defecto
 
 
+#dificultad --> int del 1 al 3
 def TopTen_de_jugadores(dificultad):
+
+    """Lee los datos de las partidas guardadas y muestra un Top 10 de los mejores jugadores, según su puntaje"""
+
     actualizar_cant_partidas_guardadas(True)
-    cant = cant_partidas(True)
+    cant = __cant_partidas(True)
     
     lista = []
     for i in range(1,cant+1):                                           
@@ -225,13 +230,12 @@ def TopTen_de_jugadores(dificultad):
 
         with open(direccion, 'r') as archivo:
             datos = json.load(archivo,encoding='utf-8')
-            datos = __convertir_Json_A_Datos(datos)
             archivo.close()
 
         if datos["Dificultad"] == dificultad:
             lista.append({"Nombre":datos["Nombre"] , "Puntaje":datos["Puntaje_jugador"] , "Dificultad":datos["Dificultad"] , "Fecha":datos["Fecha"]})
 
-    Todos = list(sorted(lista , key = lambda top: top["puntaje"] , reverse=True))
+    Todos = list(sorted(lista , key = lambda top: top["Puntaje"] , reverse=True))
     
     if len(Todos) >= 10:
         return Todos[:10]

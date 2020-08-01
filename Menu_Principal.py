@@ -26,12 +26,12 @@ window = sg.Window('ScrabbleAr', layout, font='Courier 12',background_color="bla
 
 
 def mostrar_ten(topFacil,topMedio,topDificil):
-    layout=[[sg.Text('Seleccione la dificultad para ver el Top Ten')],
-        [sg.Button("Facil",key="facil"),sg.Button("Medio",key="medio"),sg.Button("Dificil",key="dificil")],
-        [sg.Listbox([], size = (45,10) , key = "listBox" , select_mode=False)],
-        [sg.Cancel()]]
+    layout=[[sg.Text('Seleccione la dificultad para ver el Top Ten',text_color="white",background_color="black")],
+        [sg.Button("Facil",key="facil",button_color=('black','white')),sg.Button("Medio",key="medio",button_color=('black','white')),sg.Button("Dificil",key="dificil",button_color=('black','white'))],
+        [sg.Listbox([], size = (70,15) , key = "listBox" , select_mode=False)],
+        [sg.Cancel(button_color=('black','white'))]]
 
-    window = sg.Window('Top Ten', layout)
+    window = sg.Window('Top Ten', layout,background_color="black")
     No_hay_partidas=["No hay registros en esta dificultad"]
     while True:
         event, values= window.read()
@@ -62,7 +62,7 @@ while True:
     event, values= window.read()
     print(event)
     if event == "_file_":
-        partida=archivos.cargarPartida(archivos.formatear_cadena_de_directorio(values[event]))
+        partida = archivos.cargarPartida(archivos.formatear_cadena_de_directorio(values[event]))
         window.close()
         Tablero.juego(partida)
         
