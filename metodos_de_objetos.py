@@ -37,7 +37,7 @@ def instanciar_objetos(Bol , Table , Temp , Atril_jugador , Atril_computadora , 
 
 
 #------------------------------------------------------------------------------------------------------------------------
-#Molina, Lucio Felipe - 15980/7
+# Molina, Lucio Felipe - 15980/7
 
 
 
