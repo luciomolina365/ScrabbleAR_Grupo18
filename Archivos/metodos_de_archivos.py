@@ -116,10 +116,10 @@ def actualizar_cant_partidas_guardadas(Finalizada = False):
     
 
 #========================================================        
-    
-
-def __convertir_Datos_A_Json(datos):
-    aux = {}
+                                                        #
+                                                        #
+def __convertir_Datos_A_Json(datos):                    #
+    aux = {}                                            #
     for coor in datos["Tablero"]:
         aux[str(coor)] = datos["Tablero"][coor]
     
@@ -189,8 +189,6 @@ def guardar_partida_finalizada(puntaje_J , dificultad , nombre):
     datos["Dificultad"] = dificultad
     datos["Nombre"] = nombre
     datos["Fecha"] = str(date.today())
-
-    datos = __convertir_Datos_A_Json(datos)
 
     with open(direccion, 'w') as archivo:
             json.dump(datos, archivo)        
