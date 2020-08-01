@@ -96,11 +96,11 @@ def juego(Configuracion):
                         if TableroD[(i,j)]["tipo_de_recompensa"]=="x2":
                             lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\multiplicador x2.png',image_size=(25, 22)))
                         elif TableroD[(i,j)]["tipo_de_recompensa"]=="x3":
-                            lista1.append(sg.Button("",disabled=False,pad=(2,3),image_filename='imagenes\multiplicador x3.png',image_size=(25, 22)) )  
+                            lista1.append(sg.Button("",disabled=False,pad=(2,3),key=(i,j),image_filename='imagenes\multiplicador x3.png',image_size=(25, 22)) )  
                         elif TableroD[(i,j)]["tipo_de_recompensa"]=="Px2":
-                            lista1.append(sg.Button("",disabled=False,pad=(2,3),image_filename='imagenes\palabra x2.png',image_size=(25, 22)))
+                            lista1.append(sg.Button("",disabled=False,pad=(2,3),key=(i,j),image_filename='imagenes\palabra x2.png',image_size=(25, 22)))
                         else:
-                            lista1.append(sg.Button("",disabled=False,pad=(2,3),image_filename='imagenes\palabra x3.png',image_size=(25, 22)))
+                            lista1.append(sg.Button("",disabled=False,pad=(2,3),key=(i,j),image_filename='imagenes\palabra x3.png',image_size=(25, 22)))
                     else:
                         lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\GRIS.png',image_size=(25, 22)))
             lista1=[lista1]
@@ -268,17 +268,18 @@ def juego(Configuracion):
     window['-player-'].update(puntaje_J)
     window['-compu-'].update(puntaje_C)
     window['-OUT-'].update("Buena suerte!!")
-    Turno=random.randint(0,1)       #Si es 1 es la IA si es 0 es el jugador
-    #variable para controlar la cantidad de veces que la IA no pudo jugar, al 2do turno que no pudo armar una palabra correcta, cambiara x cantidad de fichas
-    no_jugada = 0
-    if(Turno==1):
-        print("El turno es de la IA ")
-        primer_turno=True
-        print(OBJETOS["Atril_computadora"].getFichas_disponibles())
-    else:
-        print("el turno es de el jugador")
-        print(OBJETOS["Atril_jugador"].getFichas_disponibles())
-        primer_turno=False
+    primer_turno=True
+    # Turno=random.randint(0,1)       #Si es 1 es la IA si es 0 es el jugador
+    # print(Turno)
+    # if(Turno==1):
+    #     print("El turno es de la IA ")
+    # else:
+    #     print("el turno es de el jugador")
+    Turno=0
+    # print(OBJETOS["Atril_computadora"].getFichas_disponibles())
+    # print(OBJETOS["Atril_jugador"].getFichas_disponibles())
+
+
     while not OBJETOS["Temporizador"].getTERMINO_Temporizador():
         event, values= window.read(timeout=10)
         cantRead = cantRead + 1  
@@ -286,11 +287,13 @@ def juego(Configuracion):
         window['-TEMP OUT-'].update(str(OBJETOS["Temporizador"].getMinutos()) + ":"+ str(OBJETOS["Temporizador"].getSegundos()) + ' min')       
         if type(event)== tuple and event!= '__TIMEOUT__' : 
             tupla=event 
+            print(tupla)
         if type(event)== int and event!= "_poner_" and event!= '__TIMEOUT__' :
             aux=event
             atril=OBJETOS["Atril_jugador"].getFichas_disponibles()
             dato=atril[event]
             La_ficha=formatear(dato)
+            print(La_ficha)
             
         if event == "__exit__" and event!= '__TIMEOUT__' :
             print(type(puntaje_J))
@@ -314,7 +317,7 @@ def juego(Configuracion):
         if event=="__repartir__"and event!= '__TIMEOUT__'and dic=={} and Turno==0:
             repartir=True
             cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir,Turno)
-            Turno=1
+            # Turno=1
 
         if event=="__repartir__"and event!= '__TIMEOUT__'and dic!={} and Turno==0 :
            window['-OUT-'].update("Ya has seleccionado una posicion en el tablero")
@@ -362,12 +365,12 @@ def juego(Configuracion):
                 dic={}
                 lista_a_borrar=[]
                 Lista_k=[]
-                Turno=1
+               
             else:
                 actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
                 window['-OUT-'].update("Mal ahi bro le erraste ")
                 dic={}
                 Lista_k=[]
-                Turno=1
+            # Turno=1
 
     print(juego.__doc__)
