@@ -235,7 +235,7 @@ def TopTen_de_jugadores(dificultad):
         if datos["Dificultad"] == dificultad:
             lista.append({"Nombre":datos["Nombre"] , "Puntaje":datos["Puntaje_jugador"] , "Dificultad":datos["Dificultad"] , "Fecha":datos["Fecha"]})
 
-    Todos = list(sorted(lista , key = lambda top: top["puntaje"] , reverse=True))
+    Todos = list(sorted(lista , key = lambda top: top["Puntaje"] , reverse=True))
     
     if len(Todos) >= 10:
         return Todos[:10]
