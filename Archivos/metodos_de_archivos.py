@@ -94,10 +94,11 @@ def actualizar_cant_partidas_guardadas(Finalizada = False):
             #print(direccion)
 
             with open(direccion, 'r') as archivo:
+                
                 datos = json.load(archivo,encoding='utf-8')
                 
                 if not Finalizada:
-                    datos = __convertir_Json_A_Datos(datos)
+                    datos = __convertir_Json_A_Datos(datos) 
 
                 archivo.close()
 
