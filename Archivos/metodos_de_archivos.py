@@ -28,7 +28,7 @@ def cargarPartida(direccion):
         return datos
 
 
-def __formatear_cadena_de_directorio(directorio):
+def formatear_cadena_de_directorio(directorio):
     lista = directorio.split("/")
     nueva = []
     OK = False
@@ -140,13 +140,13 @@ def __convertir_Json_A_Datos(datos):
 
 #========================================================        
 
+
 #Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora --> Objetos
 #puntaje_J , puntaje_C --> int
 #dificultad --> int del 1 al 3
-#Finalizada --> boolean
 def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora , puntaje_J , puntaje_C , dificultad):   
     
-    """Guarda los datos de la partida, en la carpeta "Archivos\\partidas_FINALIZADAS" si la partida terminó o en "Archivos\\partidas" si la partida se puede continuar - - - 
+    """Guarda los datos de la partida, en la carpeta "Archivos\\partidas" para poder seguirla en otro momento  - - - 
     También actualiza "cant_partidas.txt" de la carpeta correspondiente."""
     
     datos={}
@@ -171,7 +171,14 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
             archivo.close()
 
 
+#puntaje_J --> int
+#dificultad --> int del 1 al 3
+#nombre --> String
 def guardar_partida_FINALIZADA(puntaje_J , dificultad , nombre):
+
+    """Guarda los datos de la partida, en la carpeta "Archivos\\partidas_FINALIZADAS" para mostrar el Top 10 de los mejores jugadores y sus datos - - - 
+    También actualiza "cant_partidas.txt" de la carpeta correspondiente."""
+
     actualizar_cant_partidas_guardadas(True)
     indice = __cant_partidas(True)
     direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_" + str(indice+1) +".json"
@@ -188,10 +195,6 @@ def guardar_partida_FINALIZADA(puntaje_J , dificultad , nombre):
     with open(direccion, 'w') as archivo:
             json.dump(datos, archivo)        
             archivo.close()
-
-
-
-
 
   
 #datos_del_menu --> {"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras":  {'A':{'cantidad':11,'valor':1} , ... } }
@@ -210,7 +213,11 @@ def definir_configuracion(datos_del_menu):
     return config_por_defecto
 
 
+#dificultad --> int del 1 al 3
 def TopTen_de_jugadores(dificultad):
+
+    """Lee los datos de las partidas guardadas y muestra un Top 10 de los mejores jugadores, según su puntaje"""
+
     actualizar_cant_partidas_guardadas(True)
     cant = __cant_partidas(True)
     
