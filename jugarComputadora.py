@@ -241,7 +241,7 @@ __tablero = {(0, 0): {"letra": "", "trampa": False, "tipo_de_trampa": "", "recom
 #Al llamar la jugabilidad, le pasaremos el tablero, el atril de la computadora y la bolsa de fichas
 
 #La dificultad entra al llamar la jugabilidad de la IA
-atril = ["A","B","C","D","E","F","G"] #CLASS_atril.Atril.getFichas_disponibles()
+atril = ["O","S","O","S","O","S","O"] #CLASS_atril.Atril.getFichas_disponibles()
 #"__tablero = tablero entero"
 #"__configuracion = configuracion del scrabble"
 
@@ -251,13 +251,13 @@ def __dificultad_IA(dificultad):
     #Reviso la dificultad que entra de la configuracion
     #Seteo valores de cantidad de jugadas y los puntos medios de la IA por si empieza a jugar
     if(dificultad==1):
-        cant = 3
+        cant = 5
         medio = (9, 9)
     elif(dificultad==2):
-        cant = 6
+        cant = 10
         medio = (8, 8)
     else:
-        cant = 10
+        cant = 15
         medio = (7, 7)
 
     return(cant,medio)
@@ -319,13 +319,19 @@ def __posicion_inicio(dificultad):
 
 #pos es una tupla de posiciones = (x , y)
 def __pos_valida_IA(pos,palabra,dificultad,__tablero):
-    direcciones = ["arriba","derecha","abajo","izquierda"]
+    
+    direcciones = ["derecha","abajo"]
+    
     posible_sentido = len(direcciones)-1
+    
     direFinal = "nada"
+    
     if(dificultad==1):
         fin_tablero = 18
+    
     elif(dificultad==2):
         fin_tablero = 16
+    
     else:
         fin_tablero = 14
 
@@ -336,24 +342,23 @@ def __pos_valida_IA(pos,palabra,dificultad,__tablero):
         #esto lo hago 1 vez para ver que direccion tomo, si por X ascendente o descendente o lo mismo pero por Y
         pos_dir = randint(0 , posible_sentido)
         
-        if(direcciones[pos_dir]=="arriba"):
-            
-            #me muevo en el eje Y de manera ascendente
-            for i in range(len(palabra)):
-                if((pos[0]-i>=0) and sigo ):
-                    if(__tablero[(pos[0]-i,pos[1])]['letra'] != ""):
-                    #if(tablero.getDatosEnCoor((pos[0]-i,pos[1]))['letra'] !=""):
-                        sigo=False
-                else:
-                    sigo=False
-                    break
-            if(sigo==True):
-                direFinal = "arriba"
-            else:
-                direFinal = "nada"
-                ok=False
-        
-        elif(direcciones[pos_dir]=="derecha"):
+        #if(direcciones[pos_dir]=="arriba"):
+        #    
+        #    #me muevo en el eje Y de manera ascendente
+        #    for i in range(len(palabra)):
+        #        if((pos[0]-i>=0) and sigo ):
+        #            if(__tablero[(pos[0]-i,pos[1])]['letra'] != ""):
+        #            #if(tablero.getDatosEnCoor((pos[0]-i,pos[1]))['letra'] !=""):
+        #                sigo=False
+        #        else:
+        #            sigo=False
+        #            break
+        #    if(sigo==True):
+        #        direFinal = "arriba"
+        #    else:
+        #        direFinal = "nada"
+        #        ok=False
+        if(direcciones[pos_dir]=="derecha"):
             
             #me muevo en el X de manera ascendente
             for i in range(len(palabra)):
@@ -387,22 +392,22 @@ def __pos_valida_IA(pos,palabra,dificultad,__tablero):
                 direFinal = "nada"
                 ok=False
         
-        elif(direcciones[pos_dir]=="izquierda"):
-            
-            #me muevo en el eje X de manera descentende
-            for i in range(len(palabra)):
-                if((pos[1]-i>=0) and sigo):
-                    if(__tablero[(pos[0],pos[1]-i)]['letra']!=""):
-                    #if(tablero.getDatosEnCoor((pos[0]-i,pos[1]))['letra'] !=""):
-                        sigo=False
-                else:
-                    sigo=False
-                    break
-            if(sigo==True):
-                direFinal = "izquierda"
-            else:
-                direFinal = "nada"
-                ok=False
+        #elif(direcciones[pos_dir]=="izquierda"):
+        #    
+        #    #me muevo en el eje X de manera descentende
+        #    for i in range(len(palabra)):
+        #        if((pos[1]-i>=0) and sigo):
+        #            if(__tablero[(pos[0],pos[1]-i)]['letra']!=""):
+        #            #if(tablero.getDatosEnCoor((pos[0]-i,pos[1]))['letra'] !=""):
+        #                sigo=False
+        #        else:
+        #            sigo=False
+        #            break
+        #    if(sigo==True):
+        #        direFinal = "izquierda"
+        #    else:
+        #        direFinal = "nada"
+        #        ok=False
         
         if(direFinal!="nada"):
             break
@@ -416,11 +421,11 @@ def __pos_valida_IA(pos,palabra,dificultad,__tablero):
 
 def __armo_estructura_IA(palabra,pos,direccion,__tablero):
     dic_IA = {}
-    if(direccion=="arriba"):
-        for i in range(len(palabra)):
-            dic_IA[(pos[0]-i,pos[1])] = __tablero[(pos[0]-i,pos[1])]
-            dic_IA[(pos[0]-i,pos[1])]['letra']=palabra[i]
-    elif(direccion=="derecha"):
+    #if(direccion=="arriba"):
+    #    for i in range(len(palabra)):
+    #        dic_IA[(pos[0]-i,pos[1])] = __tablero[(pos[0]-i,pos[1])]
+    #        dic_IA[(pos[0]-i,pos[1])]['letra']=palabra[i]
+    if(direccion=="derecha"):
         for i in range(len(palabra)):
             dic_IA[(pos[0],pos[1]+i)] = __tablero[(pos[0],pos[1]+i)]
             dic_IA[(pos[0],pos[1]+i)]['letra']=palabra[i]
@@ -428,10 +433,10 @@ def __armo_estructura_IA(palabra,pos,direccion,__tablero):
         for i in range(len(palabra)):
             dic_IA[(pos[0]+i,pos[1])] = __tablero[(pos[0]+i,pos[1])]
             dic_IA[(pos[0]+i,pos[1])]['letra']=palabra[i]
-    elif(direccion=="izquierda"):
-        for i in range(len(palabra)):
-            dic_IA[(pos[0],pos[1]-i)] = __tablero[(pos[0],pos[1]-i)]
-            dic_IA[(pos[0],pos[1]-i)]['letra']=palabra[i]
+    #elif(direccion=="izquierda"):
+    #    for i in range(len(palabra)):
+    #        dic_IA[(pos[0],pos[1]-i)] = __tablero[(pos[0],pos[1]-i)]
+    #        dic_IA[(pos[0],pos[1]-i)]['letra']=palabra[i]
     
     print("diccionario IA TERMINADO")
     print(dic_IA)
@@ -489,7 +494,7 @@ def __juega_IA(dificultad,__tablero,__atril,__primer_turno):
             jugada_IA = __armo_estructura_IA(palabra,pos,direccion,__tablero)
 
             #Mando la informacion a corroboro palabra
-            sigue = __retorno_informacion(jugada_IA,__configuracion)
+            sigue = __retorno_informacion(jugada_IA,__configuracion,dificultad)
 
             #sigue[0] me retorna un booleano de si pudo o no corroborar toda la info
             ok = sigue[0]
@@ -550,7 +555,7 @@ def __juega_IA(dificultad,__tablero,__atril,__primer_turno):
             jugada_IA = __armo_estructura_IA(palabra,pos,direccion,__tablero)
 
             #Mando la informacion a corroboro palabra
-            sigue = __retorno_informacion(jugada_IA,__configuracion)
+            sigue = __retorno_informacion(jugada_IA,__configuracion,dificultad)
 
             #sigue[0] me retorna un booleano de si pudo o no corroborar toda la info
             ok = sigue[0]
@@ -573,3 +578,5 @@ def __juega_IA(dificultad,__tablero,__atril,__primer_turno):
 jugada = __juega_IA(3,__tablero,atril,False)
 
 print(jugada)
+
+#diccionario 

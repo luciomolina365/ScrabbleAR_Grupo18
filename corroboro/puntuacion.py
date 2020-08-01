@@ -21,7 +21,8 @@
 # Z = 10 - O = 1 - RR = 9 - O = 9
 # 10 +10 +9 = 29
 def __puntuar_jugador(__palabra,__configuracion,__palabra_lista):
-    
+    bonus_palabra_x2 = 0
+    bonus_palabra_x3 = 0
     puntuacionActual = 0
     puntuacion_letra = 0
     for coor in __palabra_lista:
@@ -50,12 +51,24 @@ def __puntuar_jugador(__palabra,__configuracion,__palabra_lista):
             
             if(valor_bonus == "x3"):
                 puntuacion_letra = valor * 3
+            
+            if(valor_bonus == "Px2"):
+                bonus_palabra_x2 = bonus_palabra_x2 + 1
+
+            if(valor_bonus == "Px3"):
+                bonus_palabra_x3 = bonus_palabra_x3 + 1
 
         else:
 
             puntuacion_letra = valor
                 
         puntuacionActual = puntuacionActual + puntuacion_letra
+    if(bonus_palabra_x2!=0):
+        for cant in range(bonus_palabra_x2):
+            puntuacionActual = puntuacionActual * 2
+    elif(bonus_palabra_x3!=0):
+        for cant in range(bonus_palabra_x3):
+            puntuacionActual = puntuacionActual * 3
 
     return (puntuacionActual)
 
