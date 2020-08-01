@@ -343,6 +343,8 @@ def juego(Configuracion):
                 repartir=False
                 actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir,Turno)
                 window['-OUT-'].update("Bien hecho bro")
+                window['-OUT-'].update("La maquina a formado una palabra")
+                window['-OUT-'].update("La maquina no a formado una palabra")
                 window['-player-'].update(puntaje_J)
                 dic={}
                 lista_a_borrar=[]
