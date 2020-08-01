@@ -157,6 +157,8 @@ def juego(Configuracion):
                             window[i].update("",disabled=False,image_filename='imagenes\palabra x2.png',image_size=(25, 22))
                         else:
                             window[i].update("",disabled=False,image_filename='imagenes\palabra x3.png',image_size=(25, 22))
+                    else:
+                        window[i].update("",image_filename='imagenes\GRIS.png',image_size=(25, 22))   
                             
             print(Lista_k)
             for i in Lista_k:

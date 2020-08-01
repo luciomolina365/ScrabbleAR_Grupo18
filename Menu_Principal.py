@@ -13,7 +13,7 @@ Iniciar=[sg.Button("Iniciar Partida",size=(10,5),key="_iniciar_",button_color=('
 if(ok==False):
     Cargar=[sg.FileBrowse(button_text="Cargar Partida",initial_folder="Archivos\\partidas",size=(10,5),key="_cargar_",disabled=True,button_color=('white','grey'))]
 else:
-    Cargar=[sg.Input(visible=False, enable_events=True, key="_file_"),sg.FileBrowse(button_text="Cargar Partida",initial_folder="Archivos\\partidas",size=(10,5),disabled=False,button_color=('white','grey'))]
+    Cargar=[sg.Button(visible=False, enable_events=True, key="_file_"),sg.FileBrowse(button_text="Cargar Partida",initial_folder="Archivos\\partidas",size=(10,5),disabled=False,button_color=('white','grey'))]
 
 titulo =  [[sg.Text("Scrabble", size=(22,10),auto_size_text=True)]]
 
@@ -23,6 +23,25 @@ Top=[[sg.Button(("Top Ten"),key="topTen",size=(22,1))]]
 layout= titulo + [Iniciar + Cargar ] + Top
 
 window = sg.Window('ScrabbleAr', layout, font='Courier 12',background_color="black",disable_close=True, disable_minimize=True)
+
+def mostrar_partidas_guardadas(lista):
+    layout=[[sg.Text('Seleccione la partida a cargar',text_color="white",background_color="black")],
+        [sg.Listbox(lista, size = (70,15) , key = "listBox" , select_mode=False)],
+        [sg.Button("Elegir",key="elegir")],
+        [sg.Button("Confirmar",key="confirm"),sg.Cancel(button_color=('black','white'))]]
+
+    window = sg.Window('Top Ten', layout,background_color="black")
+    while True:
+        event, values= window.read()
+        if event=="Cancel":
+            window.close()
+            break
+        if event=="elegir":
+            datos = values["__listBox__"][0]
+
+        if event=="Confirmar" and datos!= None:
+            window.close()
+            return datos
 
 
 def mostrar_ten(topFacil,topMedio,topDificil):
