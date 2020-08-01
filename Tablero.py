@@ -294,12 +294,12 @@ def juego(Configuracion):
             La_ficha=formatear(dato)
             print(La_ficha)
             
-        if event == "__exit__" and event!= '__TIMEOUT__' Turno==0:
+        if event == "__exit__" and event!= '__TIMEOUT__' and Turno==0:
             window.close()
             nombre=nombreFinalizada()
             guardar_partida_finalizada(puntaje_J , Configuracion["Dificultad"],nombre)
             break
-        if event == "__save__" and event!= '__TIMEOUT__' Turno==0 :
+        if event == "__save__" and event!= '__TIMEOUT__' and Turno==0 :
             guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"])
             window.close()
             break
@@ -334,28 +334,30 @@ def juego(Configuracion):
                 actualizar_fichas(lista_computadora_a_cambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
                 for i in jugada.keys():
                     window[i].update(jugada[i]["letra"],disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
-                primer_turno = False
                 window['-compu-'].update(puntaje_C)
                 window['-OUT-'].update("La maquina a formado una palabra")
             else:
                 window['-OUT-'].update("La maquina no a formado una palabra")
-                no_jugada = no_jugada +1
-                if(no_jugada == 2):
-                    cant_fichas = random.randint(1,7)
-                    lista_computadora_a_cambiar = OBJETOS["Atril_computadora"].getEstado()
-                    lista_computadora_a_cambiar = lista_computadora_a_cambiar[:cant_fichas]
-                    repartir=True
-                    actualizar_fichas(lista_computadora_a_cambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
-                    no_jugada = 0
+                #ESTO ES PARA CUANDO LA IA NO PUEDE FORMAR PALABRAS EN 2 TURNOS SEGUIDOS CAMBIA FICHAS
+                #no_jugada = no_jugada +1
+                #if(no_jugada == 2):
+                #    cant_fichas = random.randint(1,7)
+                #    lista_computadora_a_cambiar = OBJETOS["Atril_computadora"].getEstado()
+                #    lista_computadora_a_cambiar = lista_computadora_a_cambiar[:cant_fichas]
+                #    repartir=True
+                #    actualizar_fichas(lista_computadora_a_cambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
+                #    no_jugada = 0
+            primer_turno = False
             Turno = 0       # pasa al turno del jugador        
 
 
         if event=="__pasar__" and event!= '__TIMEOUT__' and dic!={} and Turno==0 :
-            correcta=True
-            if(correcta==True):
+            info = __retorno_informacion(dic,OBJETOS['Bolsa'].getBolsa(),Configuracion['Dificultad'])
+            ok_J = info[0]
+            if(ok_J==True):
                 for i in dic.keys():
                   lista_a_borrar.append(dic[i]["letra"]) 
-                puntaje=corroborarPalabra.puntuacion() 
+                puntaje = info[1]
                 puntaje_J=puntaje_J+puntaje
                 repartir=False
                 actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir,Turno)
