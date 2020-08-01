@@ -88,8 +88,12 @@ def juego(Configuracion):
                     elif TableroD[(i,j)]["recompensa"]==True:
                         if TableroD[(i,j)]["tipo_de_recompensa"]=="x2":
                             lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\multiplicador x2.png',image_size=(25, 22)))
+                        elif TableroD[(i,j)]["tipo_de_recompensa"]=="x3":
+                            lista1.append(sg.Button("",disabled=False,image_filename='imagenes\multiplicador x3.png',image_size=(25, 22)) )  
+                        elif TableroD[(i,j)]["tipo_de_recompensa"]=="Px2":
+                            lista1.append(sg.Button("",disabled=False,image_filename='imagenes\palabra x2.png',image_size=(25, 22)))
                         else:
-                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\multiplicador x3.png',image_size=(25, 22)))
+                            lista1.append(sg.Button("",disabled=False,image_filename='imagenes\palabra x3.png',image_size=(25, 22)))
                     else:
                         lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\GRIS.png',image_size=(25, 22)))
             lista1=[lista1]
@@ -110,10 +114,13 @@ def juego(Configuracion):
                 elif lugar["recompensa"]==True:
                     if lugar["tipo_de_recompensa"]=="x2":
                         window[i].update("",disabled=False,image_filename='imagenes\multiplicador x2.png',image_size=(25, 22))
+                    if lugar["tipo_de_recompensa"]=="x3":
+                        window[i].update("",disabled=False,image_filename='imagenes\multiplicador x3.png',image_size=(25, 22))   
+                    if lugar["tipo_de_recompensa"]=="Px2":
+                        window[i].update("",disabled=False,image_filename='imagenes\palabra x2.png',image_size=(25, 22))
                     else:
-                        window[i].update("",disabled=False,image_filename='imagenes\multiplicador x3.png',image_size=(25, 22))
-                else:
-                    window[i].update("",disabled=False,image_filename='imagenes\GRIS.png',image_size=(25, 22))
+                        window[i].update("",disabled=False,image_filename='imagenes\palabra x3.png',image_size=(25, 22))
+                        
         print(Lista_k)
         for i in Lista_k:
             window[i].update(disabled=False, button_color=('white', 'black'))
@@ -247,10 +254,10 @@ def juego(Configuracion):
             
         if event == "__exit__" and event!= '__TIMEOUT__' :
             window.close()
-            guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"],Finalizada=True)
+            # guardar_partida_FINALIZADA()
             break
         if event == "__save__" and event!= '__TIMEOUT__' :
-            guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"],Finalizada=False)
+            guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"])
             window.close()
             break
         if event == "_poner_" and La_ficha!="" and tupla!="" and event!= '__TIMEOUT__' :
@@ -261,7 +268,6 @@ def juego(Configuracion):
             Lista_k.append(aux)
             La_ficha=""
             tupla=""
-
         if event=="__repartir__"and event!= '__TIMEOUT__'and dic=={} and Turno==0:
             repartir=True
             cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir)

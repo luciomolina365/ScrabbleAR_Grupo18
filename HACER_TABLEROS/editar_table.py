@@ -5,7 +5,7 @@ import json
 #from corroboro_y_puntuo import corroborarPalabra
 
 global cant 
-cant = 19
+cant = 15
 
 def juego():
     sg.theme('Topanga')
