@@ -53,9 +53,12 @@ def juego(Configuracion):
    #------------------------------------------------------------------------------------------------- 
     Lista_j=OBJETOS["Atril_jugador"].getFichas_disponibles()
     Lista_c=OBJETOS["Atril_computadora"].getFichas_disponibles()
+    Turno=None
     if len(Lista_j)==0 and len(Lista_c)==0:
         OBJETOS["Atril_jugador"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
         OBJETOS["Atril_computadora"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
+    else:
+        Turno=0
     
     puntaje_J=Configuracion["Puntaje_jugador"]
     puntaje_C=Configuracion["Puntaje_computadora"]
@@ -165,7 +168,7 @@ def juego(Configuracion):
         Fichas=Atril.getFichas_disponibles()
         layout =[
                 [sg.Button(Fichas[i], key=i,button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)) for i in range(7)],
-                [sg.Button("Confirmar",key="confirmar",font=("Helvetica", 9) ,button_color=('white','grey')),sg.Cancel(font=("Helvetica", 9) ,button_color=('white','grey'))]]
+                [sg.Button("Confirmar",key="confirmar",font=("Helvetica", 9) ,button_color=('white','grey'))]]
        
         window = sg.Window('Seleccione las fichas a cambiar', layout, font='Courier 12',disable_close=True, disable_minimize=True)
         Seleccionadas=[]
@@ -177,9 +180,6 @@ def juego(Configuracion):
                 ficha_a_cambiar=formatear(dato)
                 window[event].update(disabled=True, button_color=('black','white'))
                 Seleccionadas.append(ficha_a_cambiar)
-          if(event=="Cancel"):
-            window.close()
-            break  
           elif(event=="confirmar"):
               actualizar_fichas(Seleccionadas,B,Window_principal,Atril,evento,jugador)
               window.close()
@@ -269,16 +269,14 @@ def juego(Configuracion):
     window['-compu-'].update(puntaje_C)
     window['-OUT-'].update("Buena suerte!!")
     primer_turno=True
-    # Turno=random.randint(0,1)       #Si es 1 es la IA si es 0 es el jugador
-    # print(Turno)
-    #if(Turno==1):
-    #    print("El turno es de la IA ")
-    #else:
-    #    print("el turno es de el jugador")
-    Turno=1
+    if Turno==None:
+        Turno=random.randint(0,1)       #Si es 1 es la IA si es 0 es el jugador
+    print(Turno)
+    if(Turno==1):
+       print("El turno es de la IA ")
+    else:
+       print("el turno es de el jugador")
     no_jugada = 0
-    # print(OBJETOS["Atril_computadora"].getFichas_disponibles())
-    # print(OBJETOS["Atril_jugador"].getFichas_disponibles())
 
 
     while not OBJETOS["Temporizador"].getTERMINO_Temporizador():
@@ -296,14 +294,12 @@ def juego(Configuracion):
             La_ficha=formatear(dato)
             print(La_ficha)
             
-        if event == "__exit__" and event!= '__TIMEOUT__' :
-            print(type(puntaje_J))
-            print(puntaje_J)
+        if event == "__exit__" and event!= '__TIMEOUT__' Turno==0:
             window.close()
             nombre=nombreFinalizada()
             guardar_partida_finalizada(puntaje_J , Configuracion["Dificultad"],nombre)
             break
-        if event == "__save__" and event!= '__TIMEOUT__' :
+        if event == "__save__" and event!= '__TIMEOUT__' Turno==0 :
             guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"])
             window.close()
             break
@@ -318,7 +314,7 @@ def juego(Configuracion):
         if event=="__repartir__"and event!= '__TIMEOUT__'and dic=={} and Turno==0:
             repartir=True
             cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir,Turno)
-            # Turno=1
+            Turno=1
 
         if event=="__repartir__"and event!= '__TIMEOUT__'and dic!={} and Turno==0 :
            window['-OUT-'].update("Ya has seleccionado una posicion en el tablero")
@@ -359,9 +355,8 @@ def juego(Configuracion):
             if(correcta==True):
                 for i in dic.keys():
                   lista_a_borrar.append(dic[i]["letra"]) 
-                #nuevo=Crear_diccionario(dic)
-                #puntaje=corroborarPalabra.puntuacion() 
-                puntaje_J=puntaje_J+2
+                puntaje=corroborarPalabra.puntuacion() 
+                puntaje_J=puntaje_J+puntaje
                 repartir=False
                 actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir,Turno)
                 window['-OUT-'].update("Bien hecho bro")
@@ -375,6 +370,6 @@ def juego(Configuracion):
                 window['-OUT-'].update("Mal ahi bro le erraste ")
                 dic={}
                 Lista_k=[]
-            # Turno=1
+            Turno=1
 
     print(juego.__doc__)
