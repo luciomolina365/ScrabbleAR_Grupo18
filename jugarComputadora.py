@@ -11,7 +11,7 @@ def __dificultad_IA(dificultad):
     #Reviso la dificultad que entra de la configuracion
     #Seteo valores de cantidad de jugadas y los puntos medios de la IA por si empieza a jugar
     if(dificultad==1):
-        cant = 5
+        cant = 20
         medio = (9, 9)
     elif(dificultad==2):
         cant = 10
@@ -96,7 +96,8 @@ def __pos_valida_IA(pos,palabra,dificultad,__tablero):
         sigo=True
         #esto lo hago 1 vez para ver que direccion tomo, si por X ascendente o descendente o lo mismo pero por Y
         pos_dir = randint(0 , posible_sentido)
-        
+        print("pos dir")
+        print(pos_dir)
         #if(direcciones[pos_dir]=="arriba"):
         #    
         #    #me muevo en el eje Y de manera ascendente
@@ -114,11 +115,11 @@ def __pos_valida_IA(pos,palabra,dificultad,__tablero):
         #        direFinal = "nada"
         #        ok=False
         if(direcciones[pos_dir]=="derecha"):
-            
+            print("derecha")
             #me muevo en el X de manera ascendente
             for i in range(len(palabra)):
                 if((pos[1]+i<=fin_tablero) and sigo ):
-                    if(__tablero[(pos[0],pos[1]+i)]['letra'] !=""):
+                    if(__tablero[(pos[0],pos[1]+i)]['letra'] != None):
                     #if(tablero.getDatosEnCoor((pos[0]+i,pos[1]))['letra'] !=""):
                         sigo=False
                 else:
@@ -234,7 +235,7 @@ def __juega_IA(dificultad,tablero,atril,primer_turno,configuracion):
     if(primer_turno == True):
         print("cantidad de letras")
         print(cantLetras)
-        
+
         #Esto es por si empieza pa IA
         dif = __dificultad_IA(dificultad)
         print("dif")

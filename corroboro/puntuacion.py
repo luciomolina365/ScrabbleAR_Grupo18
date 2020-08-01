@@ -21,18 +21,19 @@
 # Z = 10 - O = 1 - RR = 9 - O = 9
 # 10 +10 +9 = 29
 def __puntuar_jugador(__palabra,__configuracion,__palabra_lista):
-    bonus_palabra_x2 = 0
-    bonus_palabra_x3 = 0
+    print("----------------------PUNTUAR JUGADOR------------------------------")
+    ok_x2 = False
+    ok_x3 = False
     puntuacionActual = 0
     puntuacion_letra = 0
     for coor in __palabra_lista:
-        
+
         valor = __configuracion[__palabra[coor]['letra']]['valor']
-        
+
         trampa = __palabra[coor]['trampa']
-        
+
         bonus = __palabra[coor]['recompensa']
-        
+
         if(trampa == True):
             valor_trampa = __palabra[coor]['tipo_de_trampa']
             if(valor_trampa == "-1"):
@@ -53,22 +54,24 @@ def __puntuar_jugador(__palabra,__configuracion,__palabra_lista):
                 puntuacion_letra = valor * 3
             
             if(valor_bonus == "Px2"):
-                bonus_palabra_x2 = bonus_palabra_x2 + 1
+                puntuacion_letra = valor
+                ok_x2 = True
 
             if(valor_bonus == "Px3"):
-                bonus_palabra_x3 = bonus_palabra_x3 + 1
+                puntuacion_letra = valor
+                ok_x3 = True
 
         else:
 
             puntuacion_letra = valor
                 
         puntuacionActual = puntuacionActual + puntuacion_letra
-    if(bonus_palabra_x2!=0):
-        for cant in range(bonus_palabra_x2):
-            puntuacionActual = puntuacionActual * 2
-    elif(bonus_palabra_x3!=0):
-        for cant in range(bonus_palabra_x3):
-            puntuacionActual = puntuacionActual * 3
+    
+    if(ok_x2):
+        puntuacionActual = puntuacionActual * 2
+    elif(ok_x3):
+        print("entreeeeee x3")
+        puntuacionActual = puntuacionActual * 3
 
     return (puntuacionActual)
 

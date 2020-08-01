@@ -271,11 +271,12 @@ def juego(Configuracion):
     primer_turno=True
     # Turno=random.randint(0,1)       #Si es 1 es la IA si es 0 es el jugador
     # print(Turno)
-    # if(Turno==1):
-    #     print("El turno es de la IA ")
-    # else:
-    #     print("el turno es de el jugador")
-    Turno=0
+    #if(Turno==1):
+    #    print("El turno es de la IA ")
+    #else:
+    #    print("el turno es de el jugador")
+    Turno=1
+    no_jugada = 0
     # print(OBJETOS["Atril_computadora"].getFichas_disponibles())
     # print(OBJETOS["Atril_jugador"].getFichas_disponibles())
 
@@ -338,7 +339,10 @@ def juego(Configuracion):
                 for i in jugada.keys():
                     window[i].update(jugada[i]["letra"],disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
                 primer_turno = False
+                window['-compu-'].update(puntaje_C)
+                window['-OUT-'].update("La maquina a formado una palabra")
             else:
+                window['-OUT-'].update("La maquina no a formado una palabra")
                 no_jugada = no_jugada +1
                 if(no_jugada == 2):
                     cant_fichas = random.randint(1,7)
@@ -346,7 +350,11 @@ def juego(Configuracion):
                     lista_computadora_a_cambiar = lista_computadora_a_cambiar[:cant_fichas]
                     repartir=True
                     actualizar_fichas(lista_computadora_a_cambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
+                    no_jugada = 0
             Turno = 0       # pasa al turno del jugador
+            
+            
+            
         
 
 
