@@ -71,13 +71,18 @@ def __corroboro_palabra(diccionario_trabajado,dificultad):
         palabra = palabra + v
         palabra_lista.append(v)
 
-                    
+    print("palabra")
+    print(palabra)
+          
     #Hago el parse para que me identifique la palabra
     pal = palabra.lower()
     pal = parse(pal).split()
+    print("pal parse")
+    print(pal)
     
     #Obtengo del parse la palabra para ir corroborando con el lexicon
     pal_final = pal[0][0]
+    
 
     #Inicializo un booleano en false, esto es para saber si encontro o no la palabra
     ok=False
@@ -150,10 +155,6 @@ def __retorno_informacion(__palabra,__configuracion,dificultad):
     
     return(ok,info_final)
 #-----------------------------------------------------------------------------------
-#TESTEOS, funcionan
-#print("puntuacion de la palabra ingresada")
-#print(__retorno_informacion(__palabra,__configuracion))
-
 
 
 

@@ -8,7 +8,8 @@ from metodos_de_objetos import instanciar_objetos
 import random
 from Archivos.metodos_de_archivos import guardar_partida
 from Archivos.metodos_de_archivos import guardar_partida_finalizada
-#from corroboro.corroborarPalabra import __retorno_informacion
+from corroboro.corroborarPalabra import __retorno_informacion
+from jugarComputadora import __juega_IA
 
 #{"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras": 
 
@@ -48,7 +49,7 @@ def juego(Configuracion):
    #------------------------------------------------------------------------------------------------- 
 
 
-   #Creando tableor primera vez o al cargar
+   #Creando tablero primera vez o al cargar
    #------------------------------------------------------------------------------------------------- 
     Lista_j=OBJETOS["Atril_jugador"].getFichas_disponibles()
     Lista_c=OBJETOS["Atril_computadora"].getFichas_disponibles()
@@ -247,9 +248,7 @@ def juego(Configuracion):
     [sg.Button(('Posponer partida!'),key="__save__",font=("Helvetica", 9) ,button_color=('white','grey')),sg.Button(("Terminar juego"), key="__exit__",font=("Helvetica", 9) ,button_color=('white','grey')),sg.Button(("Repartir Nuevas Fichas"),button_color=('white','grey'), key="__repartir__",font=("Helvetica", 9)),sg.Button('Pasar Turno',key="__pasar__",button_color=('black','white'), font=("Helvetica", 16))]]
 
 
-
     fichas_computadora = [fichasC] 
-
 
     layout = titulo + puntua + fichas_computadora + tabla + fichas_jugador
 
@@ -269,12 +268,17 @@ def juego(Configuracion):
     window['-player-'].update(puntaje_J)
     window['-compu-'].update(puntaje_C)
     window['-OUT-'].update("Buena suerte!!")
-    primer_turno=True
     Turno=random.randint(0,1)       #Si es 1 es la IA si es 0 es el jugador
+    #variable para controlar la cantidad de veces que la IA no pudo jugar, al 2do turno que no pudo armar una palabra correcta, cambiara x cantidad de fichas
+    no_jugada = 0
     if(Turno==1):
         print("El turno es de la IA ")
+        primer_turno=True
+        print(OBJETOS["Atril_computadora"].getFichas_disponibles())
     else:
         print("el turno es de el jugador")
+        print(OBJETOS["Atril_jugador"].getFichas_disponibles())
+        primer_turno=False
     while not OBJETOS["Temporizador"].getTERMINO_Temporizador():
         event, values= window.read(timeout=10)
         cantRead = cantRead + 1  
@@ -318,12 +322,29 @@ def juego(Configuracion):
         if event=="__pasar__" and event!= '__TIMEOUT__' and dic=={} and Turno==0 :
             window['-OUT-'].update("Debes colocar las fichas en el tablero")
 
-        # if Turno==1:
-        #     jugadaDeCompu
-        #     for i in dic_compu.keys():
-        #         window[i].update(dic_compu[i]["letra"],disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
-        #         Turno=0        # pasa al turno del jugador
-
+        
+        if Turno==1:
+            jugada_IA = __juega_IA(Configuracion['Dificultad'],OBJETOS["Tablero"].getEstado(),OBJETOS["Atril_computadora"].getFichas_disponibles(),primer_turno,OBJETOS['Bolsa'].getBolsa())
+            if(jugada_IA[0] == True):
+                puntaje = jugada_IA[1]
+                jugada = jugada_IA[2]
+                puntaje_C = puntaje_C + puntaje
+                repartir = False
+                lista_computadora_a_cambiar = jugada_IA[3]
+                actualizar_fichas(lista_computadora_a_cambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
+                for i in jugada.keys():
+                    window[i].update(jugada[i]["letra"],disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
+                primer_turno = False
+            else:
+                no_jugada = no_jugada +1
+                if(no_jugada == 2):
+                    cant_fichas = random.randint(1,7)
+                    lista_computadora_a_cambiar = OBJETOS["Atril_computadora"].getEstado()
+                    lista_computadora_a_cambiar = lista_computadora_a_cambiar[:cant_fichas]
+                    repartir=True
+                    actualizar_fichas(lista_computadora_a_cambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
+            Turno = 0       # pasa al turno del jugador
+        
 
 
         if event=="__pasar__" and event!= '__TIMEOUT__' and dic!={} and Turno==0 :

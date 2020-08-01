@@ -76,17 +76,3 @@ while True:
         topMedio=archivos.TopTen_de_jugadores(2)
         topDificil=archivos.TopTen_de_jugadores(3)
         mostrar_ten(topFacil,topMedio,topDificil)
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
