@@ -97,7 +97,7 @@ def actualizar_cant_partidas_guardadas(Finalizada = False):
                 
                 datos = json.load(archivo,encoding='utf-8')
                 
-                if not Finalizada:
+                if Finalizada == False:
                     datos = __convertir_Json_A_Datos(datos) 
 
                 archivo.close()
@@ -230,7 +230,6 @@ def TopTen_de_jugadores(dificultad):
 
         with open(direccion, 'r') as archivo:
             datos = json.load(archivo,encoding='utf-8')
-            datos = __convertir_Json_A_Datos(datos)
             archivo.close()
 
         if datos["Dificultad"] == dificultad:
