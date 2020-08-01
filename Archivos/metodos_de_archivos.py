@@ -244,11 +244,32 @@ def TopTen_de_jugadores(dificultad):
         return Todos
     
 
-       
+def lista_de_partidas_a_cargar():
+    
+    lista = []
+    i = 1
+    while True:                                                     
+
+        try:
+            
+            direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_" + str(i) + ".json"
+            #print(direccion)
+
+            with open(direccion, 'r') as archivo:
+                archivo.close()
+
+            lista.append(direccion)
+            i = i + 1
+                
+        except FileNotFoundError:
+            break
+    
+    return lista
 # OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,config)
 # SE USAN LOS OBJETOS
 # guardar_partida(OBJETOS["Bolsa"] , OBJETOS["Tablero"] , OBJETOS["Temporizador"] , OBJETOS["Atril_jugador"] , OBJETOS["Atril_computadora"], 666 , 999, 1)
 
+print(lista_de_partidas_a_cargar())
 
 #------------------------------------------------------------------------------------------------------------------------
 #Molina, Lucio Felipe - 15980/7
