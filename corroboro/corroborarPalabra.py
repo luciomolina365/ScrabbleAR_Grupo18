@@ -42,24 +42,26 @@ def __ordenar_info(diccionario_que_recibe_del_tablero):
     haciaIzq=dict(sorted(diccionario_que_recibe_del_tablero.items(), key = lambda diccio: diccio[0]))
 
     #Ordeno el diccionario por posiciones de mayor a menor
-    haciaDer=dict(sorted(diccionario_que_recibe_del_tablero.items(), key = lambda diccio: diccio[0],reverse=True))
+    #haciaDer=dict(sorted(diccionario_que_recibe_del_tablero.items(), key = lambda diccio: diccio[0],reverse=True))
 
     #ME RETORNA EL DICCIONARIO QUE ENTRA POR LA PALABRA INGRESADA EN EL TABLERO, ORDENADA EN AMBOS SENTIDOS
     #RETORNA DICCIONARIO ORDENADO
-    return(haciaIzq,haciaDer)
+    return(haciaIzq)
     
 def __obtengo_diccionario_trabajado(__diccionario_ordenado):
     #Agarro la info que me interesa para obtener la palabra y retornarla para verificarla despues, del diccionario que recibo, armo uno con las posiciones y la letra de la posicion
+    
     dic_trabajado = {}
     for k,v in __diccionario_ordenado.items():
         dic_trabajado[k] = v['letra']
     
-    #ME RETORNA UN DICCIONARIO DONDE LA CLAVE VA A SER LA POSICION Y EL VALOR LA LETRA, ME SIRVE PARA CORROBORAR POSICIONES Y PUNTUAR
-    #RETORNA DICCIONARIO TRABAJADO
     return(dic_trabajado)
+        #ME RETORNA UN DICCIONARIO DONDE LA CLAVE VA A SER LA POSICION Y EL VALOR LA LETRA, ME SIRVE PARA CORROBORAR POSICIONES Y PUNTUAR
+        #RETORNA DICCIONARIO TRABAJADO
 
 
-def __corroboro_palabra(diccionario_trabajado):
+
+def __corroboro_palabra(diccionario_trabajado,dificultad):
     
     palabra=""
     palabra_lista=[]
@@ -69,13 +71,18 @@ def __corroboro_palabra(diccionario_trabajado):
         palabra = palabra + v
         palabra_lista.append(v)
 
-                    
+    print("palabra")
+    print(palabra)
+          
     #Hago el parse para que me identifique la palabra
     pal = palabra.lower()
     pal = parse(pal).split()
+    print("pal parse")
+    print(pal)
     
     #Obtengo del parse la palabra para ir corroborando con el lexicon
     pal_final = pal[0][0]
+    
 
     #Inicializo un booleano en false, esto es para saber si encontro o no la palabra
     ok=False
@@ -84,31 +91,40 @@ def __corroboro_palabra(diccionario_trabajado):
             if (pal_final[0]==x):
                 ok=True
     
+    if(ok==True):
     #Consulto si la palabra es sustantivo, adjetivo o verbo
-    for elemento in pal:
-        for elem in elemento:
-            if ((elem[1] == 'VB') or ((elem [1] == "NNS") or (elem[1] ==  "NN")) or (elem[1] == 'JJ')):
+        for elemento in pal:
+            for elem in elemento:
+                if(dificultad == 1):
+                    #if ((elem[1] == 'VB') or ((elem [1] == "NNS") or (elem[1] ==  "NN")) or (elem[1] == 'JJ')):
+                    return(ok)
+                elif((dificultad == 2) or (dificultad == 3)):
+                    if ((elem[1] == 'VB') or (elem[1] == 'JJ')):
+                        return(ok)
+                else:
+                    ok = False
+                    return(ok)
 
-                #ME RETORNA UNA LISTA DONDE LA POS 0 RETORNA SI LA PALABRA QUE SE INGRESO SE ENCONTRO O NO EN PATTERN
-                #LA POS 1 ME RETORNA LA PALABRA EN SI
-                return(ok,elem[0])
 
-
-def __retorno_informacion(__palabra,__configuracion):    
+def __retorno_informacion(__palabra,__configuracion,dificultad):    
     
     #ORDENO EL DICCIONARIO QUE ENTRA DEL TABLERO pos 0 IZQUIERDA pos 1 DERECHA
     palabra_ordenada = __ordenar_info(__palabra)
     
-    palabra_ordenada_izq = palabra_ordenada[0] 
+    palabra_ordenada_izq = palabra_ordenada
     
-    palabra_ordenada_der = palabra_ordenada[1]
+    #palabra_ordenada_der = palabra_ordenada[1]
     
     #OBTENGO LA ESTRUCTURA QUE VOY A UTILIZAR PARA EMPEZAR A CORROBORAR TODA LA INFORMACION
     palabra_izq = __obtengo_diccionario_trabajado(palabra_ordenada_izq)
     
-    palabra_der = __obtengo_diccionario_trabajado(palabra_ordenada_der)
+    #palabra_der = __obtengo_diccionario_trabajado(palabra_ordenada_der)
     
-    if(__corroboro_palabra(palabra_izq)[0] == True):
+    sigue_izquierda = __corroboro_palabra(palabra_izq,dificultad)
+
+    #sigue_derecha = __corroboro_palabra(palabra_der)
+
+    if(sigue_izquierda == True):
     
         
         if(posiciones_validas.__posiciones_validas(palabra_izq)==True):
@@ -120,18 +136,18 @@ def __retorno_informacion(__palabra,__configuracion):
             info_final = "TU PALABRA ES CORRECTA PERO, NO LA UBICASTE CORRECTAMENTE!!!"
             ok = False
     
-    elif(__corroboro_palabra(palabra_der)[0] == True):
-    
-        
-        if(posiciones_validas.__posiciones_validas(palabra_der)==True):
-            
-            info_final = puntuacion.__puntuar_jugador(palabra_ordenada_der,__configuracion,palabra_der)
-            ok = True
-        else:
-
-            info_final = "TU PALABRA ES CORRECTA PERO, NO LA UBICASTE CORRECTAMENTE!!!"
-            ok = False
-    
+    #elif(sigue_derecha == True):
+    #
+    #    
+    #    if(posiciones_validas.__posiciones_validas(palabra_der)==True):
+    #        
+    #        info_final = puntuacion.__puntuar_jugador(palabra_ordenada_der,__configuracion,palabra_der)
+    #        ok = True
+    #    else:
+    #
+    #        info_final = "TU PALABRA ES CORRECTA PERO, NO LA UBICASTE CORRECTAMENTE!!!"
+    #        ok = False
+    #
     else:
 
         info_final = "INGRESASTE UNA PALABRA INCORRECTA, MEJOR SUERTE EN EL PROXIMO TURNO"
@@ -139,10 +155,6 @@ def __retorno_informacion(__palabra,__configuracion):
     
     return(ok,info_final)
 #-----------------------------------------------------------------------------------
-#TESTEOS, funcionan
-#print("puntuacion de la palabra ingresada")
-#print(__retorno_informacion(__palabra,__configuracion))
-
 
 
 
