@@ -174,7 +174,7 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
 #puntaje_J --> int
 #dificultad --> int del 1 al 3
 #nombre --> String
-def guardar_partida_FINALIZADA(puntaje_J , dificultad , nombre):
+def guardar_partida_finalizada(puntaje_J , dificultad , nombre):
 
     """Guarda los datos de la partida, en la carpeta "Archivos\\partidas_FINALIZADAS" para mostrar el Top 10 de los mejores jugadores y sus datos - - - 
     También actualiza "cant_partidas.txt" de la carpeta correspondiente."""
