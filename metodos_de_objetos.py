@@ -11,7 +11,7 @@ from Objetos.CLASS_atril import Atril
 def instanciar_objetos(Bol , Table , Temp , Atril_jugador , Atril_computadora , config):
     Bol = Bolsa(config["Bolsa"])
     Table = Tablero(config["Tablero"])
-    Temp = Temporizador(int(config["Temporizador"]["minutos"]) , config["Temporizador"]["segundos"])
+    Temp = Temporizador(int(config["Temporizador"]["minutos"]) , int(config["Temporizador"]["segundos"]))
     Atril_jugador = Atril(config["Atril_jugador"])
     Atril_computadora = Atril(config["Atril_computadora"])
 
