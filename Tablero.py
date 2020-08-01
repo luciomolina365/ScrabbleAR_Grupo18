@@ -368,6 +368,7 @@ def juego(Configuracion):
                 Lista_k=[]
                
             else:
+                print(dic)
                 actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
                 window['-OUT-'].update("Mal ahi bro le erraste ")
                 dic={}
