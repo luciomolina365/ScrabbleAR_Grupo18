@@ -265,11 +265,14 @@ def lista_de_partidas_a_cargar():
             break
     
     return lista
+
+
+
 # OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,config)
 # SE USAN LOS OBJETOS
 # guardar_partida(OBJETOS["Bolsa"] , OBJETOS["Tablero"] , OBJETOS["Temporizador"] , OBJETOS["Atril_jugador"] , OBJETOS["Atril_computadora"], 666 , 999, 1)
 
-print(lista_de_partidas_a_cargar())
+# print(lista_de_partidas_a_cargar())
 
 #------------------------------------------------------------------------------------------------------------------------
-#Molina, Lucio Felipe - 15980/7
+# Molina, Lucio Felipe - 15980/7
