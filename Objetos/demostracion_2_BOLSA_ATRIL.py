@@ -79,4 +79,4 @@ print(Atril_computadora.getEstado())                            #TERCER ESTADO (
 
 
 #------------------------------------------------------------------------------------------------------------------------
-#Molina, Lucio Felipe - 15980/7
+# Molina, Lucio Felipe - 15980/7
