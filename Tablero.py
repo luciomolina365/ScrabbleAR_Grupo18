@@ -352,6 +352,8 @@ def juego(Configuracion):
                     actualizar_fichas(lista_computadora_a_cambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
                     no_jugada = 0
             Turno = 0       # pasa al turno del jugador
+
+            #TOBI PUTO
             
             
             
