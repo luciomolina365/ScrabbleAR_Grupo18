@@ -243,47 +243,66 @@ def __juega_IA(dificultad, tablero, atril, primer_turno, configuracion):
 
         #Esto es por si empieza pa IA
         dif = __dificultad_IA(dificultad)
-
+        print("dif")
+        print(dif)
         #dif[0] me retorna la cantidad de veces que tendra que armar la palabra
         veces = dif[0]
-        
+        print("veces")
+        print(veces)
         #dif[1] me retorna si el turno arranca por la IA, la pos del medio del tablero dependiendo la dificultad
         pos = dif[1]
-
+        print("pos")
+        print(pos)
 
         #armo la palabra en base a la cantidad de letras que se elige, esto le da mas posibilidades de armar palabras cortas o lagras, de la misma cantidad de letras
         palabra = __armo_palabra_IA(atril, cantLetras)
+        print("palabraaaaaaaaaaaaa")
+        print(palabra)
 
 
         #empiezo a preguntar por las posiciones, para armar la estructura que enviare a corroboro palabra
         posiciones = __pos_valida_IA(pos,palabra,dificultad,tablero)
+        print("posicionesssssssssssssssssss")
+        print(posiciones)
 
 
         #posiciones[0] me retorna si habia lugar para insertar la palabra en 4 direcciones distintas
         pos_ok = posiciones[0]
+        print("pos_okkkkkkkkkkkkkk")
+        print(pos_ok)
+
 
 
         #posiciones[1] me retorna la direccion hacia donde encontro el lugar para insertar esta palabra
         direccion = posiciones[1]
-
+        print("direccionessssssssssssssssss")
+        print(direccion)
 
         #empezamos a corroborar la palabra armada
         for intento in range(veces):
             
             #armo la jugada de la IA, esto me arma la estructura para enviar toda la informacion hacia corroboro palabra
             jugada_IA = __armo_estructura_IA(palabra,pos,direccion,tablero)
+            print("jugadaaaaaaaaaaaaaaaa IA")
+            print(jugada_IA)
 
 
             #Mando la informacion a corroboro palabra
             sigue = __retorno_informacion(jugada_IA,configuracion,dificultad)
+            print("sigueeeeeeeeeeeeeeeeeee")
+            print(sigue)
 
 
             #sigue[0] me retorna un booleano de si pudo o no corroborar toda la info
             ok = sigue[0]
+            print("okkkkkkkkkkkkkkkkkkkk")
+            print(ok)
 
 
             #sigue[1] me retorna el puntaje obtenido por la palabra enviada
             puntaje = sigue[1]
+            print("puntajeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+            print()
 
             #Si el booleano que me retorna sigue, es True, envio el puntaje obtenido y corto el for
             if(ok==True):
