@@ -407,7 +407,6 @@ def juego(Configuracion):
                         Turno = 1
                         primer_turno = False
                 else:
-                    es_ok=False
                     actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
                     window['-OUT-'].update("Mal ahi bro le erraste ")
                     dic={}
