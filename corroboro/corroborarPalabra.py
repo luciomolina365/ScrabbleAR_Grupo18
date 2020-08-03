@@ -50,11 +50,13 @@ def __ordenar_info(diccionario_que_recibe_del_tablero):
     
 def __obtengo_diccionario_trabajado(__diccionario_ordenado):
     #Agarro la info que me interesa para obtener la palabra y retornarla para verificarla despues, del diccionario que recibo, armo uno con las posiciones y la letra de la posicion
-    
+    print("diccORD")
+    print(__diccionario_ordenado)
     dic_trabajado = {}
     for k,v in __diccionario_ordenado.items():
         dic_trabajado[k] = v['letra']
-    
+    print("dic trabajadoooooooooo")
+    print(dic_trabajado)
     return(dic_trabajado)
         #ME RETORNA UN DICCIONARIO DONDE LA CLAVE VA A SER LA POSICION Y EL VALOR LA LETRA, ME SIRVE PARA CORROBORAR POSICIONES Y PUNTUAR
         #RETORNA DICCIONARIO TRABAJADO
@@ -66,18 +68,29 @@ def __corroboro_palabra(diccionario_trabajado,dificultad):
     palabra=""
     palabra_lista=[]
 
+    print("diccionariooooooooooooooooo")
+    print(diccionario_trabajado)
+    print("-------------------"*10)
+    print("dificultad")
+    print(dificultad)
+    print("-------------------"*10)
+
     #Con el for, me quedo con las letras que ingresaron
     for k,v in diccionario_trabajado.items():
         palabra = palabra + v
         palabra_lista.append(v)
-          
+    
+    print("PALABRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    print(palabra)
     #Hago el parse para que me identifique la palabra
     pal = palabra.lower()
     pal = parse(pal).split()
 
-    
+    print("pallllllllllllllllllllllllllll")
+    print(pal)
     #Obtengo del parse la palabra para ir corroborando con el lexicon
     pal_final = pal[0][0]
+    print(pal_final)
     
 
     #Inicializo un booleano en false, esto es para saber si encontro o no la palabra
@@ -100,6 +113,9 @@ def __corroboro_palabra(diccionario_trabajado,dificultad):
                 else:
                     ok = False
                     return(ok)
+    else:
+        ok = False
+        return(ok)
 
 
 def __retorno_informacion(__palabra,__configuracion,dificultad):    

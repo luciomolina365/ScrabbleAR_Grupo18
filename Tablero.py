@@ -294,7 +294,6 @@ def juego(Configuracion):
        print("el turno es de el jugador")
     no_jugada = 0
 
-    Turno=0
 
     while not OBJETOS["Temporizador"].getTERMINO_Temporizador():
         event, values= window.read(timeout=10)
@@ -332,7 +331,7 @@ def juego(Configuracion):
         if event=="__repartir__"and event!= '__TIMEOUT__'and dic=={} and Turno==0:
             repartir=True
             cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir,Turno)
-            # Turno=1
+            Turno=1
 
         if event=="__repartir__"and event!= '__TIMEOUT__'and dic!={} and Turno==0 :
            window['-OUT-'].update("Ya has seleccionado una posicion en el tablero")
@@ -367,7 +366,7 @@ def juego(Configuracion):
                     repartir=True
                     actualizar_fichas(letras_a_intercambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
                     for i in jugada.keys():
-                        Objetos["Tablero"].setValorEnCoor(i,None)
+                        OBJETOS["Tablero"].setValorEnCoor(i,None)
                     no_jugada = 0
             primer_turno = False
             Turno = 0       # pasa al turno del jugador        
@@ -388,13 +387,15 @@ def juego(Configuracion):
                 dic={}
                 lista_a_borrar=[]
                 Lista_k=[]
+                Turno = 1
                
             else:
+                print("dic TABLERO")
                 print(dic)
                 actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k,Turno)
                 window['-OUT-'].update("Mal ahi bro le erraste ")
                 dic={}
                 Lista_k=[]
-            Turno=1
+                Turno=1
 
     print(juego.__doc__)
