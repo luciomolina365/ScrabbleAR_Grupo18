@@ -11,9 +11,9 @@ archivos.actualizar_cant_partidas_guardadas()
 ok= archivos.hay_partidas_a_cargar()
 Iniciar=[sg.Button("Iniciar Partida",size=(10,5),key="_iniciar_",button_color=('white','grey'))]
 if(ok==False):
-    Cargar=[sg.FileBrowse(button_text="Cargar Partida",initial_folder="Archivos\\partidas",size=(10,5),key="_cargar_",disabled=True,button_color=('white','grey'))]
+    Cargar=[sg.Button("Cargar Partida",disabled=True, key="cargar",button_color=('white','grey'))]
 else:
-    Cargar=[sg.Input(visible=False, enable_events=True, key="_file_"),sg.FileBrowse(button_text="Cargar Partida",initial_folder="Archivos\\partidas",size=(10,5),disabled=False,button_color=('white','grey'))]
+    Cargar=[sg.Button("Cargar Partida",size=(10,5),enable_events=True, key="cargar",button_color=('white','grey'))]
 
 titulo =  [[sg.Text("Scrabble", size=(22,10),auto_size_text=True)]]
 
@@ -23,6 +23,27 @@ Top=[[sg.Button(("Top Ten"),key="topTen",size=(22,1))]]
 layout= titulo + [Iniciar + Cargar ] + Top
 
 window = sg.Window('ScrabbleAr', layout, font='Courier 12',background_color="black",disable_close=True, disable_minimize=True)
+
+def mostrar_partidas_guardadas(lista):
+    layout=[[sg.Text('Seleccione la partida a cargar',text_color="white",background_color="black")],
+        [sg.Listbox(lista, size = (70,15) , key = "listBox" , select_mode=False)],
+        [sg.Button("Confirmar",key="confirmar"),sg.Cancel(button_color=('black','white'))]]
+
+    window = sg.Window('Top Ten', layout,background_color="black")
+    datos=None
+    while True:
+        event, values= window.read()
+        if event=="Cancel":
+            window.close()
+            break
+        if event=="confirmar":
+            if datos==None and values["listBox"]!=[]:
+                datos = values["listBox"][0]
+                window.close()
+                print(datos)
+                return datos
+            else:
+                pass
 
 
 def mostrar_ten(topFacil,topMedio,topDificil):
@@ -59,12 +80,14 @@ def mostrar_ten(topFacil,topMedio,topDificil):
 while True:
     event, values= window.read()
     print(event)
-    if event == "_file_":
-        partida = archivos.cargarPartida(archivos.formatear_cadena_de_directorio(values[event]))
-        window.close()
-        Tablero.juego(partida)
-        
-        break
+    if event == "cargar":
+        lista=archivos.lista_de_partidas_a_cargar()
+        direccion=mostrar_partidas_guardadas(lista)
+        if direccion!= None:
+            partida = archivos.cargarPartida(direccion)
+            window.close()
+            Tablero.juego(partida)
+            break
     if event == "_iniciar_":
         window.close()
         jugar()

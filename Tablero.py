@@ -137,7 +137,7 @@ def juego(Configuracion):
 #ACTUALIZAR TABLERO
 #---------------------------------------------------------------------------------------------------
 
-    def actualizando_tablero(dic,Tablero,window,Lista_k):#Aca vuelven la tabla a su estado original si el jugador pone una palabra erronea
+    def actualizando_tablero(dic,Tablero,window,Lista_k,jugador):#Aca vuelven la tabla a su estado original si el jugador pone una palabra erronea
             for i in dic.keys():
                     Tablero.setValorEnCoor(i,"")
                     lugar=Tablero.getDatosEnCoor(i)
@@ -161,8 +161,9 @@ def juego(Configuracion):
                         window[i].update("",disabled=False,image_filename='imagenes\GRIS.png',image_size=(25, 22))
                             
             print(Lista_k)
-            for i in Lista_k:
-                window[i].update(disabled=False, button_color=('white', 'black'))
+            if(jugador==0):    
+                for i in Lista_k:
+                    window[i].update(disabled=False, button_color=('white', 'black'))
 
 
 
@@ -299,6 +300,7 @@ def juego(Configuracion):
         cantRead = cantRead + 1  
         cantRead = OBJETOS["Temporizador"].avanzar_tiempo(cantRead)  
         window['-TEMP OUT-'].update(str(OBJETOS["Temporizador"].getMinutos()) + ":"+ str(OBJETOS["Temporizador"].getSegundos()) + ' min')       
+       
         if type(event)== tuple and event!= '__TIMEOUT__' : 
             tupla=event 
             print(tupla)
@@ -355,6 +357,7 @@ def juego(Configuracion):
             else:
                 window['-OUT-'].update("La maquina no a formado una palabra")
                 #ESTO ES PARA CUANDO LA IA NO PUEDE FORMAR PALABRAS EN 2 TURNOS SEGUIDOS CAMBIA FICHAS
+                jugada = jugada_IA[2]
                 no_jugada = no_jugada +1
                 if(no_jugada == 2):
                     print("Atril compu")
@@ -364,6 +367,8 @@ def juego(Configuracion):
                     print(letras_a_intercambiar)
                     repartir=True
                     actualizar_fichas(letras_a_intercambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
+                    for i in jugada.keys():
+                        OBJETOS["Tablero"].setValorEnCoor(i,"")
                     no_jugada = 0
             primer_turno = False
             Turno = 0       # pasa al turno del jugador        
@@ -384,13 +389,15 @@ def juego(Configuracion):
                 dic={}
                 lista_a_borrar=[]
                 Lista_k=[]
+                Turno = 1
                
             else:
+                print("dic TABLERO")
                 print(dic)
-                actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
+                actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k,Turno)
                 window['-OUT-'].update("Mal ahi bro le erraste ")
                 dic={}
                 Lista_k=[]
-            Turno=1
-    print(OBJETOS["Tablero"].getEstado())
+                Turno=1
+
     print(juego.__doc__)
