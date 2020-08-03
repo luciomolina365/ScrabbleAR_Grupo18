@@ -307,7 +307,7 @@ def __juega_IA(dificultad, tablero, atril, primer_turno, configuracion):
             #sigue[1] me retorna el puntaje obtenido por la palabra enviada
             puntaje = sigue[1]
             print("puntajeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
-            print(puntaje)
+            print()
 
             #Si el booleano que me retorna sigue, es True, envio el puntaje obtenido y corto el for
             if(ok==True):
