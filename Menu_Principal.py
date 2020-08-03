@@ -29,7 +29,7 @@ def mostrar_partidas_guardadas(lista):
         [sg.Listbox(lista, size = (70,15) , key = "listBox" , select_mode=False)],
         [sg.Button("Confirmar",key="confirmar"),sg.Cancel(button_color=('black','white'))]]
 
-    window = sg.Window('Top Ten', layout,background_color="black")
+    window = sg.Window('Partidas guardadas', layout,background_color="black")
     datos=None
     while True:
         event, values= window.read()
