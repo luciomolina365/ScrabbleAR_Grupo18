@@ -28,7 +28,7 @@ class Bolsa:
 
 
     def getBolsa(self):
-        return self.__bolsa                                                 #EJ.  {'A':{'cantidad':11,'valor':1} , 'B':{'cantidad':3,'valor':1}}
+        return self.__bolsa[:]                                                 #EJ.  {'A':{'cantidad':11,'valor':1} , 'B':{'cantidad':3,'valor':1}}
 
 
     def __getCantFichasTotales(self):
