@@ -63,9 +63,11 @@ def juego(Configuracion):
         
         OBJETOS["Atril_jugador"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
         OBJETOS["Atril_computadora"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
+        primer_turno = True
 
     else:
         Turno=0
+        primer_turno = False
 
     Lista_j = OBJETOS["Atril_jugador"].getFichas_disponibles()
     Lista_c = OBJETOS["Atril_computadora"].getFichas_disponibles()
@@ -132,7 +134,7 @@ def juego(Configuracion):
         [sg.Button("Confirmar",key="confirmar")]]
         
 
-        window = sg.Window('Seleccione las fichas a cambiar', layout, font='Courier 12',disable_close=True, disable_minimize=True)
+        window = sg.Window('Guardar partida', layout, font='Courier 12',disable_close=True, no_titlebar = True , disable_minimize=True)
 
         while True:
             event, values= window.read()
@@ -183,7 +185,7 @@ def juego(Configuracion):
                 [sg.Button(Fichas[i], key=i,button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)) for i in range(7)],
                 [sg.Button("Confirmar",key="confirmar",font=("Helvetica", 9) ,button_color=('white','grey'))]]
        
-        window = sg.Window('Seleccione las fichas a cambiar', layout, font='Courier 12',disable_close=True, disable_minimize=True)
+        window = sg.Window('Seleccione las fichas a cambiar', layout, font='Courier 12',disable_close=True, no_titlebar = True ,  disable_minimize=True)
         Seleccionadas=[]
         while True:
           event, values= window.read()
@@ -193,7 +195,7 @@ def juego(Configuracion):
                 ficha_a_cambiar=formatear(dato)
                 window[event].update(disabled=True, button_color=('black','white'))
                 Seleccionadas.append(ficha_a_cambiar)
-          elif(event=="confirmar"):
+          elif(event=="confirmar") and len(Seleccionadas) > 0:
               actualizar_fichas(Seleccionadas,B,Window_principal,Atril,evento,jugador)
               window.close()
               break
@@ -303,8 +305,7 @@ def juego(Configuracion):
     window['-player-'].update(puntaje_J)
     window['-compu-'].update(puntaje_C)
     window['-OUT-'].update("Buena suerte!!")
-    primer_turno=True
-    if Turno==None:
+    if Turno == None:
         Turno=random.randint(0,1)       #Si es 1 es la IA si es 0 es el jugador
     print(Turno)
     if(Turno==1):
@@ -313,147 +314,141 @@ def juego(Configuracion):
        print("el turno es de el jugador")
     no_jugada = 0
 
+    TERMINO = False
 
     while not OBJETOS["Temporizador"].getTERMINO_Temporizador() and not OBJETOS["Bolsa"].getTERMINO_Bolsa():
 
         event, values= window.read(timeout=10)
         cantRead = cantRead + 1  
         cantRead = OBJETOS["Temporizador"].avanzar_tiempo(cantRead)  
-        window['-TEMP OUT-'].update(str(OBJETOS["Temporizador"].getMinutos()) + ":"+ str(OBJETOS["Temporizador"].getSegundos()) + ' min')       
-       
-        if type(event)== tuple and event!= '__TIMEOUT__' : 
-            tupla=event 
-            print(tupla)
+        window['-TEMP OUT-'].update(str(OBJETOS["Temporizador"].getMinutos()) + ":"+ str(OBJETOS["Temporizador"].getSegundos()) + ' min') 
 
-        if type(event)== int and event!= "_poner_" and event!= '__TIMEOUT__' :
-            aux = event
-            atril = OBJETOS["Atril_jugador"].getFichas_disponibles()
-            dato = atril[event]
-            La_ficha = formatear(dato)
-            print(La_ficha)
-            
-        if event == "__exit__" and event!= '__TIMEOUT__' and Turno==0:
+        if event!= '__TIMEOUT__' and event == sg.WIN_CLOSED:
             window.close()
-            nombre = nombreFinalizada()
-            guardar_partida_finalizada(puntaje_J , Configuracion["Dificultad"] , nombre)
-            break
-
-        if event == "__save__" and event!= '__TIMEOUT__' and Turno==0 :
-            guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"])
-            window.close()
-            break
-
-        if event == "_poner_" and La_ficha!="" and tupla!="" and event!= '__TIMEOUT__' :
-            window[aux].update(disabled=True, button_color=('black','white'))
-            window[tupla].update(La_ficha,disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
-            cant_letras = cant_letras +1
-            dic[tupla]=OBJETOS["Tablero"].getDatosEnCoor(tupla)
-            dic[tupla]["letra"]=La_ficha
-            Lista_k.append(aux)
-            La_ficha=""
-            tupla=""
-        if event=="__repartir__"and event!= '__TIMEOUT__'and dic=={} and Turno==0:
-            repartir=True
-            cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir,Turno)
-            Turno=1
-
-        if event=="__repartir__"and event!= '__TIMEOUT__'and dic!={} and Turno==0 :
-           window['-OUT-'].update("Ya has seleccionado una posicion en el tablero")
-
-        if event=="__pasar__" and event!= '__TIMEOUT__' and dic=={} and Turno==0 :
-            window['-OUT-'].update("Debes colocar las fichas en el tablero")
-
+            break      
         
-        if Turno==1:
-            jugada_IA = __juega_IA(Configuracion['Dificultad'],OBJETOS["Tablero"].getEstado(),OBJETOS["Atril_computadora"].getFichas_disponibles(),primer_turno,OBJETOS['Bolsa'].getBolsa())
-            if(jugada_IA[0] == True):
-                puntaje = jugada_IA[1]
-                jugada = jugada_IA[2]
-                puntaje_C = puntaje_C + puntaje
-                repartir = False
-                lista_computadora_a_cambiar = jugada_IA[3]
-                actualizar_fichas(lista_computadora_a_cambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
-                for i in jugada.keys():
-                    window[i].update(jugada[i]["letra"],disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
-                    OBJETOS["Tablero"].setValorEnCoor(i,jugada[i]["letra"])
-                window['-compu-'].update(puntaje_C)
-                window['-OUT-'].update("La maquina a formado una palabra")
-                primer_turno = False
-            else:
-                window['-OUT-'].update("La maquina no a formado una palabra")
-                #ESTO ES PARA CUANDO LA IA NO PUEDE FORMAR PALABRAS EN 2 TURNOS SEGUIDOS CAMBIA FICHAS
-                jugada = jugada_IA[2]
-                no_jugada = no_jugada +1
-                if(no_jugada == 2):
-                    print("Atril compu")
-                    print(OBJETOS['Atril_computadora'].getFichas_disponibles())
-                    letras_a_intercambiar = __fichas_a_intercambiar(OBJETOS['Atril_computadora'].getFichas_disponibles())
-                    repartir=True
-                    actualizar_fichas(letras_a_intercambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
-                    for i in jugada.keys():
-                        OBJETOS["Tablero"].setValorEnCoor(i,None)
-                    no_jugada = 0
-            Turno = 0       # pasa al turno del jugador        
+        else:
+            
+            if type(event)== tuple and event!= '__TIMEOUT__' : 
+                tupla=event 
+                print(tupla)
 
-
-        if event=="__pasar__" and event!= '__TIMEOUT__' and dic!={} and Turno==0 :
-<<<<<<< HEAD
-            info = __retorno_informacion(dic,OBJETOS['Bolsa'].getBolsa(),Configuracion['Dificultad'])
-            ok_J = info[0]
-            if(ok_J==True):
+            if type(event)== int and event!= "_poner_" and event!= '__TIMEOUT__' :
+                aux = event
+                atril = OBJETOS["Atril_jugador"].getFichas_disponibles()
+                dato = atril[event]
+                La_ficha = formatear(dato)
+                print(La_ficha)
                 
-                for i in dic.keys():
-                  lista_a_borrar.append(dic[i]["letra"])
+            if event == "__exit__" and event!= '__TIMEOUT__' and Turno==0:
+                window.close()
+                TERMINO = True
+                #nombre = nombreFinalizada()
+                #guardar_partida_finalizada(puntaje_J , Configuracion["Dificultad"] , nombre)
+                break
 
-                puntaje = info[1]
-                puntaje_J=puntaje_J+puntaje
-                repartir=False
-                actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir,Turno)
-                window['-OUT-'].update("Bien hecho bro")
-                window['-player-'].update(puntaje_J)
-                dic = {}
-                lista_a_borrar.clear()
-                Lista_k.clear()
-                Turno = 1
-               
-=======
-            if(len(Lista_k)>1):
-                medio = mitad_tablero(Configuracion['Dificultad'])
-                if(medio in dic.keys()):
-                    es_ok=True
+            if event == "__save__" and event!= '__TIMEOUT__' and Turno==0 :
+                guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"])
+                window.close()
+                break
+
+            if event == "_poner_" and La_ficha!="" and tupla!="" and event!= '__TIMEOUT__' :
+                window[aux].update(disabled=True, button_color=('black','white'))
+                window[tupla].update(La_ficha,disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
+                cant_letras = cant_letras +1
+                dic[tupla]=OBJETOS["Tablero"].getDatosEnCoor(tupla)
+                dic[tupla]["letra"]=La_ficha
+                Lista_k.append(aux)
+                La_ficha=""
+                tupla=""
+            if event=="__repartir__"and event!= '__TIMEOUT__'and dic=={} and Turno==0:
+                repartir=True
+                cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir,Turno)
+                Turno=1
+
+            if event=="__repartir__"and event!= '__TIMEOUT__'and dic!={} and Turno==0 :
+                window['-OUT-'].update("Ya has seleccionado una posicion en el tablero")
+
+            if event=="__pasar__" and event!= '__TIMEOUT__' and dic=={} and Turno==0 :
+                window['-OUT-'].update("Debes colocar las fichas en el tablero")
+
+            
+            if Turno==1:
+                jugada_IA = __juega_IA(Configuracion['Dificultad'],OBJETOS["Tablero"].getEstado(),OBJETOS["Atril_computadora"].getFichas_disponibles(),primer_turno,OBJETOS['Bolsa'].getBolsa())
+                if(jugada_IA[0] == True):
+                    puntaje = jugada_IA[1]
+                    jugada = jugada_IA[2]
+                    puntaje_C = puntaje_C + puntaje
+                    repartir = False
+                    lista_computadora_a_cambiar = jugada_IA[3]
+                    actualizar_fichas(lista_computadora_a_cambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
+                    for i in jugada.keys():
+                        window[i].update(jugada[i]["letra"],disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
+                        OBJETOS["Tablero"].setValorEnCoor(i,jugada[i]["letra"])
+                    window['-compu-'].update(puntaje_C)
+                    window['-OUT-'].update("La maquina a formado una palabra")
+                    primer_turno = False
                 else:
-                    es_ok=False
-                if(es_ok==True):        
-                    info = __retorno_informacion(dic,OBJETOS['Bolsa'].getBolsa(),Configuracion['Dificultad'])
-                    ok_J = info[0]
-                    if(ok_J==True):
-                        for i in dic.keys():
-                            lista_a_borrar.append(dic[i]["letra"]) 
-                        puntaje = info[1]
-                        puntaje_J=puntaje_J+puntaje
-                        repartir=False
-                        actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir,Turno)
-                        window['-OUT-'].update("Bien hecho bro")
-                        window['-player-'].update(puntaje_J)
+                    window['-OUT-'].update("La maquina no a formado una palabra")
+                    #ESTO ES PARA CUANDO LA IA NO PUEDE FORMAR PALABRAS EN 2 TURNOS SEGUIDOS CAMBIA FICHAS
+                    jugada = jugada_IA[2]
+                    no_jugada = no_jugada +1
+                    if(no_jugada == 2):
+                        print("Atril compu")
+                        print(OBJETOS['Atril_computadora'].getFichas_disponibles())
+                        letras_a_intercambiar = __fichas_a_intercambiar(OBJETOS['Atril_computadora'].getFichas_disponibles())
+                        repartir=True
+                        actualizar_fichas(letras_a_intercambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
+                        for i in jugada.keys():
+                            OBJETOS["Tablero"].setValorEnCoor(i,None)
+                        no_jugada = 0
+                Turno = 0       # pasa al turno del jugador        
+
+
+            if event=="__pasar__" and event!= '__TIMEOUT__' and dic!={} and Turno==0 :
+                if(len(Lista_k)>1):
+                    medio = mitad_tablero(Configuracion['Dificultad'])
+                    if(medio in dic.keys()):
+                        es_ok=True
+                    else:
+                        es_ok=False
+                    if(es_ok==True):        
+                        info = __retorno_informacion(dic,OBJETOS['Bolsa'].getBolsa(),Configuracion['Dificultad'])
+                        ok_J = info[0]
+                        if(ok_J==True):
+                            for i in dic.keys():
+                                lista_a_borrar.append(dic[i]["letra"]) 
+                            puntaje = info[1]
+                            puntaje_J=puntaje_J+puntaje
+                            repartir=False
+                            actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir,Turno)
+                            window['-OUT-'].update("Bien hecho bro")
+                            window['-player-'].update(puntaje_J)
+                            dic={}
+                            lista_a_borrar=[]
+                            Lista_k=[]
+                            Turno = 1
+                            primer_turno = False
+                    else:
+                        actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
+                        window['-OUT-'].update("Mal ahi bro le erraste ")
                         dic={}
-                        lista_a_borrar=[]
                         Lista_k=[]
-                        Turno = 1
-                        primer_turno = False
+                        Turno=1
                 else:
+                    print("dic TABLERO")
+                    print(dic)
                     actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
                     window['-OUT-'].update("Mal ahi bro le erraste ")
-                    dic={}
-                    Lista_k=[]
-                    Turno=1
->>>>>>> 4838314b7282326a382ad45fa278b2c25547ba99
-            else:
-                print("dic TABLERO")
-                print(dic)
-                actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
-                window['-OUT-'].update("Mal ahi bro le erraste ")
-                dic = {}
-                Lista_k.clear()
-                Turno = 1
+                    dic = {}
+                    Lista_k.clear()
+                    Turno = 1
+
+    print(OBJETOS["Bolsa"].getTERMINO_Bolsa())
+    print(OBJETOS["Temporizador"].getTERMINO_Temporizador())
+    if OBJETOS["Bolsa"].getTERMINO_Bolsa() or OBJETOS["Temporizador"].getTERMINO_Temporizador() or TERMINO:
+        nombre = nombreFinalizada()
+        guardar_partida_finalizada(puntaje_J , Configuracion["Dificultad"] , nombre)
+
 
     print(juego.__doc__)

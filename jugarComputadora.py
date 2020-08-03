@@ -231,11 +231,13 @@ def __fichas_a_intercambiar(atril):
         
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def __juega_IA(dificultad, tablero, atril, primer_turno, configuracion):
+    print("-.,-,."*20)
     print(dificultad)
     print(atril)
     print(primer_turno)
     print(f"BOLSA {configuracion}")
     print(tablero)
+    print("-.,-,."*20)
 
 
     cantLetras = random.randint(2,7)
