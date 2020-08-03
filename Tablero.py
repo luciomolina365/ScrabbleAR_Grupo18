@@ -139,7 +139,7 @@ def juego(Configuracion):
 
     def actualizando_tablero(dic,Tablero,window,Lista_k,jugador):#Aca vuelven la tabla a su estado original si el jugador pone una palabra erronea
             for i in dic.keys():
-                    Tablero.setValorEnCoor(i,"")
+                    Tablero.setValorEnCoor(i,None)
                     lugar=Tablero.getDatosEnCoor(i)
                     if lugar["trampa"]==True: 
                         if lugar["tipo_de_trampa"]=="-1":
@@ -364,11 +364,10 @@ def juego(Configuracion):
                     print("Atril compu")
                     print(OBJETOS['Atril_computadora'].getFichas_disponibles())
                     letras_a_intercambiar = __fichas_a_intercambiar(OBJETOS['Atril_computadora'].getFichas_disponibles())
-                    print("a cambiar")
-                    print(letras_a_intercambiar)
                     repartir=True
                     actualizar_fichas(letras_a_intercambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
-                    actualizando_tablero(jugada,OBJETOS["Tablero"],window,Lista_k,Turno)
+                    for i in jugada.keys():
+                        Objetos["Tablero"].setValorEnCoor(i,None)
                     no_jugada = 0
             primer_turno = False
             Turno = 0       # pasa al turno del jugador        
@@ -396,6 +395,6 @@ def juego(Configuracion):
                 window['-OUT-'].update("Mal ahi bro le erraste ")
                 dic={}
                 Lista_k=[]
-            # Turno=1
+            Turno=1
 
     print(juego.__doc__)

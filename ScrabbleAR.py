@@ -72,6 +72,7 @@ def jugar():
                     Dificultad_final=2
                 else:
                     Dificultad_final=3
+                    
                 if(values["_predefinido_"==True]):
                     fichas_finales=fichas_predefinidas
                 else:
