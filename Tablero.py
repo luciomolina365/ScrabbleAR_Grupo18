@@ -8,13 +8,8 @@ from metodos_de_objetos import instanciar_objetos
 import random
 from Archivos.metodos_de_archivos import guardar_partida
 from Archivos.metodos_de_archivos import guardar_partida_finalizada
-<<<<<<< HEAD
-# from corroboro.corroborarPalabra import __retorno_informacion
-# from jugarComputadora import __juega_IA
-=======
 from corroboro.corroborarPalabra import __retorno_informacion
 from jugarComputadora import __juega_IA, __fichas_a_intercambiar
->>>>>>> 8806e101f89e302714c8921e4597852894e7bf41
 
 #{"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras": 
 
@@ -142,7 +137,7 @@ def juego(Configuracion):
 #ACTUALIZAR TABLERO
 #---------------------------------------------------------------------------------------------------
 
-    def actualizando_tablero(dic,Tablero,window,Lista_k):#Aca vuelven la tabla a su estado original si el jugador pone una palabra erronea
+    def actualizando_tablero(dic,Tablero,window,Lista_k,jugador):#Aca vuelven la tabla a su estado original si el jugador pone una palabra erronea
             for i in dic.keys():
                     Tablero.setValorEnCoor(i,"")
                     lugar=Tablero.getDatosEnCoor(i)
@@ -163,15 +158,12 @@ def juego(Configuracion):
                         if lugar["tipo_de_recompensa"]=="Px3":
                             window[i].update("",disabled=False,image_filename='imagenes\palabra x3.png',image_size=(25, 22))
                     else:
-<<<<<<< HEAD
-                        window[i].update("",disabled=False,image_filename='imagenes\GRIS.png',image_size=(25, 22))   
-=======
                         window[i].update("",disabled=False,image_filename='imagenes\GRIS.png',image_size=(25, 22))
->>>>>>> 8806e101f89e302714c8921e4597852894e7bf41
                             
             print(Lista_k)
-            for i in Lista_k:
-                window[i].update(disabled=False, button_color=('white', 'black'))
+            if(jugador==0):    
+                for i in Lista_k:
+                    window[i].update(disabled=False, button_color=('white', 'black'))
 
 
 
@@ -360,16 +352,13 @@ def juego(Configuracion):
                 actualizar_fichas(lista_computadora_a_cambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
                 for i in jugada.keys():
                     window[i].update(jugada[i]["letra"],disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
-<<<<<<< HEAD
-                    OBJETOS["Tablero"].setValorEnCoor(i,jugada[i["letra"]])  
-=======
                     OBJETOS["Tablero"].setValorEnCoor(i,jugada[i]["letra"])
->>>>>>> 8806e101f89e302714c8921e4597852894e7bf41
                 window['-compu-'].update(puntaje_C)
                 window['-OUT-'].update("La maquina a formado una palabra")
             else:
                 window['-OUT-'].update("La maquina no a formado una palabra")
                 #ESTO ES PARA CUANDO LA IA NO PUEDE FORMAR PALABRAS EN 2 TURNOS SEGUIDOS CAMBIA FICHAS
+                jugada = jugada_IA[2]
                 no_jugada = no_jugada +1
                 if(no_jugada == 2):
                     print("Atril compu")
@@ -379,6 +368,7 @@ def juego(Configuracion):
                     print(letras_a_intercambiar)
                     repartir=True
                     actualizar_fichas(letras_a_intercambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
+                    actualizando_tablero(jugada,OBJETOS["Tablero"],window,Lista_k,Turno)
                     no_jugada = 0
             primer_turno = False
             Turno = 0       # pasa al turno del jugador        
@@ -402,7 +392,7 @@ def juego(Configuracion):
                
             else:
                 print(dic)
-                actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
+                actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k,Turno)
                 window['-OUT-'].update("Mal ahi bro le erraste ")
                 dic={}
                 Lista_k=[]
