@@ -36,10 +36,12 @@ class Atril:
     #GETTERS
 
     def getEstado(self):
-        return self.__estado[:]                                          #EJ. {'A':{'cantidad':2,'valor':1} , 'B':{'cantidad':3,'valor':1}}
+        dic = {**self.__estado}
+        return dic                                                    #EJ. {'A':{'cantidad':2,'valor':1} , 'B':{'cantidad':3,'valor':1}}                                           
 
     def getFichas_disponibles(self):
-        return self.__fichas_disponibles#[:]                          #EJ. ["T", "O", "P", "O"]
+        lista = self.__fichas_disponibles.copy()
+        return lista                                                  #EJ. ["T", "O", "P", "O"]
 
     #======================================================================================================================================
     #METODOS

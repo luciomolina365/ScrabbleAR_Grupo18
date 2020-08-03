@@ -24,11 +24,14 @@ class Bolsa:
     #GETTERS
                     
     def getLetrasDisponibles(self):
-        return self.__letras_disponibles[:]                                    #EJ.  ["A", "B", "V", "Z"]
+        lista = self.__letras_disponibles.copy()
+        return lista                                                        #EJ.  ["A", "B", "V", "Z"]
+          
 
 
     def getBolsa(self):
-        return self.__bolsa[:]                                                 #EJ.  {'A':{'cantidad':11,'valor':1} , 'B':{'cantidad':3,'valor':1}}
+        dic = {**self.__bolsa}
+        return dic                                                          #EJ.  {'A':{'cantidad':11,'valor':1} , 'B':{'cantidad':3,'valor':1}}
 
 
     def __getCantFichasTotales(self):
