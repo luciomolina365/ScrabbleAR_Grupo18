@@ -8,8 +8,8 @@ from metodos_de_objetos import instanciar_objetos
 import random
 from Archivos.metodos_de_archivos import guardar_partida
 from Archivos.metodos_de_archivos import guardar_partida_finalizada
-from corroboro.corroborarPalabra import __retorno_informacion
-from jugarComputadora import __juega_IA, __fichas_a_intercambiar
+# from corroboro.corroborarPalabra import __retorno_informacion
+# from jugarComputadora import __juega_IA, __fichas_a_intercambiar
 
 #{"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras": 
 
@@ -30,6 +30,19 @@ def juego(Configuracion):
     Atril_jugador =  CLASS_atril.Atril
 
     OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,Configuracion)
+
+    
+    puntaje_J=Configuracion["Puntaje_jugador"]
+    puntaje_C=Configuracion["Puntaje_computadora"]
+
+    print(OBJETOS["Tablero"].getEstado()) 
+    print(OBJETOS["Bolsa"].getBolsa()) 
+    print(OBJETOS["Temporizador"].getMinutos )
+    print(OBJETOS["Atril_jugador"].getFichas_disponibles()) 
+    print(OBJETOS["Atril_computadora"].getFichas_disponibles()) 
+    print(puntaje_J)
+    print(puntaje_C)
+    print(Configuracion["Dificultad"])
 
 #metodos utilizados en momentos
 #------------------------------------------------------------------------------------------------- 
@@ -59,9 +72,7 @@ def juego(Configuracion):
         OBJETOS["Atril_computadora"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
     else:
         Turno=0
-        OBJETOS["Atril_jugador"]=Configuracion["Atril_jugador"]
-        OBJETOS["Atril_computadora"]=Configuracion["Atril_computadora"]
-        OBJETOS["Tablero"]=Configuracion["Tablero"]
+
     
     puntaje_J=Configuracion["Puntaje_jugador"]
     puntaje_C=Configuracion["Puntaje_computadora"]
@@ -396,7 +407,7 @@ def juego(Configuracion):
                 print("dic TABLERO")
                 print(dic)
                 actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
-                window['-OUT-'].update("Mal ahi bro le erraste ")
+                window['-OUT-'].update("Mal ahi bro le erraste ")              
                 dic={}
                 Lista_k=[]
                 Turno=1
