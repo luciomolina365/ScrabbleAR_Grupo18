@@ -24,7 +24,7 @@ class Bolsa:
     #GETTERS
                     
     def getLetrasDisponibles(self):
-        return self.__letras_disponibles                                    #EJ.  ["A", "B", "V", "Z"]
+        return self.__letras_disponibles[:]                                    #EJ.  ["A", "B", "V", "Z"]
 
 
     def getBolsa(self):
@@ -109,4 +109,4 @@ class Bolsa:
 
 
 #------------------------------------------------------------------------------------------------------------------------    
-#Molina, Lucio Felipe - 15980/7        
+# Molina, Lucio Felipe - 15980/7        

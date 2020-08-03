@@ -39,7 +39,7 @@ class Atril:
         return self.__estado                                          #EJ. {'A':{'cantidad':2,'valor':1} , 'B':{'cantidad':3,'valor':1}}
 
     def getFichas_disponibles(self):
-        return self.__fichas_disponibles                              #EJ. ["T", "O", "P", "O"]
+        return self.__fichas_disponibles[:]                           #EJ. ["T", "O", "P", "O"]
 
     #======================================================================================================================================
     #METODOS
@@ -86,4 +86,4 @@ class Atril:
 
         
 #------------------------------------------------------------------------------------------------------------------------
-#Molina, Lucio Felipe - 15980/7
+# Molina, Lucio Felipe - 15980/7

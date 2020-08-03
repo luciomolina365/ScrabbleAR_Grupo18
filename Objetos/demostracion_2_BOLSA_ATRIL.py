@@ -40,43 +40,53 @@ print("_______"*20)
 Atril_computadora = Atril(B.dameFichas(7))                      #El valor inicial viene de un archivo de config o partida guardada(en este caso usamos la bolsa)
 Atril_jugador = Atril(B.dameFichas(7))       
 
+
+def test(lista):
+    lista[0] = 666
+
+print(Atril_computadora.getFichas_disponibles())
+
+test(Atril_computadora.getFichas_disponibles())
+
+print(Atril_computadora.getFichas_disponibles())
+
 EJ_pc = Atril_computadora.getEstado()
-#print(EJ_pc)                                                    #PRIMER ESTADO
-print("_______"*20)                          
+# #print(EJ_pc)                                                    #PRIMER ESTADO
+# print("_______"*20)                          
 
 
 
 
 
-#////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-lista_de_fichas_a_sacar = []                                    #Apartir de estado genero lista de letras random a sacar
-for elemento in EJ_pc:                                          #En este caso saco las letras que aparecen 2 veces
-    if EJ_pc[elemento]["cantidad"] == 2:
-        lista_de_fichas_a_sacar.append(elemento)
-#////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# lista_de_fichas_a_sacar = []                                    #Apartir de estado genero lista de letras random a sacar
+# for elemento in EJ_pc:                                          #En este caso saco las letras que aparecen 2 veces
+#     if EJ_pc[elemento]["cantidad"] == 2:
+#         lista_de_fichas_a_sacar.append(elemento)
+# #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
 
 
-print(f"letras a sacar {lista_de_fichas_a_sacar}")
-print("_______"*20)
+# print(f"letras a sacar {lista_de_fichas_a_sacar}")
+# print("_______"*20)
 
-Atril_computadora.sacar_varias_fichas(lista_de_fichas_a_sacar) 
+# Atril_computadora.sacar_varias_fichas(lista_de_fichas_a_sacar) 
 
-print(Atril_computadora.getEstado())                            #SEGUNDO ESTADO (SACANDO VARIAS FICHAS)
-print("_______"*20)
+# print(Atril_computadora.getEstado())                            #SEGUNDO ESTADO (SACANDO VARIAS FICHAS)
+# print("_______"*20)
 
-Atril_computadora.agregar_varias_fichas({'A':{'cantidad':5,'valor':1} , 'G':{'cantidad':1,'valor':1}, "B":{'cantidad':1,'valor':1}})
+# Atril_computadora.agregar_varias_fichas({'A':{'cantidad':5,'valor':1} , 'G':{'cantidad':1,'valor':1}, "B":{'cantidad':1,'valor':1}})
 
-lista=["A","B","G","G"]
-Atril_computadora.sacar_varias_fichas(lista) 
+# lista=["A","B","G","G"]
+# Atril_computadora.sacar_varias_fichas(lista) 
 
-print(Atril_computadora.getEstado())                            #TERCER ESTADO (AGREGANDO VARIAS FICHAS)
+# print(Atril_computadora.getEstado())                            #TERCER ESTADO (AGREGANDO VARIAS FICHAS)
 
 
 
 
 
 #------------------------------------------------------------------------------------------------------------------------
-#Molina, Lucio Felipe - 15980/7
+# Molina, Lucio Felipe - 15980/7

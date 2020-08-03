@@ -11,14 +11,24 @@ from Objetos.CLASS_atril import Atril
 def instanciar_objetos(Bol , Table , Temp , Atril_jugador , Atril_computadora , config):
     Bol = Bolsa(config["Bolsa"])
     Table = Tablero(config["Tablero"])
-    Temp = Temporizador(int(config["Temporizador"]["minutos"]) , config["Temporizador"]["segundos"])
+    Temp = Temporizador(int(config["Temporizador"]["minutos"]) , int(config["Temporizador"]["segundos"]))
     Atril_jugador = Atril(config["Atril_jugador"])
     Atril_computadora = Atril(config["Atril_computadora"])
 
     return {"Bolsa":Bol, "Tablero":Table, "Temporizador":Temp, "Atril_jugador":Atril_jugador, "Atril_computadora":Atril_computadora}
 
 
+def __test_de_parametros(Bolsa):
+    pass
+    print("-.,-.,-.,-.,-.,-.,-.,-.,-.,")
+    print(Bolsa.dameFichas(20))
+    print("-.,-.,-.,-.,-.,-.,-.,-.,-.,")
+
+
+
 #=============================================================
+
+
 
 # Bol = Bolsa
 # Table = Tablero
@@ -27,9 +37,17 @@ def instanciar_objetos(Bol , Table , Temp , Atril_jugador , Atril_computadora , 
 # Atril_jugador =  Atril
 
 # config = cargarPartida("Archivos\\partidas\\partida_guardada_1.json")
-# print(config)
+# # print(config)
 
 # OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,config)
+
+# print(OBJETOS["Bolsa"].getBolsa())
+
+# __test_de_parametros(OBJETOS["Bolsa"])
+
+# print(OBJETOS["Bolsa"].getBolsa())
+
+
 
 # guardar_partida(OBJETOS["Bolsa"] , OBJETOS["Tablero"] , OBJETOS["Temporizador"] , OBJETOS["Atril_jugador"] , OBJETOS["Atril_computadora"], 666 , 999, True)
 
@@ -37,7 +55,7 @@ def instanciar_objetos(Bol , Table , Temp , Atril_jugador , Atril_computadora , 
 
 
 #------------------------------------------------------------------------------------------------------------------------
-#Molina, Lucio Felipe - 15980/7
+# Molina, Lucio Felipe - 15980/7
 
 
 
