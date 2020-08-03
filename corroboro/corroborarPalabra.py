@@ -75,7 +75,8 @@ def __corroboro_palabra(diccionario_trabajado,dificultad):
     pal = palabra.lower()
     pal = parse(pal).split()
 
-    
+    print("pal")
+    print(pal)
     #Obtengo del parse la palabra para ir corroborando con el lexicon
     pal_final = pal[0][0]
     

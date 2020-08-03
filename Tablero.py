@@ -392,5 +392,5 @@ def juego(Configuracion):
                 dic={}
                 Lista_k=[]
             Turno=1
-
+    print(OBJETOS["Tablero"].getEstado())
     print(juego.__doc__)
