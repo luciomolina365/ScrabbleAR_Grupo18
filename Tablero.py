@@ -277,7 +277,7 @@ def juego(Configuracion):
 #---------------------------------------------------------------------------------------------------
                         
     cantRead = 0                                    
-
+    cant_letras = 0
     La_ficha=""
     tupla=""
     dic={}
@@ -326,6 +326,7 @@ def juego(Configuracion):
         if event == "_poner_" and La_ficha!="" and tupla!="" and event!= '__TIMEOUT__' :
             window[aux].update(disabled=True, button_color=('black','white'))
             window[tupla].update(La_ficha,disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
+            cant_letras = cant_letras +1
             dic[tupla]=OBJETOS["Tablero"].getDatosEnCoor(tupla)
             dic[tupla]["letra"]=La_ficha
             Lista_k.append(aux)
@@ -376,22 +377,22 @@ def juego(Configuracion):
 
 
         if event=="__pasar__" and event!= '__TIMEOUT__' and dic!={} and Turno==0 :
-            info = __retorno_informacion(dic,OBJETOS['Bolsa'].getBolsa(),Configuracion['Dificultad'])
-            ok_J = info[0]
-            if(ok_J==True):
-                for i in dic.keys():
-                  lista_a_borrar.append(dic[i]["letra"]) 
-                puntaje = info[1]
-                puntaje_J=puntaje_J+puntaje
-                repartir=False
-                actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir,Turno)
-                window['-OUT-'].update("Bien hecho bro")
-                window['-player-'].update(puntaje_J)
-                dic={}
-                lista_a_borrar=[]
-                Lista_k=[]
-                Turno = 1
-               
+            if(len(Lista_k)>=2):
+                info = __retorno_informacion(dic,OBJETOS['Bolsa'].getBolsa(),Configuracion['Dificultad'])
+                ok_J = info[0]
+                if(ok_J==True):
+                    for i in dic.keys():
+                      lista_a_borrar.append(dic[i]["letra"]) 
+                    puntaje = info[1]
+                    puntaje_J=puntaje_J+puntaje
+                    repartir=False
+                    actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir,Turno)
+                    window['-OUT-'].update("Bien hecho bro")
+                    window['-player-'].update(puntaje_J)
+                    dic={}
+                    lista_a_borrar=[]
+                    Lista_k=[]
+                    Turno = 1
             else:
                 print("dic TABLERO")
                 print(dic)
