@@ -27,7 +27,6 @@ window = sg.Window('ScrabbleAr', layout, font='Courier 12',background_color="bla
 def mostrar_partidas_guardadas(lista):
     layout=[[sg.Text('Seleccione la partida a cargar',text_color="white",background_color="black")],
         [sg.Listbox(lista, size = (70,15) , key = "listBox" , select_mode=False)],
-        [sg.Button("Elegir",key="elegir")],
         [sg.Button("Confirmar",key="confirmar"),sg.Cancel(button_color=('black','white'))]]
 
     window = sg.Window('Top Ten', layout,background_color="black")
@@ -38,7 +37,7 @@ def mostrar_partidas_guardadas(lista):
             window.close()
             break
         if event=="confirmar":
-            if datos==None:
+            if datos==None and values["listBox"]!=[]:
                 datos = values["listBox"][0]
                 window.close()
                 print(datos)
