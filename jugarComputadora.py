@@ -205,16 +205,19 @@ def __fichas_a_intercambiar(atril):
     
     cant_fichas_a_cambiar = random.randint(1,len(atril))
 
+    copia_atril = atril[:]
+
     lista_a_cambiar = []
 
     for i in range(cant_fichas_a_cambiar):
         
-        letra = random.choice(atril)
-
-        atril.remove(letra)
+        letra = random.choice(copia_atril)
 
         lista_a_cambiar.append(letra)
+
+        copia_atril.remove(letra)
     
+
     return lista_a_cambiar
 
 #----------------------------------------------------------------------------------------------------------------------------------
