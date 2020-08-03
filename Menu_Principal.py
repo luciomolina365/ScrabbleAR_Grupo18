@@ -77,8 +77,6 @@ def mostrar_ten(topFacil,topMedio,topDificil):
 
 
 
-
-
 while True:
     event, values= window.read()
     print(event)

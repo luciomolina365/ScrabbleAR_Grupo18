@@ -8,8 +8,13 @@ from metodos_de_objetos import instanciar_objetos
 import random
 from Archivos.metodos_de_archivos import guardar_partida
 from Archivos.metodos_de_archivos import guardar_partida_finalizada
+<<<<<<< HEAD
 # from corroboro.corroborarPalabra import __retorno_informacion
 # from jugarComputadora import __juega_IA
+=======
+from corroboro.corroborarPalabra import __retorno_informacion
+from jugarComputadora import __juega_IA, __fichas_a_intercambiar
+>>>>>>> 8806e101f89e302714c8921e4597852894e7bf41
 
 #{"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras": 
 
@@ -155,10 +160,14 @@ def juego(Configuracion):
                             window[i].update("",disabled=False,image_filename='imagenes\multiplicador x3.png',image_size=(25, 22))   
                         if lugar["tipo_de_recompensa"]=="Px2":
                             window[i].update("",disabled=False,image_filename='imagenes\palabra x2.png',image_size=(25, 22))
-                        else:
+                        if lugar["tipo_de_recompensa"]=="Px3":
                             window[i].update("",disabled=False,image_filename='imagenes\palabra x3.png',image_size=(25, 22))
                     else:
+<<<<<<< HEAD
                         window[i].update("",disabled=False,image_filename='imagenes\GRIS.png',image_size=(25, 22))   
+=======
+                        window[i].update("",disabled=False,image_filename='imagenes\GRIS.png',image_size=(25, 22))
+>>>>>>> 8806e101f89e302714c8921e4597852894e7bf41
                             
             print(Lista_k)
             for i in Lista_k:
@@ -190,8 +199,16 @@ def juego(Configuracion):
 
 
   #una variable q sea jugador o computadora
-    def actualizar_fichas(lista_a_borrar,B,window,Atril,evento,jugador):#Este metodo se usa en caso de q coloques una palabra correcta o q requieras devolver letras a la bolsa
-        if evento==True:#significa q el evento fue repartir
+    def actualizar_fichas(lista_a_borrar,Bolsa,window,Atril,evento,jugador):
+        #Este metodo se usa en caso de q coloques una palabra correcta o q requieras devolver letras a la bolsa
+        #lista_a_borrar = lista de letras a intercambiar
+        #Bolsa = Objeto entero
+        #windows para hacer los update del jugador
+        #atril = Objeto entero
+        #evento = si es repartir
+        #jugador = si es la maquina o el jugador
+        if evento==True:
+            #significa q el evento fue repartir
             estado=Atril.getEstado()
             dic={}
             for letra in lista_a_borrar:
@@ -200,10 +217,15 @@ def juego(Configuracion):
                 else:
                     dic[letra]={"cantidad":1,"valor":estado[letra]["valor"]}
             
-            nuevas=B.intercambiar_fichas(dic)
+            nuevas=Bolsa.intercambiar_fichas(dic)
         else: #sino el evento fue pasar turno y era una palabra correcta
-            nuevas=B.dameFichas(len(lista_a_borrar))
-                 
+            nuevas=Bolsa.dameFichas(len(lista_a_borrar))
+        
+        print("________________________")
+        print(Atril.getFichas_disponibles())         
+        print("________________________")
+        print(lista_a_borrar)
+        
         Atril.sacar_varias_fichas(lista_a_borrar)
 
         Atril.agregar_varias_fichas(nuevas)
@@ -338,20 +360,26 @@ def juego(Configuracion):
                 actualizar_fichas(lista_computadora_a_cambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
                 for i in jugada.keys():
                     window[i].update(jugada[i]["letra"],disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
+<<<<<<< HEAD
                     OBJETOS["Tablero"].setValorEnCoor(i,jugada[i["letra"]])  
+=======
+                    OBJETOS["Tablero"].setValorEnCoor(i,jugada[i]["letra"])
+>>>>>>> 8806e101f89e302714c8921e4597852894e7bf41
                 window['-compu-'].update(puntaje_C)
                 window['-OUT-'].update("La maquina a formado una palabra")
             else:
                 window['-OUT-'].update("La maquina no a formado una palabra")
                 #ESTO ES PARA CUANDO LA IA NO PUEDE FORMAR PALABRAS EN 2 TURNOS SEGUIDOS CAMBIA FICHAS
-                #no_jugada = no_jugada +1
-                #if(no_jugada == 2):
-                #    cant_fichas = random.randint(1,7)
-                #    lista_computadora_a_cambiar = OBJETOS["Atril_computadora"].getEstado()
-                #    lista_computadora_a_cambiar = lista_computadora_a_cambiar[:cant_fichas]
-                #    repartir=True
-                #    actualizar_fichas(lista_computadora_a_cambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
-                #    no_jugada = 0
+                no_jugada = no_jugada +1
+                if(no_jugada == 2):
+                    print("Atril compu")
+                    print(OBJETOS['Atril_computadora'].getFichas_disponibles())
+                    letras_a_intercambiar = __fichas_a_intercambiar(OBJETOS['Atril_computadora'].getFichas_disponibles())
+                    print("a cambiar")
+                    print(letras_a_intercambiar)
+                    repartir=True
+                    actualizar_fichas(letras_a_intercambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
+                    no_jugada = 0
             primer_turno = False
             Turno = 0       # pasa al turno del jugador        
 

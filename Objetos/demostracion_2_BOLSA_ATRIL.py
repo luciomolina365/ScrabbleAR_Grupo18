@@ -40,6 +40,16 @@ print("_______"*20)
 Atril_computadora = Atril(B.dameFichas(7))                      #El valor inicial viene de un archivo de config o partida guardada(en este caso usamos la bolsa)
 Atril_jugador = Atril(B.dameFichas(7))       
 
+
+def test(lista):
+    lista[0] = 666
+
+print(Atril_computadora.getFichas_disponibles())
+
+test(Atril_computadora.getFichas_disponibles())
+
+print(Atril_computadora.getFichas_disponibles())
+
 EJ_pc = Atril_computadora.getEstado()
 #print(EJ_pc)                                                    #PRIMER ESTADO
 print("_______"*20)                          
