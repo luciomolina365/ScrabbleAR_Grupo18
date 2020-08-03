@@ -59,6 +59,9 @@ def juego(Configuracion):
         OBJETOS["Atril_computadora"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
     else:
         Turno=0
+        OBJETOS["Atril_jugador"]=Configuracion["Atril_jugador"]
+        OBJETOS["Atril_computadora"]=Configuracion["Atril_computadora"]
+        OBJETOS["Tablero"]=Configuracion["Tablero"]
     
     puntaje_J=Configuracion["Puntaje_jugador"]
     puntaje_C=Configuracion["Puntaje_computadora"]
@@ -137,7 +140,7 @@ def juego(Configuracion):
 #ACTUALIZAR TABLERO
 #---------------------------------------------------------------------------------------------------
 
-    def actualizando_tablero(dic,Tablero,window,Lista_k,jugador):#Aca vuelven la tabla a su estado original si el jugador pone una palabra erronea
+    def actualizando_tablero(dic,Tablero,window,Lista_k):#Aca vuelven la tabla a su estado original si el jugador pone una palabra erronea
             for i in dic.keys():
                     Tablero.setValorEnCoor(i,None)
                     lugar=Tablero.getDatosEnCoor(i)
@@ -161,9 +164,9 @@ def juego(Configuracion):
                         window[i].update("",disabled=False,image_filename='imagenes\GRIS.png',image_size=(25, 22))
                             
             print(Lista_k)
-            if(jugador==0):    
-                for i in Lista_k:
-                    window[i].update(disabled=False, button_color=('white', 'black'))
+            
+            for i in Lista_k:
+                window[i].update(disabled=False, button_color=('white', 'black'))
 
 
 
@@ -392,7 +395,7 @@ def juego(Configuracion):
             else:
                 print("dic TABLERO")
                 print(dic)
-                actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k,Turno)
+                actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
                 window['-OUT-'].update("Mal ahi bro le erraste ")
                 dic={}
                 Lista_k=[]
