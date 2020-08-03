@@ -29,7 +29,12 @@ def juego(Configuracion):
     Atril_computadora = CLASS_atril.Atril
     Atril_jugador =  CLASS_atril.Atril
 
-    OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,Configuracion)
+    OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_jugador,Atril_computadora,Configuracion)
+
+    print(OBJETOS["Bolsa"].getBolsa())
+    print(OBJETOS["Atril_jugador"].getFichas_disponibles())
+    print(OBJETOS["Atril_computadora"].getFichas_disponibles())
+    print(Configuracion)
 
 #metodos utilizados en momentos
 #------------------------------------------------------------------------------------------------- 
@@ -51,20 +56,22 @@ def juego(Configuracion):
 
    #Creando tablero primera vez o al cargar
    #------------------------------------------------------------------------------------------------- 
-    Lista_j=OBJETOS["Atril_jugador"].getFichas_disponibles()
-    Lista_c=OBJETOS["Atril_computadora"].getFichas_disponibles()
-    Turno=None
-    if len(Lista_j)==0 and len(Lista_c)==0:
+
+
+    Turno = None
+    if len(OBJETOS["Atril_jugador"].getFichas_disponibles()) == 0 and len(OBJETOS["Atril_computadora"].getFichas_disponibles())==0:
+        
         OBJETOS["Atril_jugador"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
         OBJETOS["Atril_computadora"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
+
     else:
         Turno=0
-        OBJETOS["Atril_jugador"]=Configuracion["Atril_jugador"]
-        OBJETOS["Atril_computadora"]=Configuracion["Atril_computadora"]
-        OBJETOS["Tablero"]=Configuracion["Tablero"]
-    
-    puntaje_J=Configuracion["Puntaje_jugador"]
-    puntaje_C=Configuracion["Puntaje_computadora"]
+
+    Lista_j = OBJETOS["Atril_jugador"].getFichas_disponibles()
+    Lista_c = OBJETOS["Atril_computadora"].getFichas_disponibles()
+
+    puntaje_J = Configuracion["Puntaje_jugador"]
+    puntaje_C = Configuracion["Puntaje_computadora"]
 
     def cant_fichas_tablero_jugador(Lista_j): #Seteo cant fichas jugador
         fichas=[]
@@ -259,7 +266,7 @@ def juego(Configuracion):
         cant=17
     else:     
         cant=15 
-    tabla=CreandoTablero(OBJETOS["Tablero"].getEstado(),cant)  #dependiendo la dificultad, creo un tablero de determinada cantidad
+    tabla = CreandoTablero(OBJETOS["Tablero"].getEstado(),cant)  #dependiendo la dificultad, creo un tablero de determinada cantidad
 
 
 
@@ -298,7 +305,8 @@ def juego(Configuracion):
     no_jugada = 0
 
 
-    while not OBJETOS["Temporizador"].getTERMINO_Temporizador():
+    while not OBJETOS["Temporizador"].getTERMINO_Temporizador() and not OBJETOS["Bolsa"].getTERMINO_Bolsa():
+
         event, values= window.read(timeout=10)
         cantRead = cantRead + 1  
         cantRead = OBJETOS["Temporizador"].avanzar_tiempo(cantRead)  
@@ -307,22 +315,25 @@ def juego(Configuracion):
         if type(event)== tuple and event!= '__TIMEOUT__' : 
             tupla=event 
             print(tupla)
+
         if type(event)== int and event!= "_poner_" and event!= '__TIMEOUT__' :
-            aux=event
-            atril=OBJETOS["Atril_jugador"].getFichas_disponibles()
-            dato=atril[event]
-            La_ficha=formatear(dato)
+            aux = event
+            atril = OBJETOS["Atril_jugador"].getFichas_disponibles()
+            dato = atril[event]
+            La_ficha = formatear(dato)
             print(La_ficha)
             
         if event == "__exit__" and event!= '__TIMEOUT__' and Turno==0:
             window.close()
-            nombre=nombreFinalizada()
-            guardar_partida_finalizada(puntaje_J , Configuracion["Dificultad"],nombre)
+            nombre = nombreFinalizada()
+            guardar_partida_finalizada(puntaje_J , Configuracion["Dificultad"] , nombre)
             break
+
         if event == "__save__" and event!= '__TIMEOUT__' and Turno==0 :
             guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"])
             window.close()
             break
+
         if event == "_poner_" and La_ficha!="" and tupla!="" and event!= '__TIMEOUT__' :
             window[aux].update(disabled=True, button_color=('black','white'))
             window[tupla].update(La_ficha,disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
@@ -379,17 +390,19 @@ def juego(Configuracion):
             info = __retorno_informacion(dic,OBJETOS['Bolsa'].getBolsa(),Configuracion['Dificultad'])
             ok_J = info[0]
             if(ok_J==True):
+                
                 for i in dic.keys():
-                  lista_a_borrar.append(dic[i]["letra"]) 
+                  lista_a_borrar.append(dic[i]["letra"])
+
                 puntaje = info[1]
                 puntaje_J=puntaje_J+puntaje
                 repartir=False
                 actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir,Turno)
                 window['-OUT-'].update("Bien hecho bro")
                 window['-player-'].update(puntaje_J)
-                dic={}
-                lista_a_borrar=[]
-                Lista_k=[]
+                dic = {}
+                lista_a_borrar.clear()
+                Lista_k.clear()
                 Turno = 1
                
             else:
@@ -397,8 +410,8 @@ def juego(Configuracion):
                 print(dic)
                 actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
                 window['-OUT-'].update("Mal ahi bro le erraste ")
-                dic={}
-                Lista_k=[]
-                Turno=1
+                dic = {}
+                Lista_k.clear()
+                Turno = 1
 
     print(juego.__doc__)

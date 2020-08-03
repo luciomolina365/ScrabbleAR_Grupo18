@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 import random
+import copy
 class Bolsa:
 
     __TERMINO = False
@@ -24,13 +25,13 @@ class Bolsa:
     #GETTERS
                     
     def getLetrasDisponibles(self):
-        lista = self.__letras_disponibles.copy()
+        lista = copy.deepcopy(self.__letras_disponibles)
         return lista                                                        #EJ.  ["A", "B", "V", "Z"]
           
 
 
     def getBolsa(self):
-        dic = {**self.__bolsa}
+        dic = copy.deepcopy(self.__bolsa)
         return dic                                                          #EJ.  {'A':{'cantidad':11,'valor':1} , 'B':{'cantidad':3,'valor':1}}
 
 
