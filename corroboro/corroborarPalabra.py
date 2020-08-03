@@ -70,15 +70,11 @@ def __corroboro_palabra(diccionario_trabajado,dificultad):
     for k,v in diccionario_trabajado.items():
         palabra = palabra + v
         palabra_lista.append(v)
-
-    print("palabra")
-    print(palabra)
           
     #Hago el parse para que me identifique la palabra
     pal = palabra.lower()
     pal = parse(pal).split()
-    print("pal parse")
-    print(pal)
+
     
     #Obtengo del parse la palabra para ir corroborando con el lexicon
     pal_final = pal[0][0]
