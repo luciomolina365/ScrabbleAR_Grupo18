@@ -6,7 +6,7 @@ from datetime import date
 
 
 #dificultad --> int del 1 al 3
-def cargarConfiguracionPorDefecto(dificultad):
+def __cargarConfiguracionPorDefecto(dificultad):
 
     """Devuelve los datos de una configuracion por defecto dependiendo de la dificultad que recibe por parametro"""
 
@@ -204,13 +204,17 @@ def definir_configuracion(datos_del_menu):
     
     """Despues que se confirme la configuracion personalizada en el menu, se modifica la dificultad seleccionada.
     Desde este punto, los datos se usan en metodos y para instanciar objetos.
-    (Esta configuracion se persiste en un archivo cuando termine la partida o se guarde)"""
+    (Esta configuracion se persiste en un archivo cuando termine la partida o la guarde el usuario)"""
       
-    config_por_defecto = cargarConfiguracionPorDefecto(datos_del_menu["dificultad"])                        #Cargamos una dificultad
+    config_por_defecto = __cargarConfiguracionPorDefecto(datos_del_menu["dificultad"])                      #Cargamos una dificultad
     
     config_por_defecto["Dificultad"] = datos_del_menu["dificultad"]
     config_por_defecto["Temporizador"]["minutos"] = datos_del_menu["minutos"]                               #Seteamos los cambios                            
-    config_por_defecto["Bolsa"] = datos_del_menu["letras"]
+    
+    if datos_del_menu["letras"] != {}:
+        
+        for letra in datos_del_menu["letras"]:
+            config_por_defecto["Bolsa"][letra] = datos_del_menu["letras"][letra]
 
     return config_por_defecto
 
@@ -229,7 +233,7 @@ def TopTen_de_jugadores(dificultad):
         direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_" + str(i) + ".json"
 
         with open(direccion, 'r') as archivo:
-            datos = json.load(archivo,encoding='utf-8')
+            datos = json.load(archivo , encoding='utf-8')
             archivo.close()
 
         if datos["Dificultad"] == dificultad:
@@ -237,14 +241,30 @@ def TopTen_de_jugadores(dificultad):
 
     Todos = list(sorted(lista , key = lambda top: top["Puntaje"] , reverse=True))
     
-    if len(Todos) >= 10:
-        return Todos[:10]
+    ret = []
+    for elemento in Todos:
+        nombre = elemento["Nombre"]
+        puntaje = datos["Puntaje_jugador"]
+        if datos["Dificultad"] == 1:
+            dificultad = "Facil"
+        elif datos["Dificultad"] == 2:
+            dificultad = "Medio"
+        else:
+            dificultad = "Dificil"
+
+        fecha = datos["Fecha"]
+        ret.append(f">>{nombre} // {puntaje}pts // Dificultad {dificultad} // {fecha}")
+
+    if len(ret) >= 10:
+        return ret[:10]
     
     else:
-        return Todos
+        return ret
     
 
 def lista_de_partidas_a_cargar():
+
+    """Genera una lista de las direcciones de las partidas guardadas."""
     
     lista = []
     i = 1
