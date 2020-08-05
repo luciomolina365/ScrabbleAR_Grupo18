@@ -1,3 +1,4 @@
+import copy
 import PySimpleGUI as sg
 class Atril:
     
@@ -36,11 +37,12 @@ class Atril:
     #GETTERS
 
     def getEstado(self):
-        dic = {**self.__estado}
+        dic = copy.deepcopy(self.__estado)
         return dic                                                    #EJ. {'A':{'cantidad':2,'valor':1} , 'B':{'cantidad':3,'valor':1}}                                           
 
     def getFichas_disponibles(self):
-        return self.__fichas_disponibles                              #EJ. ["T", "O", "P", "O"]
+        lista = copy.deepcopy(self.__fichas_disponibles)
+        return  lista                                                 #EJ. ["T", "O", "P", "O"]
 
     #======================================================================================================================================
     #METODOS

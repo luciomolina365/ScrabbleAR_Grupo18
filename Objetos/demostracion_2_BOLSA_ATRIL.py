@@ -42,13 +42,13 @@ Atril_jugador = Atril(B.dameFichas(7))
 
 
 def test(lista):
-    lista[0] = 666
+    lista["A"]["cantidad"] = "cara de pene"
 
-print(Atril_computadora.getFichas_disponibles())
+print(Atril_computadora.getEstado())
 
-test(Atril_computadora.getFichas_disponibles())
+test(Atril_computadora.getEstado())
 
-print(Atril_computadora.getFichas_disponibles())
+print(Atril_computadora.getEstado())
 
 EJ_pc = Atril_computadora.getEstado()
 #print(EJ_pc)                                                    #PRIMER ESTADO

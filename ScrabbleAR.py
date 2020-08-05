@@ -88,6 +88,7 @@ def jugar():
                 Config=definir_configuracion(Configuracion)
                 window.close()
                 Tablero.juego(Config)
+                break
         window.close()
         print(menu.__doc__)
     menu()

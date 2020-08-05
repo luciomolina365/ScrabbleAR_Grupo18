@@ -53,20 +53,18 @@ Atril_jugador = Atril(B.dameFichas(7))
 #------------------------------------------------------------------------------------------------------------------------
 #Para mostrarlo en pantalla
 
-DIC_J = Atril_jugador.getEstado()
 
-LISTA_j = []
-for elemento in DIC_J:                      #Hace una lista con las letras y sus repetidas (el proceso ".getFichas_disponibles()" lo hace)
-    cant = DIC_J[elemento]["cantidad"]
-    for i in range(cant):
-        LISTA_j.append(elemento)
-
-
-
-print(DIC_J)
 print("-" * 30)
+estado = Atril_jugador.getEstado()
+print(estado)
 print(Atril_jugador.getFichas_disponibles())
-print(LISTA_j)
+
+estado = {"caca" : 123}
+
+print("-" * 30)
+print(Atril_jugador.getEstado())
+print(Atril_jugador.getFichas_disponibles())
+
 print("-.,-.,"*20)
 
 

@@ -11,7 +11,7 @@ archivos.actualizar_cant_partidas_guardadas()
 ok= archivos.hay_partidas_a_cargar()
 Iniciar=[sg.Button("Iniciar Partida",size=(10,5),key="_iniciar_",button_color=('white','grey'))]
 if(ok==False):
-    Cargar=[sg.Button("Cargar Partida",disabled=True, key="cargar",button_color=('white','grey'))]
+    Cargar=[sg.Button("Cargar Partida",size=(10,5),disabled=True, key="cargar",button_color=('white','grey'))]
 else:
     Cargar=[sg.Button("Cargar Partida",size=(10,5),enable_events=True, key="cargar",button_color=('white','grey'))]
 

@@ -1,3 +1,6 @@
+import copy
+
+
 class Tablero:
     __estado={}
 
@@ -7,15 +10,18 @@ class Tablero:
         self.__estado = estado_a_cargar
     
 
-    def getEstado(self):                                        #Devuelve un diccionario de diccionarios (que representa el tablero) del formato: 
-        return self.__estado                                    #{*tupla de int*: {"letra": *string* , "trampa": *boolean*, "tipo_de_trampa": *int o None*, "recompensa": *boolean*, "tipo_de_recompensa": *int o None*} , *tupla de int*: {"letra": ...}}
+    def getEstado(self):
+        dic = copy.deepcopy(self.__estado)                      #Devuelve un diccionario de diccionarios (que representa el tablero) del formato:                       
+        return dic                                              #{*tupla de int*: {"letra": *string* , "trampa": *boolean*, "tipo_de_trampa": *int o None*, "recompensa": *boolean*, "tipo_de_recompensa": *int o None*} , *tupla de int*: {"letra": ...}}                                     
+                                           
         
     #====================================================================================================================
     #GETTERS
     #coordenada --> tupla de int , EJ. (1,2)
     
-    def getDatosEnCoor(self, coordenada):                           
-        return self.__estado[coordenada]                        #EJ. {"letra": *string* , "trampa": *boolean*, "tipo_de_trampa": *int o None*, "recompensa": *boolean*, "tipo_de_recompensa": *int o None*}
+    def getDatosEnCoor(self, coordenada):
+        dic = copy.deepcopy(self.__estado[coordenada])                                 
+        return dic                       #EJ. {"letra": *string* , "trampa": *boolean*, "tipo_de_trampa": *int o None*, "recompensa": *boolean*, "tipo_de_recompensa": *int o None*}
     
 
     #====================================================================================================================
