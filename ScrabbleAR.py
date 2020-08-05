@@ -48,8 +48,7 @@ def jugar():
             if values["_predefinido_"]==True:
                 window["slider"].update(visible=False)      #si valores predefinidos es verdadero,no mostrar tabla.
             if(event=="_modificar_"):
-                fichas_propias[values[5]]["cantidad"]=int(values[6])    #modifico la cantidad y el valor de las letras
-                fichas_propias[values[5]]["valor"]=int(values[7])
+                fichas_propias[values[5]] = {"cantidad" : int(values[6]) , "valor" : int(values[7])}    #modifico la cantidad y el valor de las letras
         
 
             if(event=="Link del Repositorio"):         #lleva al link del repositorio si se apreta help y link del repositorio
@@ -68,21 +67,25 @@ def jugar():
                 if(values["_predefinido_"==True]):      #esto guarda en fichas_finales las fichas que se utilizaran
                     fichas_finales={}
                 else:
-                    fichas_finales=fichas_propias       
+                    fichas_finales=fichas_propias
+                    print("-.,"*20)
+                    print(fichas_finales)       
+                    print("-.,"*20)
                 
-                Configuracion={}
-                Configuracion["minutos"]=values[4]
-                Configuracion["dificultad"]=Dificultad_final
-                Configuracion["letras"]=fichas_finales
-                Configuracion["Puntaje_jugador"]=0
-                Configuracion["Puntaje_computadora"]=0
+                Configuracion = {}
+                Configuracion["minutos"] = values[4]
+                Configuracion["dificultad"] = Dificultad_final
+                Configuracion["letras"] = fichas_finales
+                Configuracion["Puntaje_jugador"] = 0
+                Configuracion["Puntaje_computadora"] = 0
 
-                Config=definir_configuracion(Configuracion)    #se carga la configuracion para poder mandar correctamente todos los datos al tablero
+                Config = definir_configuracion(Configuracion)    #se carga la configuracion para poder mandar correctamente todos los datos al tablero
                 window.close() 
                 Tablero.juego(Config)
                 break
+
         window.close()
-        print(menu.__doc__)
+        #print(menu.__doc__)
     menu()
 
 
