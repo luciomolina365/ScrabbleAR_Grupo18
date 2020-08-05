@@ -1,13 +1,13 @@
 import PySimpleGUI as sg
+
 import random
-from Objetos import CLASS_atril
-from Objetos import CLASS_bolsa
-from Objetos import CLASS_temporizador
-from Objetos import CLASS_tablero
-from metodos_de_objetos import instanciar_objetos
-import random
+
+from Objetos import CLASS_atril, CLASS_bolsa, CLASS_temporizador, CLASS_tablero
+from Objetos.metodos_de_objetos import instanciar_objetos
+
 from Archivos.metodos_de_archivos import guardar_partida
 from Archivos.metodos_de_archivos import guardar_partida_finalizada
+
 from corroboro.corroborarPalabra import __retorno_informacion
 from jugarComputadora import __juega_IA, __fichas_a_intercambiar
 
