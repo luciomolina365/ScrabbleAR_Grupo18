@@ -42,7 +42,7 @@ Atril_jugador = Atril(B.dameFichas(7))
 
 
 def test(lista):
-    lista["A"]["cantidad"] = "cara de pene"
+    lista["A"]["cantidad"] = "YO NO DEBERIA ESTAR ACA"
 
 print(Atril_computadora.getEstado())
 

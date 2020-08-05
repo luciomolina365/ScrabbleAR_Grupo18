@@ -59,7 +59,7 @@ estado = Atril_jugador.getEstado()
 print(estado)
 print(Atril_jugador.getFichas_disponibles())
 
-estado = {"caca" : 123}
+estado = {"casa" : 123}
 
 print("-" * 30)
 print(Atril_jugador.getEstado())

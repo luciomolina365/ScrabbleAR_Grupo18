@@ -15,7 +15,7 @@ T = Tablero(estado_a_cargar)
 T.setValorEnCoor((15,15) , "GGG")           #Cuando esta corroborada la palabra, agregas de a un valor    
 
 def test(dic):
-    dic[(0,0)] = "pene"
+    dic[(0,0)] = "YO NO DEBERIA ESTAR ACA"
 # print("-.,-.,"*20)
 # print(T.getEstado())
 # print("-.,-.,"*20)
