@@ -204,13 +204,17 @@ def definir_configuracion(datos_del_menu):
     
     """Despues que se confirme la configuracion personalizada en el menu, se modifica la dificultad seleccionada.
     Desde este punto, los datos se usan en metodos y para instanciar objetos.
-    (Esta configuracion se persiste en un archivo cuando termine la partida o se guarde)"""
+    (Esta configuracion se persiste en un archivo cuando termine la partida o la guarde el usuario)"""
       
     config_por_defecto = __cargarConfiguracionPorDefecto(datos_del_menu["dificultad"])                      #Cargamos una dificultad
     
     config_por_defecto["Dificultad"] = datos_del_menu["dificultad"]
     config_por_defecto["Temporizador"]["minutos"] = datos_del_menu["minutos"]                               #Seteamos los cambios                            
-    config_por_defecto["Bolsa"] = datos_del_menu["letras"]
+    
+    if datos_del_menu["letras"] != {}:
+        
+        for letra in datos_del_menu["letras"]:
+            config_por_defecto["Bolsa"][letra] = datos_del_menu["letras"][letra]
 
     return config_por_defecto
 
