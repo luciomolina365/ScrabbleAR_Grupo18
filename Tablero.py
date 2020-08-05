@@ -116,22 +116,22 @@ def juego(Configuracion):
                 else:
                     if TableroD[(i,j)]["trampa"]==True:
                         if TableroD[(i,j)]["tipo_de_trampa"]=="-1":
-                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\menos 1.png',image_size=(25, 22)))
+                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\\menos 1.png',image_size=(25, 22)))
                         elif TableroD[(i,j)]["tipo_de_trampa"]=="-2":
-                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\menos 2.png',image_size=(25, 22)))
+                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\\menos 2.png',image_size=(25, 22)))
                         else:
-                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\menos 3.png',image_size=(25, 22)))
+                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\\menos 3.png',image_size=(25, 22)))
                     elif TableroD[(i,j)]["recompensa"]==True:
                         if TableroD[(i,j)]["tipo_de_recompensa"]=="x2":
-                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\multiplicador x2.png',image_size=(25, 22)))
+                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\\multiplicador x2.png',image_size=(25, 22)))
                         elif TableroD[(i,j)]["tipo_de_recompensa"]=="x3":
-                            lista1.append(sg.Button("",disabled=False,pad=(2,3),key=(i,j),image_filename='imagenes\multiplicador x3.png',image_size=(25, 22)) )  
+                            lista1.append(sg.Button("",disabled=False,pad=(2,3),key=(i,j),image_filename='imagenes\\multiplicador x3.png',image_size=(25, 22)) )  
                         elif TableroD[(i,j)]["tipo_de_recompensa"]=="Px2":
-                            lista1.append(sg.Button("",disabled=False,pad=(2,3),key=(i,j),image_filename='imagenes\palabra x2.png',image_size=(25, 22)))
+                            lista1.append(sg.Button("",disabled=False,pad=(2,3),key=(i,j),image_filename='imagenes\\palabra x2.png',image_size=(25, 22)))
                         else:
-                            lista1.append(sg.Button("",disabled=False,pad=(2,3),key=(i,j),image_filename='imagenes\palabra x3.png',image_size=(25, 22)))
+                            lista1.append(sg.Button("",disabled=False,pad=(2,3),key=(i,j),image_filename='imagenes\\palabra x3.png',image_size=(25, 22)))
                     else:
-                        lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\GRIS.png',image_size=(25, 22)))
+                        lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\\GRIS.png',image_size=(25, 22)))
             lista1 = [lista1]
             tablero = tablero + lista1
         return tablero
