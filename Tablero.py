@@ -411,38 +411,38 @@ def juego(Configuracion):
 
 
             if event=="__pasar__" and event!= '__TIMEOUT__' and dic!={} and Turno==0 :
-                mal=False
-                Bien=False
+                mal = False
+                Bien = False
                 if(len(Lista_k)>1):
                     medio = mitad_tablero(Configuracion['Dificultad'])
                     if(medio in dic.keys()):
-                        es_ok=True
+                        es_ok = True
                     else:
-                        es_ok=False
+                        es_ok = False
                     info = __retorno_informacion(dic,OBJETOS['Bolsa'].getBolsa(),Configuracion['Dificultad'])
                     ok_J = info[0]
-                    if(ok_J==True):
-                        Bien=True
-                        if primer_turno==True and es_ok==False :
-                            mal=True
-                            Bien=False
+                    if(ok_J == True):
+                        Bien = True
+                        if primer_turno == True and es_ok == False :
+                            mal = True
+                            Bien = False
                     else:
-                        mal=True
+                        mal = True
                 else:
-                    mal=True
+                    mal = True
                 
-                if(Bien==True):
+                if(Bien == True):
                     for i in dic.keys():
                         lista_a_borrar.append(dic[i]["letra"]) 
                     puntaje = info[1]
-                    puntaje_J=puntaje_J+puntaje
-                    repartir=False
+                    puntaje_J = puntaje_J+puntaje
+                    repartir = False
                     actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir,Turno)
                     window['-OUT-'].update("Bien hecho bro")
                     window['-player-'].update(puntaje_J)
-                    dic={}
-                    lista_a_borrar=[]
-                    Lista_k=[]
+                    dic = {}
+                    lista_a_borrar.clear()
+                    Lista_k.clear()
                     Turno = 1
                     primer_turno = False
                 if(mal==True):
