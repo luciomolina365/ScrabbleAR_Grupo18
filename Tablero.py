@@ -17,8 +17,9 @@ def juego(Configuracion):
     sg.theme('Topanga')
 
     
-    """En base a un diccionario predefinido, conseguir las 7 letras a usar por turnos,
-    todo esto lo vamos a hacer o realizar con objetos, para que se instancien cada vez que sean necesario, y 
+    """En base a la configuracion,obtendremos todos los datos necesarios para jugar,como la dificultad, el tiempo, 
+    la bolsa y el tablero.En caso de cargar partida tambien obtendremos el atril del jugador y de la IA.
+    Todo esto lo vamos a hacer o realizar con objetos, para que se instancien cada vez que sean necesario, y 
     la bolsa de letras se va a ir actualizando a medida de que vayamos retirando letras del abecedario tanto, 
     del jugador, como de la computadora"""
 
@@ -30,24 +31,6 @@ def juego(Configuracion):
     Atril_jugador =  CLASS_atril.Atril
 
     OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_jugador,Atril_computadora,Configuracion)
-
-    print(OBJETOS["Bolsa"].getBolsa())
-    print(OBJETOS["Atril_jugador"].getFichas_disponibles())
-    print(OBJETOS["Atril_computadora"].getFichas_disponibles())
-    print(Configuracion)
-
-    
-    puntaje_J=Configuracion["Puntaje_jugador"]
-    puntaje_C=Configuracion["Puntaje_computadora"]
-
-    print(OBJETOS["Tablero"].getEstado()) 
-    print(OBJETOS["Bolsa"].getBolsa()) 
-    print(OBJETOS["Temporizador"].getMinutos )
-    print(OBJETOS["Atril_jugador"].getFichas_disponibles()) 
-    print(OBJETOS["Atril_computadora"].getFichas_disponibles()) 
-    print(puntaje_J)
-    print(puntaje_C)
-    print(Configuracion["Dificultad"])
 
 #metodos utilizados en momentos
 #------------------------------------------------------------------------------------------------- 
@@ -184,8 +167,6 @@ def juego(Configuracion):
                             window[i].update("",disabled=False,image_filename='imagenes\palabra x3.png',image_size=(25, 22))
                     else:
                         window[i].update("",disabled=False,image_filename='imagenes\GRIS.png',image_size=(25, 22))
-                            
-            print(Lista_k)
             
             for i in Lista_k:
                 window[i].update(disabled=False, button_color=('white', 'black'))
@@ -246,11 +227,6 @@ def juego(Configuracion):
             nuevas=Bolsa.intercambiar_fichas(dic)
         else: #sino el evento fue pasar turno y era una palabra correcta
             nuevas=Bolsa.dameFichas(len(lista_a_borrar))
-        
-        print("________________________")
-        print(Atril.getFichas_disponibles())         
-        print("________________________")
-        print(lista_a_borrar)
         
         Atril.sacar_varias_fichas(lista_a_borrar)
 
@@ -344,15 +320,13 @@ def juego(Configuracion):
             
             if type(event)== tuple and event!= '__TIMEOUT__' : 
                 tupla=event 
-                print(tupla)
 
             if type(event)== int and event!= "_poner_" and event!= '__TIMEOUT__' :
                 aux = event
                 atril = OBJETOS["Atril_jugador"].getFichas_disponibles()
                 dato = atril[event]
                 La_ficha = formatear(dato)
-                print(La_ficha)
-                
+
             if event == "__exit__" and event!= '__TIMEOUT__' and Turno==0:
                 window.close()
                 TERMINO = True
@@ -373,8 +347,10 @@ def juego(Configuracion):
                 dic[tupla]=OBJETOS["Tablero"].getDatosEnCoor(tupla)
                 dic[tupla]["letra"]=La_ficha
                 Lista_k.append(aux)
+                OBJETOS["Tablero"].setValorEnCoor(tupla,La_ficha)
                 La_ficha=""
                 tupla=""
+            
             if event=="__repartir__"and event!= '__TIMEOUT__'and dic=={} and Turno==0:
                 repartir=True
                 cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir,Turno)
@@ -408,8 +384,6 @@ def juego(Configuracion):
                     jugada = jugada_IA[2]
                     no_jugada = no_jugada +1
                     if(no_jugada == 2):
-                        print("Atril compu")
-                        print(OBJETOS['Atril_computadora'].getFichas_disponibles())
                         letras_a_intercambiar = __fichas_a_intercambiar(OBJETOS['Atril_computadora'].getFichas_disponibles())
                         repartir=True
                         actualizar_fichas(letras_a_intercambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
@@ -428,7 +402,6 @@ def juego(Configuracion):
                         es_ok=True
                     else:
                         es_ok=False
-                    
                     info = __retorno_informacion(dic,OBJETOS['Bolsa'].getBolsa(),Configuracion['Dificultad'])
                     ok_J = info[0]
                     if(ok_J==True):
@@ -440,9 +413,8 @@ def juego(Configuracion):
                         mal=True
                 else:
                     mal=True
-
-
-                if(Bien==True):            
+                
+                if(Bien==True):
                     for i in dic.keys():
                         lista_a_borrar.append(dic[i]["letra"]) 
                     puntaje = info[1]
@@ -463,8 +435,6 @@ def juego(Configuracion):
                     Lista_k.clear()
                     Turno = 1
 
-    print(OBJETOS["Bolsa"].getTERMINO_Bolsa())
-    print(OBJETOS["Temporizador"].getTERMINO_Temporizador())
     if OBJETOS["Bolsa"].getTERMINO_Bolsa() or OBJETOS["Temporizador"].getTERMINO_Temporizador() or TERMINO:
         nombre = nombreFinalizada()
         guardar_partida_finalizada(puntaje_J , Configuracion["Dificultad"] , nombre)
