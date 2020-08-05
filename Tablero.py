@@ -11,7 +11,6 @@ from Archivos.metodos_de_archivos import guardar_partida_finalizada
 from corroboro.corroborarPalabra import __retorno_informacion
 from jugarComputadora import __juega_IA, __fichas_a_intercambiar
 
-#{"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras": 
 
 def juego(Configuracion):
     sg.theme('Topanga')
@@ -86,12 +85,15 @@ def juego(Configuracion):
     puntaje_C = Configuracion["Puntaje_computadora"]
 
     def cant_fichas_tablero_jugador(Lista_j): #Seteo cant fichas jugador
+        """Se crea los botones del atril del jugador"""
         fichas = []
         for i in range(len(Lista_j)):
             fichas.append(sg.Button(Lista_j[i], pad=(10,5), key=i,button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)))
         return fichas
     
     def cant_fichas_tablero_computadora(Lista_c): #Seteo cant fichas computadora
+        """Se crea los botones del atril de la IA con un signo de interrogacion para que el jugador no sepa las 
+        fichas de la IA"""
         fichas = []
         for i in Lista_c:
             fichas.append(sg.Button("?", pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16),disabled=True))
@@ -101,7 +103,9 @@ def juego(Configuracion):
     fichasC = cant_fichas_tablero_computadora(Lista_c)
 
     
-    def CreandoTablero(TableroD,cant):#  se crea el tablero recibiendo el tablero y la cantidad de filas y columnas 
+    def CreandoTablero(TableroD,cant):# 
+        """Se crea el tablero recibiendo el tablero y la cantidad de filas y columnas,en caso de que sea una partida
+        guardada, se cargara las letras en las posiciones donde se formaron palabras correctas"""
         tablero = []
         lista1 = []
         for i in range(cant):
@@ -295,6 +299,7 @@ def juego(Configuracion):
     window = sg.Window('ScrabbleAr', layout, font='Courier 12')
 
     
+   #JUEGO 
 #---------------------------------------------------------------------------------------------------
                         
     cantRead = 0                                    
@@ -320,7 +325,7 @@ def juego(Configuracion):
 
     TERMINO = False
 
-    while not OBJETOS["Temporizador"].getTERMINO_Temporizador() and not OBJETOS["Bolsa"].getTERMINO_Bolsa():
+    while not OBJETOS["Temporizador"].getTERMINO_Temporizador() and not OBJETOS["Bolsa"].getTERMINO_Bolsa():#Si el tiempo no termina y no se termino la bolsa
 
         event, values= window.read(timeout=10)
         cantRead = cantRead + 1  
