@@ -18,7 +18,7 @@ def juego(Configuracion):
 
     
     """En base a la configuracion,obtendremos todos los datos necesarios para jugar,como la dificultad, el tiempo, 
-    la bolsa y el tablero.En caso de cargar partida tambien obtendremos el atril del jugador y de la IA.
+    la bolsa y el tablero. En caso de cargar partida tambien obtendremos el atril del jugador y de la IA.
     Todo esto lo vamos a hacer o realizar con objetos, para que se instancien cada vez que sean necesario, y 
     la bolsa de letras se va a ir actualizando a medida de que vayamos retirando letras del abecedario tanto, 
     del jugador, como de la computadora"""
@@ -36,6 +36,8 @@ def juego(Configuracion):
 #------------------------------------------------------------------------------------------------- 
 
     def formatear(ficha):
+        """Esto es en el caso de que hayan varias letras similares,consigue solamente la letra ya que 
+        si hay varias letras similares como 2 A, una de las A tendra como valor A2"""
 
         aux = []
         for LETRA in ficha:
@@ -47,6 +49,19 @@ def juego(Configuracion):
             nueva_cadena = nueva_cadena + letra
 
         return nueva_cadena
+
+    def mitad_tablero(dificultad):
+        """metodo para saber cual es el medio dependiendo la dificultad"""
+        
+        if(dificultad == 1):
+            medio = (9,9)
+        elif(dificultad == 2):
+            medio = (8,8)
+        else:
+            medio = (7,7)
+        
+        return(medio) 
+
    #------------------------------------------------------------------------------------------------- 
 
 
@@ -60,7 +75,6 @@ def juego(Configuracion):
         OBJETOS["Atril_jugador"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
         OBJETOS["Atril_computadora"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
         primer_turno = True
-
     else:
         Turno=0
         primer_turno = False
@@ -72,12 +86,14 @@ def juego(Configuracion):
     puntaje_C = Configuracion["Puntaje_computadora"]
 
     def cant_fichas_tablero_jugador(Lista_j): #Seteo cant fichas jugador
+         """Creo los botones del atril del jugador"""
         fichas=[]
         for i in range(len(Lista_j)):
             fichas.append(sg.Button(Lista_j[i], pad=(10,5), key=i,button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)))
         return fichas
     
     def cant_fichas_tablero_computadora(Lista_c): #Seteo cant fichas computadora
+        """Creo los botones del atril de la IA con un signo de pregunta para que el jugador no sepa las letras de la IA"""
         fichas=[]
         for i in Lista_c:
             fichas.append(sg.Button("?", pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16),disabled=True))
@@ -88,6 +104,8 @@ def juego(Configuracion):
 
     
     def CreandoTablero(TableroD,cant):#  se crea el tablero recibiendo el tablero y la cantidad de filas y columnas 
+        """Creo el tablero con las imagenes en las posiciones del tablero dependiendo la dificultad. En caso de 
+        cargar partida, carga las letras en donde se formaron palabras en una partida previa"""
         tablero=[]
         lista1=[]
         for i in range(cant):
@@ -125,6 +143,8 @@ def juego(Configuracion):
 #---------------------------------------------------------------------------------------------------
 #FINALIZANDO
     def nombreFinalizada():         #se llama al metodo para q el jugador ingrese su nombre para que este registrado su nombre en el posible Top Ten
+        """Cuando la partida termina porque la bolsa no tiene mas fichas o se termino el tiempo, se guarda el nombre 
+        del jugador para registrar el nombre en el Top Ten"""
         layout=[[sg.Text("Ingrese su nombre para registrar su partida finalizada")],
         [sg.Input(default_text="",key="nombre")],
         [sg.Button("Confirmar",key="confirmar")]]
@@ -145,7 +165,8 @@ def juego(Configuracion):
 #ACTUALIZAR TABLERO
 #---------------------------------------------------------------------------------------------------
 
-    def actualizando_tablero(dic,Tablero,window,Lista_k):#Aca vuelven la tabla a su estado original si el jugador pone una palabra erronea
+    def actualizando_tablero(dic,Tablero,window,Lista_k):
+            """Aca vuelve el tablero a su estado anterior en caso de que el jugador forma una palabra erronea"""
             for i in dic.keys():
                     Tablero.setValorEnCoor(i,None)
                     lugar=Tablero.getDatosEnCoor(i)
@@ -173,7 +194,10 @@ def juego(Configuracion):
 
 
 
-    def cambiar_fichas(Atril,Window_principal,B,evento,jugador):#este metodo se llamara en el caso de q se pida fichas a la bolsa para intercambiar y a partir de ahi llama a actualizar_fichas
+    def cambiar_fichas(Atril,Window_principal,B,evento,jugador):
+        """este metodo se llamara en el caso de q se pida fichas a 
+        la bolsa para intercambiar y a partir de ahi llama a actualizar_fichas.
+        Se muestra una nueva ventana para elegir las fichas que el jugador quiere intercambiar"""
         Fichas=Atril.getFichas_disponibles()
         layout =[
                 [sg.Button(Fichas[i], key=i,button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)) for i in range(7)],
@@ -194,24 +218,14 @@ def juego(Configuracion):
               window.close()
               break
 
-    def mitad_tablero(dificultad):
-        
-        if(dificultad == 1):
-            medio = (9,9)
-        elif(dificultad == 2):
-            medio = (8,8)
-        else:
-            medio = (7,7)
-        
-        return(medio) 
 
   #una variable q sea jugador o computadora
     def actualizar_fichas(lista_a_borrar,Bolsa,window,Atril,evento,jugador):
-        #Este metodo se usa en caso de q coloques una palabra correcta o q requieras devolver letras a la bolsa
-        #lista_a_borrar = lista de letras a intercambiar
-        #Bolsa = Objeto entero
-        #windows para hacer los update del jugador
-        #atril = Objeto entero
+        """Este metodo se usa en caso de q coloques una palabra correcta o q requieras devolver letras a la bolsa,
+        si es en el caso de que alguno de que alguno formo una palabra correcta,se pide la cantidad de letras que 
+        se utilizo para formar la plabra a la bolsa.
+        En caso de que el evento fue repartir,intercambio las fichas de la bolsa
+        En cualquiera de los dos casos, si lo hizo el jugador, se hara el update del atril"""
         #evento = si es repartir
         #jugador = si es la maquina o el jugador
         if evento==True:
@@ -330,8 +344,6 @@ def juego(Configuracion):
             if event == "__exit__" and event!= '__TIMEOUT__' and Turno==0:
                 window.close()
                 TERMINO = True
-                #nombre = nombreFinalizada()
-                #guardar_partida_finalizada(puntaje_J , Configuracion["Dificultad"] , nombre)
                 break
 
             if event == "__save__" and event!= '__TIMEOUT__' and Turno==0 :
@@ -363,7 +375,7 @@ def juego(Configuracion):
                 window['-OUT-'].update("Debes colocar las fichas en el tablero")
 
             
-            if Turno==1:
+            if Turno==1:        #jugada de la IA
                 jugada_IA = __juega_IA(Configuracion['Dificultad'],OBJETOS["Tablero"].getEstado(),OBJETOS["Atril_computadora"].getFichas_disponibles(),primer_turno,OBJETOS['Bolsa'].getBolsa())
                 if(jugada_IA[0] == True):
                     puntaje = jugada_IA[1]
@@ -379,11 +391,10 @@ def juego(Configuracion):
                     window['-OUT-'].update("La maquina a formado una palabra")
                     primer_turno = False
                 else:
-                    window['-OUT-'].update("La maquina no a formado una palabra")
-                    #ESTO ES PARA CUANDO LA IA NO PUEDE FORMAR PALABRAS EN 2 TURNOS SEGUIDOS CAMBIA FICHAS
+                    window['-OUT-'].update("La maquina no a formado una palabra") 
                     jugada = jugada_IA[2]
                     no_jugada = no_jugada +1
-                    if(no_jugada == 2):
+                    if(no_jugada == 2):    #Esto es para cuando la IA no pudo formar palabras en 2 turnos seguidos, cambia sus fichas
                         letras_a_intercambiar = __fichas_a_intercambiar(OBJETOS['Atril_computadora'].getFichas_disponibles())
                         repartir=True
                         actualizar_fichas(letras_a_intercambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
