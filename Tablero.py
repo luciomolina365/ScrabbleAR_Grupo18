@@ -69,13 +69,13 @@ def juego(Configuracion):
 
 
     Turno = None
-    if len(OBJETOS["Atril_jugador"].getFichas_disponibles()) == 0 and len(OBJETOS["Atril_computadora"].getFichas_disponibles())==0:
+    if len(OBJETOS["Atril_jugador"].getFichas_disponibles()) == 0 and len(OBJETOS["Atril_computadora"].getFichas_disponibles()) == 0:
         
         OBJETOS["Atril_jugador"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
         OBJETOS["Atril_computadora"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
         primer_turno = True
     else:
-        Turno=0
+        Turno = 0
         primer_turno = False
 
     Lista_j = OBJETOS["Atril_jugador"].getFichas_disponibles()
@@ -85,15 +85,13 @@ def juego(Configuracion):
     puntaje_C = Configuracion["Puntaje_computadora"]
 
     def cant_fichas_tablero_jugador(Lista_j): #Seteo cant fichas jugador
-         """Creo los botones del atril del jugador"""
-        fichas=[]
+        fichas = []
         for i in range(len(Lista_j)):
             fichas.append(sg.Button(Lista_j[i], pad=(10,5), key=i,button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)))
         return fichas
     
     def cant_fichas_tablero_computadora(Lista_c): #Seteo cant fichas computadora
-        """Creo los botones del atril de la IA con un signo de pregunta para que el jugador no sepa las letras de la IA"""
-        fichas=[]
+        fichas = []
         for i in Lista_c:
             fichas.append(sg.Button("?", pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16),disabled=True))
         return fichas
@@ -103,10 +101,8 @@ def juego(Configuracion):
 
     
     def CreandoTablero(TableroD,cant):#  se crea el tablero recibiendo el tablero y la cantidad de filas y columnas 
-        """Creo el tablero con las imagenes en las posiciones del tablero dependiendo la dificultad. En caso de 
-        cargar partida, carga las letras en donde se formaron palabras en una partida previa"""
-        tablero=[]
-        lista1=[]
+        tablero = []
+        lista1 = []
         for i in range(cant):
             lista1.clear()
             for j in range(cant):
@@ -131,8 +127,8 @@ def juego(Configuracion):
                             lista1.append(sg.Button("",disabled=False,pad=(2,3),key=(i,j),image_filename='imagenes\palabra x3.png',image_size=(25, 22)))
                     else:
                         lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\GRIS.png',image_size=(25, 22)))
-            lista1=[lista1]
-            tablero=tablero+lista1
+            lista1 = [lista1]
+            tablero = tablero + lista1
         return tablero
 
 #---------------------------------------------------------------------------------------------------
@@ -152,8 +148,8 @@ def juego(Configuracion):
         window = sg.Window('Guardar partida', layout, font='Courier 12',disable_close=True, no_titlebar = True , disable_minimize=True)
 
         while True:
-            event, values= window.read()
-            if event=="confirmar" and "nombre"!="":
+            event, values = window.read()
+            if event == "confirmar" and "nombre"!="":
                 window.close()
                 return values["nombre"]
 
@@ -171,22 +167,22 @@ def juego(Configuracion):
                     lugar=Tablero.getDatosEnCoor(i)
                     if lugar["trampa"]==True: 
                         if lugar["tipo_de_trampa"]=="-1":
-                            window[i].update("",disabled=False,image_filename='imagenes\menos 1.png',image_size=(23, 20))
+                            window[i].update("",disabled=False,image_filename='imagenes\\menos 1.png',image_size=(23, 20))
                         elif lugar["tipo_de_trampa"]=="-2":
-                            window[i].update("",disabled=False,image_filename='imagenes\menos 2.png',image_size=(25, 22))
+                            window[i].update("",disabled=False,image_filename='imagenes\\menos 2.png',image_size=(25, 22))
                         else:
-                            window[i].update("",disabled=False,image_filename='imagenes\menos 3.png',image_size=(25, 22))
+                            window[i].update("",disabled=False,image_filename='imagenes\\menos 3.png',image_size=(25, 22))
                     elif lugar["recompensa"]==True:
                         if lugar["tipo_de_recompensa"]=="x2":
-                            window[i].update("",disabled=False,image_filename='imagenes\multiplicador x2.png',image_size=(25, 22))
+                            window[i].update("",disabled=False,image_filename='imagenes\\multiplicador x2.png',image_size=(25, 22))
                         if lugar["tipo_de_recompensa"]=="x3":
-                            window[i].update("",disabled=False,image_filename='imagenes\multiplicador x3.png',image_size=(25, 22))   
+                            window[i].update("",disabled=False,image_filename='imagenes\\multiplicador x3.png',image_size=(25, 22))   
                         if lugar["tipo_de_recompensa"]=="Px2":
-                            window[i].update("",disabled=False,image_filename='imagenes\palabra x2.png',image_size=(25, 22))
+                            window[i].update("",disabled=False,image_filename='imagenes\\palabra x2.png',image_size=(25, 22))
                         if lugar["tipo_de_recompensa"]=="Px3":
-                            window[i].update("",disabled=False,image_filename='imagenes\palabra x3.png',image_size=(25, 22))
+                            window[i].update("",disabled=False,image_filename='imagenes\\palabra x3.png',image_size=(25, 22))
                     else:
-                        window[i].update("",disabled=False,image_filename='imagenes\GRIS.png',image_size=(25, 22))
+                        window[i].update("",disabled=False,image_filename='imagenes\\GRIS.png',image_size=(25, 22))
             
             for i in Lista_k:
                 window[i].update(disabled=False, button_color=('white', 'black'))
@@ -197,22 +193,24 @@ def juego(Configuracion):
         """este metodo se llamara en el caso de q se pida fichas a 
         la bolsa para intercambiar y a partir de ahi llama a actualizar_fichas.
         Se muestra una nueva ventana para elegir las fichas que el jugador quiere intercambiar"""
-        Fichas=Atril.getFichas_disponibles()
+        Fichas = Atril.getFichas_disponibles()
         layout =[
                 [sg.Button(Fichas[i], key=i,button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)) for i in range(7)],
                 [sg.Button("Confirmar",key="confirmar",font=("Helvetica", 9) ,button_color=('white','grey'))]]
        
         window = sg.Window('Seleccione las fichas a cambiar', layout, font='Courier 12',disable_close=True, no_titlebar = True ,  disable_minimize=True)
-        Seleccionadas=[]
+        Seleccionadas = []
         while True:
           event, values= window.read()
+          
           if type(event)==int: 
-                aux=event
-                dato=Fichas[event]
-                ficha_a_cambiar=formatear(dato)
+                aux = event
+                dato = Fichas[event]
+                ficha_a_cambiar = formatear(dato)
                 window[event].update(disabled=True, button_color=('black','white'))
                 Seleccionadas.append(ficha_a_cambiar)
-          elif(event=="confirmar") and len(Seleccionadas) > 0:
+          
+          elif(event == "confirmar") and len(Seleccionadas) > 0:
               actualizar_fichas(Seleccionadas,B,Window_principal,Atril,evento,jugador)
               window.close()
               break
@@ -245,13 +243,13 @@ def juego(Configuracion):
 
         Atril.agregar_varias_fichas(nuevas)
        
-        listaNueva=[]
+        listaNueva = []
         for letra in nuevas:
             for i in range(nuevas[letra]["cantidad"]):#[a,a,b,b,c]
                 listaNueva.append(letra)
                 
-        datos=Atril.getFichas_disponibles()
-        if jugador ==0:
+        datos = Atril.getFichas_disponibles()
+        if jugador == 0:
             for i in range(0,len(datos)):
                 window[i].update(datos[i],disabled=False,button_color=('white', 'black'))
 
@@ -266,19 +264,21 @@ def juego(Configuracion):
 
     input_rows = [[sg.T(' '*20),sg.Text("",size=(7,1), pad=(0,0),key="-player-"),sg.Text("",size=(8,1), pad=(0,0),key="-compu-")]]
 
-    puntua= header + input_rows
+    puntua = header + input_rows
 
     titulo =  [
     [sg.Text(size=(50,1), key='-OUT-')],
-    [sg.Text('Tiempo restante'), sg.T(' '*1), sg.Text(size=(10,1), key='-TEMP OUT-')]]
+    [sg.Text('Tiempo restante'), sg.T(' '*1), sg.Text(size=(10,1), key='-TEMP OUT-')]
+    ]
 
 
-    if Configuracion["Dificultad"]==1:
-        cant=19
-    elif Configuracion["Dificultad"]==2:
-        cant=17
+    if Configuracion["Dificultad"] == 1:
+        cant = 19
+    elif Configuracion["Dificultad"] == 2:
+        cant = 17
     else:     
-        cant=15 
+        cant = 15 
+
     tabla = CreandoTablero(OBJETOS["Tablero"].getEstado(),cant)  #dependiendo la dificultad, creo un tablero de determinada cantidad
 
 
@@ -298,11 +298,11 @@ def juego(Configuracion):
                         
     cantRead = 0                                    
     cant_letras = 0
-    La_ficha=""
-    tupla=""
-    dic={}
-    lista_a_borrar=[]
-    Lista_k=[]
+    La_ficha = ""
+    tupla = ""
+    dic = {}
+    lista_a_borrar = []
+    Lista_k = []
     window.read(timeout=10)
     window['-player-'].update(puntaje_J)
     window['-compu-'].update(puntaje_C)
@@ -310,10 +310,11 @@ def juego(Configuracion):
     if Turno == None:
         Turno=random.randint(0,1)       #Si es 1 es la IA si es 0 es el jugador
     print(Turno)
-    if(Turno==1):
+    if(Turno == 1):
        print("El turno es de la IA ")
     else:
        print("el turno es de el jugador")
+
     no_jugada = 0
 
     TERMINO = False
