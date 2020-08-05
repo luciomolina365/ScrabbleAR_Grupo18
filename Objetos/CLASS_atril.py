@@ -14,7 +14,7 @@ class Atril:
         for letra in self.__estado:
             self.__cant_fichas = self.__cant_fichas + self.__estado[letra]["cantidad"]
 
-
+    #letra --> string EJ. "A"
     def __actualizar_letra(self,letra):
 
         if  self.__estado[letra]["cantidad"] == 0:                    #Saca la ficha que ya no esta
@@ -37,11 +37,12 @@ class Atril:
     #GETTERS
 
     def getEstado(self):
-        """Devuelve una copia del diccionario que """
+        """Devuelve una copia del diccionario que representa el atril."""
         dic = copy.deepcopy(self.__estado)
         return dic                                                    #EJ. {'A':{'cantidad':2,'valor':1} , 'B':{'cantidad':3,'valor':1}}                                           
 
     def getFichas_disponibles(self):
+        """Devuelve una lista que representa las fichas del atril."""
         lista = copy.deepcopy(self.__fichas_disponibles)
         return  lista                                                 #EJ. ["T", "O", "P", "O"]
 
@@ -50,6 +51,8 @@ class Atril:
 
     #letra --> string EJ. "A"
     def sacar_ficha(self,letra):
+
+        """Recibe una letra y la saca del atril."""
         
         self.__estado[letra]["cantidad"] = self.__estado[letra]["cantidad"] - 1
         self.__cant_fichas = self.__cant_fichas - 1

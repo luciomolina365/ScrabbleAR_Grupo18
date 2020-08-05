@@ -29,6 +29,9 @@ def cargarPartida(direccion):
 
 
 def formatear_cadena_de_directorio(directorio):
+
+    """A partir de una cadena de direccion local, genera una direccion relativa."""
+
     lista = directorio.split("/")
     nueva = []
     OK = False
@@ -118,11 +121,11 @@ def actualizar_cant_partidas_guardadas(Finalizada = False):
     f.close()
     
 
-#========================================================        
-                                                        #
-                                                        #
-def __convertir_Datos_A_Json(datos):                    #
-    aux = {}                                            #
+#====================================================================       
+#Debido a que json no acepta tuplas, usamos un proceso para convertir                                                 
+                                                        
+def __convertir_Datos_A_Json(datos):                    
+    aux = {}                                            
     for coor in datos["Tablero"]:
         aux[str(coor)] = datos["Tablero"][coor]
     
@@ -141,7 +144,7 @@ def __convertir_Json_A_Datos(datos):
     return datos
 
 
-#========================================================        
+#====================================================================       
 
 
 #Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora --> Objetos
@@ -152,7 +155,7 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
     """Guarda los datos de la partida, en la carpeta "Archivos\\partidas" para poder seguirla en otro momento  - - - 
     También actualiza "cant_partidas.txt" de la carpeta correspondiente."""
     
-    datos={}
+    datos = {}
 
     datos["Tablero"] = Tablero.getEstado()
     datos["Bolsa"] = Bolsa.getBolsa()
@@ -239,25 +242,29 @@ def TopTen_de_jugadores(dificultad):
 
     Todos = list(sorted(lista , key = lambda top: top["Puntaje"] , reverse=True))
     
-    ret = []
+    lista_formateada = []
     for elemento in Todos:
-        nombre = elemento["Nombre"]
-        puntaje = datos["Puntaje_jugador"]
-        if datos["Dificultad"] == 1:
+        
+        if elemento["Dificultad"] == 1:
             dificultad = "Facil"
-        elif datos["Dificultad"] == 2:
+        
+        elif elemento["Dificultad"] == 2:
             dificultad = "Medio"
+        
         else:
             dificultad = "Dificil"
 
-        fecha = datos["Fecha"]
-        ret.append(f">>>{nombre} // {puntaje}pts // Dificultad {dificultad} // {fecha}")
+        nombre = elemento["Nombre"]
+        puntaje = elemento["Puntaje"]
+        fecha = elemento["Fecha"]
+        
+        lista_formateada.append(f">>>{nombre} // {puntaje}pts // Dificultad {dificultad} // {fecha}")
 
-    if len(ret) >= 10:
-        return ret[:10]
+    if len(lista_formateada) >= 10:
+        return lista_formateada[:10]
     
     else:
-        return ret
+        return lista_formateada
     
 
 def lista_de_partidas_a_cargar():

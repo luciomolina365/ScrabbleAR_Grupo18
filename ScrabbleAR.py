@@ -88,6 +88,3 @@ def jugar():
         window.close()
     menu()
 
-
-
-##https://pysimplegui.readthedocs.io/en/latest/#the-event-loop-callback-functions

@@ -25,12 +25,14 @@ class Bolsa:
     #GETTERS
                     
     def getLetrasDisponibles(self):
+        """Devuelve una lista que representa las fichas de la bolsa."""
         lista = copy.deepcopy(self.__letras_disponibles)
         return lista                                                        #EJ.  ["A", "B", "V", "Z"]
           
 
 
     def getBolsa(self):
+        """Devuelve un diccionario que representa las letras de la bolsa, con sus cantidades y valores."""
         dic = copy.deepcopy(self.__bolsa)
         return dic                                                          #EJ.  {'A':{'cantidad':11,'valor':1} , 'B':{'cantidad':3,'valor':1}}
 
@@ -44,6 +46,7 @@ class Bolsa:
 
 
     def getTERMINO_Bolsa(self):
+        """Retorna un True en caso que la bolsa este vacia, en caso contrario devuelve False."""
         return self.__TERMINO                                               #boolean
 
 
@@ -85,7 +88,7 @@ class Bolsa:
     #dic_de_fichas  --> diccionario de diccionarios  EJ. {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
     def devolverFichas(self, dic_de_fichas):
 
-        """Devuelve a la Bolsa las fichas pasadas por parametro"""
+        """Devuelve a la Bolsa las fichas pasadas por parametro."""
         
         for letra in dic_de_fichas:
             self.__bolsa[letra]["cantidad"] = self.__bolsa[letra]["cantidad"] + dic_de_fichas[letra]["cantidad"]
@@ -96,7 +99,7 @@ class Bolsa:
     #dic_a_intercambiar  --> diccionario de diccionarios  EJ. {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
     def intercambiar_fichas(self,dic_a_intercambiar):
 
-        """Recibe fichas y devuelve la misma cantidad de fichas"""         
+        """Recibe un diccionario fichas y retorna otro diccionario con la misma cantidad de fichas."""         
         
         cant = 0
         for letra in dic_a_intercambiar:                                                                #Contamos la cantidad de fichas a devolver

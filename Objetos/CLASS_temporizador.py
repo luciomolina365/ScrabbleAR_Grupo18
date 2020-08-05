@@ -1,8 +1,8 @@
+import copy
 class Temporizador:
     
     #min y seg --> int
     #TERMINO --> boolean
-    
     def __init__(self, min = 0, seg = 0, TERMINO=False):
         self.__min = min
         self.__seg = seg
@@ -17,7 +17,7 @@ class Temporizador:
         
         """Cada 100 actualizaciones de los valores de la ventana, 
         decrementa el tiempo ingresado y lo devuelve formateado 
-        para mostrarlo en pantalla."""
+        para mostrarlo en pantalla.(cada 1000ms cambia)."""
 
         if cantActualizaciones == 100:
             
@@ -80,7 +80,10 @@ class Temporizador:
         return self.__TERMINO                         #boolean
 
     def getTiempo(self):
-        return  {"minutos": int(self.getMinutos()), "segundos": int(self.getSegundos())}
+        """Retorna un diccionario con los minutos y segundos actuales al llamado del metodo."""
+        
+        dic = copy.deepcopy({"minutos": int(self.getMinutos()), "segundos": int(self.getSegundos())})
+        return  dic
 
     #====================================================================================================================
 
