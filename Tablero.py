@@ -11,7 +11,6 @@ from Archivos.metodos_de_archivos import guardar_partida_finalizada
 from corroboro.corroborarPalabra import __retorno_informacion
 from jugarComputadora import __juega_IA, __fichas_a_intercambiar
 
-#{"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras": 
 
 def juego(Configuracion):
     sg.theme('Topanga')
