@@ -8,7 +8,7 @@ from datetime import date
 #dificultad --> int del 1 al 3
 def __cargarConfiguracionPorDefecto(dificultad):
 
-    """Devuelve los datos de una configuracion por defecto dependiendo de la dificultad que recibe por parametro"""
+    """Devuelve los datos de una configuracion por defecto dependiendo de la dificultad que recibe por parametro."""
 
     direccion = "Archivos\\configuracion\\por_defecto_" + str(dificultad) +".json"
     datos = cargarPartida(direccion)
@@ -204,7 +204,7 @@ def definir_configuracion(datos_del_menu):
     
     """Despues que se confirme la configuracion personalizada en el menu, se modifica la dificultad seleccionada.
     Desde este punto, los datos se usan en metodos y para instanciar objetos.
-    (Esta configuracion se persiste en un archivo cuando termine la partida o la guarde el usuario)"""
+    (Esta configuracion se persiste en un archivo cuando termine la partida o la guarde el usuario)."""
       
     config_por_defecto = __cargarConfiguracionPorDefecto(datos_del_menu["dificultad"])                      #Cargamos una dificultad
     
@@ -215,6 +215,8 @@ def definir_configuracion(datos_del_menu):
         
         for letra in datos_del_menu["letras"]:
             config_por_defecto["Bolsa"][letra] = datos_del_menu["letras"][letra]
+        
+        print(config_por_defecto["Bolsa"])
 
     return config_por_defecto
 
@@ -222,7 +224,7 @@ def definir_configuracion(datos_del_menu):
 #dificultad --> int del 1 al 3
 def TopTen_de_jugadores(dificultad):
 
-    """Lee los datos de las partidas guardadas y muestra un Top 10 de los mejores jugadores, según su puntaje"""
+    """Lee los datos de las partidas guardadas y muestra un Top 10 de los mejores jugadores, según su puntaje."""
 
     actualizar_cant_partidas_guardadas(True)
     cant = __cant_partidas(True)
@@ -253,7 +255,7 @@ def TopTen_de_jugadores(dificultad):
             dificultad = "Dificil"
 
         fecha = datos["Fecha"]
-        ret.append(f">>{nombre} // {puntaje}pts // Dificultad {dificultad} // {fecha}")
+        ret.append(f">>>{nombre} // {puntaje}pts // Dificultad {dificultad} // {fecha}")
 
     if len(ret) >= 10:
         return ret[:10]

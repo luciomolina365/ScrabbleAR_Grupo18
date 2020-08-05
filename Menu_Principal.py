@@ -6,8 +6,8 @@ from ScrabbleAR import jugar
 
 def mostrar_partidas_guardadas(lista):
 
-    """muestra una nueva ventana con una listbox de todas las partidas posibles a cargar
-     y al confirmar retorna la direccion a cargar"""
+    """Muestra una nueva ventana con una listbox de todas las partidas posibles a cargar
+     y al confirmar retorna la direccion a cargar."""
 
     layout=[[sg.Text('Seleccione la partida a cargar',text_color="white",background_color="black")],
         [sg.Listbox(lista, size = (70,15) , key = "listBox" , select_mode=False)],
@@ -24,7 +24,6 @@ def mostrar_partidas_guardadas(lista):
             if datos==None and values["listBox"]!=[]:
                 datos = values["listBox"][0]
                 window.close()
-                print(datos)
                 return datos
             else:
                 pass
@@ -32,8 +31,7 @@ def mostrar_partidas_guardadas(lista):
 
 def mostrar_ten(topFacil,topMedio,topDificil):
     
-    """muestra una nueva ventana con una listbox de el top ten de cada dificultad dependiendo la dificultad que elijas,
-    muestra el nombre,fecha,puntuacion y dificultad"""
+    """Muestra una nueva ventana con una listbox de top ten dependiendo la dificultad que elijas.  Del fomato nombre, puntaje , dificultad y fecha."""
 
     layout=[[sg.Text('Seleccione la dificultad para ver el Top Ten',text_color="white",background_color="black")],
         [sg.Button("Facil",key="facil",button_color=('black','white')),sg.Button("Medio",key="medio",button_color=('black','white')),sg.Button("Dificil",key="dificil",button_color=('black','white'))],
@@ -42,21 +40,26 @@ def mostrar_ten(topFacil,topMedio,topDificil):
 
     window = sg.Window('Top Ten', layout,background_color="black")
     No_hay_partidas=["No hay registros en esta dificultad"]
+
     while True:
         event, values= window.read()
+        
         if event=="Cancel":
             window.close()
             break
+        
         if event=="dificil":
             if topDificil==[]:
                 window["listBox"].update(No_hay_partidas)
             else:
                 window["listBox"].update(topDificil)
+        
         if event=="medio":
             if topMedio==[]:
                 window["listBox"].update(No_hay_partidas)
             else:
                 window["listBox"].update(topMedio)    
+        
         if event=="facil":
             if topFacil==[]:
                 window["listBox"].update(No_hay_partidas)
@@ -66,14 +69,15 @@ def mostrar_ten(topFacil,topMedio,topDificil):
 
 
 """La ventana del menu principal donde se mostrara iniciar partida,
-cargar partida (estara desabilitada si no hay partidas guardadas) y el top ten de los mejores puntajes """
+cargar partida (estara desabilitada si no hay partidas guardadas) y el top ten de los mejores puntajes."""
 
-archivos=metodos_de_archivos
+archivos = metodos_de_archivos
 archivos.actualizar_cant_partidas_guardadas()
 
-ok= archivos.hay_partidas_a_cargar()
-Iniciar=[sg.Button("Iniciar Partida",size=(10,5),key="_iniciar_",button_color=('white','grey'))]
-if(ok==False):
+ok = archivos.hay_partidas_a_cargar()
+Iniciar = [sg.Button("Iniciar Partida",size=(10,5),key="_iniciar_",button_color=('white','grey'))]
+
+if(ok == False):
     Cargar=[sg.Button("Cargar Partida",size=(10,5),disabled=True, key="cargar",button_color=('white','grey'))]
 else:
     Cargar=[sg.Button("Cargar Partida",size=(10,5),enable_events=True, key="cargar",button_color=('white','grey'))]
@@ -92,7 +96,7 @@ window = sg.Window('ScrabbleAr', layout, font='Courier 12',background_color="bla
 
 while True:
     event, values= window.read()
-    print(event)
+
     if event == "cargar":
         lista=archivos.lista_de_partidas_a_cargar()
         direccion=mostrar_partidas_guardadas(lista)
@@ -101,10 +105,12 @@ while True:
             window.close()
             Tablero.juego(partida)
             break
+
     if event == "_iniciar_":
         window.close()
         jugar()
         break
+
     if(event=="topTen"):
         topFacil=archivos.TopTen_de_jugadores(1)
         topMedio=archivos.TopTen_de_jugadores(2)
