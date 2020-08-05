@@ -12,7 +12,7 @@ def jugar():
 
         sg.ChangeLookAndFeel('Topanga')
 
-        fichas_propias={}  #creo un dic para saber si el jugador modifica el valor o la cantidad de una letra
+        fichas_propias = {}  #creo un dic para saber si el jugador modifica el valor o la cantidad de una letra
 
         # ------ Menu Definicion ------ #
         menu_def = [['&Help', ('Link del Repositorio')],
@@ -43,10 +43,13 @@ def jugar():
 
         while True:
             event, values = window.read()
-            if values["_predefinido_"]==False:
+            
+            if values["_predefinido_"] == False:
                 window["slider"].update(visible=True)       #si valores predefinidos es falso,mostrar tabla para modificar los valores y la cantidad.
-            if values["_predefinido_"]==True:
+            
+            if values["_predefinido_"] == True:
                 window["slider"].update(visible=False)      #si valores predefinidos es verdadero,no mostrar tabla.
+            
             if(event=="_modificar_"):
                 fichas_propias[values[5]] = {"cantidad" : int(values[6]) , "valor" : int(values[7])}    #modifico la cantidad y el valor de las letras
         
@@ -56,21 +59,19 @@ def jugar():
 
             elif(event=="Cancel"):
                 break
+            
             elif(event == "__jugar__"):        #indico en una variable q dificultad va a tener el juego
-                if values[1]==True:
-                    Dificultad_final=1
-                elif values[2]==True:
-                    Dificultad_final=2
+                if values[1] == True:
+                    Dificultad_final = 1
+                elif values[2] == True:
+                    Dificultad_final = 2
                 else:
-                    Dificultad_final=3
+                    Dificultad_final = 3
                     
-                if(values["_predefinido_"==True]):      #esto guarda en fichas_finales las fichas que se utilizaran
-                    fichas_finales={}
+                if(values["_predefinido_" == True]):      #esto guarda en fichas_finales las fichas que se utilizaran
+                    fichas_finales = {}
                 else:
-                    fichas_finales=fichas_propias
-                    print("-.,"*20)
-                    print(fichas_finales)       
-                    print("-.,"*20)
+                    fichas_finales = fichas_propias
                 
                 Configuracion = {}
                 Configuracion["minutos"] = values[4]
@@ -85,7 +86,6 @@ def jugar():
                 break
 
         window.close()
-        #print(menu.__doc__)
     menu()
 
 

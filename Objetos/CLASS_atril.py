@@ -37,6 +37,7 @@ class Atril:
     #GETTERS
 
     def getEstado(self):
+        """Devuelve una copia del diccionario que """
         dic = copy.deepcopy(self.__estado)
         return dic                                                    #EJ. {'A':{'cantidad':2,'valor':1} , 'B':{'cantidad':3,'valor':1}}                                           
 
@@ -70,7 +71,7 @@ class Atril:
 
         """Le AGREGA las fichas pasadas por parametro al Atril y lo actualiza"""
         
-        if dic_de_fichas:                                           #Si el diccionario no está vacio
+        if dic_de_fichas:                                           #Si el diccionario no está vacio, agrega fichas
             
             for letra in dic_de_fichas:
                 
@@ -83,8 +84,8 @@ class Atril:
             self.__actualizar_estado_entero()
 
         else:
-            #POPUP DE BOLSA VACIA (DEBUG) /////////////////////
-            sg.popup("ESTE PROCESO NO TIENE QUE SER LLAMADO SI LA BOLSA ESTA VACIA")  
+
+            sg.popup("LA BOLSA ESTA VACIA")  
 
 
         

@@ -91,7 +91,6 @@ def actualizar_cant_partidas_guardadas(Finalizada = False):
         try:
             
             direccion = predef + str(i) + ".json"
-            #print(direccion)
 
             with open(direccion, 'r') as archivo:
                 
@@ -212,12 +211,9 @@ def definir_configuracion(datos_del_menu):
     config_por_defecto["Temporizador"]["minutos"] = datos_del_menu["minutos"]                               #Seteamos los cambios                            
     
     if datos_del_menu["letras"] != {}:
-        
         for letra in datos_del_menu["letras"]:
             config_por_defecto["Bolsa"][letra] = datos_del_menu["letras"][letra]
         
-        print(config_por_defecto["Bolsa"])
-
     return config_por_defecto
 
 
@@ -275,7 +271,6 @@ def lista_de_partidas_a_cargar():
         try:
             
             direccion = "Archivos\\partidas\\partida_guardada_" + str(i) + ".json"
-            #print(direccion)
 
             with open(direccion, 'r') as archivo:
                 archivo.close()
@@ -288,13 +283,6 @@ def lista_de_partidas_a_cargar():
     
     return lista
 
-
-
-# OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_computadora,Atril_jugador,config)
-# SE USAN LOS OBJETOS
-# guardar_partida(OBJETOS["Bolsa"] , OBJETOS["Tablero"] , OBJETOS["Temporizador"] , OBJETOS["Atril_jugador"] , OBJETOS["Atril_computadora"], 666 , 999, 1)
-
-# print(lista_de_partidas_a_cargar())
 
 #------------------------------------------------------------------------------------------------------------------------
 # Molina, Lucio Felipe - 15980/7
