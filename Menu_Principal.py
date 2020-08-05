@@ -89,7 +89,7 @@ Top=[[sg.Button(("Top Ten"),key="topTen",size=(22,1))]]
 
 layout= titulo + [Iniciar + Cargar ] + Top
 
-window = sg.Window('ScrabbleAr', layout, font='Courier 12',background_color="black",disable_close=True, disable_minimize=True)
+window = sg.Window('ScrabbleAr', layout, font='Courier 12',background_color="black")
 
 
 
