@@ -4,6 +4,7 @@ import Tablero
 from Menu_configuracion import jugar
 
 def Menu_principal():
+    
     def mostrar_partidas_guardadas(lista):
 
         """Muestra una nueva ventana con una listbox de todas las partidas posibles a cargar
@@ -96,26 +97,32 @@ def Menu_principal():
 
     while True:
         event, values = window.read()
+        
+        if event == sg.WIN_CLOSED:
+            window.close()
+            break      
+        
+        else:
 
-        if event == "cargar":
-            lista = archivos.lista_de_partidas_a_cargar()
-            direccion = mostrar_partidas_guardadas(lista)
-            if direccion != None:
-                partida = archivos.cargarPartida(direccion)
+            if event == "cargar":
+                lista = archivos.lista_de_partidas_a_cargar()
+                direccion = mostrar_partidas_guardadas(lista)
+                if direccion != None:
+                    partida = archivos.cargarPartida(direccion)
+                    window.close()
+                    Tablero.juego(partida)
+                    break
+
+            if event == "_iniciar_":
                 window.close()
-                Tablero.juego(partida)
+                jugar()
                 break
 
-        if event == "_iniciar_":
-            window.close()
-            jugar()
-            break
-
-        if(event == "topTen"):
-            topFacil = archivos.TopTen_de_jugadores(1)
-            topMedio = archivos.TopTen_de_jugadores(2)
-            topDificil = archivos.TopTen_de_jugadores(3)
-            mostrar_ten(topFacil,topMedio,topDificil)
+            if(event == "topTen"):
+                topFacil = archivos.TopTen_de_jugadores(1)
+                topMedio = archivos.TopTen_de_jugadores(2)
+                topDificil = archivos.TopTen_de_jugadores(3)
+                mostrar_ten(topFacil,topMedio,topDificil)
 
 if __name__ == "__main__":
     Menu_principal()

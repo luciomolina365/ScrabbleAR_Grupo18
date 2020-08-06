@@ -1,5 +1,7 @@
 import PySimpleGUI as sg
 
+from ScrabbleAR import Menu_principal
+
 import random
 
 from Objetos import CLASS_atril, CLASS_bolsa, CLASS_temporizador, CLASS_tablero
@@ -321,12 +323,14 @@ def juego(Configuracion):
     window['-OUT-'].update("Buena suerte!!")
 
     if Turno == None:
-        Turno=random.randint(0,1)       #Si es 1 es la IA si es 0 es el jugador
-    print(Turno)
+        Turno = random.randint(0,1)       #Si es 1 es la IA si es 0 es el jugador
+
+    
     if(Turno == 1):
-       print("El turno es de la IA ")
+        window['-OUT-'].update("Buena suerte! El turno es de la IA.")
     else:
-       print("el turno es de el jugador")
+        window['-OUT-'].update("Buena suerte! El turno es del jugador.")
+
 
     no_jugada = 0
 
@@ -473,3 +477,4 @@ def juego(Configuracion):
         nombre = nombreFinalizada()
         guardar_partida_finalizada(puntaje_J , Configuracion["Dificultad"] , nombre)
 
+    Menu_principal()
