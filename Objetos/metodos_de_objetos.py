@@ -1,8 +1,8 @@
 
-from CLASS_bolsa import Bolsa
-from CLASS_tablero import Tablero
-from CLASS_temporizador import Temporizador
-from CLASS_atril import Atril
+from Objetos.CLASS_bolsa import Bolsa
+from Objetos.CLASS_tablero import Tablero
+from Objetos.CLASS_temporizador import Temporizador
+from Objetos.CLASS_atril import Atril
 
 
 

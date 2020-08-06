@@ -17,11 +17,11 @@ def Menu_principal():
         datos = None
         while True:
             event, values= window.read()
-            if event=="Cancel":
+            if event == "Cancel":
                 window.close()
                 break
-            if event=="confirmar":
-                if datos==None and values["listBox"]!=[]:
+            if event == "confirmar":
+                if datos == None and values["listBox"] != []:
                     datos = values["listBox"][0]
                     window.close()
                     return datos
