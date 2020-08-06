@@ -1,0 +1,402 @@
+alumno@osboxes:~/Escritorio/Proyecto$ /usr/bin/python /home/alumno/Escritorio/Proyecto/Menu_Principal.py
+
+
+Traceback (most recent call last):
+  File "/home/alumno/Escritorio/Proyecto/Menu_Principal.py", line 98, in <module>
+    event,values= window.Read()
+  File "/usr/local/lib/python3.6/dist-packages/PySimpleGUI/PySimpleGUI.py", line 3720, in Read
+    self.Show()
+  File "/usr/local/lib/python3.6/dist-packages/PySimpleGUI/PySimpleGUI.py", line 3621, in Show
+    self.NumCols = max(len(row) for row in self.Rows)
+ValueError: max() arg is an empty sequence
+Error in sys.excepthook:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 63, in apport_excepthook
+    from apport.fileutils import likely_packaged, get_recent_crashes
+  File "/usr/lib/python3/dist-packages/apport/__init__.py", line 5, in <module>
+    from apport.report import Report
+  File "/usr/lib/python3/dist-packages/apport/report.py", line 30, in <module>
+    import apport.fileutils
+  File "/usr/lib/python3/dist-packages/apport/fileutils.py", line 23, in <module>
+    from apport.packaging_impl import impl as packaging
+  File "/usr/lib/python3/dist-packages/apport/packaging_impl.py", line 23, in <module>
+    import apt
+  File "/usr/lib/python3/dist-packages/apt/__init__.py", line 23, in <module>
+    import apt_pkg
+ModuleNotFoundError: No module named 'apt_pkg'
+
+Original exception was:
+Traceback (most recent call last):
+  File "/home/alumno/Escritorio/Proyecto/Menu_Principal.py", line 98, in <module>
+    event,values= window.Read()
+  File "/usr/local/lib/python3.6/dist-packages/PySimpleGUI/PySimpleGUI.py", line 3720, in Read
+    self.Show()
+  File "/usr/local/lib/python3.6/dist-packages/PySimpleGUI/PySimpleGUI.py", line 3621, in Show
+    self.NumCols = max(len(row) for row in self.Rows)
+ValueError: max() arg is an empty sequence
+
+
+alumno@osboxes:~/Escritorio/Proyecto$ sudo apt-get install python-apt
+[sudo] password for alumno: 
+
+Leyendo lista de paquetes... Hecho
+Creando árbol de dependencias       
+Leyendo la información de estado... Hecho
+Los paquetes indicados a continuación se instalaron de forma automática y ya no son necesarios.
+  acl libgusb2 libieee1284-3 libpcre16-3 libqt5core5a libqt5dbus5 libqt5gui5 libqt5network5 libqt5widgets5 libsane
+  libsane-common libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xkb1 libxkbcommon-x11-0
+Utilice «sudo apt autoremove» para eliminarlos.
+Se instalarán los siguientes paquetes adicionales:
+  apt apt-utils aptdaemon libapt-inst2.0 libapt-pkg5.0 python3-aptdaemon python3-aptdaemon.gtk3widgets
+  python3-aptdaemon.pkcompat
+Paquetes sugeridos:
+  apt-doc python-apt-dbg python-apt-doc
+Paquetes recomendados:
+  lintian
+Se actualizarán los siguientes paquetes:
+  apt apt-utils aptdaemon libapt-inst2.0 libapt-pkg5.0 python-apt python3-aptdaemon python3-aptdaemon.gtk3widgets
+  python3-aptdaemon.pkcompat
+9 actualizados, 0 nuevos se instalarán, 0 para eliminar y 492 no actualizados.
+Se necesita descargar 2.325 kB de archivos.
+Se utilizarán 207 kB de espacio de disco adicional después de esta operación.
+¿Desea continuar? [S/n] S
+Des:1 http://us.archive.ubuntu.com/ubuntu xenial-updates/main amd64 libapt-pkg5.0 amd64 1.2.32ubuntu0.1 [713 kB]
+Des:2 http://us.archive.ubuntu.com/ubuntu xenial-updates/main amd64 libapt-inst2.0 amd64 1.2.32ubuntu0.1 [54,5 kB]
+Des:3 http://us.archive.ubuntu.com/ubuntu xenial-updates/main amd64 apt amd64 1.2.32ubuntu0.1 [1.087 kB]
+Des:4 http://us.archive.ubuntu.com/ubuntu xenial-updates/main amd64 apt-utils amd64 1.2.32ubuntu0.1 [197 kB]           
+Des:5 http://us.archive.ubuntu.com/ubuntu xenial-updates/main amd64 python3-aptdaemon.pkcompat all 1.1.1+bzr982-0ubuntu14.3 [23,1 kB]
+Des:6 http://us.archive.ubuntu.com/ubuntu xenial-updates/main amd64 python3-aptdaemon.gtk3widgets all 1.1.1+bzr982-0ubuntu14.3 [13,9 kB]
+Des:7 http://us.archive.ubuntu.com/ubuntu xenial-updates/main amd64 aptdaemon all 1.1.1+bzr982-0ubuntu14.3 [13,5 kB]   
+Des:8 http://us.archive.ubuntu.com/ubuntu xenial-updates/main amd64 python-apt amd64 1.1.0~beta1ubuntu0.16.04.9 [147 kB]
+Des:9 http://us.archive.ubuntu.com/ubuntu xenial-updates/main amd64 python3-aptdaemon all 1.1.1+bzr982-0ubuntu14.3 [77,1 kB]
+Descargados 2.325 kB en 7s (320 kB/s)                                                                                  
+(Leyendo la base de datos ... 134261 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../libapt-pkg5.0_1.2.32ubuntu0.1_amd64.deb ...
+Desempaquetando libapt-pkg5.0:amd64 (1.2.32ubuntu0.1) sobre (1.2.19) ...
+Procesando disparadores para libc-bin (2.23-0ubuntu5) ...
+Configurando libapt-pkg5.0:amd64 (1.2.32ubuntu0.1) ...
+Procesando disparadores para libc-bin (2.23-0ubuntu5) ...
+(Leyendo la base de datos ... 134261 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../libapt-inst2.0_1.2.32ubuntu0.1_amd64.deb ...
+Desempaquetando libapt-inst2.0:amd64 (1.2.32ubuntu0.1) sobre (1.2.19) ...
+Preparando para desempaquetar .../apt_1.2.32ubuntu0.1_amd64.deb ...
+Desempaquetando apt (1.2.32ubuntu0.1) sobre (1.2.19) ...
+Procesando disparadores para libc-bin (2.23-0ubuntu5) ...
+Procesando disparadores para man-db (2.7.5-1) ...
+Configurando apt (1.2.32ubuntu0.1) ...
+Instalando una nueva versión del fichero de configuración /etc/apt/apt.conf.d/01autoremove ...
+Procesando disparadores para libc-bin (2.23-0ubuntu5) ...
+(Leyendo la base de datos ... 134272 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../apt-utils_1.2.32ubuntu0.1_amd64.deb ...
+Desempaquetando apt-utils (1.2.32ubuntu0.1) sobre (1.2.19) ...
+Preparando para desempaquetar .../python3-aptdaemon.pkcompat_1.1.1+bzr982-0ubuntu14.3_all.deb ...
+Desempaquetando python3-aptdaemon.pkcompat (1.1.1+bzr982-0ubuntu14.3) sobre (1.1.1+bzr982-0ubuntu14) ...
+Preparando para desempaquetar .../python3-aptdaemon.gtk3widgets_1.1.1+bzr982-0ubuntu14.3_all.deb ...
+Desempaquetando python3-aptdaemon.gtk3widgets (1.1.1+bzr982-0ubuntu14.3) sobre (1.1.1+bzr982-0ubuntu14) ...
+Preparando para desempaquetar .../aptdaemon_1.1.1+bzr982-0ubuntu14.3_all.deb ...
+Desempaquetando aptdaemon (1.1.1+bzr982-0ubuntu14.3) sobre (1.1.1+bzr982-0ubuntu14) ...
+Preparando para desempaquetar .../python-apt_1.1.0~beta1ubuntu0.16.04.9_amd64.deb ...
+  File "/usr/bin/pyclean", line 63
+    except (IOError, OSError), e:
+                             ^
+SyntaxError: invalid syntax
+Error in sys.excepthook:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 63, in apport_excepthook
+    from apport.fileutils import likely_packaged, get_recent_crashes
+  File "/usr/lib/python3/dist-packages/apport/__init__.py", line 5, in <module>
+    from apport.report import Report
+  File "/usr/lib/python3/dist-packages/apport/report.py", line 30, in <module>
+    import apport.fileutils
+  File "/usr/lib/python3/dist-packages/apport/fileutils.py", line 23, in <module>
+    from apport.packaging_impl import impl as packaging
+  File "/usr/lib/python3/dist-packages/apport/packaging_impl.py", line 23, in <module>
+    import apt
+  File "/usr/lib/python3/dist-packages/apt/__init__.py", line 23, in <module>
+    import apt_pkg
+ModuleNotFoundError: No module named 'apt_pkg'
+
+Original exception was:
+  File "/usr/bin/pyclean", line 63
+    except (IOError, OSError), e:
+                             ^
+SyntaxError: invalid syntax
+dpkg: aviso: el subproceso script de `pre-removal' antiguo devolvió el código de salida de error 1
+dpkg: probando el script del nuevo paquete en su lugar...
+  File "/usr/bin/pyclean", line 63
+    except (IOError, OSError), e:
+                             ^
+SyntaxError: invalid syntax
+Error in sys.excepthook:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 63, in apport_excepthook
+    from apport.fileutils import likely_packaged, get_recent_crashes
+  File "/usr/lib/python3/dist-packages/apport/__init__.py", line 5, in <module>
+    from apport.report import Report
+  File "/usr/lib/python3/dist-packages/apport/report.py", line 30, in <module>
+    import apport.fileutils
+  File "/usr/lib/python3/dist-packages/apport/fileutils.py", line 23, in <module>
+    from apport.packaging_impl import impl as packaging
+  File "/usr/lib/python3/dist-packages/apport/packaging_impl.py", line 23, in <module>
+    import apt
+  File "/usr/lib/python3/dist-packages/apt/__init__.py", line 23, in <module>
+    import apt_pkg
+ModuleNotFoundError: No module named 'apt_pkg'
+
+Original exception was:
+  File "/usr/bin/pyclean", line 63
+    except (IOError, OSError), e:
+                             ^
+SyntaxError: invalid syntax
+dpkg: error al procesar el archivo /var/cache/apt/archives/python-apt_1.1.0~beta1ubuntu0.16.04.9_amd64.deb (--unpack):
+ el subproceso script pre-removal nuevo devolvió el código de salida de error 1
+Traceback (most recent call last):
+  File "/usr/bin/pycompile", line 35, in <module>
+    from debpython.version import SUPPORTED, debsorted, vrepr, \
+  File "/usr/share/python/debpython/version.py", line 24, in <module>
+    from ConfigParser import SafeConfigParser
+ModuleNotFoundError: No module named 'ConfigParser'
+Error in sys.excepthook:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 63, in apport_excepthook
+    from apport.fileutils import likely_packaged, get_recent_crashes
+  File "/usr/lib/python3/dist-packages/apport/__init__.py", line 5, in <module>
+    from apport.report import Report
+  File "/usr/lib/python3/dist-packages/apport/report.py", line 30, in <module>
+    import apport.fileutils
+  File "/usr/lib/python3/dist-packages/apport/fileutils.py", line 23, in <module>
+    from apport.packaging_impl import impl as packaging
+  File "/usr/lib/python3/dist-packages/apport/packaging_impl.py", line 23, in <module>
+    import apt
+  File "/usr/lib/python3/dist-packages/apt/__init__.py", line 23, in <module>
+    import apt_pkg
+ModuleNotFoundError: No module named 'apt_pkg'
+
+Original exception was:
+Traceback (most recent call last):
+  File "/usr/bin/pycompile", line 35, in <module>
+    from debpython.version import SUPPORTED, debsorted, vrepr, \
+  File "/usr/share/python/debpython/version.py", line 24, in <module>
+    from ConfigParser import SafeConfigParser
+ModuleNotFoundError: No module named 'ConfigParser'
+dpkg: error al reorganizar:
+ el subproceso instalado el script post-installation devolvió el código de salida de error 1
+Preparando para desempaquetar .../python3-aptdaemon_1.1.1+bzr982-0ubuntu14.3_all.deb ...
+Desempaquetando python3-aptdaemon (1.1.1+bzr982-0ubuntu14.3) sobre (1.1.1+bzr982-0ubuntu14) ...
+Procesando disparadores para man-db (2.7.5-1) ...
+Procesando disparadores para dbus (1.10.6-1ubuntu3.3) ...
+Se encontraron errores al procesar:
+ /var/cache/apt/archives/python-apt_1.1.0~beta1ubuntu0.16.04.9_amd64.deb
+E: Sub-process /usr/bin/dpkg returned an error code (1)
+
+
+alumno@osboxes:~/Escritorio/Proyecto$ sudo apt-get update
+
+
+Obj:1 http://us.archive.ubuntu.com/ubuntu xenial InRelease
+Des:2 http://packages.microsoft.com/repos/vscode stable InRelease [3.958 B]
+Des:3 http://security.ubuntu.com/ubuntu xenial-security InRelease [109 kB]
+Des:4 http://us.archive.ubuntu.com/ubuntu xenial-updates InRelease [109 kB]
+Des:5 http://packages.microsoft.com/repos/vscode stable/main amd64 Packages [193 kB]
+Des:6 http://us.archive.ubuntu.com/ubuntu xenial-backports InRelease [107 kB]
+Descargados 522 kB en 1s (308 kB/s)   
+Leyendo lista de paquetes... Hecho
+
+
+alumno@osboxes:~/Escritorio/Proyecto$ sudo apt-get install python3-apt --reinstall
+
+
+Leyendo lista de paquetes... HechoreinsCreando árbol de dependencias       
+Leyendo la información de estado... Hecho
+Los paquetes indicados a continuación se instalaron de forma automática y ya no son necesarios.
+  acl libgusb2 libieee1284-3 libpcre16-3 libqt5core5a libqt5dbus5 libqt5gui5 libqt5network5 libqt5widgets5 libsane
+  libsane-common libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xkb1 libxkbcommon-x11-0
+Utilice «sudo apt autoremove» para eliminarlos.
+Paquetes sugeridos:
+  python3-apt-dbg python-apt-doc
+Se actualizarán los siguientes paquetes:
+  python3-apt
+1 actualizados, 0 nuevos se instalarán, 0 para eliminar y 492 no actualizados.
+7 no instalados del todo o eliminados.
+Se necesita descargar 284 kB de archivos.
+Se utilizarán 31,7 kB de espacio de disco adicional después de esta operación.
+Des:1 http://us.archive.ubuntu.com/ubuntu xenial-updates/main amd64 python3-apt amd64 1.1.0~beta1ubuntu0.16.04.9 [145 kB]
+Des:2 http://us.archive.ubuntu.com/ubuntu xenial/main amd64 python-apt amd64 1.1.0~beta1build1 [139 kB]
+Descargados 284 kB en 1s (188 kB/s) 
+(Leyendo la base de datos ... 134272 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../python3-apt_1.1.0~beta1ubuntu0.16.04.9_amd64.deb ...
+Desempaquetando python3-apt (1.1.0~beta1ubuntu0.16.04.9) sobre (1.1.0~beta1build1) ...
+Configurando libapt-inst2.0:amd64 (1.2.32ubuntu0.1) ...
+Configurando apt-utils (1.2.32ubuntu0.1) ...
+Configurando python3-apt (1.1.0~beta1ubuntu0.16.04.9) ...
+dpkg: error al procesar el paquete python-apt (--configure):
+ El paquete está en un estado grave de inconsistencia - debe reinstalarlo
+ antes de intentar su configuración.
+Configurando python3-aptdaemon (1.1.1+bzr982-0ubuntu14.3) ...
+Configurando aptdaemon (1.1.1+bzr982-0ubuntu14.3) ...
+Configurando python3-aptdaemon.gtk3widgets (1.1.1+bzr982-0ubuntu14.3) ...
+Configurando python3-aptdaemon.pkcompat (1.1.1+bzr982-0ubuntu14.3) ...
+Procesando disparadores para libc-bin (2.23-0ubuntu5) ...
+Se encontraron errores al procesar:
+ python-apt
+E: Sub-process /usr/bin/dpkg returned an error code (1)
+
+
+alumno@osboxes:~/Escritorio/Proyecto$ sudo apt-get remove --purge python-apt
+
+
+Leyendo lista de paquetes... Hecho
+Creando árbol de dependencias       
+Leyendo la información de estado... Hecho
+Los paquetes indicados a continuación se instalaron de forma automática y ya no son necesarios.
+  acl libgusb2 libieee1284-3 libpcre16-3 libqt5core5a libqt5dbus5 libqt5gui5 libqt5network5 libqt5widgets5 libsane
+  libsane-common libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xkb1 libxkbcommon-x11-0
+Utilice «sudo apt autoremove» para eliminarlos.
+Los siguientes paquetes se ELIMINARÁN:
+  lubuntu-software-center* python-apt* python-aptdaemon* python-aptdaemon.gtk3widgets*
+0 actualizados, 0 nuevos se instalarán, 4 para eliminar y 489 no actualizados.
+1 no instalados del todo o eliminados.
+Se liberarán 1.991 kB después de esta operación.
+¿Desea continuar? [S/n] S
+(Leyendo la base de datos ... 134272 ficheros o directorios instalados actualmente.)
+Desinstalando lubuntu-software-center (0.0.10-0ubuntu2) ...
+  File "/usr/bin/pyclean", line 63
+    except (IOError, OSError), e:
+                             ^
+SyntaxError: invalid syntax
+Error in sys.excepthook:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 63, in apport_excepthook
+    from apport.fileutils import likely_packaged, get_recent_crashes
+  File "/usr/lib/python3/dist-packages/apport/__init__.py", line 5, in <module>
+    from apport.report import Report
+  File "/usr/lib/python3/dist-packages/apport/report.py", line 30, in <module>
+    import apport.fileutils
+  File "/usr/lib/python3/dist-packages/apport/fileutils.py", line 23, in <module>
+    from apport.packaging_impl import impl as packaging
+  File "/usr/lib/python3/dist-packages/apport/packaging_impl.py", line 23, in <module>
+    import apt
+  File "/usr/lib/python3/dist-packages/apt/__init__.py", line 23, in <module>
+    import apt_pkg
+ModuleNotFoundError: No module named 'apt_pkg'
+
+Original exception was:
+  File "/usr/bin/pyclean", line 63
+    except (IOError, OSError), e:
+                             ^
+SyntaxError: invalid syntax
+dpkg: error al procesar el paquete lubuntu-software-center (--purge):
+ el subproceso instalado el script pre-removal devolvió el código de salida de error 1
+Traceback (most recent call last):
+  File "/usr/bin/pycompile", line 35, in <module>
+    from debpython.version import SUPPORTED, debsorted, vrepr, \
+  File "/usr/share/python/debpython/version.py", line 24, in <module>
+    from ConfigParser import SafeConfigParser
+ModuleNotFoundError: No module named 'ConfigParser'
+Error in sys.excepthook:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 63, in apport_excepthook
+    from apport.fileutils import likely_packaged, get_recent_crashes
+  File "/usr/lib/python3/dist-packages/apport/__init__.py", line 5, in <module>
+    from apport.report import Report
+  File "/usr/lib/python3/dist-packages/apport/report.py", line 30, in <module>
+    import apport.fileutils
+  File "/usr/lib/python3/dist-packages/apport/fileutils.py", line 23, in <module>
+    from apport.packaging_impl import impl as packaging
+  File "/usr/lib/python3/dist-packages/apport/packaging_impl.py", line 23, in <module>
+    import apt
+  File "/usr/lib/python3/dist-packages/apt/__init__.py", line 23, in <module>
+    import apt_pkg
+ModuleNotFoundError: No module named 'apt_pkg'
+
+Original exception was:
+Traceback (most recent call last):
+  File "/usr/bin/pycompile", line 35, in <module>
+    from debpython.version import SUPPORTED, debsorted, vrepr, \
+  File "/usr/share/python/debpython/version.py", line 24, in <module>
+    from ConfigParser import SafeConfigParser
+ModuleNotFoundError: No module named 'ConfigParser'
+dpkg: error al reorganizar:
+ el subproceso instalado el script post-installation devolvió el código de salida de error 1
+dpkg: python-apt: problemas de dependencias, pero se desinstalará de todas formas
+ tal y como se solicitó:
+ python-aptdaemon depende de python-apt (>= 0.8.5~ubuntu1).
+ lubuntu-software-center depende de python-apt.
+
+dpkg: error al procesar el paquete python-apt (--purge):
+ el paquete está en un estado muy malo e inconsistente - debe reinstalarlo
+ antes de intentar desinstalarlo.
+dpkg: python-aptdaemon.gtk3widgets: problemas de dependencias, pero se desinstalará de todas formas
+ tal y como se solicitó:
+ lubuntu-software-center depende de python-aptdaemon.gtk3widgets; sin embargo:
+  El paquete `python-aptdaemon.gtk3widgets' va a ser desinstalado.
+
+Desinstalando python-aptdaemon.gtk3widgets (1.1.1+bzr982-0ubuntu14) ...
+  File "/usr/bin/pyclean", line 63
+    except (IOError, OSError), e:
+                             ^
+SyntaxError: invalid syntax
+Error in sys.excepthook:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 63, in apport_excepthook
+    from apport.fileutils import likely_packaged, get_recent_crashes
+  File "/usr/lib/python3/dist-packages/apport/__init__.py", line 5, in <module>
+    from apport.report import Report
+  File "/usr/lib/python3/dist-packages/apport/report.py", line 30, in <module>
+    import apport.fileutils
+  File "/usr/lib/python3/dist-packages/apport/fileutils.py", line 23, in <module>
+    from apport.packaging_impl import impl as packaging
+  File "/usr/lib/python3/dist-packages/apport/packaging_impl.py", line 23, in <module>
+    import apt
+  File "/usr/lib/python3/dist-packages/apt/__init__.py", line 23, in <module>
+    import apt_pkg
+ModuleNotFoundError: No module named 'apt_pkg'
+
+Original exception was:
+  File "/usr/bin/pyclean", line 63
+    except (IOError, OSError), e:
+                             ^
+SyntaxError: invalid syntax
+dpkg: error al procesar el paquete python-aptdaemon.gtk3widgets (--purge):
+ el subproceso instalado el script pre-removal devolvió el código de salida de error 1
+dpkg: python-aptdaemon: problemas de dependencias, pero se desinstalará de todas formas
+ tal y como se solicitó:
+ lubuntu-software-center depende de python-aptdaemon; sin embargo:
+  El paquete `python-aptdaemon' va a ser desinstalado.
+ python-aptdaemon.gtk3widgets depende de python-aptdaemon (= 1.1.1+bzr982-0ubuntu14).
+
+Desinstalando python-aptdaemon (1.1.1+bzr982-0ubuntu14) ...
+  File "/usr/bin/pyclean", line 63
+    except (IOError, OSError), e:
+                             ^
+SyntaxError: invalid syntax
+Error in sys.excepthook:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 63, in apport_excepthook
+    from apport.fileutils import likely_packaged, get_recent_crashes
+  File "/usr/lib/python3/dist-packages/apport/__init__.py", line 5, in <module>
+    from apport.report import Report
+  File "/usr/lib/python3/dist-packages/apport/report.py", line 30, in <module>
+    import apport.fileutils
+  File "/usr/lib/python3/dist-packages/apport/fileutils.py", line 23, in <module>
+    from apport.packaging_impl import impl as packaging
+  File "/usr/lib/python3/dist-packages/apport/packaging_impl.py", line 23, in <module>
+    import apt
+  File "/usr/lib/python3/dist-packages/apt/__init__.py", line 23, in <module>
+    import apt_pkg
+ModuleNotFoundError: No module named 'apt_pkg'
+
+Original exception was:
+  File "/usr/bin/pyclean", line 63
+    except (IOError, OSError), e:
+                             ^
+SyntaxError: invalid syntax
+dpkg: error al procesar el paquete python-aptdaemon (--purge):
+ el subproceso instalado el script pre-removal devolvió el código de salida de error 1
+No se escribió ningún informe «apport» porque ya se ha alcanzado el valor de «MaxReports»
+                                                                                         Se encontraron errores al procesar:
+ lubuntu-software-center
+ python-apt
+ python-aptdaemon.gtk3widgets
+ python-aptdaemon
+E: Sub-process /usr/bin/dpkg returned an error code (1)
