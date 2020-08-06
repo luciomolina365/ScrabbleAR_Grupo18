@@ -507,7 +507,7 @@ def juego(Configuracion):
         if(OBJETOS["Bolsa"].getTERMINO_Bolsa()):
             sg.popup("Se terminaron las fichas en la bolsa, fin del juego.")
             window.Close()
-        else:
+        elif OBJETOS["Temporizador"].getTERMINO_Temporizador():
             sg.popup("Se termino el tiempo, fin del juego.")
             window.Close()
 
