@@ -516,5 +516,3 @@ def juego(Configuracion):
         window.Close()
 
     Menu_principal()
-
-    "TOBI SE LA COME"

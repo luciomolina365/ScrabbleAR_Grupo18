@@ -7,7 +7,6 @@ class Bolsa:
 
     #dic_de_letras --> diccionario de diccionarios (en formato especifico) EJ. {'A':{'cantidad':11,'valor':1} , 'B':{'cantidad':3,'valor':1}}
     #letras_disponibles --> lista de strings(caracteres) EJ.  ["A","B","V", "Z"]
-
     def __init__(self, dic_de_letras):
         self.__bolsa = dic_de_letras
         self.__letras_disponibles = []

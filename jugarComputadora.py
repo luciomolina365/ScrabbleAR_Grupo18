@@ -286,3 +286,6 @@ def __juega_IA(dificultad, tablero, atril, primer_turno, configuracion):
             pal_armada = pal_armada + palabra[letra]
     
     return(ok,puntaje,jugada_IA,pal_armada)
+#----------------------------------------------------------------------------------------------------------------------------------
+
+#   Mikaliunas, Leandro   -   15694/4
