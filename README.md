@@ -35,3 +35,5 @@ Observaciones:
     - Cuando lo quisimos testear en Linux, no pudimos por errores propios de la maquina virtual (herramienta que teniamos de la catedra para tener Linux, ya que ninguno de los integrantes cuenta con una pc con Linux),
       esto se intento resolver con ayuda de nuestro ayudante.
       (Dejamos un txt con los logs de la terminal y los errores correspondientes asimismo los intentos de solucionarlo con el ayudante). >>> Proyecto\\logs_errores_linux.TXT <<<
+
+Link del repositorio GitHub : >>> https://github.com/luciomolina365/ScrabbleAR_Grupo18 <<<
