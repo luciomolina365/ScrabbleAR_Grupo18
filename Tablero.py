@@ -10,8 +10,8 @@ from Objetos.metodos_de_objetos import instanciar_objetos
 from Archivos.metodos_de_archivos import guardar_partida
 from Archivos.metodos_de_archivos import guardar_partida_finalizada
 
-from corroboro.corroborarPalabra import __retorno_informacion
-from jugarComputadora import __juega_IA, __fichas_a_intercambiar
+from jugabilidad.corroborarPalabra import __retorno_informacion
+from jugabilidad.jugarComputadora import __juega_IA, __fichas_a_intercambiar
 
 
 def juego(Configuracion):
@@ -148,7 +148,7 @@ def juego(Configuracion):
             for i in dic.keys():
                     Tablero.setValorEnCoor(i,None)
                     lugar=Tablero.getDatosEnCoor(i)
-                    if lugar[i]==medio:
+                    if i==medio:
                         window[i].update("",disabled=False,image_filename='imagenes\\estrella_con_cara.png',image_size=(25, 22))
                     else:
                         if lugar["trampa"]==True: 
@@ -523,3 +523,7 @@ def juego(Configuracion):
         window.Close()
 
     Menu_principal()
+
+#----------------------------------------------------------------------------------------------------------------------------------
+
+#   Ajenjo, Tobias Adrian   -   16286/5
