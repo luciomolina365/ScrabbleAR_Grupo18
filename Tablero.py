@@ -78,7 +78,7 @@ def juego(Configuracion):
         return fichas
     
     
-    def CreandoTablero(TableroD,cant):# 
+    def CreandoTablero(TableroD,cant,medio):# 
         """Se crea el tablero recibiendo el tablero y la cantidad de filas y columnas,en caso de que sea una partida
         guardada, se cargara las letras en las posiciones donde se formaron palabras correctas"""
         tablero = []
@@ -89,24 +89,27 @@ def juego(Configuracion):
                 if (TableroD[(i,j)]["letra"] != None):
                     lista1.append(sg.Button(TableroD[(i,j)]["letra"],disabled=True,size=(2,1),key=(i,j), pad=(2,3),button_color=('grey','white'), image_filename='', image_size=(25, 22)))
                 else:
-                    if TableroD[(i,j)]["trampa"]==True:
-                        if TableroD[(i,j)]["tipo_de_trampa"]=="-1":
-                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\\menos 1.png',image_size=(25, 22)))
-                        elif TableroD[(i,j)]["tipo_de_trampa"]=="-2":
-                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\\menos 2.png',image_size=(25, 22)))
-                        else:
-                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\\menos 3.png',image_size=(25, 22)))
-                    elif TableroD[(i,j)]["recompensa"]==True:
-                        if TableroD[(i,j)]["tipo_de_recompensa"]=="x2":
-                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\\multiplicador x2.png',image_size=(25, 22)))
-                        elif TableroD[(i,j)]["tipo_de_recompensa"]=="x3":
-                            lista1.append(sg.Button("",disabled=False,pad=(2,3),key=(i,j),image_filename='imagenes\\multiplicador x3.png',image_size=(25, 22)) )  
-                        elif TableroD[(i,j)]["tipo_de_recompensa"]=="Px2":
-                            lista1.append(sg.Button("",disabled=False,pad=(2,3),key=(i,j),image_filename='imagenes\\palabra x2.png',image_size=(25, 22)))
-                        else:
-                            lista1.append(sg.Button("",disabled=False,pad=(2,3),key=(i,j),image_filename='imagenes\\palabra x3.png',image_size=(25, 22)))
+                    if((i,j)==medio):
+                        lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\\estrella_con_cara.png',image_size=(25, 22)))
                     else:
-                        lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\\GRIS.png',image_size=(25, 22)))
+                        if TableroD[(i,j)]["trampa"]==True:
+                            if TableroD[(i,j)]["tipo_de_trampa"]=="-1":
+                                lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\\menos 1.png',image_size=(25, 22)))
+                            elif TableroD[(i,j)]["tipo_de_trampa"]=="-2":
+                                lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\\menos 2.png',image_size=(25, 22)))
+                            else:
+                                lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\\menos 3.png',image_size=(25, 22)))
+                        elif TableroD[(i,j)]["recompensa"]==True:
+                            if TableroD[(i,j)]["tipo_de_recompensa"]=="x2":
+                                lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\\multiplicador x2.png',image_size=(25, 22)))
+                            elif TableroD[(i,j)]["tipo_de_recompensa"]=="x3":
+                                lista1.append(sg.Button("",disabled=False,pad=(2,3),key=(i,j),image_filename='imagenes\\multiplicador x3.png',image_size=(25, 22)) )  
+                            elif TableroD[(i,j)]["tipo_de_recompensa"]=="Px2":
+                                lista1.append(sg.Button("",disabled=False,pad=(2,3),key=(i,j),image_filename='imagenes\\palabra x2.png',image_size=(25, 22)))
+                            else:
+                                lista1.append(sg.Button("",disabled=False,pad=(2,3),key=(i,j),image_filename='imagenes\\palabra x3.png',image_size=(25, 22)))
+                        else:
+                            lista1.append(sg.Button("",size=(2, 1),key=(i,j), pad=(2,3),button_color=('black','Dark grey'),image_filename='imagenes\\GRIS.png',image_size=(25, 22)))
             lista1 = [lista1]
             tablero = tablero + lista1
         return tablero
@@ -140,36 +143,39 @@ def juego(Configuracion):
 #ACTUALIZAR TABLERO
 #---------------------------------------------------------------------------------------------------
 
-    def actualizando_tablero(dic,Tablero,window,Lista_k):
+    def actualizando_tablero(dic,Tablero,window,Lista_k,medio):
             """Aca vuelve el tablero a su estado anterior en caso de que el jugador forma una palabra erronea"""
             for i in dic.keys():
                     Tablero.setValorEnCoor(i,None)
                     lugar=Tablero.getDatosEnCoor(i)
-                    if lugar["trampa"]==True: 
-                        if lugar["tipo_de_trampa"]=="-1":
-                            window[i].update("",disabled=False,image_filename='imagenes\\menos 1.png',image_size=(23, 20))
-                        elif lugar["tipo_de_trampa"]=="-2":
-                            window[i].update("",disabled=False,image_filename='imagenes\\menos 2.png',image_size=(25, 22))
-                        else:
-                            window[i].update("",disabled=False,image_filename='imagenes\\menos 3.png',image_size=(25, 22))
-                    elif lugar["recompensa"]==True:
-                        if lugar["tipo_de_recompensa"]=="x2":
-                            window[i].update("",disabled=False,image_filename='imagenes\\multiplicador x2.png',image_size=(25, 22))
-                        if lugar["tipo_de_recompensa"]=="x3":
-                            window[i].update("",disabled=False,image_filename='imagenes\\multiplicador x3.png',image_size=(25, 22))   
-                        if lugar["tipo_de_recompensa"]=="Px2":
-                            window[i].update("",disabled=False,image_filename='imagenes\\palabra x2.png',image_size=(25, 22))
-                        if lugar["tipo_de_recompensa"]=="Px3":
-                            window[i].update("",disabled=False,image_filename='imagenes\\palabra x3.png',image_size=(25, 22))
+                    if lugar[i]==medio:
+                        window[i].update("",disabled=False,image_filename='imagenes\\estrella_con_cara.png',image_size=(25, 22))
                     else:
-                        window[i].update("",disabled=False,image_filename='imagenes\\GRIS.png',image_size=(25, 22))
+                        if lugar["trampa"]==True: 
+                            if lugar["tipo_de_trampa"]=="-1":
+                                window[i].update("",disabled=False,image_filename='imagenes\\menos 1.png',image_size=(25, 22))
+                            elif lugar["tipo_de_trampa"]=="-2":
+                                window[i].update("",disabled=False,image_filename='imagenes\\menos 2.png',image_size=(25, 22))
+                            else:
+                                window[i].update("",disabled=False,image_filename='imagenes\\menos 3.png',image_size=(25, 22))
+                        elif lugar["recompensa"]==True:
+                            if lugar["tipo_de_recompensa"]=="x2":
+                                window[i].update("",disabled=False,image_filename='imagenes\\multiplicador x2.png',image_size=(25, 22))
+                            if lugar["tipo_de_recompensa"]=="x3":
+                                window[i].update("",disabled=False,image_filename='imagenes\\multiplicador x3.png',image_size=(25, 22))   
+                            if lugar["tipo_de_recompensa"]=="Px2":
+                                window[i].update("",disabled=False,image_filename='imagenes\\palabra x2.png',image_size=(25, 22))
+                            if lugar["tipo_de_recompensa"]=="Px3":
+                                window[i].update("",disabled=False,image_filename='imagenes\\palabra x3.png',image_size=(25, 22))
+                        else:
+                            window[i].update("",disabled=False,image_filename='imagenes\\GRIS.png',image_size=(25, 22))
             
             for i in Lista_k:
                 window[i].update(disabled=False, button_color=('white', 'black'))
 
 
 
-    def cambiar_fichas(Atril,Window_principal,B,evento,jugador):
+    def cambiar_fichas(Atril,Window_principal,B,evento,jugador,medio):
         """este metodo se llamara en el caso de q se pida fichas a 
         la bolsa para intercambiar y a partir de ahi llama a actualizar_fichas.
         Se muestra una nueva ventana para elegir las fichas que el jugador quiere intercambiar"""
@@ -271,6 +277,8 @@ def juego(Configuracion):
 
 #---------------------------------------------------------------------------------------------------
 #Creando ventana de juego
+    medio = mitad_tablero(Configuracion['Dificultad'])
+
     num_dif = Configuracion['Dificultad']
 
     if(num_dif == 1):
@@ -308,7 +316,7 @@ def juego(Configuracion):
         size_largo_listbox=(20,36)
         font_size_fichas_jugador=10
 
-    tabla = CreandoTablero(OBJETOS["Tablero"].getEstado(),cant)  #dependiendo la dificultad, creo un tablero de determinada cantidad
+    tabla = CreandoTablero(OBJETOS["Tablero"].getEstado(),cant,medio)  #dependiendo la dificultad, creo un tablero de determinada cantidad
 
 
 
@@ -408,7 +416,7 @@ def juego(Configuracion):
             if event == "__repartir__" and event != '__TIMEOUT__' and dic == {} and Turno == 0:
                 repartir = True
                 
-                cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir,Turno)
+                cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir,Turno,medio)
                 
                 Turno=1
 
@@ -461,7 +469,6 @@ def juego(Configuracion):
                 Bien = False
                 
                 if(len(Lista_k)>1):
-                    medio = mitad_tablero(Configuracion['Dificultad'])
                     if(medio in dic.keys()):
                         es_ok = True
                     else:
@@ -497,7 +504,7 @@ def juego(Configuracion):
                     Turno = 1
                     primer_turno = False
                 if(mal == True):
-                    actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
+                    actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k,medio)
                     window['-OUT-'].update("Le erraste, buena suerte para el proximo turno!")
                     dic = {}
                     Lista_k.clear()
