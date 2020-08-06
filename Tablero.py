@@ -128,9 +128,9 @@ def juego(Configuracion):
         window = sg.Window('Guardar partida', layout, font='Courier 12',disable_close=True, no_titlebar = True , disable_minimize=True)
 
         while True:
-            event, values = window.read()
+            event, values = window.Read()
             if event == "confirmar" and "nombre"!="":
-                window.close()
+                window.Close()
                 return values["nombre"]
 
 #---------------------------------------------------------------------------------------------------
@@ -181,7 +181,7 @@ def juego(Configuracion):
         window = sg.Window('Seleccione las fichas a cambiar', layout, font='Courier 12',disable_close=True, no_titlebar = True ,  disable_minimize=True)
         Seleccionadas = []
         while True:
-          event, values= window.read()
+          event, values= window.Read()
           
           if type(event)==int: 
                 aux = event
@@ -192,7 +192,7 @@ def juego(Configuracion):
           
           elif(event == "confirmar") and len(Seleccionadas) > 0:
               actualizar_fichas(Seleccionadas,B,Window_principal,Atril,evento,jugador)
-              window.close()
+              window.Close()
               break
 
 
@@ -254,9 +254,11 @@ def juego(Configuracion):
         OBJETOS["Atril_jugador"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
         OBJETOS["Atril_computadora"].agregar_varias_fichas(OBJETOS["Bolsa"].dameFichas(7))
         primer_turno = True
+        palabras_armadas = []
     else:
         Turno = 0
         primer_turno = False
+        palabras_armadas = Configuracion['Jugadas']
 
     Lista_j = OBJETOS["Atril_jugador"].getFichas_disponibles()
     Lista_c = OBJETOS["Atril_computadora"].getFichas_disponibles()
@@ -269,11 +271,19 @@ def juego(Configuracion):
 
 #---------------------------------------------------------------------------------------------------
 #Creando ventana de juego
+    num_dif = Configuracion['Dificultad']
 
-    headings = ['JUGADOR', ' IA']
-    header =  [[sg.T(' '*15),sg.Text('')] + [sg.Text(h, size=(8,1)) for h in headings]]
+    if(num_dif == 1):
+        dificultad = 'Facil'
+    elif(num_dif == 2):
+        dificultad = 'Medio'
+    else:
+        dificultad = 'Dificil'
 
-    input_rows = [[sg.T(' '*20),sg.Text("",size=(7,1), pad=(0,0),key="-player-"),sg.Text("",size=(8,1), pad=(0,0),key="-compu-")]]
+    headings = ['JUGADOR', ' IA '+dificultad]
+    header =  [[sg.T(' '*13),sg.Text('')] + [sg.Text(h, size=(11,1)) for h in headings]]
+
+    input_rows = [[sg.T(' '*18),sg.Text("",size=(14,1), pad=(0,0),key="-player-"),sg.Text("",size=(11,1), pad=(0,0),key="-compu-")]]
 
     puntua = header + input_rows
 
@@ -312,7 +322,7 @@ def juego(Configuracion):
 
     columna2 = [ 
             [sg.Text("Palabras armadas!",justification='right')],
-            [sg.Listbox(values=([]),size=size_largo_listbox,select_mode=False,key="__lista_pal_armadas__",enable_events=False)],
+            [sg.Listbox(values=(palabras_armadas),size=size_largo_listbox,select_mode=False,key="__lista_pal_armadas__",enable_events=False)],
             [sg.Button(('Posponer'),key="__save__",font=("Helvetica", 10),size=(10,1) ,button_color=('white','grey')),sg.Button(("Finalizar"), key="__exit__",font=("Helvetica", 10),size=(10,1) ,button_color=('white','grey'))]
             ]
 
@@ -325,7 +335,7 @@ def juego(Configuracion):
     
    #JUEGO 
 #---------------------------------------------------------------------------------------------------
-                        
+                    
     cantRead = 0                                    
     cant_letras = 0
     La_ficha = ""
@@ -333,7 +343,7 @@ def juego(Configuracion):
     dic = {}
     lista_a_borrar = []
     Lista_k = []
-    window.read(timeout=10)
+    window.Read(timeout=10)
     window['-player-'].update(puntaje_J)
     window['-compu-'].update(puntaje_C)
     window['-OUT-'].update("Buena suerte!!")
@@ -347,21 +357,19 @@ def juego(Configuracion):
     else:
         window['-OUT-'].update("Buena suerte! El turno es del jugador.")
 
-    palabras_armadas = []
-
     no_jugada = 0
 
     TERMINO = False
 
     while not OBJETOS["Temporizador"].getTERMINO_Temporizador() and not OBJETOS["Bolsa"].getTERMINO_Bolsa():#Si el tiempo no termina y no se termino la bolsa
 
-        event, values= window.read(timeout=10)
+        event, values= window.Read(timeout=10)
         cantRead = cantRead + 1  
         cantRead = OBJETOS["Temporizador"].avanzar_tiempo(cantRead)  
         window['-TEMP OUT-'].update(str(OBJETOS["Temporizador"].getMinutos()) + ":"+ str(OBJETOS["Temporizador"].getSegundos()) + ' min') 
 
         if event!= '__TIMEOUT__' and event == sg.WIN_CLOSED:
-            window.close()
+            window.Close()
             break      
         
         else:
@@ -376,13 +384,13 @@ def juego(Configuracion):
                 La_ficha = formatear(dato)
 
             if event == "__exit__" and event!= '__TIMEOUT__' and Turno==0:
-                window.close()
+                window.Close()
                 TERMINO = True
                 break
 
             if event == "__save__" and event!= '__TIMEOUT__' and Turno==0 :
-                guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"])
-                window.close()
+                guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"],palabras_armadas)
+                window.Close()
                 break
 
             if event == "_poner_" and La_ficha!="" and tupla!="" and event!= '__TIMEOUT__' :
@@ -399,7 +407,9 @@ def juego(Configuracion):
             
             if event == "__repartir__" and event != '__TIMEOUT__' and dic == {} and Turno == 0:
                 repartir = True
+                
                 cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir,Turno)
+                
                 Turno=1
 
             if event == "__repartir__" and event != '__TIMEOUT__'and dic != {} and Turno == 0 :
@@ -494,8 +504,17 @@ def juego(Configuracion):
                     Turno = 1
 
     if OBJETOS["Bolsa"].getTERMINO_Bolsa() or OBJETOS["Temporizador"].getTERMINO_Temporizador() or TERMINO:
+        if(OBJETOS["Bolsa"].getTERMINO_Bolsa()):
+            sg.popup("Se terminaron las fichas en la bolsa, fin del juego.")
+            window.Close()
+        else:
+            sg.popup("Se termino el tiempo, fin del juego.")
+            window.Close()
+
         nombre = nombreFinalizada()
-        print(OBJETOS["Bolsa"].getBolsa())
         guardar_partida_finalizada(puntaje_J , Configuracion["Dificultad"] , nombre)
+        window.Close()
 
     Menu_principal()
+
+    "TOBI SE LA COME"

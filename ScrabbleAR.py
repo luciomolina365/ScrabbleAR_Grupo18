@@ -17,14 +17,14 @@ def Menu_principal():
         window = sg.Window('Partidas guardadas', layout,background_color="black")
         datos = None
         while True:
-            event, values= window.read()
+            event, values= window.Read()
             if event == "Cancel":
-                window.close()
+                window.Close()
                 break
             if event == "confirmar":
                 if datos == None and values["listBox"] != []:
                     datos = values["listBox"][0]
-                    window.close()
+                    window.Close()
                     return datos
                 else:
                     pass
@@ -43,10 +43,10 @@ def Menu_principal():
         No_hay_partidas = ["No hay registros en esta dificultad"]
 
         while True:
-            event, values = window.read()
+            event, values = window.Read()
             
             if event == "Cancel":
-                window.close()
+                window.Close()
                 break
             
             if event == "dificil":
@@ -96,10 +96,10 @@ def Menu_principal():
 
 
     while True:
-        event, values = window.read()
+        event, values = window.Read()
         
         if event == sg.WIN_CLOSED:
-            window.close()
+            window.Close()
             break      
         
         else:
@@ -109,12 +109,12 @@ def Menu_principal():
                 direccion = mostrar_partidas_guardadas(lista)
                 if direccion != None:
                     partida = archivos.cargarPartida(direccion)
-                    window.close()
+                    window.Close()
                     Tablero.juego(partida)
                     break
 
             if event == "_iniciar_":
-                window.close()
+                window.Close()
                 jugar()
                 break
 

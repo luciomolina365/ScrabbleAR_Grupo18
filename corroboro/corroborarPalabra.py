@@ -62,12 +62,16 @@ def __corroboro_palabra(diccionario_trabajado,dificultad):
                 elif((dificultad==2) or (dificultad==3)):
                     if ((elem[1]=='VB') or (elem[1]=='JJ')):
                         return(ok,palabra)
+                    else:
+                        ok = False
+                        return(ok,palabra)
                 else:
                     ok = False
                     return(ok,palabra)
     else:
         ok = False
-        return(ok,palabra)
+    
+    return(ok,palabra)
 
 
 def __retorno_informacion(__palabra,__configuracion,dificultad):    
@@ -86,6 +90,7 @@ def __retorno_informacion(__palabra,__configuracion,dificultad):
     corroboro = __corroboro_palabra(palabra_izq,dificultad)
 
     sigue = corroboro[0]
+    
     palabra = corroboro[1]
 
     if(sigue == True):

@@ -10,13 +10,13 @@ def __dificultad_IA(dificultad):
     """Seteamos en base a la dificultad, la cantidad de iteraciones para formar una palabra y el medio del tablero, ficha donde se inicia la jugada en el primer turno"""
     
     if(dificultad==1):
-        cant = 7
+        cant = 10
         medio = (9, 9)
     elif(dificultad==2):
-        cant = 10
+        cant = 15
         medio = (8, 8)
     else:
-        cant = 15
+        cant = 20
         medio = (8, 8)
 
     return(cant,medio)

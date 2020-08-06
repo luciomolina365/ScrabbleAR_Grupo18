@@ -42,7 +42,7 @@ def jugar():
 
 
         while True:
-            event, values = window.read()
+            event, values = window.Read()
             
             if event == sg.WIN_CLOSED:
                 window.Close()
@@ -86,10 +86,9 @@ def jugar():
                     Configuracion["Puntaje_computadora"] = 0
     
                     Config = definir_configuracion(Configuracion)    #se carga la configuracion para poder mandar correctamente todos los datos al tablero
-                    window.close() 
+                    window.Close() 
                     Tablero.juego(Config)
                     break
 
-        window.close()
+        window.Close()
     menu()
-
