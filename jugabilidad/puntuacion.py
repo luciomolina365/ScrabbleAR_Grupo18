@@ -55,3 +55,6 @@ def __puntuar_jugador(__palabra,__configuracion,__palabra_lista):
         puntuacionActual = puntuacionActual * 3
 
     return (puntuacionActual)
+#----------------------------------------------------------------------------------------------------------------------------------
+
+#   Mikaliunas, Leandro   -   15694/4

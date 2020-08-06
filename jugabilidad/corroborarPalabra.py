@@ -1,6 +1,6 @@
 from pattern.text.es import parse, verbs, split, lexicon, spelling
-from corroboro import puntuacion
-from corroboro import posiciones_validas
+from jugabilidad import puntuacion
+from jugabilidad import posiciones_validas
 
 def __ordenar_info(diccionario_que_recibe_del_tablero):
     """ Recibo un diccionario enviado por el tablero, trabajado previamente para que llegue de el estilo que esta arriba,
@@ -111,5 +111,6 @@ def __retorno_informacion(__palabra,__configuracion,dificultad):
         ok=False
     
     return(ok,puntaje,palabra)
-#-----------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------------------------------------
 
+#   Mikaliunas, Leandro   -   15694/4

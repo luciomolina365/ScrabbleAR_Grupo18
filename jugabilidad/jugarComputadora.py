@@ -1,5 +1,5 @@
 import random
-from corroboro.corroborarPalabra import __retorno_informacion
+from jugabilidad.corroborarPalabra import __retorno_informacion
 from Objetos import CLASS_tablero
 
 """En esta hoja, lo que hacemos, setear la IA en todos sus aspectos, desde la dificultad elegida por el usuario, hasta la cantidad de veces que va a intentar hacer una palabra asi tambien como elegir una posicion random
@@ -286,3 +286,6 @@ def __juega_IA(dificultad, tablero, atril, primer_turno, configuracion):
             pal_armada = pal_armada + palabra[letra]
     
     return(ok,puntaje,jugada_IA,pal_armada)
+#----------------------------------------------------------------------------------------------------------------------------------
+
+#   Mikaliunas, Leandro   -   15694/4
