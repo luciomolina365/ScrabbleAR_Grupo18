@@ -1,12 +1,29 @@
-Observaciones:
-    - El primer turno siempre, no importa de quien sea, la palabta iniciara o pasara por el medio del tablero. Casillero de inicio de partida.
-    - La puntuacion puede ser negativa, o restar puntos, dependiendo donde se ubique la jugada en el tablero.
-    - Entre los integrantes decidimos que al POSPONER, se pueda guardar mas de una partida, para hacerlo ver mas como un juego y no quede tan limitado.
-    - El juego FINALIZA, si: se termina el tiempo, ya no pueden obtenerse mas fichas de la bolsa o si el jugador elije FINALIZAR la partida.
-    - Al FINALIZAR la partida, se le pedira el nombre al jugador para ver si formara o no parte del TOP TEN.
-    - En puntuacion.py, se ve como se puntua cada letra y se muestra la puntuacion final al corroborar toda la palabra.
-    - Al utilizar el "INTERCAMBIAR FICHAS" no se debe tocar el tablero, ya que al hacerlo, se pierde el atril de cambio de fichas del jugador.
-    - Se elimino, despues de una charla con la catedra, el uso de la Ñ y la tilde, ya que en pattern no esta implementado y utilizado.
-    - Cuando lo quisimos testear en Linux, no pudimos por errores propios de la maquina virtual (herramienta que teniamos de la catedra para tener Linux, ya que ninguno de los integrantes cuenta con una pc con Linux),
-      esto se intento resolver con ayuda de nuestro ayudante.
-      (Dejamos un txt con los logs de la terminal y los errores correspondientes asimismo los intentos de solucionarlo con el ayudante). >>> Proyecto\\logs_errores_linux.TXT <<<
+REGLAS
+
+- Al iniciar el juego, se podra realizar una configuracion a gusto del usuario.
+- De no querer editarla, tiene una configuracion predefinida ya establecida.
+- Se puede configurar el tiempo a gusto del usuario
+- En la modalidad Facil, tanto el jugador como la IA puede formar cualquier tipo de palabras,
+  aceptadas en el lexicon/spelling de pattern.
+- En la modalidad Medio y Dificil, el juego solo aceptara adjetivos y verbos.
+- El tablero posee casilleros con recompensas y trampas.
+- La primera jugada iniciara o al menos pasara por el casiilero de salida del tablero.
+- Cuando quiera intercambiar fichas, puede intercambiar todas las que desee, pero recuerde, perdera su turno.
+- Elija con cuidado donde ubicar su palabra.
+- Una vez ingresada la palabra y corroborada, se le retornara la misma cantidad de fichas utilizadas.
+- Buena suerte!
+
+COMO JUGAR
+
+- Al seleccionar una letra del atril, esta se debera colocar sobre el tablero, para luego
+  clickear en PONER lo cual pondra la letra elegida en el tablero.
+- Recuerde, que las palabras formadas como minimo, tienen que ser de 2 letras.
+- Una vez ingresada la palabra, debera clickear en PASAR TURNO, lo cual, corrobora y puntua
+  la palabra ingresada.
+- Se enfrentara a una IA que realiza sus movimientos de manera aleatoria, y de acertar, 
+  lo vera reflejado en el tablero. Tanto la palabra como su puntuacion.
+- El juego finalizara una vez que:
+    El usuario clickee FINALIZAR.
+    Se termine la bolsa o la cantidad en esta sea menor a la cantidad que necesita recibir
+      para reponer las fichas usadas.
+    El tiempo del juego se termine.
