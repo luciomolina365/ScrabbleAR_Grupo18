@@ -1,90 +1,121 @@
 import PySimpleGUI as sg
-import webbrowser as wb
+from Archivos import metodos_de_archivos
 import Tablero
-from Archivos.metodos_de_archivos import definir_configuracion
+from Menu_configuracion import jugar
 
-def jugar():
-    def menu():
-        """Esto es el menu de configuracion donde podras crear la partida segun la dificultad, 
-        cantidad de fichas o valor de las fichas.
-        En caso de querer ver el link del repositorio apretar el boton help.
-            Esta funcion del menu no anda en la maquina virtual ya que no tiene un navegador por defecto"""
+def Menu_principal():
+    def mostrar_partidas_guardadas(lista):
 
-        sg.ChangeLookAndFeel('Topanga')
+        """Muestra una nueva ventana con una listbox de todas las partidas posibles a cargar
+        y al confirmar retorna la direccion a cargar."""
 
-        fichas_propias = {}  #creo un dic para saber si el jugador modifica el valor o la cantidad de una letra
+        layout=[[sg.Text('Seleccione la partida a cargar',text_color="white",background_color="black")],
+            [sg.Listbox(lista, size = (70,15) , key = "listBox" , select_mode=False)],
+            [sg.Button("Confirmar",key="confirmar"),sg.Cancel(button_color=('black','white'))]]
 
-        # ------ Menu Definicion ------ #
-        menu_def = [['&Help', ('Link del Repositorio')],
-                    ]
-
-
-
-        layout = [
-            [sg.Menu(menu_def, tearoff=True)],
-            [sg.Text('Configuracion del juego scrabble!', size=(40,1), justification='center', font=("Helvetica", 25), relief=sg.RELIEF_RIDGE)],
-            [sg.Frame(layout=[
-            [sg.Checkbox('Datos predefinidos', size=(20,1),default=True,key="_predefinido_",enable_events=True),sg.Text("(Valores predefinidos para las letras)")],
-            [sg.Radio('Dificultad facil  ', "Dificultad", default=True, size=(10,1)), sg.Radio('Dificultad Media!', "Dificultad"),sg.Radio('Dificultad Dificil', "Dificultad")]], title='Configuracion del juego',title_color='red', relief=sg.RELIEF_SUNKEN, tooltip='Use these to set flags')],
-            [sg.Text("Tiempo de la partida"),sg.Slider(range=(1, 20), orientation='h', size=(13, 25), default_value=10,enable_events=False)],
-            [sg.Frame('Puntuacion de letras',[[
-                sg.InputOptionMenu(('A', 'B', 'C','D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'LL', 'M', 'N', 'O', 'P', 'Q', 'R', 'RR', 'S', 'T', 'U', 'V', 'V', 'W', 'X', 'Y', 'Z'))],
-                [sg.Text("Modificar cantidad"),sg.Slider(range=(1, 15), orientation='v', size=(10, 25), default_value=6,enable_events=False),sg.Text("Modificar valor"),sg.Slider(range=(1, 20), orientation='v', size=(10, 25), default_value=6,enable_events=False)],
-                [sg.Button("Modificar",key="_modificar_")]
-                ],visible=False,key="slider")],
-            [sg.Text('_' * 80)],
-            [sg.Button(("Confirmar configuracion"),key="__jugar__") ,sg.Cancel("Cancel")]]
+        window = sg.Window('Partidas guardadas', layout,background_color="black")
+        datos=None
+        while True:
+            event, values= window.read()
+            if event=="Cancel":
+                window.close()
+                break
+            if event=="confirmar":
+                if datos==None and values["listBox"]!=[]:
+                    datos = values["listBox"][0]
+                    window.close()
+                    return datos
+                else:
+                    pass
 
 
+    def mostrar_ten(topFacil,topMedio,topDificil):
+        
+        """Muestra una nueva ventana con una listbox de top ten dependiendo la dificultad que elijas.  Del fomato nombre, puntaje , dificultad y fecha."""
 
+        layout=[[sg.Text('Seleccione la dificultad para ver el Top Ten',text_color="white",background_color="black")],
+            [sg.Button("Facil",key="facil",button_color=('black','white')),sg.Button("Medio",key="medio",button_color=('black','white')),sg.Button("Dificil",key="dificil",button_color=('black','white'))],
+            [sg.Listbox([], size = (70,15) , key = "listBox" , select_mode=False)],
+            [sg.Cancel(button_color=('black','white'))]]
 
-        window = sg.Window('Menu', layout, default_element_size=(40, 1), grab_anywhere=False)
-
+        window = sg.Window('Top Ten', layout,background_color="black")
+        No_hay_partidas=["No hay registros en esta dificultad"]
 
         while True:
-            event, values = window.read()
+            event, values= window.read()
             
-            if values["_predefinido_"] == False:
-                window["slider"].update(visible=True)       #si valores predefinidos es falso,mostrar tabla para modificar los valores y la cantidad.
-            
-            if values["_predefinido_"] == True:
-                window["slider"].update(visible=False)      #si valores predefinidos es verdadero,no mostrar tabla.
-            
-            if(event=="_modificar_"):
-                fichas_propias[values[5]] = {"cantidad" : int(values[6]) , "valor" : int(values[7])}    #modifico la cantidad y el valor de las letras
-        
-
-            if(event=="Link del Repositorio"):         #lleva al link del repositorio si se apreta help y link del repositorio
-                wb.open("https://github.com/luciomolina365/ScrabbleAR_Grupo18", new=0, autoraise=True)
-
-            elif(event=="Cancel"):
+            if event=="Cancel":
+                window.close()
                 break
             
-            elif(event == "__jugar__"):        #indico en una variable q dificultad va a tener el juego
-                if values[1] == True:
-                    Dificultad_final = 1
-                elif values[2] == True:
-                    Dificultad_final = 2
+            if event=="dificil":
+                if topDificil==[]:
+                    window["listBox"].update(No_hay_partidas)
                 else:
-                    Dificultad_final = 3
-                    
-                if(values["_predefinido_" == True]):      #esto guarda en fichas_finales las fichas que se utilizaran
-                    fichas_finales = {}
+                    window["listBox"].update(topDificil)
+            
+            if event=="medio":
+                if topMedio==[]:
+                    window["listBox"].update(No_hay_partidas)
                 else:
-                    fichas_finales = fichas_propias
-                
-                Configuracion = {}
-                Configuracion["minutos"] = values[4]
-                Configuracion["dificultad"] = Dificultad_final
-                Configuracion["letras"] = fichas_finales
-                Configuracion["Puntaje_jugador"] = 0
-                Configuracion["Puntaje_computadora"] = 0
+                    window["listBox"].update(topMedio)    
+            
+            if event=="facil":
+                if topFacil==[]:
+                    window["listBox"].update(No_hay_partidas)
+                else:
+                    window["listBox"].update(topFacil)
 
-                Config = definir_configuracion(Configuracion)    #se carga la configuracion para poder mandar correctamente todos los datos al tablero
-                window.close() 
-                Tablero.juego(Config)
+
+
+    """La ventana del menu principal donde se mostrara iniciar partida,
+    cargar partida (estara desabilitada si no hay partidas guardadas) y el top ten de los mejores puntajes."""
+
+    archivos = metodos_de_archivos
+    archivos.actualizar_cant_partidas_guardadas()
+
+    ok = archivos.hay_partidas_a_cargar()
+    Iniciar = [sg.Button("Iniciar Partida",size=(10,5),key="_iniciar_",button_color=('white','grey'))]
+
+    if(ok == False):
+        Cargar=[sg.Button("Cargar Partida",size=(10,5),disabled=True, key="cargar",button_color=('white','grey'))]
+    else:
+        Cargar=[sg.Button("Cargar Partida",size=(10,5),enable_events=True, key="cargar",button_color=('white','grey'))]
+
+    titulo =  [[sg.Text("Scrabble", size=(22,10),auto_size_text=True)]]
+
+    Top=[[sg.Button(("Top Ten"),key="topTen",size=(22,1))]] 
+
+
+    layout= titulo + [Iniciar + Cargar ] + Top
+
+    window = sg.Window('ScrabbleAr', layout, font='Courier 12',background_color="black")
+
+
+
+
+    while True:
+        event, values= window.read()
+
+        if event == "cargar":
+            lista=archivos.lista_de_partidas_a_cargar()
+            direccion=mostrar_partidas_guardadas(lista)
+            if direccion!= None:
+                partida = archivos.cargarPartida(direccion)
+                window.close()
+                Tablero.juego(partida)
                 break
 
-        window.close()
-    menu()
+        if event == "_iniciar_":
+            window.close()
+            jugar()
+            break
 
+        if(event=="topTen"):
+            topFacil=archivos.TopTen_de_jugadores(1)
+            topMedio=archivos.TopTen_de_jugadores(2)
+            topDificil=archivos.TopTen_de_jugadores(3)
+            mostrar_ten(topFacil,topMedio,topDificil)
+
+if __name__ == "__main__":
+    Menu_principal()
