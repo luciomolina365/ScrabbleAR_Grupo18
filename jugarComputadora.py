@@ -2,29 +2,29 @@ import random
 from corroboro.corroborarPalabra import __retorno_informacion
 from Objetos import CLASS_tablero
 
-# Al llamar la jugabilidad, le pasaremos el tablero, el atril de la computadora y la bolsa de fichas
-#La dificultad entra al llamar la jugabilidad de la IA
-#Si el turno es False = empieza el jugador, si es True, empieza la IA, esto se maneja afuera para que si, le toca el primer turno, despues se lo cambia y se pone optimo a jugar
-
+"""En esta hoja, lo que hacemos, setear la IA en todos sus aspectos, desde la dificultad elegida por el usuario, hasta la cantidad de veces que va a intentar hacer una palabra asi tambien como elegir una posicion random
+ y verificar su estado hacia los dos sentidos que a lo largo de la letra"""
 
 def __dificultad_IA(dificultad):
 
-    #Reviso la dificultad que entra de la configuracion
-    #Seteo valores de cantidad de jugadas y los puntos medios de la IA por si empieza a jugar
+    """Seteamos en base a la dificultad, la cantidad de iteraciones para formar una palabra y el medio del tablero, ficha donde se inicia la jugada en el primer turno"""
+    
     if(dificultad==1):
-        cant = 20
+        cant = 7
         medio = (9, 9)
     elif(dificultad==2):
         cant = 10
         medio = (8, 8)
     else:
         cant = 15
-        medio = (7, 7)
+        medio = (8, 8)
 
     return(cant,medio)
 
-#Formo la palabra en base al atril actual de la IA
+
 def __armo_palabra_IA(atril,cantLetras):
+
+    """Armamos la palabra de la IA en base a su atril actual"""
     
     letras=[0,1,2,3,4,5,6]
     
@@ -47,6 +47,7 @@ def __armo_palabra_IA(atril,cantLetras):
 #----------------------------------------------------------------------------------------------------------------------------------
 
 def __posicion_inicio(dificultad):
+    """Funcion que le da a la IA una posicion random no de ser el primer turno"""
     
     if(dificultad==1):
         x = random.randint(0,18)
@@ -64,18 +65,9 @@ def __posicion_inicio(dificultad):
     return pos
 
 #----------------------------------------------------------------------------------------------------------------------------------
-#Seteo booleano para ver si: en base a la cantidad de letras, puede insertar la palabra
-#Una lista de direcciones que representan, de un punto, avanzar hacia la derecha o izquierda o hacia arriba o abajo
-#Creamos una variable d para las direcciones, que iremos revisando 1 por 1 ya que la idea es darle mas oportunidades a la IA
-#En que pueda generar una palabra correcta
-#Si ok es False, no puede insertar la cantidad de letras que se eligieron para la IA, y se vuelve a hacer todo devuelta
-#La idea es que segun la dificultad que se eligio, la IA tenga mas posibilidades
-#En facil, tendra 3 oportunidades de crear una palabra en base a la cantidad de letras que se eligieron
-#En medio, seran 6 oportunidades
-#En dificil, seran 10 oportunidades
 
-#pos es una tupla de posiciones = (x , y)
 def __pos_valida_IA(pos,palabra,dificultad,__tablero):
+    """Funcion donde verificamos, si la posicion elegida por la IA es correcta, ya sea, se puede insertar la palabra porque no existe letras en el camino, o porque no llego al final del tablero """
     
     direcciones = ["derecha","abajo"]
     
@@ -85,12 +77,9 @@ def __pos_valida_IA(pos,palabra,dificultad,__tablero):
     
     if(dificultad==1):
         fin_tablero = 18
-    
-    elif(dificultad==2):
-        fin_tablero = 16
-    
+
     else:
-        fin_tablero = 14
+        fin_tablero = 16
 
     
     for dire in range(len(direcciones)):
@@ -99,22 +88,6 @@ def __pos_valida_IA(pos,palabra,dificultad,__tablero):
         #esto lo hago 1 vez para ver que direccion tomo, si por X ascendente o descendente o lo mismo pero por Y
         pos_dir = random.randint(0 , posible_sentido)
 
-        #if(direcciones[pos_dir]=="arriba"):
-        #    
-        #    #me muevo en el eje Y de manera ascendente
-        #    for i in range(len(palabra)):
-        #        if((pos[0]-i>=0) and sigo ):
-        #            if(__tablero[(pos[0]-i,pos[1])]['letra'] != ""):
-        #            #if(tablero.getDatosEnCoor((pos[0]-i,pos[1]))['letra'] !=""):
-        #                sigo=False
-        #        else:
-        #            sigo=False
-        #            break
-        #    if(sigo==True):
-        #        direFinal = "arriba"
-        #    else:
-        #        direFinal = "nada"
-        #        ok=False
         if(direcciones[pos_dir]=="derecha"):
             #me muevo en el X de manera ascendente
             for i in range(len(palabra)):
@@ -148,22 +121,6 @@ def __pos_valida_IA(pos,palabra,dificultad,__tablero):
                 direFinal = "nada"
                 ok=False
         
-        #elif(direcciones[pos_dir]=="izquierda"):
-        #    
-        #    #me muevo en el eje X de manera descentende
-        #    for i in range(len(palabra)):
-        #        if((pos[1]-i>=0) and sigo):
-        #            if(__tablero[(pos[0],pos[1]-i)]['letra']!=""):
-        #            #if(tablero.getDatosEnCoor((pos[0]-i,pos[1]))['letra'] !=""):
-        #                sigo=False
-        #        else:
-        #            sigo=False
-        #            break
-        #    if(sigo==True):
-        #        direFinal = "izquierda"
-        #    else:
-        #        direFinal = "nada"
-        #        ok=False
         
         if(direFinal!="nada"):
             break
@@ -176,11 +133,11 @@ def __pos_valida_IA(pos,palabra,dificultad,__tablero):
 #-----------------------------------------------------------------------------------------------------------------------------------
 
 def __armo_estructura_IA(palabra,pos,direccion,__tablero):
+    
+    """Armamos la estructura de la IA para corroborar la informacion, se arma para enviar a la funcion corroboro_palabra y que esta me retorne si la informacion enviada es correcta"""
+    
     dic_IA = {}
-    #if(direccion=="arriba"):
-    #    for i in range(len(palabra)):
-    #        dic_IA[(pos[0]-i,pos[1])] = __tablero[(pos[0]-i,pos[1])]
-    #        dic_IA[(pos[0]-i,pos[1])]['letra']=palabra[i]
+
     if(direccion=="derecha"):
         for i in range(len(palabra)):
             dic_IA[(pos[0],pos[1]+i)] = __tablero[(pos[0],pos[1]+i)]
@@ -189,10 +146,7 @@ def __armo_estructura_IA(palabra,pos,direccion,__tablero):
         for i in range(len(palabra)):
             dic_IA[(pos[0]+i,pos[1])] = __tablero[(pos[0]+i,pos[1])]
             dic_IA[(pos[0]+i,pos[1])]['letra']=palabra[i]
-    #elif(direccion=="izquierda"):
-    #    for i in range(len(palabra)):
-    #        dic_IA[(pos[0],pos[1]-i)] = __tablero[(pos[0],pos[1]-i)]
-    #        dic_IA[(pos[0],pos[1]-i)]['letra']=palabra[i]
+
 
     return(dic_IA)
 
@@ -202,6 +156,8 @@ def __armo_estructura_IA(palabra,pos,direccion,__tablero):
 #Nos va a retornar una lista con las fichas que va a intercambiar
 
 def __fichas_a_intercambiar(atril):
+
+    """Funcion donde hacemos que la IA intercambie sus fichas"""
     
     cant_fichas_a_cambiar = random.randint(1,len(atril))
 
@@ -220,18 +176,15 @@ def __fichas_a_intercambiar(atril):
 
     return lista_a_cambiar
 
+
 #----------------------------------------------------------------------------------------------------------------------------------
-
-#def __pongo_letras_IA(dic_IA):
-#
-#    for k in dic_IA.keys():
-#        CLASS_tablero.Tablero.setValorEnCoor(k,dic_IA['letra'])
-#    
-
-        
-#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def __juega_IA(dificultad, tablero, atril, primer_turno, configuracion):
 
+    """Aca es donde hacemos que la IA llame a todas las funciones y juegue, recibiendo toda la informacion necesaria para poder formar una palabra, lo hacemos en base a la cantidad de veces que predefinimos, que son los 
+     intentos de la IA para formar una palabra, lo unico que no cambia es la posicion, porque queremos que, si encuentra una posicion valida, en base a la cantidad de letras seleccionada, guarde la posicion, e intentar formar
+     una palabra en base a la cantidad de letras seleccionadas, es para darle mas chances a la IA de que forme una palabra correcta"""
+
+    pal_armada=""
     cantLetras = random.randint(2,7)
     if(primer_turno == True):
 
@@ -328,5 +281,8 @@ def __juega_IA(dificultad, tablero, atril, primer_turno, configuracion):
 
             else:
                 palabra = __armo_palabra_IA(atril,cantLetras)
+    if(ok==True):
+        for letra in range(len(palabra)):
+            pal_armada = pal_armada + palabra[letra]
     
-    return(ok,puntaje,jugada_IA,palabra)
+    return(ok,puntaje,jugada_IA,pal_armada)

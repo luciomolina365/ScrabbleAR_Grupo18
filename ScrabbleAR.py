@@ -4,7 +4,7 @@ import Tablero
 from Menu_configuracion import jugar
 
 def Menu_principal():
-    
+    sg.theme("LightBlue4")
     def mostrar_partidas_guardadas(lista):
 
         """Muestra una nueva ventana con una listbox de todas las partidas posibles a cargar
@@ -76,14 +76,14 @@ def Menu_principal():
     archivos.actualizar_cant_partidas_guardadas()
 
     ok = archivos.hay_partidas_a_cargar()
-    Iniciar = [sg.Button("Iniciar Partida",size=(10,5),key="_iniciar_",button_color=('white','grey'))]
+    Iniciar = [sg.Button("Iniciar Partida",size=(10,3),key="_iniciar_")]
 
     if(ok == False):
-        Cargar = [sg.Button("Cargar Partida",size=(10,5),disabled=True, key="cargar",button_color=('white','grey'))]
+        Cargar = [sg.Button("Cargar Partida",size=(10,3),disabled=True, key="cargar")]
     else:
-        Cargar = [sg.Button("Cargar Partida",size=(10,5),enable_events=True, key="cargar",button_color=('white','grey'))]
+        Cargar = [sg.Button("Cargar Partida",size=(10,3),enable_events=True, key="cargar")]
 
-    titulo =  [[sg.Text("Scrabble", size=(22,10),auto_size_text=True)]]
+    titulo =  [[sg.Text("Scrabble", size=(22,1),auto_size_text=True,justification='center')]]
 
     Top=[[sg.Button(("Top Ten"),key="topTen",size=(22,1))]] 
 

@@ -15,7 +15,7 @@ from jugarComputadora import __juega_IA, __fichas_a_intercambiar
 
 
 def juego(Configuracion):
-    sg.theme('Topanga')
+    sg.theme('DarkPurple3')
 
     
     """En base a la configuracion,obtendremos todos los datos necesarios para jugar,como la dificultad, el tiempo, 
@@ -50,10 +50,8 @@ def juego(Configuracion):
         
         if(dificultad == 1):
             medio = (9,9)
-        elif(dificultad == 2):
-            medio = (8,8)
         else:
-            medio = (7,7)
+            medio = (8,8)
         
         return(medio) 
 
@@ -285,26 +283,44 @@ def juego(Configuracion):
     ]
 
 
-    if Configuracion["Dificultad"] == 1:
-        cant = 19
-    elif Configuracion["Dificultad"] == 2:
-        cant = 17
+    if Configuracion["Dificultad"]==1:
+        cant=19
+        size_poner=(13, 1)
+        size_repartir=(40,2)
+        size_pasar=(40,2)
+        size_largo_listbox=(20,39)
+        font_size_fichas_jugador=9
     else:     
-        cant = 15 
+        cant=17 
+        size_poner=(7, 1)
+        size_repartir=(25,1)
+        size_pasar=(25,1)
+        size_largo_listbox=(20,36)
+        font_size_fichas_jugador=10
 
     tabla = CreandoTablero(OBJETOS["Tablero"].getEstado(),cant)  #dependiendo la dificultad, creo un tablero de determinada cantidad
 
 
 
-    fichas_jugador = [fichasJ+[sg.Button("Poner",key="_poner_",font=("Helvetica", 9) ,button_color=('white','grey'),size=(6, 2))],
-    [sg.Button(('Posponer partida!'),key="__save__",font=("Helvetica", 9) ,button_color=('white','grey')),sg.Button(("Terminar juego"), key="__exit__",font=("Helvetica", 9) ,button_color=('white','grey')),sg.Button(("Repartir Nuevas Fichas"),button_color=('white','grey'), key="__repartir__",font=("Helvetica", 9)),sg.Button('Pasar Turno',key="__pasar__",button_color=('black','white'), font=("Helvetica", 16))]]
+    fichas_jugador = [fichasJ+[sg.Button("Poner",key="_poner_",font=("Helvetica", 14) ,button_color=('white','grey'),size=size_poner)],
+    [sg.Button(("Repartir Nuevas Fichas"),button_color=('white','grey'),size=size_repartir, key="__repartir__",font=("Helvetica", font_size_fichas_jugador)),sg.Button('Pasar Turno',key="__pasar__",button_color=('black','white'),size=size_pasar, font=("Helvetica", font_size_fichas_jugador))]]
 
 
     fichas_computadora = [fichasC] 
 
-    layout = titulo + puntua + fichas_computadora + tabla + fichas_jugador
+    tablero = titulo + puntua + fichas_computadora + tabla + fichas_jugador
 
-    window = sg.Window('ScrabbleAr', layout, font='Courier 12')
+    columna2 = [ 
+            [sg.Text("Palabras armadas!",justification='right')],
+            [sg.Listbox(values=([]),size=size_largo_listbox,select_mode=False,key="__lista_pal_armadas__",enable_events=False)],
+            [sg.Button(('Posponer'),key="__save__",font=("Helvetica", 10),size=(10,1) ,button_color=('white','grey')),sg.Button(("Finalizar"), key="__exit__",font=("Helvetica", 10),size=(10,1) ,button_color=('white','grey'))]
+            ]
+
+    diseño = [
+            [sg.Column(tablero), sg.Column(columna2)]
+             ]
+
+    window = sg.Window('ScrabbleAr', diseño, font='Courier 12')
 
     
    #JUEGO 
@@ -331,6 +347,7 @@ def juego(Configuracion):
     else:
         window['-OUT-'].update("Buena suerte! El turno es del jugador.")
 
+    palabras_armadas = []
 
     no_jugada = 0
 
@@ -391,7 +408,6 @@ def juego(Configuracion):
             if event == "__pasar__" and event != '__TIMEOUT__' and dic == {} and Turno == 0 :
                 window['-OUT-'].update("Debes colocar las fichas en el tablero")
 
-            
             if Turno == 1:        #jugada de la IA
                 jugada_IA = __juega_IA(Configuracion['Dificultad'],OBJETOS["Tablero"].getEstado(),OBJETOS["Atril_computadora"].getFichas_disponibles(),primer_turno,OBJETOS['Bolsa'].getBolsa())
                 
@@ -408,11 +424,13 @@ def juego(Configuracion):
                         OBJETOS["Tablero"].setValorEnCoor(i,jugada[i]["letra"])
 
                     window['-compu-'].update(puntaje_C)
-                    window['-OUT-'].update("La maquina a formado una palabra")
+                    window['-OUT-'].update("La maquina ha formado una palabra")
+                    palabras_armadas.append(f"La IA formo - {jugada_IA[3]}")
+                    window['__lista_pal_armadas__'].update(palabras_armadas)
                     primer_turno = False
                 
                 else:
-                    window['-OUT-'].update("La maquina no a formado una palabra") 
+                    window['-OUT-'].update("La maquina no ha formado una palabra") 
                     jugada = jugada_IA[2]
                     no_jugada = no_jugada +1
                     if(no_jugada == 2):    #Esto es para cuando la IA no pudo formar palabras en 2 turnos seguidos, cambia sus fichas
@@ -459,7 +477,9 @@ def juego(Configuracion):
                     puntaje_J = puntaje_J+puntaje
                     repartir = False
                     actualizar_fichas(lista_a_borrar,OBJETOS["Bolsa"],window,OBJETOS["Atril_jugador"],repartir,Turno)
-                    window['-OUT-'].update("Bien hecho bro")
+                    window['-OUT-'].update("Felicitaciones, armaste una palabra correcta!")
+                    palabras_armadas.append(f"Formaste - {info[2]}")
+                    window['__lista_pal_armadas__'].update(palabras_armadas)
                     window['-player-'].update(puntaje_J)
                     dic = {}
                     lista_a_borrar.clear()
@@ -468,7 +488,7 @@ def juego(Configuracion):
                     primer_turno = False
                 if(mal == True):
                     actualizando_tablero(dic,OBJETOS["Tablero"],window,Lista_k)
-                    window['-OUT-'].update("Mal ahi bro le erraste ")
+                    window['-OUT-'].update("Le erraste, buena suerte para el proximo turno!")
                     dic = {}
                     Lista_k.clear()
                     Turno = 1

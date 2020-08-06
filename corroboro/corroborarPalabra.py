@@ -7,18 +7,16 @@ def __ordenar_info(diccionario_que_recibe_del_tablero):
     lo ordeno de menor a mayor y lo transformo a string para usarlo y corroborarlo con si es un sustantivo, adjetivo o verbo """
     
     #Ordeno el diccionario por posiciones de menor a mayor
-    haciaIzq=dict(sorted(diccionario_que_recibe_del_tablero.items(), key = lambda diccio: diccio[0]))
+    dic_ordenado=dict(sorted(diccionario_que_recibe_del_tablero.items(), key = lambda diccio: diccio[0]))
 
-    #Ordeno el diccionario por posiciones de mayor a menor
-    #haciaDer=dict(sorted(diccionario_que_recibe_del_tablero.items(), key = lambda diccio: diccio[0],reverse=True))
 
     #ME RETORNA EL DICCIONARIO QUE ENTRA POR LA PALABRA INGRESADA EN EL TABLERO, ORDENADA EN AMBOS SENTIDOS
     #RETORNA DICCIONARIO ORDENADO
     
-    return(haciaIzq)
+    return(dic_ordenado)
     
 def __obtengo_diccionario_trabajado(__diccionario_ordenado):
-    #Agarro la info que me interesa para obtener la palabra y retornarla para verificarla despues, del diccionario que recibo, armo uno con las posiciones y la letra de la posicion
+    """Obtengo el diccionario ordenado, y lo transformo a una estructura que eleji para corroborar toda la info"""
     
     dic_trabajado = {}
     for k,v in __diccionario_ordenado.items():
@@ -26,11 +24,11 @@ def __obtengo_diccionario_trabajado(__diccionario_ordenado):
 
     return(dic_trabajado)
         #ME RETORNA UN DICCIONARIO DONDE LA CLAVE VA A SER LA POSICION Y EL VALOR LA LETRA, ME SIRVE PARA CORROBORAR POSICIONES Y PUNTUAR
-        #RETORNA DICCIONARIO TRABAJADO
-
 
 
 def __corroboro_palabra(diccionario_trabajado,dificultad):
+
+    """Transformo la estructura elegida previamente, y empiezo a corroborar con pattern"""
 
     palabra=""
     palabra_lista=[]
@@ -60,65 +58,53 @@ def __corroboro_palabra(diccionario_trabajado,dificultad):
         for elemento in pal:
             for elem in elemento:
                 if(dificultad==1):
-                    return(ok)
+                    return(ok,palabra)
                 elif((dificultad==2) or (dificultad==3)):
                     if ((elem[1]=='VB') or (elem[1]=='JJ')):
-                        return(ok)
+                        return(ok,palabra)
                 else:
                     ok = False
-                    return(ok)
+                    return(ok,palabra)
     else:
         ok = False
-        return(ok)
+        return(ok,palabra)
 
 
 def __retorno_informacion(__palabra,__configuracion,dificultad):    
+    
+    """En esta funcion, llamo las funciones para ordenar la informacion y obtenerla, luego, corroboro las posiciones de la palabra ingresada para ver si esta en posiciones seguidas y que no tenga una letra en otro lugar,
+    por ultimo, si esta informacion que retorna posiciones_validas, es correcta, llamo a la funcion puntuacion, que me retorna la puntuacion de la palabra, si todo es incorrecto, me retornera False, puntuacion = 0 y palabra = "" """
     
     #ORDENO EL DICCIONARIO QUE ENTRA DEL TABLERO pos 0 IZQUIERDA pos 1 DERECHA
     palabra_ordenada = __ordenar_info(__palabra)
     
     palabra_ordenada_izq = palabra_ordenada
     
-    #palabra_ordenada_der = palabra_ordenada[1]
-    
     #OBTENGO LA ESTRUCTURA QUE VOY A UTILIZAR PARA EMPEZAR A CORROBORAR TODA LA INFORMACION
     palabra_izq = __obtengo_diccionario_trabajado(palabra_ordenada_izq)
     
-    #palabra_der = __obtengo_diccionario_trabajado(palabra_ordenada_der)
-    
-    sigue_izquierda = __corroboro_palabra(palabra_izq,dificultad)
+    corroboro = __corroboro_palabra(palabra_izq,dificultad)
 
-    #sigue_derecha = __corroboro_palabra(palabra_der)
+    sigue = corroboro[0]
+    palabra = corroboro[1]
 
-    if(sigue_izquierda == True):
+    if(sigue == True):
     
         
         if(posiciones_validas.__posiciones_validas(palabra_izq)==True):
             
-            info_final = puntuacion.__puntuar_jugador(palabra_ordenada_izq,__configuracion,palabra_izq)
+            puntaje = puntuacion.__puntuar_jugador(palabra_ordenada_izq,__configuracion,palabra_izq)
             ok = True
         else:
 
-            info_final = "TU PALABRA ES CORRECTA PERO, NO LA UBICASTE CORRECTAMENTE!!!"
+            puntaje = 0
             ok = False
     
-    #elif(sigue_derecha == True):
-    #
-    #    
-    #    if(posiciones_validas.__posiciones_validas(palabra_der)==True):
-    #        
-    #        info_final = puntuacion.__puntuar_jugador(palabra_ordenada_der,__configuracion,palabra_der)
-    #        ok = True
-    #    else:
-    #
-    #        info_final = "TU PALABRA ES CORRECTA PERO, NO LA UBICASTE CORRECTAMENTE!!!"
-    #        ok = False
-    #
     else:
 
-        info_final = "INGRESASTE UNA PALABRA INCORRECTA, MEJOR SUERTE EN EL PROXIMO TURNO"
+        puntaje = 0
         ok=False
     
-    return(ok,info_final)
+    return(ok,puntaje,palabra)
 #-----------------------------------------------------------------------------------
 
