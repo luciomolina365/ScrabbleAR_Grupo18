@@ -25,14 +25,18 @@ class Bolsa:
     #GETTERS
                     
     def getLetrasDisponibles(self):
+
         """Devuelve una lista que representa las fichas de la bolsa."""
+        
         lista = copy.deepcopy(self.__letras_disponibles)
         return lista                                                        #EJ.  ["A", "B", "V", "Z"]
           
 
 
     def getBolsa(self):
+
         """Devuelve un diccionario que representa las letras de la bolsa, con sus cantidades y valores."""
+
         dic = copy.deepcopy(self.__bolsa)
         return dic                                                          #EJ.  {'A':{'cantidad':11,'valor':1} , 'B':{'cantidad':3,'valor':1}}
 
@@ -46,7 +50,9 @@ class Bolsa:
 
 
     def getTERMINO_Bolsa(self):
+
         """Retorna un True en caso que la bolsa este vacia, en caso contrario devuelve False."""
+
         return self.__TERMINO                                               #boolean
 
 
@@ -59,7 +65,7 @@ class Bolsa:
         """Devuelve un diccionario de diccionarios segun 
         la cantidad de fichas ingresada y actualiza la bolsa."""
     
-        if cant_fichas > self.__getCantFichasTotales():                                                   #Si no tengo suficientes fichas
+        if cant_fichas > self.__getCantFichasTotales():                                                 #Si no tengo suficientes fichas
             #POPUP SE TERMINA EL JUEGO POR FALTA DE FICHAS
             #print(f"fichas pedidas = {cant_fichas} / total = {self.__getCantFichasTotales()}")
             sg.popup("No hay suficientes fichas en la bolsa")                                           #Popup y devuelve un dic vacio
