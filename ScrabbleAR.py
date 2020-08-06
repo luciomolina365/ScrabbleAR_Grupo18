@@ -4,7 +4,9 @@ import Tablero
 from Menu_configuracion import jugar
 
 def Menu_principal():
+    
     sg.theme("LightBlue4")
+    
     def mostrar_partidas_guardadas(lista):
 
         """Muestra una nueva ventana con una listbox de todas las partidas posibles a cargar
