@@ -10,24 +10,31 @@ def Menu_principal():
         """Muestra una nueva ventana con una listbox de todas las partidas posibles a cargar
         y al confirmar retorna la direccion a cargar."""
 
-        layout=[[sg.Text('Seleccione la partida a cargar',text_color="white",background_color="black")],
+        layout = [[sg.Text('Seleccione la partida a cargar',text_color="white",background_color="black")],
             [sg.Listbox(lista, size = (70,15) , key = "listBox" , select_mode=False)],
             [sg.Button("Confirmar",key="confirmar"),sg.Cancel(button_color=('black','white'))]]
 
         window = sg.Window('Partidas guardadas', layout,background_color="black")
         datos = None
+        
         while True:
-            event, values= window.Read()
-            if event == "Cancel":
+            event, values = window.Read()
+            
+            if event == sg.WIN_CLOSED:
                 window.Close()
-                break
-            if event == "confirmar":
-                if datos == None and values["listBox"] != []:
-                    datos = values["listBox"][0]
+                break      
+
+            else:
+                if event == "Cancel":
                     window.Close()
-                    return datos
-                else:
-                    pass
+                    break
+                if event == "confirmar":
+                    if datos == None and values["listBox"] != []:
+                        datos = values["listBox"][0]
+                        window.Close()
+                        return datos
+                    else:
+                        pass
 
 
     def mostrar_ten(topFacil,topMedio,topDificil):
@@ -45,27 +52,32 @@ def Menu_principal():
         while True:
             event, values = window.Read()
             
-            if event == "Cancel":
+            if event == sg.WIN_CLOSED:
                 window.Close()
-                break
-            
-            if event == "dificil":
-                if topDificil == []:
-                    window["listBox"].update(No_hay_partidas)
-                else:
-                    window["listBox"].update(topDificil)
-            
-            if event == "medio":
-                if topMedio == []:
-                    window["listBox"].update(No_hay_partidas)
-                else:
-                    window["listBox"].update(topMedio)    
-            
-            if event == "facil":
-                if topFacil == []:
-                    window["listBox"].update(No_hay_partidas)
-                else:
-                    window["listBox"].update(topFacil)
+                break      
+        
+            else:
+                if event == "Cancel":
+                    window.Close()
+                    break
+                
+                if event == "dificil":
+                    if topDificil == []:
+                        window["listBox"].update(No_hay_partidas)
+                    else:
+                        window["listBox"].update(topDificil)
+                
+                if event == "medio":
+                    if topMedio == []:
+                        window["listBox"].update(No_hay_partidas)
+                    else:
+                        window["listBox"].update(topMedio)    
+                
+                if event == "facil":
+                    if topFacil == []:
+                        window["listBox"].update(No_hay_partidas)
+                    else:
+                        window["listBox"].update(topFacil)
 
 
 
