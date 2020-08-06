@@ -150,7 +150,7 @@ def __convertir_Json_A_Datos(datos):
 #Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora --> Objetos
 #puntaje_J , puntaje_C --> int
 #dificultad --> int del 1 al 3
-def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora , puntaje_J , puntaje_C , dificultad):   
+def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_computadora , puntaje_J , puntaje_C , dificultad , lista_de_jugadas = []):   
     
     """Guarda los datos de la partida, en la carpeta "Archivos\\partidas" para poder seguirla en otro momento  - - - 
     También actualiza "cant_partidas.txt" de la carpeta correspondiente."""
@@ -165,6 +165,7 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
     datos["Puntaje_jugador"] = puntaje_J
     datos["Puntaje_computadora"] = puntaje_C
     datos["Dificultad"] = dificultad
+    datos["Jugadas"] = lista_de_jugadas
 
     datos = __convertir_Datos_A_Json(datos)
     
