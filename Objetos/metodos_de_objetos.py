@@ -1,16 +1,15 @@
 
-from Archivos.metodos_de_archivos  import cargarPartida
-from Archivos.metodos_de_archivos  import guardar_partida
-from Objetos.CLASS_bolsa import Bolsa
-from Objetos.CLASS_tablero import Tablero
-from Objetos.CLASS_temporizador import Temporizador
-from Objetos.CLASS_atril import Atril
+from CLASS_bolsa import Bolsa
+from CLASS_tablero import Tablero
+from CLASS_temporizador import Temporizador
+from CLASS_atril import Atril
 
 
 
 def instanciar_objetos(Bol , Table , Temp , Atril_jugador , Atril_computadora , config):
 
     """Recibe los datos en diccionarios e instancia los objetos para su uso."""
+
     Bol = Bolsa(config["Bolsa"])
     Table = Tablero(config["Tablero"])
     Temp = Temporizador(int(config["Temporizador"]["minutos"]) , int(config["Temporizador"]["segundos"]))
