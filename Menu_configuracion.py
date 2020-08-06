@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 import webbrowser as wb
 import Tablero
-from Archivos.metodos_de_archivos import definir_configuracion
+from Archivos.metodos_de_archivos import definir_configuracion,leer_reglas
 
 def jugar():
     def menu():
@@ -15,7 +15,7 @@ def jugar():
         fichas_propias = {}  #creo un dic para saber si el jugador modifica el valor o la cantidad de una letra
 
         # ------ Menu Definicion ------ #
-        menu_def = [['&Help', ('Link del Repositorio')],
+        menu_def = [['&Help', ('Link del Repositorio'),("Reglas del juego")],
                     ]
 
 
@@ -61,6 +61,10 @@ def jugar():
     
                 if(event=="Link del Repositorio"):         #lleva al link del repositorio si se apreta help y link del repositorio
                     wb.open("https://github.com/luciomolina365/ScrabbleAR_Grupo18", new=0, autoraise=True)
+                
+                if event=="Reglas del juego":
+                    texto=leer_reglas()
+                    print(texto)
     
                 elif(event=="Cancel"):
                     break
