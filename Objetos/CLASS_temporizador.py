@@ -80,6 +80,7 @@ class Temporizador:
         return self.__TERMINO                         #boolean
 
     def getTiempo(self):
+        
         """Retorna un diccionario con los minutos y segundos actuales al llamado del metodo."""
         
         dic = copy.deepcopy({"minutos": int(self.getMinutos()), "segundos": int(self.getSegundos())})

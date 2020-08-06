@@ -37,12 +37,16 @@ class Atril:
     #GETTERS
 
     def getEstado(self):
+
         """Devuelve una copia del diccionario que representa el atril."""
+
         dic = copy.deepcopy(self.__estado)
         return dic                                                    #EJ. {'A':{'cantidad':2,'valor':1} , 'B':{'cantidad':3,'valor':1}}                                           
 
     def getFichas_disponibles(self):
+
         """Devuelve una lista que representa las fichas del atril."""
+        
         lista = copy.deepcopy(self.__fichas_disponibles)
         return  lista                                                 #EJ. ["T", "O", "P", "O"]
 
