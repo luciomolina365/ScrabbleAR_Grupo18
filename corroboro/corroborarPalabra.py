@@ -31,8 +31,7 @@ def __obtengo_diccionario_trabajado(__diccionario_ordenado):
 
 
 def __corroboro_palabra(diccionario_trabajado,dificultad):
-    print("dificultad")
-    print(dificultad)
+
     palabra=""
     palabra_lista=[]
 
@@ -49,8 +48,6 @@ def __corroboro_palabra(diccionario_trabajado,dificultad):
     #Obtengo del parse la palabra para ir corroborando con el lexicon
     pal_final = pal[0][0]
        
-    print("pal_final")
-    print(pal_final[0])
     #Inicializo un booleano en false, esto es para saber si encontro o no la palabra
     ok=False
     for x in lexicon.keys():
@@ -125,6 +122,3 @@ def __retorno_informacion(__palabra,__configuracion,dificultad):
     return(ok,info_final)
 #-----------------------------------------------------------------------------------
 
-
-
-#print(corroboro_palabra.__doc__)
