@@ -1,6 +1,11 @@
 import PySimpleGUI as sg
+
 import webbrowser as wb
+
 import Tablero
+
+import ScrabbleAR 
+
 from Archivos.metodos_de_archivos import definir_configuracion,leer_reglas
 
 def jugar():
@@ -15,13 +20,14 @@ def jugar():
         fichas_propias = {}  #creo un dic para saber si el jugador modifica el valor o la cantidad de una letra
 
         # ------ Menu Definicion ------ #
-        menu_def = [['&Help', ('Link del Repositorio'),("Reglas del juego")],
-                    ]
-
+        menu_def = [
+                    ['&Help', ('Link del Repositorio')],
+                    [ "&Reglas",('Reglas del juego')]
+                   ]
 
         
         layout = [
-            [sg.Menu(menu_def, tearoff=True)],
+            [sg.Menu(menu_def, tearoff=False)],
             [sg.Text('Configuracion del juego scrabble!', size=(26,1), justification='center', font=("Helvetica", 25), relief=sg.RELIEF_RIDGE)],
             [sg.Frame(layout=[
             [sg.Checkbox('Datos predefinidos', size=(29,1),default=True,key="_predefinido_",enable_events=True),sg.Text("(Valores predefinidos para las letras)")],
@@ -62,11 +68,13 @@ def jugar():
                 if(event=="Link del Repositorio"):         #lleva al link del repositorio si se apreta help y link del repositorio
                     wb.open("https://github.com/luciomolina365/ScrabbleAR_Grupo18", new=0, autoraise=True)
                 
-                if event=="Reglas del juego":
-                    texto=leer_reglas()
-                    print(texto)
+                if event == "Reglas del juego":
+                    reglas = leer_reglas()
+                    sg.popup(reglas , title = "Reglas")
     
                 elif(event=="Cancel"):
+                    window.Close()
+                    ScrabbleAR.Menu_principal()
                     break
                 
                 elif(event == "__jugar__"):        #indico en una variable q dificultad va a tener el juego

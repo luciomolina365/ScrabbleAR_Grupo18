@@ -9,7 +9,7 @@ def leer_reglas():
     """Retorna un string con las reglas del juego."""
 
     f = open("reglas_del_juego.txt","r")
-    aux = f.readlines()
+    aux = f.read()
     f.close()
 
     return aux
