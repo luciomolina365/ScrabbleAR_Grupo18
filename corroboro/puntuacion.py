@@ -1,6 +1,8 @@
 def __puntuar_jugador(__palabra,__configuracion,__palabra_lista):
+    
     """ Funcion para obtener la puntuacion del jugador, en base a la palabra ingresada, vamos a obtener la puntuacion de cada letra y ademas, la posicion de esta letra,
      con esto, verificamos si la letra en esa posicion, tiene, recompensa o trampa, y que tipo de recompensa o trampa tiene"""
+    
     ok_x2 = False
     ok_x3 = False
     puntuacionActual = 0

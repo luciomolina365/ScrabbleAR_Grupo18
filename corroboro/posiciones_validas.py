@@ -1,9 +1,8 @@
-#Asi es el diccionario que tiene que entrar a esta funcion
-#dic2 = {(1, 8): 'O', (3, 9): 'O', (4, 8): 'Z', (2, 8): 'RR'}
-
-
 def __posiciones_validas(diccionario):
     
+    """Esta funcion lo que hace es verificar las posiciones ingresadas desde el tablero en base a la palabra armada por el jugador o la IA, lo que verifica es si: esta palabra esta ingresada correctamente en espacios
+     continuos"""
+
     #Obtengo una lista de tuplas de las posiciones para manejarla a mi gusto
     posiciones = []
     for k in diccionario:
