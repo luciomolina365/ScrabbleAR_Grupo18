@@ -4,6 +4,16 @@ from os import rename
 from os import remove
 from datetime import date
 
+def leer_reglas():
+
+    """Retorna un string con las reglas del juego."""
+
+    f = open("reglas_del_juego.txt","r")
+    aux = f.readlines()
+    f.close()
+
+    return aux
+
 
 #dificultad --> int del 1 al 3
 def __cargarConfiguracionPorDefecto(dificultad):
