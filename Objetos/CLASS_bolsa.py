@@ -65,10 +65,7 @@ class Bolsa:
         """Devuelve un diccionario de diccionarios segun 
         la cantidad de fichas ingresada y actualiza la bolsa."""
     
-        if cant_fichas > self.__getCantFichasTotales():                                                 #Si no tengo suficientes fichas
-            #POPUP SE TERMINA EL JUEGO POR FALTA DE FICHAS
-            #print(f"fichas pedidas = {cant_fichas} / total = {self.__getCantFichasTotales()}")
-            sg.popup("No hay suficientes fichas en la bolsa")                                           #Popup y devuelve un dic vacio
+        if cant_fichas > self.__getCantFichasTotales():                                                 #Si no tengo suficientes fichas                                            
             self.__TERMINO = True
             return {}
 

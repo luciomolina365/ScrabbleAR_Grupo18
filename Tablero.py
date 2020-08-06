@@ -495,6 +495,7 @@ def juego(Configuracion):
 
     if OBJETOS["Bolsa"].getTERMINO_Bolsa() or OBJETOS["Temporizador"].getTERMINO_Temporizador() or TERMINO:
         nombre = nombreFinalizada()
+        print(OBJETOS["Bolsa"].getBolsa())
         guardar_partida_finalizada(puntaje_J , Configuracion["Dificultad"] , nombre)
 
     Menu_principal()
