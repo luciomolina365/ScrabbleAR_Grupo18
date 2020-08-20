@@ -2,6 +2,8 @@ from pattern.text.es import parse, verbs, split, lexicon, spelling
 from jugabilidad import puntuacion
 from jugabilidad import posiciones_validas
 
+#diccionario_que_recibe_del_tablero = {(x,y) : {letra:'', bonus:booleano, tipo_de_bonus:string, trampa:booleano, tipo_de_trampa:string}}
+
 def __ordenar_info(diccionario_que_recibe_del_tablero):
     """ Recibo un diccionario enviado por el tablero, trabajado previamente para que llegue de el estilo que esta arriba,
     lo ordeno de menor a mayor y lo transformo a string para usarlo y corroborarlo con si es un sustantivo, adjetivo o verbo """
@@ -42,6 +44,8 @@ def __corroboro_palabra(diccionario_trabajado,dificultad):
     #Hago el parse para que me identifique la palabra
     pal = palabra.lower()
     pal = parse(pal).split()
+
+    #parse = [[[zzz,zzz,zzz,zzz]]]
 
     #Obtengo del parse la palabra para ir corroborando con el lexicon
     pal_final = pal[0][0]

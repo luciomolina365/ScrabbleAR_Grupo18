@@ -53,13 +53,9 @@ def __posicion_inicio(dificultad):
         x = random.randint(0,18)
         y = random.randint(0,18)
         pos = (x, y)
-    elif(dificultad==2):
+    else:
         x = random.randint(0,16)
         y = random.randint(0,16)
-        pos = (x, y)
-    else:
-        x = random.randint(0,14)
-        y = random.randint(0,14)
         pos = (x, y)
     
     return pos
@@ -108,8 +104,8 @@ def __pos_valida_IA(pos,palabra,dificultad,__tablero):
             
             #me muevo por el eje Y de manera descendente
             for i in range(len(palabra)):
-                if((pos[0]+i<=fin_tablero) and sigo):
-                    if(__tablero[(pos[0]+i,pos[1])]['letra'] !=""):
+                if((pos[0]+i<=fin_tablero) and sigo):         
+                    if(__tablero[(pos[0]+i,pos[1])]['letra'] != None): #Estaba con "" pero tenia que estar con None, ya que verificamos datos con Null
                     #if(tablero.getDatosEnCoor((pos[0],pos[1]-i))['letra'] !=""):
                         sigo=False
                 else:
@@ -252,7 +248,7 @@ def __juega_IA(dificultad, tablero, atril, primer_turno, configuracion):
                 #empiezo a preguntar por las posiciones, para armar la estructura que enviare a corroboro palabra
                 posiciones = __pos_valida_IA(pos,palabra,dificultad,tablero)
 
-                #posiciones[0] me retorna si habia lugar para insertar la palabra en 4 direcciones distintas
+                #posiciones[0] me retorna si habia lugar para insertar la palabra en 2 direcciones distintas
                 pos_ok = posiciones[0]
 
                 if(pos_ok == True):
@@ -281,6 +277,7 @@ def __juega_IA(dificultad, tablero, atril, primer_turno, configuracion):
 
             else:
                 palabra = __armo_palabra_IA(atril,cantLetras)
+    
     if(ok==True):
         for letra in range(len(palabra)):
             pal_armada = pal_armada + palabra[letra]
