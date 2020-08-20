@@ -1,7 +1,6 @@
 import json
 import PySimpleGUI as sg
-from os import rename
-from os import remove
+import os
 from datetime import date
 
 def leer_reglas():
@@ -20,7 +19,9 @@ def __cargarConfiguracionPorDefecto(dificultad):
 
     """Devuelve los datos de una configuracion por defecto dependiendo de la dificultad que recibe por parametro."""
 
-    direccion = "Archivos\\configuracion\\por_defecto_" + str(dificultad) +".json"
+    archivo = 'por_defecto_' + str(dificultad) + ".json"
+    direccion = os.path.join("Archivos",'configuracion', archivo)
+
     datos = cargarPartida(direccion)
     
     return datos
@@ -38,37 +39,41 @@ def cargarPartida(direccion):
         return datos
 
 
-def formatear_cadena_de_directorio(directorio):
+# def formatear_cadena_de_directorio(directorio):
 
-    """A partir de una cadena de direccion local, genera una direccion relativa."""
+#     """A partir de una cadena de direccion local, genera una direccion relativa."""
 
-    lista = directorio.split("/")
-    nueva = []
-    OK = False
-    for directorio in lista:
+#     lista = directorio.split("/")
+#     nueva = []
+#     OK = False
+#     for directorio in lista:
         
-        if directorio == "Archivos":
-            OK = True
+#         if directorio == "Archivos":
+#             OK = True
         
-        if OK:    
-            nueva.append(directorio)
-            nueva.append("\\")
+#         if OK:    
+#             nueva.append(directorio)
+#             nueva.append("\\")
     
-    nueva[len(nueva)-1] = ""
-    direccion = ""
-    for elemento in nueva:
-        if elemento == "\\":
-            elemento = elemento + "\\"
-        direccion = direccion + elemento
+#     nueva[len(nueva)-1] = ""
+#     direccion = ""
+#     for elemento in nueva:
+#         if elemento == "\\":
+#             elemento = elemento + "\\"
+#         direccion = direccion + elemento
 
-    return str(direccion)
+#     return str(direccion)
 
 def __cant_partidas(Finalizada = False):
 
     if Finalizada:
-        direccion = "Archivos\\partidas_FINALIZADAS\\cant_partidas.txt"
+        archivo = "cant_partidas.txt"
+        direccion = os.path.join("Archivos",'partidas_FINALIZADAS', archivo)
+
     else:
-        direccion = "Archivos\\partidas\\cant_partidas.txt"
+        archivo = "cant_partidas.txt"
+        direccion = os.path.join("Archivos",'partidas', archivo)
+        
 
     f = open(direccion,"r")
     aux = f.readlines()
@@ -92,26 +97,26 @@ def actualizar_cant_partidas_guardadas(Finalizada = False):
 
     """Actualiza cant_partidas.txt, para, segun sus datos, permitir o no cargar partida."""
 
-    predef = "Archivos\\partidas"
-    if Finalizada:                                                  
-        predef =  predef + "_FINALIZADAS\\partida_guardada_" + "FINALIZADA_"
+    
+    if Finalizada:
+        carpeta = 'partidas_FINALIZADAS'
+        par = "partida_guardada_FINALIZADA_"
+
+        
     else:
-        predef = predef + "\\partida_guardada_"
+        carpeta = 'partidas'
+        par = "partida_guardada_"
 
     i = 1
     while True:                                                     #Cuenta los archivos de partida NO FINALIZADAS 
 
         try:
             
-            direccion = predef + str(i) + ".json"
+            archivo = par + str(i) + ".json"
+
+            direccion = os.path.join("Archivos", carpeta , archivo)
 
             with open(direccion, 'r') as archivo:
-                
-                datos = json.load(archivo,encoding='utf-8')
-                
-                if Finalizada == False:
-                    datos = __convertir_Json_A_Datos(datos) 
-
                 archivo.close()
 
             i = i + 1  
@@ -120,10 +125,13 @@ def actualizar_cant_partidas_guardadas(Finalizada = False):
             break
     
 
-    if Finalizada:                                                  #Actualiza la cantidad de partidad disponibles
-        direccion = "Archivos\\partidas_FINALIZADAS\\cant_partidas.txt"
+    if Finalizada:                                                  #Actualiza la cantidad de partidas disponibles
+        archivo = "cant_partidas.txt"
+        direccion = os.path.join("Archivos",'partidas_FINALIZADAS', archivo)
+
     else:
-        direccion = "Archivos\\partidas\\cant_partidas.txt"
+        archivo = "cant_partidas.txt"
+        direccion = os.path.join("Archivos",'partidas', archivo)
 
     i = i - 1             
     f = open(direccion,"w")
@@ -181,7 +189,10 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
     
     actualizar_cant_partidas_guardadas()
     indice = __cant_partidas()
-    direccion = "Archivos\\partidas\\partida_guardada_" +  str(indice+1)  + ".json" 
+
+
+    archivo = "partida_guardada_" +  str(indice+1)  + ".json"
+    direccion = os.path.join("Archivos",'partidas', archivo)
     
     with open(direccion, 'w') as archivo:
             json.dump(datos, archivo)        
@@ -198,7 +209,10 @@ def guardar_partida_finalizada(puntaje_J , dificultad , nombre):
 
     actualizar_cant_partidas_guardadas(True)
     indice = __cant_partidas(True)
-    direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_" + str(indice+1) +".json"
+
+     
+    archivo = "partida_guardada_FINALIZADA_" +  str(indice+1)  + ".json"
+    direccion = os.path.join("Archivos",'partidas_FINALIZADAS', archivo)
     
     datos = {}
 
@@ -240,9 +254,11 @@ def TopTen_de_jugadores(dificultad):
     cant = __cant_partidas(True)
     
     lista = []
-    for i in range(1,cant+1):                                           
+    for i in range(1,cant+1):
 
-        direccion = "Archivos\\partidas_FINALIZADAS\\partida_guardada_FINALIZADA_" + str(i) + ".json"
+        archivo = "partida_guardada_FINALIZADA_" +  str(i)  + ".json"
+        direccion = os.path.join("Archivos",'partidas_FINALIZADAS', archivo)                                           
+
 
         with open(direccion, 'r') as archivo:
             datos = json.load(archivo , encoding='utf-8')
@@ -288,7 +304,8 @@ def lista_de_partidas_a_cargar():
 
         try:
             
-            direccion = "Archivos\\partidas\\partida_guardada_" + str(i) + ".json"
+            archivo = "partida_guardada_" +  str(i)  + ".json"
+            direccion = os.path.join("Archivos",'partidas', archivo) 
 
             with open(direccion, 'r') as archivo:
                 archivo.close()
