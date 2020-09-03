@@ -24,7 +24,7 @@ Imagenes:
 
 
 Observaciones:
-    - El primer turno siempre, no importa de quien sea, la palabta iniciara o pasara por el medio del tablero. Casillero de inicio de partida.
+    - El primer turno siempre, no importa de quien sea, la palabra iniciara o pasara por el medio del tablero. Casillero de inicio de partida.
     - La puntuacion puede ser negativa, o restar puntos, dependiendo donde se ubique la jugada en el tablero.
     - Entre los integrantes decidimos que al POSPONER, se pueda guardar mas de una partida, para hacerlo ver mas como un juego y no quede tan limitado.
     - El juego FINALIZA, si: se termina el tiempo, ya no pueden obtenerse mas fichas de la bolsa o si el jugador elije FINALIZAR la partida.
