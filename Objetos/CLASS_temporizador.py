@@ -71,10 +71,13 @@ class Temporizador:
     #GETTERS
     
     def getMinutos(self):
-        return self.__aux_min                         #int
+        return self.__min                         #int
 
     def getSegundos(self):
-        return self.__aux_seg                         #int
+        if self.__seg < 10:
+            return "0"+str(self.__seg)            #str
+        else:
+            return self.__seg                     #int
 
     def getTERMINO_Temporizador(self):
         return self.__TERMINO                         #boolean

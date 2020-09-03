@@ -187,7 +187,7 @@ def juego(Configuracion):
         window = sg.Window('Seleccione las fichas a cambiar', layout, font='Courier 12',disable_close=True, no_titlebar = True ,  disable_minimize=True)
         Seleccionadas = []
         while True:
-          event, values= window.Read()
+          event, values = window.Read()
           
           if type(event)==int: 
                 aux = event
@@ -204,17 +204,16 @@ def juego(Configuracion):
 
   #una variable q sea jugador o computadora
     def actualizar_fichas(lista_a_borrar,Bolsa,window,Atril,evento,jugador):
-
         """Este metodo se usa en caso de q coloques una palabra correcta o q requieras devolver letras a la bolsa,
         si es en el caso de que alguno de que alguno formo una palabra correcta,se pide la cantidad de letras que 
         se utilizo para formar la plabra a la bolsa.
         En caso de que el evento fue repartir,intercambio las fichas de la bolsa
         En cualquiera de los dos casos, si lo hizo el jugador, se hara el update del atril"""
-        
         #evento = si es repartir
         #jugador = si es la maquina o el jugador
         if evento == True:
             #significa q el evento fue repartir
+                        
             nuevas = Bolsa.intercambiar_fichas(lista_a_borrar)
         else: #sino el evento fue pasar turno y era una palabra correcta
             nuevas = Bolsa.dameFichas(len(lista_a_borrar))
@@ -289,6 +288,9 @@ def juego(Configuracion):
 
     puntua = header + input_rows
 
+    
+
+    
     titulo =  [
     [sg.Text(size=(50,1), key='-OUT-')],
     [sg.Text('Tiempo restante'), sg.T(' '*1), sg.Text(size=(10,1), key='-TEMP OUT-')]
@@ -345,7 +347,8 @@ def juego(Configuracion):
     dic = {}
     lista_a_borrar = []
     Lista_k = []
-    window.Read(timeout=10)
+
+    window.Read(timeout = 10)
     window['-player-'].update(puntaje_J)
     window['-compu-'].update(puntaje_C)
     window['-OUT-'].update("Buena suerte!!")
