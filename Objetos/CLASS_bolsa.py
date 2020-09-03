@@ -113,14 +113,12 @@ class Bolsa:
                 else:
                     dic[letra] = {"cantidad":1,"valor":estado[letra]["valor"]}
             
-            self.__eliminar_variable(dic_a_intercambiar)
+            
       
 
         self.devolverFichas(dic) 
 
-        cant = self.__contar_fichas(dic)                                                                #Contamos la cantidad de fichas a dar
-     
-        self.__eliminar_variable(dic)                                                      
+        cant = self.__contar_fichas(dic)                                                                #Contamos la cantidad de fichas a dar                                                    
         
         self.__actualizarLetrasDisponibles()                                                         
 
@@ -136,14 +134,6 @@ class Bolsa:
         return cant                                             #int
 
 
-    def __eliminar_variable(self,variable):
-        if type(variable) in (list , dict):
-            variable.clear()
-
-        del variable
-
-
-    
 
 #------------------------------------------------------------------------------------------------------------------------    
 # Molina, Lucio Felipe - 15980/7        

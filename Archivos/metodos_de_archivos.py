@@ -199,7 +199,6 @@ def guardar_partida(Bolsa , Tablero, Temporizador , Atril_jugador , Atril_comput
             json.dump(datos, archivo)        
             archivo.close()
 
-    ##__eliminar_variable(datos) 
 
 #puntaje_J --> int
 #dificultad --> int del 1 al 3
@@ -227,8 +226,6 @@ def guardar_partida_finalizada(puntaje_J , dificultad , nombre):
             json.dump(datos, archivo)        
             archivo.close()
 
-    ##__eliminar_variable(datos)  ###
-
   
 #datos_del_menu --> {"minutos": * int positivo * , "dificultad" : * int del 1 al 3 * ,  "letras":  {'A':{'cantidad':11,'valor':1} , ... } }
 def definir_configuracion(datos_del_menu):
@@ -246,7 +243,6 @@ def definir_configuracion(datos_del_menu):
         for letra in datos_del_menu["letras"]:
             config_por_defecto["Bolsa"][letra] = datos_del_menu["letras"][letra]
     
-    ##__eliminar_variable(datos_del_menu)  ###
         
     return config_por_defecto
 
@@ -273,14 +269,12 @@ def TopTen_de_jugadores(dificultad):
         if datos["Dificultad"] == dificultad:
             lista.append({"Nombre":datos["Nombre"] , "Puntaje":datos["Puntaje_jugador"] , "Dificultad":datos["Dificultad"] , "Fecha":datos["Fecha"]})
 
-    ##__eliminar_variable(datos)  ###
 
     Todos = list(sorted(lista , key = lambda top: top["Puntaje"] , reverse=True))
     
-    ##__eliminar_variable(lista)  ###
-
     
     lista_formateada = []
+    posicion = 0
     for elemento in Todos:
         
         if elemento["Dificultad"] == 1:
@@ -296,9 +290,10 @@ def TopTen_de_jugadores(dificultad):
         puntaje = elemento["Puntaje"]
         fecha = elemento["Fecha"]
         
-        lista_formateada.append(f">>>{nombre} // {puntaje}pts // Dificultad {dificultad} // {fecha}")
+        posicion = posicion + 1
 
-    ##__eliminar_variable(Todos)  ###
+        lista_formateada.append(f">>> {posicion}__ {nombre} // {puntaje}pts // Dificultad {dificultad} // {fecha}")
+
 
     if len(lista_formateada) >= 10:
         return lista_formateada[:10]
@@ -331,12 +326,6 @@ def lista_de_partidas_a_cargar():
     
     return lista
 
-
-# def __eliminar_variable(variable):
-#     if type(variable) in (list , dict):
-#         variable.clear()
-
-#     del variable
 
 
 

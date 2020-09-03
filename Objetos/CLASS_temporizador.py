@@ -82,8 +82,12 @@ class Temporizador:
     def getTiempo(self):
         
         """Retorna un diccionario con los minutos y segundos actuales al llamado del metodo."""
+        try:
+            dic = copy.deepcopy({"minutos": int(self.getMinutos()), "segundos": int(self.getSegundos())})
+            
+        except ValueError:
+            dic = copy.deepcopy({"minutos": 0, "segundos": 0})
         
-        dic = copy.deepcopy({"minutos": int(self.getMinutos()), "segundos": int(self.getSegundos())})
         return  dic
 
     #====================================================================================================================
