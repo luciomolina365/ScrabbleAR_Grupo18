@@ -406,7 +406,6 @@ def juego(Configuracion):
                 dic[tupla] = OBJETOS["Tablero"].getDatosEnCoor(tupla)
                 dic[tupla]["letra"] = La_ficha
                 Lista_k.append(aux)
-                OBJETOS["Tablero"].setValorEnCoor(tupla,La_ficha)
                 La_ficha = ""
                 tupla = ""
             
@@ -485,6 +484,7 @@ def juego(Configuracion):
                 if(Bien == True):
                     
                     for i in dic.keys():
+                        OBJETOS["Tablero"].setValorEnCoor(i,dic[i]["letra"])
                         lista_a_borrar.append(dic[i]["letra"]) 
 
                     puntaje = info[1]
