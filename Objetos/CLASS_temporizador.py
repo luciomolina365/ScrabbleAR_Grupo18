@@ -21,14 +21,14 @@ class Temporizador:
 
         if cantActualizaciones == 100:
             
-            min = self.__min                          #Auxiliares del estado del objeto
+            min = self.__min                            #Auxiliares del estado del objeto
             seg = self.__seg
             aux_min = self.__aux_min
             aux_seg = self.__aux_seg
             TERMINO = self.__TERMINO
 
             
-            aux_min = min                             #Uso los valores, achico el tiempo y lo formateo para mostrarlo en pantalla
+            aux_min = min                               #Uso los valores, achico el tiempo y lo formateo para mostrarlo en pantalla
             aux_seg = seg    
 
             if seg == 0:
@@ -53,17 +53,17 @@ class Temporizador:
 
             seg = seg - 1
 
-            self.__min = min                          #Actualizo el estado del objeto
+            self.__min = min                            #Actualizo el estado del objeto
             self.__seg = seg
             self.__aux_min = aux_min
             self.__aux_seg = aux_seg
             self.__TERMINO = TERMINO
 
-            cantActualizaciones = 0                   #Reinicio el contador
-            return cantActualizaciones                #int
+            cantActualizaciones = 0                     #Reinicio el contador
+            return cantActualizaciones                  #int
         else:
 
-            return cantActualizaciones                #Retorno el contador como estaba (int)
+            return cantActualizaciones                  #Retorno el contador como estaba (int)
         
 
 
@@ -71,16 +71,25 @@ class Temporizador:
     #GETTERS
     
     def getMinutos(self):
-        return self.__min                         #int
+        if self.__min == -1:
+            return "0"                                  #str
+        else:
+            return self.__min                           #int
 
     def getSegundos(self):
-        if self.__seg < 10:
-            return "0"+str(self.__seg)            #str
+
+        if self.__min == -1:
+            return "00"                                 #str
+        
         else:
-            return self.__seg                     #int
+            
+            if self.__seg < 10:
+                return "0" + str(self.__seg)            #str
+            else:
+                return self.__seg                       #int
 
     def getTERMINO_Temporizador(self):
-        return self.__TERMINO                         #boolean
+        return self.__TERMINO                           #boolean
 
     def getTiempo(self):
         
