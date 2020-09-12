@@ -187,7 +187,7 @@ def juego(Configuracion):
         window = sg.Window('Seleccione las fichas a cambiar', layout, font='Courier 12',disable_close=True, no_titlebar = True ,  disable_minimize=True)
         Seleccionadas = []
         while True:
-          event, values= window.Read()
+          event, values = window.Read()
           
           if type(event)==int: 
                 aux = event
@@ -211,19 +211,12 @@ def juego(Configuracion):
         En cualquiera de los dos casos, si lo hizo el jugador, se hara el update del atril"""
         #evento = si es repartir
         #jugador = si es la maquina o el jugador
-        if evento==True:
+        if evento == True:
             #significa q el evento fue repartir
-            estado=Atril.getEstado()
-            dic={}
-            for letra in lista_a_borrar:
-                if letra in dic.keys():
-                    dic[letra]["cantidad"]=dic[letra]["cantidad"]+1
-                else:
-                    dic[letra]={"cantidad":1,"valor":estado[letra]["valor"]}
-            
-            nuevas=Bolsa.intercambiar_fichas(dic)
+                        
+            nuevas = Bolsa.intercambiar_fichas(lista_a_borrar)
         else: #sino el evento fue pasar turno y era una palabra correcta
-            nuevas=Bolsa.dameFichas(len(lista_a_borrar))
+            nuevas = Bolsa.dameFichas(len(lista_a_borrar))
         
         Atril.sacar_varias_fichas(lista_a_borrar)
 
@@ -295,6 +288,9 @@ def juego(Configuracion):
 
     puntua = header + input_rows
 
+    
+
+    
     titulo =  [
     [sg.Text(size=(50,1), key='-OUT-')],
     [sg.Text('Tiempo restante'), sg.T(' '*1), sg.Text(size=(10,1), key='-TEMP OUT-')]
@@ -351,7 +347,8 @@ def juego(Configuracion):
     dic = {}
     lista_a_borrar = []
     Lista_k = []
-    window.Read(timeout=10)
+
+    window.Read(timeout = 10)
     window['-player-'].update(puntaje_J)
     window['-compu-'].update(puntaje_C)
     window['-OUT-'].update("Buena suerte!!")
@@ -409,7 +406,6 @@ def juego(Configuracion):
                 dic[tupla] = OBJETOS["Tablero"].getDatosEnCoor(tupla)
                 dic[tupla]["letra"] = La_ficha
                 Lista_k.append(aux)
-                OBJETOS["Tablero"].setValorEnCoor(tupla,La_ficha)
                 La_ficha = ""
                 tupla = ""
             
@@ -488,6 +484,7 @@ def juego(Configuracion):
                 if(Bien == True):
                     
                     for i in dic.keys():
+                        OBJETOS["Tablero"].setValorEnCoor(i,dic[i]["letra"])
                         lista_a_borrar.append(dic[i]["letra"]) 
 
                     puntaje = info[1]

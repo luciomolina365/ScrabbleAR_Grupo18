@@ -1,6 +1,8 @@
+
 import PySimpleGUI as sg
 import random
 import copy
+
 class Bolsa:
 
     __TERMINO = False
@@ -41,11 +43,8 @@ class Bolsa:
 
 
     def __getCantFichasTotales(self):
-        cant = 0
-        for letra in self.__bolsa:
-            cant = cant + self.__bolsa[letra]["cantidad"]
 
-        return cant                                                         #int 
+        return  self.__contar_fichas(self.__bolsa)                          #int 
 
 
     def getTERMINO_Bolsa(self):
@@ -99,21 +98,40 @@ class Bolsa:
 
 
     #dic_a_intercambiar  --> diccionario de diccionarios  EJ. {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
+    # ó
+    #dic_a_intercambiar  --> lista de strings EJ. ["A","A","F","B"]
     def intercambiar_fichas(self,dic_a_intercambiar):
 
-        """Recibe un diccionario fichas y retorna otro diccionario con la misma cantidad de fichas."""         
-        
-        cant = 0
-        for letra in dic_a_intercambiar:                                                                #Contamos la cantidad de fichas a devolver
-            cant = cant + dic_a_intercambiar[letra]["cantidad"]
+        """Recibe un diccionario o una lista de fichas y retorna un diccionario con la misma cantidad de fichas."""  
 
-        self.devolverFichas(dic_a_intercambiar)                                                         
+        if type(dic_a_intercambiar) == list:                                                            #Si recibe una lista, la convierte a diccionario para procesarla
+            estado = self.getBolsa()
+            dic = {}
+            for letra in dic_a_intercambiar:
+                if letra in dic.keys():
+                    dic[letra]["cantidad"] = dic[letra]["cantidad"]+1
+                else:
+                    dic[letra] = {"cantidad":1,"valor":estado[letra]["valor"]}
+            
+            
+      
+
+        self.devolverFichas(dic) 
+
+        cant = self.__contar_fichas(dic)                                                                #Contamos la cantidad de fichas a dar                                                    
         
         self.__actualizarLetrasDisponibles()                                                         
 
         return self.dameFichas(cant)                           #EJ.  {}  o   {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
 
 
+    #dic --> diccionario de diccionarios  EJ. {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}}
+    def __contar_fichas(self, dic):
+        cant = 0
+        for letra in dic:                                                                             
+            cant = cant + dic[letra]["cantidad"]
+
+        return cant                                             #int
 
 
 

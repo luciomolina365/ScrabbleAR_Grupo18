@@ -3,6 +3,7 @@ import PySimpleGUI as sg
 import os
 from datetime import date
 
+
 def leer_reglas():
 
     """Retorna un string con las reglas del juego."""
@@ -241,6 +242,7 @@ def definir_configuracion(datos_del_menu):
     if datos_del_menu["letras"] != {}:
         for letra in datos_del_menu["letras"]:
             config_por_defecto["Bolsa"][letra] = datos_del_menu["letras"][letra]
+    
         
     return config_por_defecto
 
@@ -261,15 +263,18 @@ def TopTen_de_jugadores(dificultad):
 
 
         with open(direccion, 'r') as archivo:
-            datos = json.load(archivo , encoding='utf-8')
+            datos = json.load(archivo , encoding ='utf-8')
             archivo.close()
 
         if datos["Dificultad"] == dificultad:
             lista.append({"Nombre":datos["Nombre"] , "Puntaje":datos["Puntaje_jugador"] , "Dificultad":datos["Dificultad"] , "Fecha":datos["Fecha"]})
 
+
     Todos = list(sorted(lista , key = lambda top: top["Puntaje"] , reverse=True))
     
+    
     lista_formateada = []
+    posicion = 0
     for elemento in Todos:
         
         if elemento["Dificultad"] == 1:
@@ -285,7 +290,10 @@ def TopTen_de_jugadores(dificultad):
         puntaje = elemento["Puntaje"]
         fecha = elemento["Fecha"]
         
-        lista_formateada.append(f">>>{nombre} // {puntaje}pts // Dificultad {dificultad} // {fecha}")
+        posicion = posicion + 1
+
+        lista_formateada.append(f">>> {posicion}__ {nombre} // {puntaje}pts // Dificultad {dificultad} // {fecha}")
+
 
     if len(lista_formateada) >= 10:
         return lista_formateada[:10]
@@ -317,6 +325,8 @@ def lista_de_partidas_a_cargar():
             break
     
     return lista
+
+
 
 
 #------------------------------------------------------------------------------------------------------------------------
