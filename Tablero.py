@@ -403,7 +403,6 @@ def juego(Configuracion):
             if event == "_poner_" and La_ficha!="" and tupla!="" and event!= '__TIMEOUT__' :
                 window[aux].update(disabled=True, button_color=('black','white'))
                 window[tupla].update(La_ficha,disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
-                OBJETOS["Tablero"].setValorEnCoor(tupla,La_ficha)
                 cant_letras = cant_letras +1
                 dic[tupla] = OBJETOS["Tablero"].getDatosEnCoor(tupla)
                 dic[tupla]["letra"] = La_ficha
