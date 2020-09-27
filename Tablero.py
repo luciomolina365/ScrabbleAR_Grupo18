@@ -241,13 +241,13 @@ def juego(Configuracion):
 #---------------------------------------------------------------------------------------------------
 # Cargamos configuraciones
 
-    Bol = CLASS_bolsa.Bolsa
+    Bol = CLASS_bolsa.Bolsa                             #Creamos los objetos
     Table = CLASS_tablero.Tablero
     Temp = CLASS_temporizador.Temporizador
     Atril_computadora = CLASS_atril.Atril
     Atril_jugador =  CLASS_atril.Atril
 
-    OBJETOS = instanciar_objetos(Bol,Table,Temp,Atril_jugador,Atril_computadora,Configuracion)
+    OBJETOS = instanciar_objetos(Bol, Table, Temp, Atril_jugador, Atril_computadora, Configuracion)
 
     Turno = None
     if len(OBJETOS["Atril_jugador"].getFichas_disponibles()) == 0 and len(OBJETOS["Atril_computadora"].getFichas_disponibles()) == 0:
