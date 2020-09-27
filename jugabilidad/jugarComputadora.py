@@ -89,7 +89,6 @@ def __pos_valida_IA(pos,palabra,dificultad,__tablero):
             for i in range(len(palabra)):
                 if((pos[1]+i<=fin_tablero) and sigo ):
                     if(__tablero[(pos[0],pos[1]+i)]['letra'] != None):
-                    #if(tablero.getDatosEnCoor((pos[0]+i,pos[1]))['letra'] !=""):
                         sigo=False
                 else:
                     sigo = False
@@ -105,8 +104,7 @@ def __pos_valida_IA(pos,palabra,dificultad,__tablero):
             #me muevo por el eje Y de manera descendente
             for i in range(len(palabra)):
                 if((pos[0]+i<=fin_tablero) and sigo):         
-                    if(__tablero[(pos[0]+i,pos[1])]['letra'] != None): #Estaba con "" pero tenia que estar con None, ya que verificamos datos con Null
-                    #if(tablero.getDatosEnCoor((pos[0],pos[1]-i))['letra'] !=""):
+                    if(__tablero[(pos[0]+i,pos[1])]['letra'] != None):
                         sigo=False
                 else:
                     sigo=False
