@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 class Atril:
     
     #dic_de_letras --> diccionario de diccionarios (en formato especifico) EJ. {'A':{'cantidad':4,'valor':1} , 'B':{'cantidad':3,'valor':1}} (las cantidades suman 7)
-    def __init__(self,dic_de_letras):    
+    def __init__(self, dic_de_letras):    
         
         self.__estado = dic_de_letras
         self.__fichas_disponibles = []
@@ -15,7 +15,7 @@ class Atril:
             self.__cant_fichas = self.__cant_fichas + self.__estado[letra]["cantidad"]
 
     #letra --> string EJ. "A"
-    def __actualizar_letra(self,letra):
+    def __actualizar_letra(self, letra):
 
         if  self.__estado[letra]["cantidad"] == 0:                    #Saca la ficha que ya no esta
             del self.__estado[letra]
@@ -54,7 +54,7 @@ class Atril:
     #METODOS
 
     #letra --> string EJ. "A"
-    def sacar_ficha(self,letra):
+    def sacar_ficha(self, letra):
 
         """Recibe una letra y la saca del atril."""
         
@@ -74,7 +74,7 @@ class Atril:
 
 
     #dic_de_ficha --> diccionario de diccionarios   EJ. {'A':{'cantidad':2,'valor':1} , 'G':{'cantidad':1,'valor':1}}
-    def agregar_varias_fichas(self,dic_de_fichas):
+    def agregar_varias_fichas(self, dic_de_fichas):
 
         """Le AGREGA las fichas pasadas por parametro al Atril y lo actualiza"""
         

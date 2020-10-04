@@ -40,31 +40,6 @@ def cargarPartida(direccion):
         return datos
 
 
-# def formatear_cadena_de_directorio(directorio):
-
-#     """A partir de una cadena de direccion local, genera una direccion relativa."""
-
-#     lista = directorio.split("/")
-#     nueva = []
-#     OK = False
-#     for directorio in lista:
-        
-#         if directorio == "Archivos":
-#             OK = True
-        
-#         if OK:    
-#             nueva.append(directorio)
-#             nueva.append("\\")
-    
-#     nueva[len(nueva)-1] = ""
-#     direccion = ""
-#     for elemento in nueva:
-#         if elemento == "\\":
-#             elemento = elemento + "\\"
-#         direccion = direccion + elemento
-
-#     return str(direccion)
-
 def __cant_partidas(Finalizada = False):
 
     if Finalizada:
@@ -269,9 +244,7 @@ def TopTen_de_jugadores(dificultad):
         if datos["Dificultad"] == dificultad:
             lista.append({"Nombre":datos["Nombre"] , "Puntaje":datos["Puntaje_jugador"] , "Dificultad":datos["Dificultad"] , "Fecha":datos["Fecha"]})
 
-
     Todos = list(sorted(lista , key = lambda top: top["Puntaje"] , reverse=True))
-    
     
     lista_formateada = []
     posicion = 0
