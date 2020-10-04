@@ -15,6 +15,8 @@ from jugabilidad.jugarComputadora import __juega_IA, __fichas_a_intercambiar
 
 import os
 
+import platform
+sistema = platform.system()
 
 def juego(Configuracion):
     sg.theme('DarkPurple3')
@@ -63,11 +65,16 @@ def juego(Configuracion):
    #Creando tablero primera vez o al cargar
    #------------------------------------------------------------------------------------------------- 
 
+    if(sistema == "Linux"):
+        tam_letras_atril = (2, 1)
+    else:
+        tam_letras_atril = (3, 1)
+
     def cant_fichas_tablero_jugador(Lista_j): #Seteo cant fichas jugador
         """Se crea los botones del atril del jugador"""
         fichas = []
         for i in range(len(Lista_j)):
-            fichas.append(sg.Button(Lista_j[i], pad=(10,5), key=i,button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)))
+            fichas.append(sg.Button(Lista_j[i], pad=(10,5), key=i,button_color=('white', 'black'), size=tam_letras_atril, font=("Helvetica", 16)))
         return fichas
     
 
@@ -76,7 +83,7 @@ def juego(Configuracion):
         fichas de la IA"""
         fichas = []
         for i in Lista_c:
-            fichas.append(sg.Button("?", pad=(10,5), button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16),disabled=True))
+            fichas.append(sg.Button("?", pad=(10,5), button_color=('white', 'black'), size=tam_letras_atril, font=("Helvetica", 16),disabled=True))
         return fichas
     
     
@@ -177,31 +184,31 @@ def juego(Configuracion):
 
 
 
-    def cambiar_fichas(Atril,Window_principal,B,evento,jugador,medio):
+    def cambiar_fichas(Atril,Window_principal,B,evento,jugador):
         """este metodo se llamara en el caso de q se pida fichas a 
         la bolsa para intercambiar y a partir de ahi llama a actualizar_fichas.
         Se muestra una nueva ventana para elegir las fichas que el jugador quiere intercambiar"""
         Fichas = Atril.getFichas_disponibles()
-        layout =[
-                [sg.Button(Fichas[i], key=i,button_color=('white', 'black'), size=(3, 1), font=("Helvetica", 16)) for i in range(7)],
+        layout =[[sg.Button(Fichas[i], key=i,button_color=('white', 'black'), size=tam_letras_atril, font=("Helvetica", 16)) for i in range(7)],
                 [sg.Button("Confirmar",key="confirmar",font=("Helvetica", 9) ,button_color=('white','grey'))]]
        
-        window = sg.Window('Seleccione las fichas a cambiar', layout, font='Courier 12',disable_close=True, no_titlebar = True ,  disable_minimize=True)
+        window = sg.Window('Seleccione las fichas a cambiar', layout, font='Courier 12',disable_close=True, no_titlebar = True)
         Seleccionadas = []
+
         while True:
-          event, values = window.Read()
+            event, values = window.Read()
           
-          if type(event)==int: 
+            if type(event)==int: 
                 aux = event
                 dato = Fichas[event]
                 ficha_a_cambiar = formatear(dato)
                 window[event].update(disabled=True, button_color=('black','white'))
                 Seleccionadas.append(ficha_a_cambiar)
           
-          elif(event == "confirmar") and len(Seleccionadas) > 0:
-              actualizar_fichas(Seleccionadas,B,Window_principal,Atril,evento,jugador)
-              window.Close()
-              break
+            elif(event == "confirmar") and len(Seleccionadas) > 0:
+                actualizar_fichas(Seleccionadas,B,Window_principal,Atril,evento,jugador)
+                window.Close()
+                break
 
 
   #una variable q sea jugador o computadora
@@ -290,14 +297,10 @@ def juego(Configuracion):
 
     puntua = header + input_rows
 
-    
-
-    
     titulo =  [
     [sg.Text(size=(50,1), key='-OUT-')],
     [sg.Text('Tiempo restante'), sg.T(' '*1), sg.Text(size=(10,1), key='-TEMP OUT-')]
     ]
-
 
     if Configuracion["Dificultad"]==1:
         cant=19
@@ -413,7 +416,7 @@ def juego(Configuracion):
             if event == "__repartir__" and event != '__TIMEOUT__' and dic == {} and Turno == 0:
                 repartir = True
                 
-                cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir,Turno,medio)
+                cambiar_fichas(OBJETOS["Atril_jugador"],window,OBJETOS["Bolsa"],repartir,Turno)
                 
                 Turno=1
 

@@ -2,6 +2,10 @@ import PySimpleGUI as sg
 from Archivos import metodos_de_archivos
 import Tablero
 from Menu_configuracion import jugar
+import platform
+
+sistema = platform.system()
+        
 
 def Menu_principal():
     
@@ -84,22 +88,36 @@ def Menu_principal():
 
 
     """La ventana del menu principal donde se mostrara iniciar partida,
-    cargar partida (estara desabilitada si no hay partidas guardadas) y el top ten de los mejores puntajes."""
+    cargar partida (estara deshabilitada si no hay partidas guardadas) y el top ten de los mejores puntajes."""
 
     archivos = metodos_de_archivos
     archivos.actualizar_cant_partidas_guardadas()
 
+    """Manejaremos con variables los tamaños ya que al pasarlos de windows a linux, estos cambian y no queda visiblemente bien"""
+
+    if (sistema == "Linux"):
+        tam_iniciar = (10,3)
+        tam_cargar = (10,3)
+        tam_titulo = (26,1)
+        tam_top = (24,1)
+    else:
+        tam_iniciar = (10,3) 
+        tam_cargar = (10,3)
+        tam_titulo = (22,1)
+        tam_top = (22,1)       
+
+
     ok = archivos.hay_partidas_a_cargar()
-    Iniciar = [sg.Button("Iniciar Partida",size=(10,3),key="_iniciar_")]
+    Iniciar = [sg.Button("Iniciar Partida",size=tam_iniciar,key="_iniciar_")]
 
     if(ok == False):
-        Cargar = [sg.Button("Cargar Partida",size=(10,3),disabled=True, key="cargar")]
+        Cargar = [sg.Button("Cargar Partida",size=tam_cargar,disabled=True, key="cargar")]
     else:
-        Cargar = [sg.Button("Cargar Partida",size=(10,3),enable_events=True, key="cargar")]
+        Cargar = [sg.Button("Cargar Partida",size=tam_cargar,enable_events=True, key="cargar")]
 
-    titulo =  [[sg.Text("Scrabble", size=(22,1),auto_size_text=True,justification='center')]]
+    titulo =  [[sg.Text("Scrabble", size=tam_titulo,auto_size_text=True,justification='center')]]
 
-    Top=[[sg.Button(("Top Ten"),key="topTen",size=(22,1))]] 
+    Top=[[sg.Button(("Top Ten"),key="topTen",size=tam_top)]] 
 
 
     layout = titulo + [Iniciar + Cargar ] + Top
