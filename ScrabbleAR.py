@@ -4,6 +4,7 @@ import Tablero
 from Menu_configuracion import jugar
 import platform
 
+#Con esta funcion, logramos conseguir en que SO corre actualmente el programa, y con esto, darle un formato distinto para cada SO en que esta abierto el programa
 sistema = platform.system()
         
 

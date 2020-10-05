@@ -124,8 +124,6 @@ def juego(Configuracion):
         return tablero
 
 #---------------------------------------------------------------------------------------------------
-                
-
 
 #---------------------------------------------------------------------------------------------------
 #FINALIZANDO
@@ -149,7 +147,13 @@ def juego(Configuracion):
 
 
 
-#ACTUALIZAR TABLERO
+    #ACTUALIZAR TABLERO
+    #Con este IF resolvemos problemas de tamaños en el tablero por conflictos entre Windows y Linux
+    if(sistema == "Linux"):
+        size_image=(1, 12)
+    else:
+        size_image=(23, 20)
+
 #---------------------------------------------------------------------------------------------------
 
     def actualizando_tablero(dic,Tablero,window,Lista_k,medio):
@@ -178,9 +182,9 @@ def juego(Configuracion):
                                 window[i].update("",disabled=False,image_filename=os.path.join("imagenes",'palabra x3.png'),image_size=(25, 22))
                         else:
                             window[i].update("",disabled=False,image_filename=os.path.join("imagenes",'GRIS.png'),image_size=(25, 22))
-            
+
             for i in Lista_k:
-                window[i].update(disabled=False, button_color=('white', 'black'))
+                window[i].update(disabled=False, button_color=('white', 'black'), image_size=size_image)
 
 
 
@@ -307,15 +311,29 @@ def juego(Configuracion):
         size_poner=(13, 1)
         size_repartir=(40,2)
         size_pasar=(40,2)
-        size_largo_listbox=(20,39)
         font_size_fichas_jugador=9
+
     else:     
         cant=17 
         size_poner=(7, 1)
         size_repartir=(25,1)
         size_pasar=(25,1)
-        size_largo_listbox=(20,36)
         font_size_fichas_jugador=10
+
+    if(sistema == "Linux"):
+        size_image=(1, 12)
+        if Configuracion["Dificultad"]==1:
+            size_listbox=(25,39)
+        
+        else:
+            size_listbox=(25,36)
+    else:
+        size_image=(23, 20)
+        if Configuracion["Dificultad"]==1:
+            size_listbox=(20,39)
+
+        else:     
+            size_listbox=(20,36)
 
     tabla = CreandoTablero(OBJETOS["Tablero"].getEstado(),cant,medio)  #dependiendo la dificultad, creo un tablero de determinada cantidad
 
@@ -331,7 +349,7 @@ def juego(Configuracion):
 
     columna2 = [ 
             [sg.Text("Palabras armadas!",justification='right')],
-            [sg.Listbox(values=(palabras_armadas),size=size_largo_listbox,select_mode=False,key="__lista_pal_armadas__",enable_events=False)],
+            [sg.Listbox(values=(palabras_armadas),size=size_listbox,select_mode=False,key="__lista_pal_armadas__",enable_events=False)],
             [sg.Button(('Posponer'),key="__save__",font=("Helvetica", 10),size=(10,1) ,button_color=('white','grey')),sg.Button(("Finalizar"), key="__exit__",font=("Helvetica", 10),size=(10,1) ,button_color=('white','grey'))]
             ]
 
@@ -404,8 +422,8 @@ def juego(Configuracion):
                 break
 
             if event == "_poner_" and La_ficha!="" and tupla!="" and event!= '__TIMEOUT__' :
-                window[aux].update(disabled=True, button_color=('black','white'))
-                window[tupla].update(La_ficha,disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
+                window[aux].update(disabled=True, button_color=('white','black'))
+                window[tupla].update(La_ficha,disabled=True,button_color=('black','white'),image_filename='', image_size=size_image)
                 cant_letras = cant_letras +1
                 dic[tupla] = OBJETOS["Tablero"].getDatosEnCoor(tupla)
                 dic[tupla]["letra"] = La_ficha
@@ -438,7 +456,7 @@ def juego(Configuracion):
                     actualizar_fichas(lista_computadora_a_cambiar,OBJETOS['Bolsa'],window,OBJETOS['Atril_computadora'],repartir,Turno)
                     
                     for i in jugada.keys():
-                        window[i].update(jugada[i]["letra"],disabled=True,button_color=('grey','white'),image_filename='', image_size=(23, 20))
+                        window[i].update(jugada[i]["letra"],disabled=True,button_color=('grey','white'),image_filename='', image_size=size_image)
                         OBJETOS["Tablero"].setValorEnCoor(i,jugada[i]["letra"])
 
                     window['-compu-'].update(puntaje_C)
