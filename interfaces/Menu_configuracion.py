@@ -63,6 +63,7 @@ def jugar():
                 
                 if(event=="_modificar_"):
                     fichas_propias[values[5]] = {"cantidad" : int(values[6]) , "valor" : int(values[7])}    #modifico la cantidad y el valor de las letras
+                    sg.Popup("Se modifico correctamente!",title="Letra")
             
     
                 if(event=="Link del Repositorio"):         #lleva al link del repositorio si se apreta help y link del repositorio
@@ -99,6 +100,7 @@ def jugar():
     
                     Config = definir_configuracion(Configuracion)    #se carga la configuracion para poder mandar correctamente todos los datos al tablero
                     window.Close() 
+                    sg.Popup("Se guardo la configuración correctamente!",title="Configuración")
                     Tablero.juego(Config)
                     break
 

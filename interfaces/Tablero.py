@@ -419,6 +419,7 @@ def juego(Configuracion):
             if event == "__save__" and event!= '__TIMEOUT__' and Turno==0 :
                 guardar_partida(OBJETOS["Bolsa"],OBJETOS["Tablero"],OBJETOS["Temporizador"],OBJETOS["Atril_jugador"],OBJETOS["Atril_computadora"],puntaje_J,puntaje_C,Configuracion["Dificultad"],palabras_armadas)
                 window.Close()
+                sg.Popup("Se guardo la partida correctamente!",title="Guardar Partida")
                 break
 
             if event == "_poner_" and La_ficha!="" and tupla!="" and event!= '__TIMEOUT__' :

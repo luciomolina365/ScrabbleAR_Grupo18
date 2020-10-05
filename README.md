@@ -15,8 +15,11 @@ Mikaliunas, Leandro   -   15694/4
 Consideracion especial:
     Requerimientos:
         - Python +3.6 (la version que se utilizo para hacerla).
-        - PySimpleGUI.
-        - Pattern.
+        - PySimpleGUI versión 4.19.0.
+        - Pattern versión 3.6.
+    Uso:
+        - El programa corre desde ScrabbleAR.py, este hara las llamadas correspondientes a todas las demas 
+          funciones para que el programa corra correctamente.
 
 Imagenes:
     - Diseños propios.
