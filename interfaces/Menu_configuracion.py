@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 
 import webbrowser as wb
 
-import Tablero
+from interfaces import Tablero
 
 import ScrabbleAR 
 

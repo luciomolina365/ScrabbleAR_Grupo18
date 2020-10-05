@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 from Archivos import metodos_de_archivos
-import Tablero
-from Menu_configuracion import jugar
+from interfaces import Tablero
+from interfaces.Menu_configuracion import jugar
 import platform
 
 #Con esta funcion, logramos conseguir en que SO corre actualmente el programa, y con esto, darle un formato distinto para cada SO en que esta abierto el programa
